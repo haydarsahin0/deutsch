@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Konzept C – Das Stück</title>
+<style>
+  @font-face { font-family: Anton; src: url(../../fonts/anton-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family: Oswald; font-weight: 500; src: url(../../fonts/oswald-latin-500-normal.woff2) format('woff2'); }
+  @font-face { font-family: Oswald; font-weight: 700; src: url(../../fonts/oswald-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family: Kalam; font-weight: 400; src: url(../../fonts/kalam-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family: Kalam; font-weight: 700; src: url(../../fonts/kalam-latin-700-normal.woff2) format('woff2'); }
+  :root { --ink: #191312; --paper: #ebe0c6; --red: #c8423a; --green: #2f6b3c; --mustard: #d9a23f; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+  body { position: relative; font-family: Kalam, sans-serif; color: var(--ink); }
+  .grain { position: absolute; inset: 0; pointer-events: none; z-index: 50; mix-blend-mode: multiply; opacity: .55;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' seed='4'/><feColorMatrix values='0 0 0 0 .36  0 0 0 0 .28  0 0 0 0 .18  0 0 0 -1.1 .62'/></filter><rect width='600' height='600' filter='url(%23n)'/></svg>"); }
+  .fibres { position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: .5;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.012 .05' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .45  0 0 0 0 .3  0 0 0 -.9 .55'/></filter><rect width='900' height='900' filter='url(%23n)'/></svg>"); }
+  .vignette { position: absolute; inset: 0; z-index: 49; pointer-events: none;
+    background: radial-gradient(ellipse at 45% 45%, rgba(0,0,0,0) 55%, rgba(70,45,20,.22) 100%); }
+  .abs { position: absolute; z-index: 5; }
+  h1 { font-family: Anton, sans-serif; font-weight: 400; font-size: 66px; line-height: 1; margin: 0; letter-spacing: .5px; }
+  h1 .dash { color: var(--red); }
+  .sub { font-family: Kalam; font-size: 22px; margin-top: 6px; opacity: .85; }
+  .sec { font-family: Oswald, sans-serif; font-weight: 700; font-size: 19px; letter-spacing: 3px; text-transform: uppercase;
+    border-bottom: 3px solid var(--ink); padding-bottom: 2px; display: inline-block; }
+  .sec small { font-family: Kalam; font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 17px; opacity: .75; margin-left: 10px; }
+  .lbl { font-family: Kalam; font-size: 19px; text-align: center; line-height: 1; }
+  .lbl b { font-family: Oswald; font-weight: 500; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; display: block; opacity: .6; margin-top: 3px; }
+  .note { font-family: Kalam; font-size: 21px; line-height: 1.05; }
+  .row { display: flex; }
+  .stamp { font-family: Oswald; font-weight: 700; font-size: 14px; letter-spacing: 2px; border: 2.5px solid var(--red); color: var(--red);
+    padding: 4px 10px; transform: rotate(-4deg); display: inline-block; }
+  .px { font-family: Oswald; font-weight: 500; font-size: 14px; letter-spacing: 1px; text-align: center; margin-top: 6px; opacity: .7; }
+  /* thumbnail */
+  .thumbwrap { width: 640px; height: 360px; overflow: hidden; border: 4px solid var(--ink); box-shadow: 7px 7px 0 rgba(25,19,18,.85); background:#000; }
+  .thumb { width: 1280px; height: 720px; transform: scale(.5); transform-origin: 0 0; position: relative; overflow: hidden;
+    background: radial-gradient(circle at 74% 46%, #8a2a1c 0%, #3a120d 32%, #120c0b 62%); }
+  .thumb .dots { position: absolute; inset: 0; opacity: .22;
+    background-image: radial-gradient(circle, #000 1.6px, transparent 2px); background-size: 9px 9px; }
+  .thumb .rays { position: absolute; left: 640px; top: -200px; width: 1100px; height: 1100px; opacity: .14;
+    background: repeating-conic-gradient(from 0deg, #f2c94c 0 6deg, transparent 6deg 18deg); border-radius: 50%;
+    -webkit-mask: radial-gradient(circle, #000 20%, transparent 70%); }
+  .thumb .t { position: absolute; left: 58px; top: 52px; font-family: Anton; line-height: .9; font-size: 168px; color: #f7f0e1;
+    text-shadow: 0 6px 0 #000, 6px 6px 0 #000; letter-spacing: 1px; }
+  .thumb .t .y { color: #f2c230; }
+  .thumb .card { position: absolute; left: 64px; top: 566px; width: 400px; padding: 14px 22px 10px; background: #efe5cf; border: 5px solid #000;
+    transform: rotate(-3deg); font-family: Kalam; font-weight: 700; font-size: 44px; line-height: 1.05; color: #191312; box-shadow: 8px 8px 0 #000; }
+  .thumb .card s { text-decoration: none; position: relative; }
+  .thumb .card s::after { content: ''; position: absolute; left: -8px; right: -8px; top: 52%; height: 8px; background: #d2322b; transform: rotate(-4deg); border-radius: 4px; }
+  .thumb .card .ok { color: #2f6b3c; font-size: 40px; }
+  .thumb .melo { position: absolute; right: 30px; top: 0px; width: 620px; height: 733px; }
+  .thumb .dur { position: absolute; right: 18px; bottom: 16px; background: rgba(0,0,0,.85); color: #fff; font: 600 30px/1 Oswald; padding: 6px 10px; border-radius: 6px; }
+  .thumb .bar { position:absolute; left:0; bottom:0; height:9px; width: 38%; background:#e3242b; }
+  .palette { display: flex; gap: 8px; }
+  .palette div { width: 34px; height: 34px; border: 2.5px solid var(--ink); border-radius: 50%; }
+  svg { display: block; overflow: visible; }
+</style>
+</head>
+<body>
+<div class="fibres"></div>
+
+<!-- header -->
+<div class="abs" style="left:46px; top:34px;">
+  <h1>Konzept C <span class="dash">–</span> Das Stück</h1>
+  <div class="sub">Melo, 24 · „Deutsch mit Melo“<br>trocken, schlau, leicht sarkastisch – aber auf deiner Seite.</div>
+</div>
+<div class="abs palette" style="left:50px; top:186px;">
+  <div style="background:#191312"></div><div style="background:#d2463e"></div><div style="background:#2f6b3c"></div>
+  <div style="background:#ece9c4"></div><div style="background:#d9a23f"></div><div style="background:#2a3442"></div>
+</div>
+
+<!-- hero -->
+<div class="abs" id="hero" style="left:36px; top:196px; width:520px; height:860px;"></div>
+<svg class="abs" style="left:0; top:0; z-index:6;" width="680" height="1080" viewBox="0 0 680 1080" id="annos"></svg>
+
+<!-- expressions -->
+<div class="abs" style="left:640px; top:44px;"><span class="sec">Ausdrücke <small>Gesicht = Kern der Figur</small></span></div>
+<div class="abs row" id="expr" style="left:620px; top:86px; width:1280px; justify-content:space-between;"></div>
+
+<!-- profile picture test -->
+<div class="abs" style="left:640px; top:372px;"><span class="sec">Profilbild-Test</span></div>
+<div class="abs" style="left:640px; top:416px; display:flex; align-items:flex-start; gap:22px;">
+  <div><div id="pf400"></div><div class="px">400 px</div></div>
+  <div style="display:flex; flex-direction:column; gap:14px; padding-top:20px">
+    <div><div id="pf98"></div><div class="px">98 px</div></div>
+    <div style="display:flex; gap:12px; align-items:flex-end"><div><div id="pf48"></div><div class="px">48</div></div>
+    <div><div id="pf48b"></div><div class="px">48 dunkel</div></div></div>
+    <div style="display:flex; gap:12px; align-items:flex-end"><div><div id="pf32"></div><div class="px">32</div></div>
+    <div><div id="pf98g"></div><div class="px">Variante</div></div></div>
+  </div>
+</div>
+
+<!-- lip sync -->
+<div class="abs" style="left:640px; top:876px;"><span class="sec">Lippensync <small>mouthOpen 0 → 1 · blink</small></span></div>
+<div class="abs row" id="lips" style="left:628px; top:912px; gap:4px;"></div>
+
+<!-- thumbnail -->
+<div class="abs" style="left:1236px; top:372px;"><span class="sec">Thumbnail-Test <small>1280×720, verkleinert</small></span></div>
+<div class="abs thumbwrap" style="left:1238px; top:414px;">
+  <div class="thumb">
+    <div class="rays"></div><div class="dots"></div>
+    <div class="t">DAS SAGT<br><span class="y">KEIN<br>DEUTSCHER</span></div>
+    <div class="card"><s>Ich bin voll.</s><br><span class="ok">→ Ich bin satt.</span></div>
+    <div class="melo" id="thumbMelo"></div>
+    <div class="dur">12:47</div><div class="bar"></div>
+  </div>
+</div>
+
+<!-- poses -->
+<div class="abs" style="left:1236px; top:800px;"><span class="sec">Posen</span></div>
+<div class="abs row" id="poses" style="left:1222px; top:834px; gap:0;"></div>
+
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<script src="melo-c.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  // hero
+  $('hero').innerHTML = MeloC.svg({ pose: 'idle', expression: 'smirk', seed: 11, width: 520, height: 890, viewBox: [-250, -66, 500, 1030] });
+
+  // expressions
+  const EX = [['deadpan', 'trocken', 'deadpan'], ['smirk', 'wissendes Grinsen', 'smirk'], ['talking', 'erklärt', 'talking'],
+              ['surprised', 'Kern fliegt', 'surprised'], ['annoyed', 'genervt', 'annoyed'], ['laughing', 'lacht', 'laughing']];
+  $('expr').innerHTML = EX.map(([e, de, en], i) =>
+    `<div><div>${MeloC.svg({ view: 'head', expression: e, seed: 21 + i, width: 205, height: 214, viewBox: [-205, -80, 440, 459] })}</div>
+     <div class="lbl">${de}<b>${en}</b></div></div>`).join('');
+
+  // profile pictures
+  $('pf400').innerHTML = MeloC.avatar({ size: 400, bg: '#d9a23f', seed: 31, expression: 'deadpan' });
+  $('pf98').innerHTML = MeloC.avatar({ size: 98, bg: '#d9a23f', seed: 31, expression: 'deadpan', zoom: 1.32, dy: -78 });
+  $('pf48').innerHTML = MeloC.avatar({ size: 48, bg: '#d9a23f', seed: 31, expression: 'deadpan', zoom: 1.32, dy: -78 });
+  $('pf48b').innerHTML = `<div style="background:#0f0f0f;padding:8px;border-radius:6px">${MeloC.avatar({ size: 48, bg: '#d9a23f', seed: 31, expression: 'deadpan', zoom: 1.32, dy: -78 })}</div>`;
+  $('pf32').innerHTML = MeloC.avatar({ size: 32, bg: '#d9a23f', seed: 31, expression: 'deadpan', zoom: 1.32, dy: -78 });
+  $('pf98g').innerHTML = MeloC.avatar({ size: 64, bg: '#2a3442', seed: 32, expression: 'smirk' });
+
+  // lip sync
+  $('lips').innerHTML = [0, 0.25, 0.5, 0.75, 1].map((m, i) =>
+    `<div><div>${MeloC.svg({ view: 'head', expression: 'talking', mouthOpen: m, seed: 41, width: 96, height: 100, viewBox: [-200, -70, 400, 417] })}</div><div class="px" style="margin-top:0">${m}</div></div>`).join('') +
+    `<div style="margin-left:14px"><div>${MeloC.svg({ view: 'head', expression: 'deadpan', blink: 1, seed: 41, width: 96, height: 100, viewBox: [-200, -70, 400, 417] })}</div><div class="px" style="margin-top:0">blink</div></div>`;
+
+  // thumbnail Melo
+  $('thumbMelo').innerHTML = MeloC.svg({ pose: 'chin', expression: 'unimpressed', seed: 51, width: 680, height: 790, viewBox: [-215, -70, 440, 520] });
+
+  // poses
+  const PO = [['pointing', 'zeigt', 'talking'], ['explaining', 'erklärt', 'talking'], ['chin', 'grübelt', 'deadpan'], ['shrug', 'tja.', 'smirk'], ['crossed', 'wartet', 'unimpressed']];
+  $('poses').innerHTML = PO.map(([p, de, e], i) =>
+    `<div style="width:132px"><div>${MeloC.svg({ pose: p, expression: e, seed: 61 + i, width: 132, height: 210, viewBox: [-270, -90, 540, 1060] })}</div><div class="lbl" style="font-size:17px;margin-top:-2px">${de}</div></div>`).join('');
+
+  // annotations around the hero (hand-drawn arrows)
+  const A = [
+    // [textX, textY, text, path]
+    [462, 222, 'Biss = Signatur.<br>Jemand war schneller.', 'M458,240 C444,244 430,250 418,258'],
+    [18, 262, 'Rinde<br>= Mütze', 'M64,302 C100,302 140,292 170,278'],
+    [14, 446, 'Kerne als<br>Sommer-<br>sprossen', 'M106,436 C140,416 170,390 194,368'],
+    [440, 470, 'Stoppeln<br>am Kinn', 'M436,494 C400,500 370,500 340,494'],
+    [440, 560, 'Rotstift in der<br>Brusttasche –<br>er korrigiert dich.', 'M436,604 C400,612 370,624 342,630'],
+    [454, 720, 'Hand in<br>der Tasche', 'M452,752 C420,770 384,782 352,790'],
+  ];
+  $('annos').innerHTML = A.map(([x, y, t, d]) =>
+    `<foreignObject x="${x}" y="${y - 22}" width="210" height="80"><div class="note" xmlns="http://www.w3.org/1999/xhtml">${t}</div></foreignObject>
+     <path d="${d}" fill="none" stroke="#191312" stroke-width="2.4" stroke-linecap="round"/>`).join('');
+</script>
+</body>
+</html>
