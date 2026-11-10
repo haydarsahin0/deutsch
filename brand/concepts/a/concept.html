@@ -29,7 +29,7 @@
   .thumb .t { position: absolute; left: 62px; font-family: 'Anton', sans-serif; line-height: .88; text-transform: uppercase; letter-spacing: -.005em;
               paint-order: stroke fill; -webkit-text-stroke: 10px #000; text-shadow: 0 8px 0 #000; }
   .frame { box-shadow: 0 2px 0 rgba(0,0,0,.25), 0 14px 30px -12px rgba(40,25,10,.55); }
-  .sw { display: inline-flex; align-items: center; gap: 6px; margin-right: 11px; font: 500 12px/1 'Oswald', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #5d564b; }
+  .sw { white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; margin-right: 11px; font: 500 12px/1 'Oswald', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #5d564b; }
   .sw i { display: inline-block; width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid var(--ink); }
 </style>
 <script src="melo-a.js"></script>
@@ -94,7 +94,7 @@
   var ex = [['deadpan', 'neutral'], ['smirk', 'Grinsen · Standard'], ['talking', 'erklärt'], ['unimpressed', 'unbeeindruckt'], ['annoyed', 'genervt'], ['laughing', 'lacht']];
   ex.forEach(function (e, i) {
     var x = 750 + i * 192;
-    add(MeloA.svg({ headOnly: true, expression: e[0], seed: 20 + i, viewBox: '-150 -150 290 255', width: 196, height: 172 }), x - 4, 205, 196, 172);
+    add(MeloA.svg({ headOnly: true, expression: e[0], seed: 20 + i, viewBox: '-150 -150 290 240', width: 196, height: 162 }), x - 4, 208, 196, 162);
     add('<div class="lbl">' + e[1].split(' · ')[0] + (e[1].indexOf('·') > 0 ? '<small>Standard</small>' : '') + '</div>', x, 384, 188);
   });
 
@@ -123,17 +123,17 @@
   // ── thumbnail mock ──
   var T = '<div class="thumb">' +
     '<svg class="abs" style="left:0;top:0" width="1280" height="720" viewBox="0 0 1280 720"><defs>' +
-      '<radialGradient id="tg" cx=".74" cy=".42" r=".55"><stop offset="0" stop-color="#3a4a26" stop-opacity=".95"/><stop offset=".55" stop-color="#1f2416" stop-opacity=".6"/><stop offset="1" stop-color="#121110" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="tg" cx=".75" cy=".44" r=".52"><stop offset="0" stop-color="#55692f" stop-opacity="1"/><stop offset=".55" stop-color="#1f2416" stop-opacity=".6"/><stop offset="1" stop-color="#121110" stop-opacity="0"/></radialGradient>' +
       '<filter id="tgrain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.4 1.1"/></filter>' +
       '</defs><rect width="1280" height="720" fill="#121110"/><rect width="1280" height="720" fill="url(#tg)"/>' +
       '<rect width="1280" height="720" filter="url(#tgrain)" opacity=".12"/></svg>' +
     '<div class="t" style="top:64px;font-size:150px;color:#F2EADB">Das sagt</div>' +
     '<div class="t" style="top:204px;font-size:150px;color:#F2EADB">kein</div>' +
     '<div class="t" style="top:344px;font-size:150px;color:#F0493B">Deutscher</div>' +
-    '<svg class="abs" style="left:640px;top:0" width="680" height="720" viewBox="-170 -712 340 360">' +
+    '<svg class="abs" style="left:640px;top:0" width="680" height="720" viewBox="-150 -700 300 318">' +
        MeloA.group({ pose: 'chin', expression: 'unimpressed', seed: 31, id: 'thumb', weight: 1.1 }) +
        // emphasis strokes next to head
-       '<g fill="none" stroke="#F2EADB" stroke-width="4" stroke-linecap="round"><path d="M100 -600 l18 -16"/><path d="M108 -572 l24 -4"/><path d="M90 -624 l5 -22"/></g>' +
+       '<g fill="none" stroke="#F2EADB" stroke-width="3.5" stroke-linecap="round"><path d="M96 -596 l16 -14"/><path d="M104 -570 l21 -3"/><path d="M86 -620 l4 -19"/></g>' +
     '</svg>' +
     // the card he is judging
     '<div class="abs" style="left:70px;top:536px;transform:rotate(-4deg);background:#F1E8D2;border:4px solid #000;border-radius:6px;padding:14px 22px 12px;box-shadow:8px 10px 0 #000;font:700 38px/1.1 Kalam, cursive;color:#1A1714;white-space:nowrap">' +
@@ -156,7 +156,7 @@
 
   // ── palette + character notes ──
   var sw = [['#97AC60', 'Schale'], ['#3E5E34', 'Streifen'], ['#C9D49C', 'Körper'], ['#B9372B', 'Rotstift'], ['#1A1714', 'Tusche']];
-  add(sw.map(function (s) { return '<span class="sw"><i style="background:' + s[0] + '"></i>' + s[1] + '</span>'; }).join(''), 760, 968, 420);
+  add(sw.map(function (s) { return '<span class="sw"><i style="background:' + s[0] + '"></i>' + s[1] + '</span>'; }).join(''), 760, 966, 560);
   add('<div class="note" style="font-size:19px;color:#4a443b">Stimmung: der Kumpel, der alles erklärt, ohne zu belehren.</div>', 760, 1016, 560);
 })();
 </script>

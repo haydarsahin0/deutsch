@@ -340,7 +340,7 @@
     var low = bez3(A, D1, D2, B, 24), up = bez3(A, U1, U2, B, 24);
     if (cfg.laugh) {
       var arc = bez3([-hw, 2.5], [-hw * 0.4, -5.5], [hw * 0.4, -6.5], [hw + 1, 0], 24);
-      s += '<path d="' + stroke(arc, [1.6 * W, 4.4 * W, 1.6 * W]) + '"/>';
+      s += '<path d="' + stroke(arc, [2.6 * W, 5.6 * W, 2.4 * W]) + '"/>';
       s += '<path d="' + stroke(offsetPts(sub(low, 0.25, 0.85), 0, 3), [0.4, 1.6 * W, 0.4]) + '"/>';
       s += '<path d="' + stroke(bez2([hw + 3, 2], [hw + 6, 3], [hw + 8, 6], 8), [0.4, 1.4 * W, 0.3]) + '"/>';
       s += '<path d="' + stroke(bez2([hw + 3, -2], [hw + 7, -3], [hw + 9, -5], 8), [0.4, 1.4 * W, 0.3]) + '"/>';
@@ -366,7 +366,6 @@
     // heavy upper lid with a dry flick past the outer corner
     var lidLine = [[A[0] - 1.5, A[1] + 0.6]].concat(lid).concat([[B[0] + 1.5, B[1] + 0.2]]);
     s += '<path d="' + stroke(lidLine, function (t) { return W * (t < 0.55 ? lerp(2.4, 5.2, t / 0.55) : lerp(5.2, 3.2, (t - 0.55) / 0.45)); }) + '"/>';
-    if (c > 0.25 && !closed) s += '<path d="' + stroke(offsetPts(sub(up, 0.3, 0.8), 0, -3.6), [0.4, 1.8 * W, 0.4]) + '" fill-opacity=".8"/>';
     s += '<path d="' + stroke(offsetPts(sub(low, 0.3, 0.82), 0.5, 4.6), [0.3, 1.15 * W, 0.3]) + '" fill-opacity=".8"/>';
     return s;
   }
@@ -418,8 +417,8 @@
       var lid = E.closed ? 1 : lerp(e.lid, 1, blink);
       s += '<g class="melo-brow-' + e.side + '" transform="' + tr + '">' + browSVG(e.brow, w, ctx) + '</g>';
       s += '<g class="melo-eye-' + e.side + '" transform="' + tr + '">' + eyeSVG({ w: w, lid: lid, tilt: E.tilt, look: lk, pr: E.pr, laugh: E.closed }, ctx, ctx.uid + '-e' + e.side) + '</g>';
-      if (E.twitch && e.side === 'far') {
-        s += '<g transform="' + tr + '"><path d="' + stroke(bez2([18, -6], [22, -8], [25, -12], 6), [0.3, 1.5 * W, 0.3]) + '"/><path d="' + stroke(bez2([19, -1], [23, -1], [27, -3], 6), [0.3, 1.5 * W, 0.3]) + '"/></g>';
+      if (E.twitch && e.side === 'near') { // frown crease between the brows
+        s += '<g transform="' + tr + '"><path d="' + stroke(bez2([-24, -30], [-22.5, -25], [-23.5, -20], 6), [0.4, 2.2 * W, 0.4]) + '"/></g>';
       }
     });
     // nose: a short hooked tick, turned toward the face direction (not a long line)
