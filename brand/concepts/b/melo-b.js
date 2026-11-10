@@ -779,5 +779,7 @@
     return s;
   }
 
-  return { svg: svg, EXPRESSIONS: Object.keys(EXPR), POSES: Object.keys(POSES), PALETTE: C, _EXPR: EXPR, _POSES: POSES };
+  // _Ink/_util: the same ink primitives, exposed so scene art (banner, thumbnails) can share the line quality
+  return { svg: svg, EXPRESSIONS: Object.keys(EXPR), POSES: Object.keys(POSES), PALETTE: C, _EXPR: EXPR, _POSES: POSES,
+    _Ink: Ink, _util: { rng: rng, noiseFn: noiseFn, catmull: catmull, cubic: cubic, polyD: polyD, normals: normals, xf: xf, f1: f1 } };
 });

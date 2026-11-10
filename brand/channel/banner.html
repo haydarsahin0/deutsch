@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Deutsch mit Melo – YouTube-Banner</title>
+<!--
+  YouTube channel banner, 2560×1440.
+  Safe area (all devices): x 507–2053, y 508.5–931.5 (1546×423). Desktop shows y 508.5–931.5 across the full width.
+  Render: node tools/render.js brand/channel/banner.html brand/out/youtube-banner.png 2560 1440
+  Add #guides to the URL (or ?guides) to overlay the safe-area outlines.
+-->
+<style>
+  @font-face { font-family: 'Fraunces'; font-weight: 900; src: url('../fonts/fraunces-latin-900-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-weight: 900; src: url('../fonts/fraunces-latin-ext-900-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Fraunces'; font-weight: 900; font-style: italic; src: url('../fonts/fraunces-latin-900-italic.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../fonts/oswald-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 700; src: url('../fonts/caveat-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 400; src: url('../fonts/caveat-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 700; src: url('../fonts/kalam-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 400; src: url('../fonts/kalam-latin-400-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 2560px; height: 1440px; overflow: hidden; background: #e9dfc4; }
+  #stage { position: absolute; left: 0; top: 0; }
+  .grain { position: absolute; left: 0; top: 0; pointer-events: none; mix-blend-mode: multiply; }
+</style>
+<script src="../concepts/b/melo-b.js"></script>
+<script src="scene-ink.js"></script>
+</head>
+<body>
+<svg id="stage" width="2560" height="1440" viewBox="0 0 2560 1440"></svg>
+<svg class="grain" width="2560" height="1440">
+  <filter id="gFine" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .27  0 0 0 0 .16  0 0 0 -1.3 .74"/></filter>
+  <filter id="gCloud" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".0045" numOctaves="4" seed="9"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .37  0 0 0 0 .2  0 0 0 -1.1 .5"/></filter>
+  <radialGradient id="vig" cx="50%" cy="48%" r="75%"><stop offset=".55" stop-color="#5a3c14" stop-opacity="0"/><stop offset="1" stop-color="#5a3c14" stop-opacity=".28"/></radialGradient>
+  <rect width="2560" height="1440" filter="url(#gCloud)" opacity=".75"/>
+  <rect width="2560" height="1440" filter="url(#gFine)" opacity=".34"/>
+  <rect width="2560" height="1440" fill="url(#vig)"/>
+</svg>
+<script>
+(function () {
+  var C = MeloB.PALETTE, U = MeloB._util;
+  var PAPER = '#e9dfc4', INK = C.ink, RED = '#c43d33', OCHRE = '#d6a03c', MUSTARD = '#dca842', GREEN = '#3f6329',
+      SLATE = '#28322c', CHALK = '#eee8d6', CHALK_Y = '#f2cf5b', CHALK_R = '#f08a7a', WOOD = '#b98a52', WOOD_D = '#8d6236';
+  var S = new SceneInk(11), out = [];
+  function add(s) { out.push(s); }
+
+  // ───────── wall: wainscot + floor (TV area, below the desktop strip) ─────────
+  function wall() {
+    var s = '';
+    // wainscot panel
+    var wy = 1135, fy = 1368;
+    s += S.fillOnly([[-20, wy], [2580, wy], [2580, fy], [-20, fy]], '#e0d2b0');
+    s += S.line([[-20, wy], [2580, wy + 2]], { w: 5, ta: 0.02, tb: 0.02, min: 0.6 });
+    s += S.line([[-20, wy + 16], [2580, wy + 17]], { w: 2.4, ta: 0.02, tb: 0.02, min: 0.5 });
+    for (var x = 60; x < 2560; x += 260) {
+      var r = S.rect(x, wy + 46, 200, fy - wy - 84, 40, 1.5);
+      s += S.shape(r, null, { w: 2.2, extra: 2.2 });
+      s += S.hatch(S.rect(x + 4, wy + 50, 30, fy - wy - 92), { ang: 70, gap: 9, w: 1.5, op: 0.5 });
+    }
+    // floor boards
+    s += S.fillOnly([[-20, fy], [2580, fy], [2580, 1460], [-20, 1460]], '#cdb98f');
+    s += S.line([[-20, fy], [2580, fy - 1]], { w: 6, ta: 0.02, tb: 0.02, min: 0.6 });
+    s += S.hatch([[-20, fy + 6], [2580, fy + 6], [2580, 1460], [-20, 1460]], { ang: 0, gap: 13, w: 1.6, op: 0.55 });
+    for (x = 40; x < 2560; x += 310) s += S.line([[x, fy + 8], [x - 8, 1440]], { w: 2, ta: 0.1, tb: 0.1 });
+    return '<g class="wall">' + s + '</g>';
+  }
+
+
+  // ───────── wall shading: engraved hatch toward the ceiling and the corners ─────────
+  function wallShade() {
+    var s = '';
+    var R = [[-20, -20], [2580, -20], [2580, 1140], [-20, 1140]];
+    s += S.hatch(R, { ang: 28, gap: 11, w: 1.5, op: 0.32, cond: function (X, Y) {
+      var e = Math.min(X, 2560 - X) / 2560, top = Y / 1440;
+      return (top < 0.06 + 0.04 * Math.sin(X / 210)) || (e < 0.045 && Y > 120);
+    } });
+    s += S.hatch(R, { ang: -32, gap: 13, w: 1.3, op: 0.22, cond: function (X, Y) { return Y < 30 + 18 * Math.sin(X / 140); } });
+    return '<g class="wallshade">' + s + '</g>';
+  }
+
+  // ───────── bunting with Umlauts (TV area) ─────────
+  function bunting() {
+    var s = '', letters = ['Ä', 'Ö', 'Ü', 'ß'], cols = [MUSTARD, RED, '#6f9a49', '#efe5cc'];
+    function swag(x0, y0, x1, y1, sag, startIdx) {
+      var pts = [];
+      for (var i = 0; i <= 40; i++) { var t = i / 40; pts.push([x0 + (x1 - x0) * t, y0 + (y1 - y0) * t + sag * 4 * t * (1 - t)]); }
+      var str = S.line(pts, { w: 3.2, ta: 0.02, tb: 0.02, min: 0.6 });
+      var n = Math.floor((x1 - x0) / 118), fl = '';
+      for (var k = 0; k < n; k++) {
+        var t0 = (k + 0.5) / n, cx = x0 + (x1 - x0) * t0, cy = y0 + (y1 - y0) * t0 + sag * 4 * t0 * (1 - t0);
+        var slope = Math.atan2((y1 - y0) + sag * 4 * (1 - 2 * t0), x1 - x0) * 180 / Math.PI;
+        var w = 46, h = 112, idx = (startIdx + k) % 4, col = cols[idx];
+        var tri = U.xf(S.poly([[-w, 0], [w, 0], [0, h]], 18, 1.5), cx, cy, slope * 0.8 + (S.r() - 0.5) * 6);
+        var g = S.shape(tri, col, { w: 2.6, extra: 3 });
+        g += S.hatch(tri, { ang: -60, gap: 9, w: 1.3, op: 0.45, cond: function (X, Y) { return X > cx + 6; } });
+        var L = letters[(startIdx + k) % 4];
+        g += '<text x="' + U.f1(cx) + '" y="' + U.f1(cy + 54) + '" transform="rotate(' + U.f1(slope * 0.8) + ' ' + U.f1(cx) + ' ' + U.f1(cy) + ')" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="46" fill="' + (idx === 3 ? INK : (idx === 0 ? INK : '#f3ead3')) + '">' + L + '</text>';
+        fl += g;
+      }
+      return str + fl;
+    }
+    s += swag(-30, 38, 1290, 52, 120, 0);
+    s += swag(1270, 52, 2600, 34, 120, 3);
+    s += S.shape(S.ellipse(1280, 50, 9, 9, 16), INK, { w: 0 });
+    return '<g class="bunting">' + s + '</g>';
+  }
+
+  // ───────── wall clock (TV area, top right) ─────────
+  function clock() {
+    var cx = 2330, cy = 352, R = 100, s = '';
+    s += S.shape(S.ellipse(cx + 8, cy + 10, R + 6, R + 6, 64), 'rgba(80,55,20,.18)', { w: 0 });
+    s += S.shape(S.ellipse(cx, cy, R, R, 72, 0.01), '#efe6cf', { w: 5, extra: 6 });
+    s += S.shape(S.ellipse(cx, cy, R - 14, R - 14, 72, 0.01), null, { w: 2, extra: 1.5 });
+    for (var i = 0; i < 12; i++) {
+      var a = i / 12 * Math.PI * 2, r0 = R - 26, r1 = R - (i % 3 ? 34 : 44);
+      s += S.line([[cx + r0 * Math.sin(a), cy - r0 * Math.cos(a)], [cx + r1 * Math.sin(a), cy - r1 * Math.cos(a)]], { w: i % 3 ? 3 : 5.5, ta: 0.05, tb: 0.05, min: 0.6 });
+    }
+    // "fünf vor zwölf"
+    s += S.line([[cx, cy], [cx - 0.26 * 46, cy - 0.966 * 46 * 1.0]], { w: 8, ta: 0.02, tb: 0.5, min: 0.5 });
+    s += S.line([[cx, cy], [cx - 0.5 * 68, cy - 0.866 * 68]], { w: 5, ta: 0.02, tb: 0.6, min: 0.4 });
+    s += S.shape(S.ellipse(cx, cy, 7, 7, 16), RED, { w: 1.6, extra: 1 });
+    s += S.hatch(S.ellipse(cx, cy, R - 15, R - 15, 48), { ang: 40, gap: 8, w: 1.2, op: 0.35, cond: function (X, Y) { return (X - cx) + (Y - cy) > R * 0.55; } });
+    s += '<text x="' + cx + '" y="' + (cy + 48) + '" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="24" fill="' + INK + '" opacity=".8">fünf vor zwölf</text>';
+    return '<g class="clock">' + s + '</g>';
+  }
+
+  // ───────── chalkboard (left; desktop strip + TV) ─────────
+  function board() {
+    var s = '', x0 = -40, y0 = 292, x1 = 548, y1 = 1022, fw = 24;
+    // shadow on wall
+    s += S.fillOnly(S.rect(x0 + 14, y0 + 16, x1 - x0, y1 - y0 + 6), 'rgba(80,55,20,.22)');
+    var frame = S.rect(x0, y0, x1 - x0, y1 - y0, 40, 1.2);
+    s += S.shape(frame, WOOD, { w: 4.5, extra: 5 });
+    s += S.hatch(frame, { ang: 0, gap: 7, w: 1.2, op: 0.35 });
+    var slate = S.rect(x0 + fw, y0 + fw, x1 - x0 - 2 * fw, y1 - y0 - 2 * fw, 40, 1);
+    s += S.fillOnly(slate, SLATE);
+    // smudges / wiped arcs
+    var sid = S.clip(slate), sm = '';
+    for (var i = 0; i < 9; i++) {
+      var cx = S.rand(20, 500), cy = S.rand(340, 990), rr = S.rand(60, 150), pts = [];
+      for (var k = 0; k <= 24; k++) { var a = -2.4 + k / 24 * 1.8; pts.push([cx + rr * Math.cos(a), cy + rr * 0.55 * Math.sin(a)]); }
+      sm += S.line(pts, { w: S.rand(30, 60), ta: 0.3, tb: 0.3, min: 0.2, jit: 0.5 }, '#56625a', ' opacity="' + U.f1(S.rand(0.12, 0.28)) + '"');
+    }
+    s += '<g clip-path="url(#' + sid + ')" filter="url(#blur6)">' + sm + '</g>';
+    s += S.shape(slate, null, { w: 3.5, extra: 2, dir: [-0.55, -0.83] });
+    // chalk content
+    var ch = '';
+    function T(x, y, txt, size, col, rot, fam, extra) {
+      return '<text x="' + x + '" y="' + y + '"' + (rot ? ' transform="rotate(' + rot + ' ' + x + ' ' + y + ')"' : '') + ' font-family="' + (fam || 'Caveat') + '" font-weight="700" font-size="' + size + '" fill="' + (col || CHALK) + '"' + (extra || '') + '>' + txt + '</text>';
+    }
+    function CL(pts, w, col, smooth) { return S.line(pts, { w: w || 4, ta: 0.15, tb: 0.2, min: 0.4, smooth: smooth }, col || CHALK); }
+    ch += T(20, 392, 'Heute: Konjunktiv II', 58, CHALK, -1.5);
+    ch += CL([[22, 410], [200, 406], [420, 402]], 4.5, CHALK_Y);
+    ch += T(28, 468, 'hätte · wäre · würde', 46, CHALK, -1);
+    // desktop-visible block
+    ch += T(26, 588, 'der · die · das', 66, CHALK, -2);
+    ch += CL(U.catmull([[296, 545], [338, 528], [372, 556], [350, 590], [298, 588], [286, 560], [306, 538]], 4, false), 3.4, CHALK_Y);
+    ch += T(30, 672, 'Wo? → Dativ', 50, CHALK, -1);
+    ch += T(30, 732, 'Wohin? → Akkusativ', 50, CHALK, -1);
+    ch += T(30, 830, 'Ich bin heiß.', 54, CHALK, -2);
+    ch += CL([[22, 818], [150, 812], [292, 804]], 6, CHALK_R);
+    ch += T(56, 900, 'Mir ist heiß.', 54, CHALK, -2);
+    ch += CL([[306, 876], [320, 892], [350, 852]], 6, CHALK_Y);
+    // little preposition sketch (TV-only lower part): box with dot auf / in / unter
+    ch += CL([[40, 948], [40, 986], [120, 986], [120, 948], [40, 948]], 3, CHALK);
+    ch += '<circle cx="80" cy="936" r="7" fill="' + CHALK_Y + '"/><circle cx="80" cy="968" r="7" fill="' + CHALK_Y + '"/>';
+    ch += T(140, 960, 'auf · in · unter · neben …', 34, CHALK, 0);
+    s += '<g clip-path="url(#' + sid + ')" filter="url(#chalk)">' + ch + '</g>';
+    // tray + chalk + sponge
+    var tray = S.rect(x0 - 12, y1 - 8, x1 - x0 + 24, 26, 40, 1);
+    s += S.shape(tray, WOOD_D, { w: 3.5, extra: 3.5 });
+    s += S.shape(S.rect(70, y1 - 22, 70, 14, 20, 0.5), '#f4efe0', { w: 2, extra: 1.5 });
+    s += S.shape(S.rect(170, y1 - 20, 46, 12, 20, 0.5), CHALK_Y, { w: 2, extra: 1.5 });
+    s += S.shape(S.rect(380, y1 - 44, 110, 38, 25, 1), '#5a4a3a', { w: 3, extra: 3 });
+    s += S.shape(S.rect(380, y1 - 44, 110, 14, 25, 1), '#b9b1a0', { w: 2.5, extra: 2 });
+    return '<g class="board">' + s + '</g>';
+  }
+
+  // ───────── desk + props (right; desktop strip + TV) ─────────
+  function desk() {
+    var s = '', top = 906, x0 = 2088, x1 = 2640;
+    // legs
+    [2122, 2560].forEach(function (lx) {
+      var leg = S.rect(lx, top + 30, 44, 1368 - top - 30, 40, 1);
+      s += S.shape(leg, WOOD, { w: 3.5, extra: 4 });
+      s += S.hatch(leg, { ang: 90, gap: 9, w: 1.3, op: 0.5, cond: function (X) { return X > lx + 26; } });
+    });
+    // drawer body
+    var body = S.rect(2166, top + 30, 394, 120, 40, 1);
+    s += S.shape(body, '#c79a60', { w: 3.5, extra: 4 });
+    s += S.hatch(body, { ang: 0, gap: 10, w: 1.2, op: 0.35 });
+    s += S.shape(S.rect(2210, top + 60, 300, 64, 30, 1), null, { w: 2.5, extra: 2 });
+    s += S.shape(S.ellipse(2360, top + 92, 11, 9, 20), INK, { w: 0 });
+    // shadow under top
+    s += S.fillOnly(S.rect(2122, top + 30, 480, 14), 'rgba(23,19,15,.35)');
+    // top slab
+    var slab = S.rect(x0, top - 4, x1 - x0, 36, 40, 1);
+    s += S.shape(slab, WOOD, { w: 4.5, extra: 5 });
+    s += S.lines([[[x0 + 10, top + 8], [x0 + 260, top + 10]], [[x0 + 300, top + 18], [x0 + 560, top + 16]], [[x0 + 40, top + 22], [x0 + 180, top + 23]]], { w: 1.6, ta: 0.2, tb: 0.3 });
+    // mug "DOCH!"
+    var mx = 2190, my = top - 4, mw = 118, mh = 132;
+    var mug = U.catmull([[mx - mw / 2, my - mh], [mx - mw / 2 + 2, my - mh / 2], [mx - mw / 2 + 6, my - 8], [mx, my + 2], [mx + mw / 2 - 6, my - 8], [mx + mw / 2 - 2, my - mh / 2], [mx + mw / 2, my - mh]], 6, false);
+    var handle = U.catmull([[mx + mw / 2 - 4, my - mh + 28], [mx + mw / 2 + 36, my - mh + 26], [mx + mw / 2 + 44, my - mh / 2 + 4], [mx + mw / 2 + 26, my - 34], [mx + mw / 2 - 4, my - 32]], 6, false);
+    s += S.line(handle, { w: 24, ta: 0.02, tb: 0.02, min: 0.9, jit: 0.05 });
+    s += S.line(handle, { w: 13, ta: 0.02, tb: 0.02, min: 0.9, jit: 0.05 }, RED);
+    s += S.shape(mug, RED, { w: 4, extra: 5 });
+    s += S.hatch(mug, { ang: 80, gap: 8, w: 1.4, op: 0.55, cond: function (X) { return X > mx + 26; } });
+    s += S.shape(S.ellipse(mx, my - mh, mw / 2, 11, 40), '#3a1c12', { w: 3, extra: 1 });
+    s += '<text x="' + mx + '" y="' + (my - 52) + '" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="27" fill="#f3ead3" transform="rotate(-3 ' + mx + ' ' + (my - 52) + ')">DOCH!</text>';
+    // steam
+    s += S.line(U.catmull([[mx - 18, my - mh - 18], [mx - 8, my - mh - 34], [mx - 22, my - mh - 50]], 6, false), { w: 3.2, ta: 0.3, tb: 0.6, min: 0.2 }, INK, ' opacity=".6"');
+    s += S.line(U.catmull([[mx + 14, my - mh - 22], [mx + 24, my - mh - 40], [mx + 12, my - mh - 56]], 6, false), { w: 3, ta: 0.3, tb: 0.6, min: 0.2 }, INK, ' opacity=".5"');
+    // book stack
+    var books = [
+      { x: 2318, w: 244, h: 58, col: GREEN, t: 'WÖRTERBUCH', tc: MUSTARD, f: 'Fraunces', fs: 27 },
+      { x: 2334, w: 222, h: 48, col: '#e7dcc0', t: 'GRAMMATIK', tc: INK, f: 'Oswald', fs: 27 },
+      { x: 2310, w: 246, h: 54, col: RED, t: 'DER · DIE · DAS', tc: '#f3ead3', f: 'Oswald', fs: 24 }
+    ];
+    var by = top - 4;
+    books.forEach(function (b, i) {
+      var y = by - b.h, r = S.rect(b.x, y, b.w, b.h, 30, 1.2);
+      s += S.shape(r, b.col, { w: 3.5, extra: 4 });
+      s += S.hatch(r, { ang: 90, gap: 8, w: 1.2, op: 0.4, cond: function (X, Y) { return Y > y + b.h - 14; } });
+      s += S.line([[b.x + 22, y + 6], [b.x + 22, y + b.h - 6]], { w: 2, ta: 0.1, tb: 0.1 });
+      s += S.line([[b.x + b.w - 22, y + 6], [b.x + b.w - 22, y + b.h - 6]], { w: 2, ta: 0.1, tb: 0.1 });
+      s += '<text x="' + (b.x + b.w / 2) + '" y="' + (y + b.h / 2 + b.fs * 0.36) + '" text-anchor="middle" font-family="' + b.f + '" font-weight="' + (b.f === 'Oswald' ? 700 : 900) + '" font-size="' + b.fs + '" letter-spacing="' + (b.f === 'Oswald' ? 2.5 : 2) + '" fill="' + b.tc + '">' + b.t + '</text>';
+      by = y;
+    });
+    // sticky notes on the wall
+    function note(x, y, w, h, rot, col, lines, fs) {
+      var g = '', r = U.xf(S.rect(-w / 2, -h / 2, w, h, 30, 1.5), x, y, rot);
+      g += S.fillOnly(U.xf(S.rect(-w / 2 + 8, -h / 2 + 10, w, h, 30, 1.5), x, y, rot), 'rgba(80,55,20,.2)');
+      g += S.shape(r, col, { w: 2.8, extra: 3 });
+      g += S.hatch(r, { ang: 35, gap: 9, w: 1.1, op: 0.3, cond: function (X, Y) { return (X - x) + (Y - y) > w * 0.45; } });
+      g += U.xf([[0, 0]], x, y, 0) && '';
+      var tx = '';
+      lines.forEach(function (l, i) { tx += '<text x="0" y="' + (-h / 2 + 64 + i * (fs + 4)) + '" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="' + fs + '" fill="' + (l.c || INK) + '">' + (l.t || l) + '</text>'; });
+      g += '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' + tx + '</g>';
+      // pin
+      var pin = U.xf([[0, -h / 2 + 18]], x, y, rot)[0];
+      g += S.shape(S.ellipse(pin[0], pin[1], 10, 10, 16), RED, { w: 2, extra: 1.6 });
+      return g;
+    }
+    s += note(2268, 640, 190, 170, -4, '#f0c74e', ['Na, alles', 'klar?'], 50);
+    s += note(2478, 606, 170, 160, 5, '#efe5cc', ['ä · ö · ü', { t: 'ß ≠ B', c: RED }], 46);
+    return '<g class="desk">' + s + '</g>';
+  }
+
+
+  // ───────── framed idiom sign (TV area, above the wordmark) ─────────
+  function sign() {
+    var s = '', x = 1150, y = 286, w = 540, h = 196;
+    s += S.line([[x + 90, y + 6], [x + w / 2, y - 34], [x + w - 90, y + 6]], { w: 2.6, ta: 0.05, tb: 0.05, min: 0.6 });
+    s += S.shape(S.ellipse(x + w / 2, y - 36, 7, 7, 14), INK, { w: 0 });
+    s += S.fillOnly(S.rect(x + 12, y + 14, w, h), 'rgba(80,55,20,.2)');
+    var fr = S.rect(x, y, w, h, 30, 1);
+    s += S.shape(fr, '#3b2f25', { w: 4, extra: 4 });
+    var pa = S.rect(x + 16, y + 16, w - 32, h - 32, 30, 1);
+    s += S.shape(pa, '#f1e8d0', { w: 2, extra: 1.5, dir: [-0.55, -0.83] });
+    s += '<text x="' + (x + w / 2) + '" y="' + (y + 60) + '" text-anchor="middle" font-family="Oswald" font-weight="700" font-size="22" letter-spacing="5" fill="' + RED + '">REDEWENDUNG DER WOCHE</text>';
+    s += '<text x="' + (x + w / 2) + '" y="' + (y + 122) + '" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="46" letter-spacing="-1" fill="' + INK + '">„Das ist mir Wurst.“</text>';
+    s += '<text x="' + (x + w / 2) + '" y="' + (y + 162) + '" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="34" fill="' + GREEN + '">= Das ist mir egal.</text>';
+    return '<g class="sign">' + s + '</g>';
+  }
+
+
+  // ───────── sideboard with globe, whole watermelon, vocab box (TV area, under the wordmark) ─────────
+  function sideboard() {
+    var s = '', x0 = 1290, x1 = 1900, top = 1196, fl = 1368;
+    s += S.fillOnly(S.rect(x0 + 14, top + 10, x1 - x0, fl - top - 10), 'rgba(80,55,20,.2)');
+    var body = S.rect(x0, top, x1 - x0, fl - top - 14, 40, 1);
+    s += S.shape(body, '#c79a60', { w: 4, extra: 4.5 });
+    s += S.hatch(body, { ang: 0, gap: 10, w: 1.2, op: 0.3 });
+    var mid = (x0 + x1) / 2;
+    s += S.shape(S.rect(x0 + 22, top + 30, mid - x0 - 32, fl - top - 70, 30, 1), null, { w: 2.4, extra: 2 });
+    s += S.shape(S.rect(mid + 10, top + 30, x1 - mid - 32, fl - top - 70, 30, 1), null, { w: 2.4, extra: 2 });
+    s += S.shape(S.ellipse(mid - 22, top + 90, 7, 7, 14), INK, { w: 0 }) + S.shape(S.ellipse(mid + 22, top + 90, 7, 7, 14), INK, { w: 0 });
+    s += S.shape(S.rect(x0 - 14, top - 18, x1 - x0 + 28, 24, 40, 1), WOOD, { w: 4, extra: 4 });
+    s += S.shape(S.rect(x0 + 10, fl - 16, 22, 16, 10, 0.5), WOOD_D, { w: 2, extra: 2 }) + S.shape(S.rect(x1 - 32, fl - 16, 22, 16, 10, 0.5), WOOD_D, { w: 2, extra: 2 });
+    var ty = top - 18;
+    // globe
+    var gx = 1420, gr = 74, gy = ty - 38 - gr;
+    s += S.shape(S.poly([[gx - 46, ty], [gx + 46, ty], [gx + 30, ty - 16], [gx - 30, ty - 16]], 15, 0.8), '#2c333b', { w: 2.6, extra: 2.6 });
+    s += S.line([[gx, ty - 16], [gx, ty - 36]], { w: 8, ta: 0.05, tb: 0.05, min: 0.8 });
+    var ball = S.ellipse(gx, gy, gr, gr, 60, 0.004);
+    s += S.shape(ball, '#8fb3a6', { w: 3.5, extra: 4 });
+    // land masses (irregular) + graticule
+    var cid = S.clip(ball), land = '', nz = U.noiseFn(17);
+    [[gx - 18, gy - 16, 40, 30, 0], [gx + 36, gy + 26, 26, 34, 40]].forEach(function (b, j) {
+      var pts = [];
+      for (var q = 0; q < 36; q++) { var aa = q / 36 * Math.PI * 2, rr = 1 + 0.35 * nz(q * 0.7 + j * 20) + 0.15 * nz(q * 2.3 + j * 7); pts.push([b[0] + b[2] * rr * Math.cos(aa), b[1] + b[3] * rr * Math.sin(aa)]); }
+      land += S.shape(U.xf(pts.map(function (q) { return [q[0] - b[0], q[1] - b[1]]; }), b[0], b[1], b[4]), '#d9c27a', { w: 1.8, extra: 1.2 });
+    });
+    var grat = [];
+    [-0.75, -0.35, 0.1, 0.55].forEach(function (f) { var e = []; for (var q = 0; q <= 24; q++) { var aa = -Math.PI / 2 + q / 24 * Math.PI; e.push([gx + gr * f * Math.cos(aa) * 0.98, gy + gr * Math.sin(aa)]); } grat.push(e); });
+    [-0.5, 0, 0.5].forEach(function (f) { var y = gy + gr * f, hw = gr * Math.sqrt(1 - f * f); grat.push([[gx - hw, y], [gx, y + 6], [gx + hw, y]].map(function (q) { return q; })); });
+    s += '<g clip-path="url(#' + cid + ')">' + land + S.lines(grat, { w: 1.4, ta: 0.1, tb: 0.1, smooth: 0 }, INK, ' opacity=".55"') + S.hatch(ball, { ang: 50, gap: 8, w: 1.3, op: 0.5, cond: function (X, Y) { return (X - gx) * 0.6 + (Y - gy) * 0.8 > gr * 0.35; } }) + '</g>';
+    s += S.line(U.catmull([[gx - gr - 10, gy + 20], [gx - gr + 4, gy - 50], [gx - 10, gy - gr - 12], [gx + 50, gy - gr + 4]], 6, false), { w: 6, ta: 0.05, tb: 0.05, min: 0.7 }, '#a8a594');
+    // whole watermelon with a tag
+    var wx = 1630, wy = ty - 62, wrx = 108, wry = 66, wm = S.ellipse(wx, wy, wrx, wry, 64, 0.01);
+    s += S.shape(wm, C.rind, { w: 0 });
+    var wid = S.clip(wm), st = '';
+    for (var i = -4; i <= 4; i++) {
+      var pts = [];
+      for (var k = 0; k <= 20; k++) { var t = k / 20, yy = wy - wry + t * 2 * wry; pts.push([wx + i * 26 * Math.sqrt(Math.max(0.15, 1 - Math.pow((yy - wy) / wry, 2))) + 5 * Math.sin(t * 18 + i), yy]); }
+      st += S.line(pts, { w: 13, ta: 0.3, tb: 0.3, min: 0.4, jit: 0.4 }, C.stripe);
+    }
+    s += '<g clip-path="url(#' + wid + ')">' + st + S.hatch(wm, { ang: 40, gap: 7, w: 1.3, op: 0.6, cond: function (X, Y) { return (X - wx) / wrx * 0.6 + (Y - wy) / wry * 0.8 > 0.25; } }) + '</g>';
+    s += S.shape(wm, null, { w: 4, extra: 5 });
+    s += S.line([[wx - 4, wy - wry + 2], [wx + 2, wy - wry - 14], [wx + 14, wy - wry - 18]], { w: 5, ta: 0.1, tb: 0.4 });
+    // tag on a string
+    s += S.line([[wx + 10, wy - wry - 14], [wx + 64, wy - wry - 40]], { w: 1.8, ta: 0.05, tb: 0.05 });
+    var tag = U.xf(S.rect(0, -22, 150, 44, 20, 0.8), wx + 62, wy - wry - 44, -12);
+    s += S.shape(tag, '#f1e8d0', { w: 2.2, extra: 2 });
+    s += '<text x="' + (wx + 137) + '" y="' + (wy - wry - 35) + '" transform="rotate(-12 ' + (wx + 62) + ' ' + (wy - wry - 44) + ')" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="27" fill="' + RED + '">Nicht essen!</text>';
+    // vocab card box
+    var bx = 1800, bw = 120, bh = 70;
+    [[-40, -6], [-14, 3], [12, -3], [36, 5]].forEach(function (c, i) {
+      var cr = U.xf(S.rect(-22, -40, 44, 50, 20, 0.6), bx + c[0] * 0.9, ty - bh + 10, c[1]);
+      s += S.shape(cr, ['#f1e8d0', '#f0c74e', '#f1e8d0', '#e9a596'][i], { w: 2, extra: 1.6 });
+    });
+    var box = S.rect(bx - bw / 2, ty - bh, bw, bh, 20, 0.8);
+    s += S.shape(box, GREEN, { w: 3, extra: 3.5 });
+    s += '<text x="' + bx + '" y="' + (ty - 26) + '" text-anchor="middle" font-family="Oswald" font-weight="700" font-size="19" letter-spacing="2" fill="#f3ead3">VOKABELN</text>';
+    return '<g class="sideboard">' + s + '</g>';
+  }
+
+  // ───────── wastebasket (TV, floor) ─────────
+  function basket() {
+    var s = '', x = 1060, y = 1368;
+    var b = S.poly([[x - 70, y - 150], [x + 70, y - 150], [x + 56, y], [x - 56, y]], 20, 1);
+    // crumpled paper balls
+    function ball(cx, cy, r) {
+      var pts = [];
+      for (var i = 0; i < 14; i++) { var a = i / 14 * Math.PI * 2, rr = r * (0.82 + S.r() * 0.3); pts.push([cx + rr * Math.cos(a), cy + rr * Math.sin(a)]); }
+      var g = S.shape(pts, '#f1e9d2', { w: 2.6, extra: 3 });
+      g += S.lines([[[cx - r * 0.5, cy - r * 0.2], [cx, cy + r * 0.1], [cx + r * 0.3, cy - r * 0.4]], [[cx - r * 0.2, cy + r * 0.5], [cx + r * 0.4, cy + r * 0.2]]], { w: 1.6, ta: 0.2, tb: 0.3 });
+      return g;
+    }
+    s += ball(x - 30, y - 160, 34) + ball(x + 26, y - 168, 30);
+    s += S.shape(b, '#5b6a4a', { w: 4, extra: 4.5 });
+    for (var i = 0; i < 7; i++) { var t = (i + 0.5) / 7; s += S.line([[x - 70 + 140 * t, y - 146], [x - 56 + 112 * t, y - 4]], { w: 2, ta: 0.05, tb: 0.05 }); }
+    s += S.line([[x - 74, y - 150], [x + 74, y - 150]], { w: 7, ta: 0.05, tb: 0.05, min: 0.7 });
+    s += ball(x + 128, y - 26, 30);
+    s += S.lines([[[x - 70, y + 6], [x + 70, y + 6]]], { w: 3, ta: 0.3, tb: 0.3 });
+    return '<g class="basket">' + s + '</g>';
+  }
+
+  // ───────── assemble ─────────
+  var defs = '<defs>' +
+    '<filter id="rough" x="-2%" y="-2%" width="104%" height="104%"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>' +
+    '<filter id="chalk" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/>' +
+      '<feColorMatrix in="n" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.1 1.72" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="2" result="n2"/><feDisplacementMap in="c" in2="n2" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>' +
+    '<filter id="blur6"><feGaussianBlur stdDeviation="8"/></filter>' +
+    '<filter id="print" x="-2%" y="-5%" width="104%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="d"/>' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="8" result="n3"/><feColorMatrix in="n3" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.9" result="m3"/><feComposite in="d" in2="m3" operator="in"/></filter>' +
+    '<radialGradient id="disc" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#e6b552"/><stop offset=".6" stop-color="#d6a03c"/><stop offset="1" stop-color="#bf862b"/></radialGradient>' +
+    '</defs>';
+
+  var scene = wall() + wallShade() + bunting() + clock() + sign() + board() + desk() + sideboard() + basket();
+
+  // Melo: full figure, feet on the floor; head inside the safe area
+  var K = 1.75, FX = 700, FY = 1366;
+  var melo = MeloB.svg({ pose: 'point', expression: 'smirk', pencil: true, seed: 7, look: [0.15, 0.05] });
+  melo = melo.replace('<svg ', '<svg x="' + (FX - 180 * K) + '" y="' + (FY - 512 * K) + '" width="' + (360 * K) + '" height="' + (534 * K) + '" ');
+  var HX = FX, HY = FY - 352 * K;
+  var disc = '<circle cx="' + (HX + 6) + '" cy="' + (HY - 6) + '" r="236" fill="url(#disc)"/>' +
+    S.shape(S.ellipse(HX + 6, HY - 6, 236, 236, 90, 0.004), null, { w: 4, extra: 4 }) +
+    S.hatch(S.ellipse(HX + 6, HY - 6, 234, 234, 60), { ang: 45, gap: 10, w: 1.6, op: 0.35, cond: function (X, Y) { return (X - HX) * 0.6 + (Y - HY) * 0.8 > 150; } });
+
+  // ───────── type (measured after the fonts load) ─────────
+  var stage = document.getElementById('stage');
+  var guides = '';
+  if (/guides/.test(location.hash + location.search)) {
+    guides = '<rect x="507" y="508.5" width="1546" height="423" fill="none" stroke="#00a" stroke-width="4" stroke-dasharray="20 10"/>' +
+      '<rect x="0" y="508.5" width="2560" height="423" fill="none" stroke="#a00" stroke-width="3"/>';
+  }
+  stage.innerHTML = defs + '<defs>' + S.defs + '</defs><g filter="url(#rough)">' + scene + disc + '</g>' + melo + '<g id="type"></g>' + guides;
+
+  function measure(txt, attrs) {
+    var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    for (var k in attrs) t.setAttribute(k, attrs[k]);
+    t.textContent = txt; stage.appendChild(t);
+    var w = t.getComputedTextLength(); stage.removeChild(t); return w;
+  }
+  var FR = { 'font-family': 'Fraunces', 'font-weight': '900', 'letter-spacing': '-2' };
+  function fr(fs, it) { var o = {}; for (var k in FR) o[k] = FR[k]; o['font-size'] = fs; if (it) o['font-style'] = 'italic'; return o; }
+  function attrs(o) { var s = ''; for (var k in o) s += ' ' + k + '="' + o[k] + '"'; return s; }
+
+  function layoutType() {
+    var T2 = new SceneInk(23), type = '';
+    var L = window.LAYOUT || {};
+    var WX = L.wx || 948, W1 = L.w1 || 690;           // left edge, width of "Deutsch"
+    var fs1 = 100 * W1 / measure('Deutsch', fr(100));  // fit "Deutsch" to W1
+    var b1 = L.b1 || 712, b2 = L.b2 || 862;            // baselines
+    var fsMit = fs1 * 0.6, wMit = measure('mit', fr(fsMit, true)), wMelo = measure('Melo', fr(fs1));
+    var xMelo = WX + wMit + fs1 * 0.09;
+    function word(x, y, txt, fs, fill, it, sh) {
+      var a = attrs(fr(fs, it));
+      return (sh ? '<text x="' + U.f1(x + fs * 0.034) + '" y="' + U.f1(y + fs * 0.034) + '"' + a + ' fill="' + sh + '">' + txt + '</text>' : '') +
+        '<text x="' + U.f1(x) + '" y="' + U.f1(y) + '"' + a + ' fill="' + fill + '">' + txt + '</text>';
+    }
+    // kicker
+    type += '<text x="' + (WX + 6) + '" y="' + (L.bk || 566) + '" font-family="Oswald" font-weight="500" font-size="28" letter-spacing="5.2" fill="' + INK + '">B1 · B2 · C1 — DEUTSCH LERNEN. NUR AUF DEUTSCH.</text>';
+    type += '<g filter="url(#print)">' + word(WX - fs1 * 0.03, b1, 'Deutsch', fs1, INK, false, OCHRE) +
+      word(WX, b2, 'mit', fsMit, RED, true) + word(xMelo, b2, 'Melo', fs1, INK, false, OCHRE) + '</g>';
+    // slogan
+    var xs = xMelo + wMelo + 30, fsS = L.fsS || 64, CV = { 'font-family': 'Caveat', 'font-weight': '700', 'font-size': fsS };
+    var wS = measure('Deutsch mit Kern', CV), ys = b2 - 16;
+    type += '<g transform="rotate(-4 ' + U.f1(xs) + ' ' + ys + ')">' +
+      '<text x="' + U.f1(xs) + '" y="' + ys + '"' + attrs(CV) + ' fill="' + GREEN + '">Deutsch mit Kern</text>' +
+      T2.seed(xs + wS + 14, ys - 8, 22, -60) +
+      T2.line(U.catmull([[xs - 4, ys + 22], [xs + wS * 0.45, ys + 15], [xs + wS * 0.85, ys + 18], [xs + wS + 20, ys + 8]], 6, false), { w: 6, ta: 0.1, tb: 0.5, min: 0.3 }, RED) + '</g>';
+    window.__type = { fs1: fs1, xMelo: xMelo, wMelo: wMelo, sloganEnd: xs + wS + 30 };
+    // badge
+    if (L.badge !== false) {
+      var bx = L.bx || 1880, by = L.by || 636, r = L.br || 86, rot = 9, g = '';
+      var seal = [], NS = 26;
+      for (var q = 0; q < NS * 2; q++) { var aa = q / (NS * 2) * Math.PI * 2, rr = q % 2 ? r * 0.915 : r; seal.push([bx + rr * Math.cos(aa), by + rr * Math.sin(aa)]); }
+      seal = U.catmull(seal, 3, true);
+      g += T2.fillOnly(seal.map(function (p) { return [p[0] + 7, p[1] + 8]; }), OCHRE);
+      g += T2.shape(seal, RED, { w: 3.2, extra: 3.2 });
+      g += T2.hatch(seal, { ang: 45, gap: 8, w: 1.3, op: 0.35, cond: function (X, Y) { return (X - bx) * 0.6 + (Y - by) * 0.8 > r * 0.5; } });
+      g += T2.shape(T2.ellipse(bx, by, r - 15, r - 15, 80, 0.004), null, { w: 2, extra: 0.6, color: '#f3ead3' });
+      g += '<g transform="rotate(' + rot + ' ' + bx + ' ' + by + ')" font-family="Oswald" font-weight="700" fill="#f3ead3" text-anchor="middle">' +
+        '<text x="' + bx + '" y="' + (by - 22) + '" font-size="' + U.f1(r * 0.29) + '" letter-spacing="3">JEDE</text>' +
+        '<text x="' + bx + '" y="' + (by + 14) + '" font-size="' + U.f1(r * 0.45) + '" letter-spacing="1">WOCHE</text>' +
+        '<text x="' + bx + '" y="' + (by + 42) + '" font-size="' + U.f1(r * 0.215) + '" letter-spacing="1">NEUE VIDEOS</text></g>';
+      type += g;
+    }
+    var defs2 = '<defs>' + T2.defs + '</defs>';
+    document.getElementById('type').innerHTML = defs2 + type;
+  }
+  Promise.all(['900 100px Fraunces', 'italic 900 100px Fraunces', '500 30px Oswald', '700 30px Oswald', '700 30px Caveat', '700 30px Kalam'].map(function (f) { return document.fonts.load(f); }))
+    .then(layoutType);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Deutsch mit Melo – Profilbild</title>
+<!--
+  YouTube profile picture. Authored at 800×800; YouTube shows it as a circle (down to ~40 px).
+  Render: node tools/render.js brand/channel/profile.html brand/out/youtube-profile.png 800 800
+          node tools/render.js brand/channel/profile.html brand/out/youtube-profile-2048.png 800 800 2.56
+  #guides overlays the visible circle.
+-->
+<style>
+  html, body { margin: 0; width: 800px; height: 800px; overflow: hidden; background: #d6a03c; }
+  svg { position: absolute; left: 0; top: 0; }
+</style>
+<script src="../concepts/b/melo-b.js"></script>
+<script src="scene-ink.js"></script>
+</head>
+<body>
+<svg id="stage" width="800" height="800" viewBox="0 0 800 800"></svg>
+<script>
+(function () {
+  var U = MeloB._util, C = MeloB.PALETTE, INK = C.ink;
+  var P = Object.assign({ cx: 400, cy: 446, h: 630, tilt: -3, outline: 8, pencil: true, look: [-0.1, 0.1], pose: 'idle' }, window.PFP || {});
+  var S = new SceneInk(5), s = '';
+
+  // background: warm mustard disc with a hatched shadow crescent + soft paper grain
+  s += '<defs>' +
+    '<radialGradient id="bg" cx="40%" cy="34%" r="78%"><stop offset="0" stop-color="#ebbb57"/><stop offset=".55" stop-color="#dba443"/><stop offset="1" stop-color="#b9802a"/></radialGradient>' +
+    '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .25  0 0 0 0 .1  0 0 0 -1.4 .7"/></filter>' +
+    // bold silhouette: dilate the character's alpha and fill with ink
+    '<filter id="sil" x="-10%" y="-10%" width="120%" height="120%"><feMorphology in="SourceAlpha" operator="dilate" radius="' + P.outline + '" result="d"/>' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="d" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="dd"/>' +
+      '<feFlood flood-color="' + INK + '"/><feComposite in2="dd" operator="in"/></filter>' +
+    '<filter id="drop" x="-10%" y="-10%" width="130%" height="130%"><feMorphology in="SourceAlpha" operator="dilate" radius="' + P.outline + '" result="d"/><feOffset dx="14" dy="16"/><feFlood flood-color="#7a4f17" flood-opacity=".45"/><feComposite in2="SourceGraphic" operator="in"/></filter>' +
+    '</defs>';
+  s += '<rect width="800" height="800" fill="url(#bg)"/>';
+  // soft sunburst (alternate wedges a touch darker) + hatched crescent lower right
+  var rays = '';
+  for (var i = 0; i < 18; i++) {
+    var a0 = (i / 18) * Math.PI * 2 + 0.08, a1 = a0 + Math.PI / 18;
+    rays += 'M400 430L' + U.f1(400 + 700 * Math.cos(a0)) + ' ' + U.f1(430 + 700 * Math.sin(a0)) + 'L' + U.f1(400 + 700 * Math.cos(a1)) + ' ' + U.f1(430 + 700 * Math.sin(a1)) + 'Z';
+  }
+  s += '<path d="' + rays + '" fill="#a5701f" opacity=".13"/>';
+  var disc = S.ellipse(400, 400, 420, 420, 90);
+  s += S.hatch(disc, { ang: 45, gap: 13, w: 2.2, op: 0.28, cond: function (X, Y) { return (X - 400) * 0.62 + (Y - 400) * 0.78 > 150; } });
+
+  // Melo, head + collar, sized so the face fills the circle
+  var opts = { view: 'bust', pose: P.pose, expression: 'smirk', pencil: P.pencil, seed: 7, look: P.look, headTilt: P.tilt };
+  var m = MeloB.svg(opts);
+  var VB0 = [-150, -505, 300, 300];
+  m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + VB0.join(' ') + '" width="800" height="800" x="0" y="0" preserveAspectRatio="xMidYMid meet"');
+  s += '<g filter="url(#drop)">' + m + '</g>';
+  s += '<g filter="url(#sil)">' + m + '</g>';
+  s += m;
+  s += '<rect width="800" height="800" filter="url(#grain)" opacity=".35" style="mix-blend-mode:multiply"/>';
+  if (/guides/.test(location.hash)) s += '<circle cx="400" cy="400" r="400" fill="none" stroke="#00f" stroke-width="3"/>';
+  var stage = document.getElementById('stage');
+  stage.innerHTML = s.replace('</defs>', S.defs + '</defs>');
+  // fit: measure the skull (head without pencil) and set the viewBox so it is P.h tall, centred on (P.cx, P.cy)
+  var svgs = stage.querySelectorAll('svg.melo-b'), r = svgs[2].querySelector('.mb-skull').getBoundingClientRect();
+  var u = VB0[2] / 800; // units per px
+  var hcx = VB0[0] + (r.left + r.width / 2) * u, hcy = VB0[1] + (r.top + r.height / 2) * u, hh = r.height * u;
+  var nu = hh / P.h, W = 800 * nu;
+  var vb = [hcx - P.cx * nu, hcy - P.cy * nu, W, W].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+  for (var i = 0; i < svgs.length; i++) svgs[i].setAttribute('viewBox', vb);
+})();
+</script>
+</body>
+</html>

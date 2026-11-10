@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Banner – Sichtbereiche</title>
+<!-- Shows brand/out/youtube-banner.png with the TV / desktop / safe-area outlines.
+     Render: node tools/render.js brand/channel/banner-safe-preview.html brand/out/youtube-banner-safe-preview.png 1600 1000 -->
+<style>
+  @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../fonts/oswald-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1600px; height: 1000px; background: #1b1916; color: #f1ead8; font-family: 'Oswald', sans-serif; overflow: hidden; }
+  h1 { position: absolute; left: 32px; top: 18px; margin: 0; font-weight: 700; font-size: 30px; letter-spacing: .06em; }
+  .sub { position: absolute; left: 32px; top: 58px; font-size: 17px; letter-spacing: .08em; opacity: .7; }
+  .wrap { position: absolute; left: 32px; top: 104px; width: 1536px; height: 864px; }
+  .wrap img { width: 1536px; height: 864px; display: block; }
+  .box { position: absolute; box-sizing: border-box; }
+  .dim { background: rgba(10, 8, 6, .48); }
+  .lbl { position: absolute; font-size: 17px; font-weight: 700; letter-spacing: .1em; padding: 3px 9px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<h1>DEUTSCH MIT MELO · YOUTUBE-BANNER 2560 × 1440</h1>
+<div class="sub">Was welches Gerät zeigt — alles Wichtige (Wortmarke, Slogan, Melos Gesicht) liegt im blauen Bereich.</div>
+<div class="wrap" id="w">
+  <img src="../out/youtube-banner.png" alt="">
+</div>
+<script>
+  var k = 1536 / 2560, w = document.getElementById('w');
+  function box(x, y, bw, bh, css, label, lcss) {
+    var d = document.createElement('div'); d.className = 'box';
+    d.style.cssText = 'left:' + x * k + 'px;top:' + y * k + 'px;width:' + bw * k + 'px;height:' + bh * k + 'px;' + css;
+    w.appendChild(d);
+    if (label) { var l = document.createElement('div'); l.className = 'lbl'; l.textContent = label; l.style.cssText = lcss; d.appendChild(l); }
+  }
+  // dim what only TVs show
+  box(0, 0, 2560, 508.5, '', null); w.lastChild.classList.add('dim');
+  box(0, 931.5, 2560, 508.5, '', null); w.lastChild.classList.add('dim');
+  box(0, 0, 2560, 1440, 'border:4px solid #f1ead8;', 'TV · 2560 × 1440 (komplett)', 'left:10px;top:10px;background:#f1ead8;color:#17130f;');
+  box(0, 508.5, 2560, 423, 'border:4px solid #ff4b3e;', 'DESKTOP · 2560 × 423', 'left:10px;bottom:10px;background:#ff4b3e;color:#fff;');
+  box(507, 508.5, 1546, 423, 'border:4px dashed #3fa9ff;', 'SICHER AUF ALLEN GERÄTEN (SMARTPHONE) · 1546 × 423', 'right:8px;top:-34px;background:#3fa9ff;color:#06121c;');
+</script>
+</body>
+</html>

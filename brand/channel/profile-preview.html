@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Profilbild – Vorschau</title>
+<!-- Shows brand/out/youtube-profile.png circle-cropped at 800/176/98/48 px on white and on YouTube dark (#0f0f0f).
+     Render: node tools/render.js brand/channel/profile-preview.html brand/out/youtube-profile-preview.png 1400 1800 -->
+<style>
+  @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../fonts/oswald-latin-500-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1400px; font-family: 'Oswald', sans-serif; }
+  .panel { height: 900px; display: flex; align-items: center; gap: 56px; padding: 0 50px; box-sizing: border-box; position: relative; }
+  .white { background: #fff; color: #0f0f0f; } .dark { background: #0f0f0f; color: #f1f1f1; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .cell img { border-radius: 50%; display: block; }
+  .lbl { font-size: 20px; letter-spacing: .12em; opacity: .7; }
+  .tag { position: absolute; left: 50px; top: 24px; font-size: 18px; letter-spacing: .25em; opacity: .55; }
+</style>
+</head>
+<body>
+<div class="panel white"><div class="tag">AUF WEISS</div></div>
+<div class="panel dark"><div class="tag">AUF DUNKEL · #0F0F0F</div></div>
+<script>
+  document.querySelectorAll('.panel').forEach(function (p) {
+    [800, 176, 98, 48].forEach(function (s) {
+      var c = document.createElement('div'); c.className = 'cell';
+      c.innerHTML = '<img src="../out/youtube-profile.png" width="' + s + '" height="' + s + '"><div class="lbl">' + s + ' PX</div>';
+      p.appendChild(c);
+    });
+  });
+</script>
+</body>
+</html>
