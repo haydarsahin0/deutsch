@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><title>Melo – Model Sheet</title>
+<style>
+@font-face{font-family:Caveat;font-weight:400;src:url(../fonts/caveat-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:Caveat;font-weight:700;src:url(../fonts/caveat-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Patrick Hand';src:url(../fonts/patrick-hand-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:Kalam;font-weight:400;src:url(../fonts/kalam-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:Kalam;font-weight:700;src:url(../fonts/kalam-latin-700-normal.woff2) format('woff2')}
+html,body{margin:0;background:#FBF8F1}
+svg{display:block}
+.t{font-family:Caveat;font-weight:700;fill:#1E1E1E}
+.h{font-family:Kalam;font-weight:700;fill:#1E1E1E}
+.l{font-family:'Patrick Hand';fill:#3a3a3a}
+.n{font-family:Caveat;font-weight:400;fill:#555}
+</style>
+<script src="melo.js"></script>
+</head><body>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+(function(){
+  const W=1920,H=1080, P=Melo.palette;
+  let o='';
+  // paper + faint grid dots
+  o+=`<rect width="${W}" height="${H}" fill="${P.paper}"/>`;
+  let dots='';for(let x=30;x<W;x+=40)for(let y=30;y<H;y+=40)dots+=`M${x} ${y}h0.01`;
+  o+=`<path d="${dots}" stroke="#d9d2c3" stroke-width="2.2" stroke-linecap="round"/>`;
+  // hand-drawn helper lines
+  function wline(x1,y1,x2,y2,c='#1E1E1E',w=3,op=1){const mx=(x1+x2)/2,my=(y1+y2)/2+((x2-x1)>0?1.5:-1.5);return `<path d="M${x1} ${y1}Q${mx} ${my} ${x2} ${y2}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" opacity="${op}"/>`}
+  function arrow(x1,y1,cx,cy,x2,y2){const a=Math.atan2(y2-cy,x2-cx),L=11;return `<path d="M${x1} ${y1}Q${cx} ${cy} ${x2} ${y2}M${x2-L*Math.cos(a-0.5)} ${y2-L*Math.sin(a-0.5)}L${x2} ${y2}L${x2-L*Math.cos(a+0.5)} ${y2-L*Math.sin(a+0.5)}" fill="none" stroke="#1E1E1E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>`}
+  function heading(x,y,txt,col){return `<text class="h" x="${x}" y="${y}" font-size="30">${txt}</text>`+wline(x,y+9,x+txt.length*15.5,y+7,col||P.flesh,4,0.85)}
+
+  // ── title block
+  o+=`<text class="t" x="56" y="122" font-size="132">Melo</text>`;
+  o+=wline(60,140,300,134,P.rind,7,0.9);
+  o+=`<text class="l" x="318" y="92" font-size="28">Deutsch mit Melo</text>`;
+  o+=`<text class="l" x="318" y="126" font-size="22" style="fill:#777">Model Sheet · v1 · Maskottchen</text>`;
+
+  // ── hero (left)
+  const hero=Melo.render({id:'hero',x:290,y:1030,scale:2.35,pose:'wave',expression:'happy',seed:3});
+  o+=`<ellipse cx="290" cy="1034" rx="150" ry="13" fill="#1E1E1E" opacity="0.08"/>`;
+  o+=hero.svg;
+  const A=hero.anchors;
+  // callouts
+  const lf=[A.headTop[0]+40,A.headTop[1]-22], mo=A.mouth;
+  o+=`<text class="n" x="${lf[0]+70}" y="${lf[1]-28}" font-size="27">Blatt = Haarsträhne</text>`+arrow(lf[0]+95,lf[1]-18,lf[0]+70,lf[1]+4,lf[0]+30,lf[1]+6);
+  o+=`<text class="n" x="20" y="300" font-size="27">Wassermelone,</text><text class="n" x="20" y="326" font-size="27">Zickzack-Streifen</text>`+arrow(80,340,90,380,120,410);
+  o+=`<text class="n" x="18" y="742" font-size="27">roter Mund</text><text class="n" x="18" y="768" font-size="27">mit Kernen</text>`+arrow(70,716,110,650,mo[0]-62,mo[1]+12);
+  o+=`<text class="n" x="410" y="800" font-size="27">Schal = Markenfarbe</text>`+arrow(430,778,400,750,352,722);
+
+  // ── expressions (right top)
+  const ex=['neutral','happy','laughing','surprised','thinking','wink','sad','confused','excited','proud','embarrassed','skeptical'];
+  const de={neutral:'neutral',happy:'happy',laughing:'laughing',surprised:'surprised',thinking:'thinking',wink:'wink',sad:'sad',confused:'confused',excited:'excited',proud:'proud',embarrassed:'embarrassed',skeptical:'skeptical'};
+  const X0=650, colW=208;
+  o+=heading(X0,64,'Expressions');
+  ex.forEach((e,i)=>{
+    const cx=X0+colW/2-10+(i%6)*colW, cy=164+Math.floor(i/6)*208;
+    o+=Melo.render({id:'ex'+i,headOnly:true,x:cx,y:cy,scale:1.0,expression:e,seed:i+2}).svg;
+    o+=`<text class="l" x="${cx}" y="${cy+100}" font-size="23" text-anchor="middle">${de[e]}</text>`;
+  });
+
+  // ── poses (right middle)
+  const ps=[['idle','neutral'],['wave','happy'],['pointLeft','excited'],['explain','happy'],['thinking','thinking'],['thumbsUp','wink'],['shrug','confused'],['celebrate','laughing'],['writeRight','neutral']];
+  o+=heading(X0,536,'Poses');
+  const pw=1240/ps.length;
+  ps.forEach((p,i)=>{
+    const cx=X0+pw/2+i*pw, fy=808;
+    const r=Melo.render({id:'po'+i,x:cx+(p[0]==='pointLeft'?16:p[0]==='writeRight'?-14:0),y:fy,scale:0.72,pose:p[0],expression:p[1],seed:20+i, look:p[0]==='pointLeft'?{x:-0.7,y:-0.1}:p[0]==='writeRight'?{x:0.7,y:0}:undefined});
+    o+=`<ellipse cx="${cx}" cy="${fy+3}" rx="34" ry="5" fill="#1E1E1E" opacity="0.08"/>`+r.svg;
+    o+=`<text class="l" x="${cx}" y="${fy+34}" font-size="22" text-anchor="middle">${p[0]}</text>`;
+  });
+
+  // ── lip sync strip (bottom right)
+  o+=heading(X0,890,'Lip sync · mouthOpen');
+  [0,.25,.5,.75,1].forEach((m,i)=>{
+    const cx=X0+70+i*140, cy=978;
+    o+=Melo.render({id:'ls'+i,headOnly:true,x:cx,y:cy,scale:0.72,mouthOpen:m,seed:40+i}).svg;
+    o+=`<text class="l" x="${cx}" y="${cy+78}" font-size="22" text-anchor="middle">${m}</text>`;
+  });
+  // signature traits
+  const sx=1385;
+  o+=heading(sx,890,'Signature');
+  [['seed pop',{expression:'surprised'}],['blush',{expression:'embarrassed'}],['leaf droop',{expression:'sad'}],['blink',{expression:'neutral',blink:1}]].forEach((t,i)=>{
+    const cx=sx+60+i*128, cy=978;
+    o+=Melo.render(Object.assign({id:'sg'+i,headOnly:true,x:cx,y:cy,scale:0.62,seed:60+i},t[1])).svg;
+    o+=`<text class="l" x="${cx}" y="${cy+78}" font-size="20" text-anchor="middle">${t[0]}</text>`;
+  });
+  // palette swatches
+  const sw=[['ink',P.ink],['rind',P.rind],['stripe',P.stripe],['flesh',P.flesh],['pith',P.pith],['cheek',P.cheek],['leaf',P.leaf],['scarf',P.scarf]];
+  sw.forEach((s,i)=>{const x=332+i*38, y=166;
+    o+=`<circle cx="${x}" cy="${y}" r="13" fill="${s[1]}" stroke="#1E1E1E" stroke-width="2.4"/>`;
+    o+=`<text class="l" x="${x}" y="${y+30}" font-size="13" text-anchor="middle">${s[0]}</text>`;});
+  document.getElementById('s').innerHTML=o;
+})();
+</script>
+</body></html>

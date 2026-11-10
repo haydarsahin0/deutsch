@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Melo – Hero</title>
+<style>html,body{margin:0;background:#FBF8F1}body.transparent,html.transparent{background:transparent}svg{display:block}</style>
+<script src="melo.js"></script></head><body>
+<svg id="s" width="1200" height="1400" viewBox="0 0 1200 1400" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+// hero.html            → paper background
+// hero.html#transparent → no background (render with omitBackground)
+// hero.html#avatar      → square head-only avatar (render at 1000x1000)
+const mode=location.hash.slice(1), s=document.getElementById('s');
+if(mode==='transparent'){document.documentElement.classList.add('transparent');document.body.classList.add('transparent');}
+if(mode==='avatar'){
+  s.setAttribute('width',1000);s.setAttribute('height',1000);s.setAttribute('viewBox','0 0 1000 1000');
+  s.innerHTML=`<rect width="1000" height="1000" fill="#FBF8F1"/><circle cx="500" cy="520" r="430" fill="#FFE3D6"/>`+
+    Melo.render({id:'av',headOnly:true,x:500,y:560,scale:3.95,expression:'happy',seed:5}).svg;
+} else {
+  let o='';
+  o+=`<ellipse cx="600" cy="1352" rx="250" ry="22" fill="#1E1E1E" opacity="0.08"/>`;
+  o+=Melo.render({id:'hero',x:570,y:1346,scale:3.9,pose:'wave',expression:'happy',mouthOpen:0.55,seed:3}).svg;
+  s.innerHTML=o;
+}
+</script></body></html>
