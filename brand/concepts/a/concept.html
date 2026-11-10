@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Konzept A – Der Gelassene</title>
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../../fonts/oswald-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 400; src: url('../../fonts/kalam-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 700; src: url('../../fonts/kalam-latin-700-normal.woff2') format('woff2'); }
+  :root { --ink: #1A1714; --paper: #ECE2CB; --red: #B9372B; --green: #3E5E34; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); color: var(--ink); }
+  #sheet { position: relative; width: 1920px; height: 1080px; }
+  .abs { position: absolute; }
+  svg { display: block; overflow: visible; }
+  .h-kicker { font: 500 20px/1 'Oswald', sans-serif; letter-spacing: .32em; text-transform: uppercase; color: var(--red); }
+  .h-title { font: 700 62px/1 'Oswald', sans-serif; letter-spacing: -.005em; }
+  .h-sub { font: 400 22px/1.25 'Kalam', cursive; color: #4a443b; }
+  .sec { font: 500 17px/1 'Oswald', sans-serif; letter-spacing: .26em; text-transform: uppercase; }
+  .sec::after { content: ''; display: block; width: 46px; height: 3px; background: var(--ink); margin-top: 7px; border-radius: 2px; }
+  .lbl { font: 400 21px/1.1 'Kalam', cursive; text-align: center; }
+  .lbl small { display: block; font: 500 12px/1.3 'Oswald', sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #6d665a; }
+  .note { font: 400 20px/1.15 'Kalam', cursive; color: #2b2620; }
+  .note b { font-weight: 700; color: var(--red); }
+  .tiny { font: 500 12px/1.3 'Oswald', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #6d665a; }
+  .thumb { width: 1280px; height: 720px; position: relative; overflow: hidden; background: #121110; transform-origin: 0 0; border-radius: 10px; }
+  .thumb .t { position: absolute; left: 62px; font-family: 'Anton', sans-serif; line-height: .88; text-transform: uppercase; letter-spacing: -.005em;
+              paint-order: stroke fill; -webkit-text-stroke: 10px #000; text-shadow: 0 8px 0 #000; }
+  .frame { box-shadow: 0 2px 0 rgba(0,0,0,.25), 0 14px 30px -12px rgba(40,25,10,.55); }
+  .sw { display: inline-flex; align-items: center; gap: 6px; margin-right: 11px; font: 500 12px/1 'Oswald', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #5d564b; }
+  .sw i { display: inline-block; width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid var(--ink); }
+</style>
+<script src="melo-a.js"></script>
+</head>
+<body>
+<div id="sheet"></div>
+<script>
+(function () {
+  var sheet = document.getElementById('sheet');
+  function add(html, x, y, w, h, cls) {
+    var d = document.createElement('div');
+    d.className = 'abs ' + (cls || '');
+    d.style.left = x + 'px'; d.style.top = y + 'px';
+    if (w) d.style.width = w + 'px'; if (h) d.style.height = h + 'px';
+    d.innerHTML = html; sheet.appendChild(d); return d;
+  }
+  // ── paper: base tone, blotches, fibre grain, vignette ──
+  add('<svg width="1920" height="1080" viewBox="0 0 1920 1080">' +
+    '<defs>' +
+    '<filter id="blotch"><feTurbulence type="fractalNoise" baseFrequency="0.004 0.006" numOctaves="3" seed="4"/>' +
+      '<feColorMatrix values="0 0 0 0 .45  0 0 0 0 .33  0 0 0 0 .18  0 0 0 -1.4 .78"/></filter>' +
+    '<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9"/>' +
+      '<feColorMatrix values="0 0 0 0 .2  0 0 0 0 .15  0 0 0 0 .1  0 0 0 -2.2 1.25"/></filter>' +
+    '<filter id="fibre"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.35" numOctaves="2" seed="2"/>' +
+      '<feColorMatrix values="0 0 0 0 1  0 0 0 0 .98  0 0 0 0 .92  0 0 0 -2 1.05"/></filter>' +
+    '<radialGradient id="vig" cx=".5" cy=".48" r=".75"><stop offset=".55" stop-color="#5a3d1c" stop-opacity="0"/><stop offset="1" stop-color="#5a3d1c" stop-opacity=".28"/></radialGradient>' +
+    '</defs>' +
+    '<rect width="1920" height="1080" fill="#ECE2CB"/>' +
+    '<rect width="1920" height="1080" filter="url(#blotch)" opacity=".35"/>' +
+    '<rect width="1920" height="1080" filter="url(#fibre)" opacity=".35"/>' +
+    '<rect width="1920" height="1080" filter="url(#grain)" opacity=".55"/>' +
+    '<rect width="1920" height="1080" fill="url(#vig)"/>' +
+    '</svg>', 0, 0, 1920, 1080);
+
+  // ── header ──
+  add('<div class="h-kicker">Deutsch mit Melo · Maskottchen</div>' +
+      '<div class="h-title" style="margin-top:10px">Konzept A – Der Gelassene</div>' +
+      '<div class="h-sub" style="margin-top:8px">Trockener Humor, null Stress. Weiß alles über Dativ und findet es lustig.</div>', 52, 38, 900);
+
+  // ── hero (full body) ──
+  var heroW = 560, heroH = 940;
+  add(MeloA.svg({ pose: 'idle', expression: 'smirk', seed: 11, viewBox: '-205 -655 410 690', width: heroW, height: heroH * 0.995 }), 40, 150, heroW, heroH);
+
+  // hand-drawn annotation arrows over the hero
+  function arrow(d, head) {
+    return '<path d="' + d + '" fill="none" stroke="#1A1714" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<path d="' + head + '" fill="none" stroke="#1A1714" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+  }
+  add('<svg width="1920" height="1080" viewBox="0 0 1920 1080">' +
+    arrow('M120 455 C 120 420, 140 380, 168 352', 'M153 356 L170 350 L168 367') +
+    arrow('M545 478 C 500 470, 440 440, 412 412', 'M416 428 L410 410 L428 412') +
+    arrow('M556 300 C 530 276, 480 262, 432 276', 'M444 264 L430 277 L446 285') +
+    arrow('M556 820 C 520 846, 470 846, 420 826', 'M432 818 L418 826 L432 836') +
+    '</svg>', 0, 0, 1920, 1080);
+  add('<b>Rotstift</b> hinterm Ohr:<br>korrigiert alles,<br>ganz leise.', 52, 465, 220, 0, 'note');
+  add('ein <b>Kern</b> als<br>Leberfleck', 548, 450, 170, 0, 'note');
+  add('längliche Melone,<br>Streifen folgen<br>der Form', 560, 300, 200, 0, 'note');
+  add('schlaksig,<br>4-Finger-Hände,<br>schlichte Treter', 560, 790, 200, 0, 'note');
+
+  // ── expressions ──
+  add('<div class="sec">Ausdrücke</div>', 760, 170, 300);
+  var ex = [['deadpan', 'neutral'], ['smirk', 'Grinsen · Standard'], ['talking', 'erklärt'], ['unimpressed', 'unbeeindruckt'], ['annoyed', 'genervt'], ['laughing', 'lacht']];
+  ex.forEach(function (e, i) {
+    var x = 750 + i * 192;
+    add(MeloA.svg({ headOnly: true, expression: e[0], seed: 20 + i, viewBox: '-150 -150 290 255', width: 196, height: 172 }), x - 4, 205, 196, 172);
+    add('<div class="lbl">' + e[1].split(' · ')[0] + (e[1].indexOf('·') > 0 ? '<small>Standard</small>' : '') + '</div>', x, 384, 188);
+  });
+
+  // ── profile picture test ──
+  function avatar(px, opt) {
+    var bg = '#C4553F';
+    var inner = MeloA.group(Object.assign({ headOnly: true, expression: 'smirk', seed: 5, id: 'av' + px }, opt));
+    return '<svg width="' + px + '" height="' + px + '" viewBox="-130 -130 260 260">' +
+      '<defs><clipPath id="avc' + px + '"><circle r="130"/></clipPath>' +
+      '<radialGradient id="avg' + px + '" cx=".62" cy=".3" r=".8"><stop offset="0" stop-color="#D86A50"/><stop offset="1" stop-color="#9E3B2C"/></radialGradient></defs>' +
+      '<g clip-path="url(#avc' + px + ')"><circle r="130" fill="url(#avg' + px + ')"/>' +
+      '<g transform="translate(0 22) scale(1.02)">' + inner + '</g></g>' +
+      '<circle r="128.5" fill="none" stroke="#1A1714" stroke-width="' + (px < 60 ? 6 : px < 120 ? 4 : 3) + '"/></svg>';
+  }
+  add('<div class="sec">Profilbild-Test</div>', 760, 470, 400);
+  add(avatar(400, { weight: 1, detail: 1 }), 750, 510, 400, 400, 'av');
+  add(avatar(98, { weight: 1.55, detail: 0.55 }), 1175, 640, 98, 98);
+  add(avatar(48, { weight: 2.1, detail: 0.3, rough: 1.2 }), 1199, 790, 48, 48);
+  add('<div class="tiny">400 px</div>', 760, 918, 100);
+  add('<div class="tiny" style="text-align:center">98 px</div>', 1165, 748, 118);
+  add('<div class="tiny" style="text-align:center">48 px</div>', 1165, 848, 118);
+  // dark-mode chip at 48px, like the YouTube app
+  add('<div style="width:118px;height:58px;border-radius:10px;background:#0f0f0f;display:flex;align-items:center;justify-content:center">' + avatar(36, { weight: 2.3, detail: 0.25, rough: 1 }) + '</div>', 1165, 872, 118, 56);
+  add('<div class="tiny" style="text-align:center">dunkel · 36 px</div>', 1165, 934, 118);
+
+  // ── thumbnail mock ──
+  var T = '<div class="thumb">' +
+    '<svg class="abs" style="left:0;top:0" width="1280" height="720" viewBox="0 0 1280 720"><defs>' +
+      '<radialGradient id="tg" cx=".74" cy=".42" r=".55"><stop offset="0" stop-color="#3a4a26" stop-opacity=".95"/><stop offset=".55" stop-color="#1f2416" stop-opacity=".6"/><stop offset="1" stop-color="#121110" stop-opacity="0"/></radialGradient>' +
+      '<filter id="tgrain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.4 1.1"/></filter>' +
+      '</defs><rect width="1280" height="720" fill="#121110"/><rect width="1280" height="720" fill="url(#tg)"/>' +
+      '<rect width="1280" height="720" filter="url(#tgrain)" opacity=".12"/></svg>' +
+    '<div class="t" style="top:64px;font-size:150px;color:#F2EADB">Das sagt</div>' +
+    '<div class="t" style="top:204px;font-size:150px;color:#F2EADB">kein</div>' +
+    '<div class="t" style="top:344px;font-size:150px;color:#F0493B">Deutscher</div>' +
+    '<svg class="abs" style="left:640px;top:0" width="680" height="720" viewBox="-170 -712 340 360">' +
+       MeloA.group({ pose: 'chin', expression: 'unimpressed', seed: 31, id: 'thumb', weight: 1.1 }) +
+       // emphasis strokes next to head
+       '<g fill="none" stroke="#F2EADB" stroke-width="4" stroke-linecap="round"><path d="M100 -600 l18 -16"/><path d="M108 -572 l24 -4"/><path d="M90 -624 l5 -22"/></g>' +
+    '</svg>' +
+    // the card he is judging
+    '<div class="abs" style="left:70px;top:536px;transform:rotate(-4deg);background:#F1E8D2;border:4px solid #000;border-radius:6px;padding:14px 22px 12px;box-shadow:8px 10px 0 #000;font:700 38px/1.1 Kalam, cursive;color:#1A1714;white-space:nowrap">' +
+      '„Es regnet Katzen<br>und Hunde.“' +
+      '<svg class="abs" style="left:-6px;top:6px" width="380" height="110" viewBox="0 0 380 110"><path d="M8 40 C 120 30, 250 58, 372 48" stroke="#B9372B" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M10 92 C 90 84, 200 96, 300 86" stroke="#B9372B" stroke-width="8" fill="none" stroke-linecap="round"/></svg>' +
+    '</div>' +
+    '<div class="abs" style="right:18px;bottom:16px;background:rgba(0,0,0,.82);color:#fff;font:500 30px/1 Oswald, sans-serif;padding:6px 10px;border-radius:6px">12:47</div>' +
+    '</div>';
+  var tw = 600, ts = tw / 1280;
+  add('<div class="sec">Thumbnail-Test</div>', 1290, 470, 400);
+  var th = add('<div class="frame" style="width:1280px;height:720px;transform:scale(' + ts + ');transform-origin:0 0;border-radius:10px">' + T + '</div>', 1290, 510, tw, 720 * ts);
+  add('<div class="tiny">1280 × 720, verkleinert · Titel: Anton</div>', 1290, 510 + 720 * ts + 10, 500);
+
+  // ── poses strip ──
+  add('<div class="sec">Posen</div>', 1300, 892, 200);
+  var poses = [['point', 'talking', 'zeigt'], ['explain', 'talking', 'erklärt'], ['crossed', 'deadpan', 'verschränkt'], ['chin', 'unimpressed', 'überlegt']];
+  poses.forEach(function (p, i) {
+    add(MeloA.svg({ pose: p[0], expression: p[1], seed: 40 + i, viewBox: '-150 -690 300 720', width: 74, height: 176, weight: 1.3, detail: 0.7 }), 1440 + i * 112, 888, 74, 176);
+  });
+
+  // ── palette + character notes ──
+  var sw = [['#97AC60', 'Schale'], ['#3E5E34', 'Streifen'], ['#C9D49C', 'Körper'], ['#B9372B', 'Rotstift'], ['#1A1714', 'Tusche']];
+  add(sw.map(function (s) { return '<span class="sw"><i style="background:' + s[0] + '"></i>' + s[1] + '</span>'; }).join(''), 760, 968, 420);
+  add('<div class="note" style="font-size:19px;color:#4a443b">Stimmung: der Kumpel, der alles erklärt, ohne zu belehren.</div>', 760, 1016, 560);
+})();
+</script>
+</body>
+</html>
