@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Konzept B – Der Angeschnittene</title>
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F; }
+  @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../../fonts/oswald-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; src: url('../../fonts/kalam-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 700; src: url('../../fonts/kalam-latin-700-normal.woff2') format('woff2'); }
+
+  :root { --ink: #17130f; --paper: #e9dfc4; --red: #c43d33; --ochre: #d6a03c; --green: #3f6329; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Kalam', cursive; position: relative; }
+  .abs { position: absolute; }
+  .grain { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .55; z-index: 50; }
+  .vignette { position: absolute; inset: 0; pointer-events: none; z-index: 49;
+    background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(80,55,20,.18) 100%); }
+
+  .kicker { font-family: 'Oswald'; font-weight: 500; letter-spacing: .28em; font-size: 15px; text-transform: uppercase; opacity: .8; }
+  h1 { margin: 0; font-family: 'Anton'; font-weight: 400; font-size: 66px; line-height: 1; letter-spacing: .01em; }
+  h1 .dash { color: var(--red); }
+  .sec { font-family: 'Oswald'; font-weight: 700; font-size: 17px; letter-spacing: .2em; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+  .sec::after { content: ''; height: 2px; background: var(--ink); flex: 1; opacity: .75; }
+  .sec .num { background: var(--ink); color: var(--paper); padding: 1px 8px 2px; letter-spacing: .05em; }
+  .lbl { font-family: 'Oswald'; font-weight: 500; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; text-align: center; }
+  .lbl small { display: block; font-family: 'Kalam'; font-size: 15px; letter-spacing: 0; text-transform: none; opacity: .75; margin-top: -2px; }
+  .note { font-family: 'Kalam'; font-size: 21px; line-height: 1.08; color: var(--ink); }
+  .note b { color: var(--red); font-weight: 700; }
+
+  .expr { display: flex; justify-content: space-between; }
+  .expr > div { width: 184px; }
+  .expr svg { width: 184px; height: 184px; display: block; }
+
+  .pfp { border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 40% 35%, #e2b04f 0%, #d6a03c 55%, #b9822a 100%); position: relative; }
+  .pfp svg { position: absolute; left: 6%; top: 5%; width: 88%; height: 88%; }
+
+  /* thumbnail: authored at 1280×720, scaled to 50% */
+  .thumbWrap { width: 640px; height: 360px; position: absolute; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 0 var(--ink), 0 0 0 2px var(--ink); }
+  .thumb { width: 1280px; height: 720px; transform: scale(.5); transform-origin: 0 0; position: absolute; left: 0; top: 0;
+    background: radial-gradient(circle at 74% 52%, #e2902a 0%, #b4561c 22%, #4a2210 46%, #141110 70%); overflow: hidden; }
+  .thumb .rays { position: absolute; inset: 0; }
+  .thumb .t1 { position: absolute; left: 50px; top: 52px; font-family: 'Anton'; color: #f6efe0; font-size: 172px; line-height: .9; letter-spacing: -.005em; text-shadow: 0 6px 0 #000; }
+  .thumb .t1 .y { color: #f5c133; }
+  .thumb .melo { position: absolute; right: -58px; top: 10px; width: 620px; height: 760px; }
+  .thumb .card { position: absolute; left: 54px; bottom: 34px; z-index: 3; background: #f1e7cf; color: var(--ink); padding: 14px 26px 16px; transform: rotate(-3deg);
+    font-family: 'Kalam'; font-weight: 700; font-size: 50px; line-height: 1; box-shadow: 6px 7px 0 #000; border: 4px solid #000; }
+  .thumb .card s { text-decoration: none; position: relative; opacity: .8; }
+  .thumb .card .ok { color: #2f6b2a; margin-top: 6px; }
+  .thumb .card s::after { content: ''; position: absolute; left: -8px; right: -10px; top: 48%; height: 6px; background: var(--red); transform: rotate(-3deg); border-radius: 4px; opacity: .9; }
+  .thumb .dur { position: absolute; right: 18px; bottom: 16px; background: rgba(0,0,0,.85); color: #fff; font: 600 30px/1 'Oswald'; padding: 6px 10px; border-radius: 6px; }
+
+  .yt { background: #0f0f0f; color: #f1f1f1; border-radius: 10px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; font-family: 'Oswald'; }
+  .yt .ava { width: 48px; height: 48px; flex: none; }
+  .yt .ava98 { width: 98px; height: 98px; }
+  .yt .t { font-size: 17px; font-weight: 500; letter-spacing: .02em; }
+  .yt .s { font-size: 13px; opacity: .65; letter-spacing: .03em; }
+
+  .poses { display: flex; justify-content: space-between; }
+  .poses > div { width: 122px; }
+  .poses svg { width: 122px; height: 166px; display: block; }
+</style>
+</head>
+<body>
+<svg class="grain" width="1920" height="1080">
+  <filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .27  0 0 0 0 .16  0 0 0 -1.3 .78"/></filter>
+  <filter id="g2"><feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="3" seed="9"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .38  0 0 0 0 .2  0 0 0 -.9 .42"/></filter>
+  <rect width="1920" height="1080" filter="url(#g2)"/>
+  <rect width="1920" height="1080" filter="url(#g)"/>
+</svg>
+<div class="vignette"></div>
+
+<!-- header -->
+<div class="abs" style="left:56px; top:30px;">
+  <div class="kicker">Deutsch mit Melo · Maskottchen · Charakter-Konzept</div>
+  <h1>Konzept B <span class="dash">–</span> Der Angeschnittene</h1>
+</div>
+<div class="abs note" style="left:1250px; top:40px; width:620px; font-size:19px; opacity:.85; text-align:right;">
+  Der Kumpel, der dein Deutsch korrigiert – mit einem Grinsen.<br>
+  Tusche, Schraffur, Körnung. Trocken, nicht niedlich.
+</div>
+
+<!-- hero -->
+<div class="abs" id="heroDisc" style="left:110px; top:236px; width:500px; height:500px; border-radius:50%; background: radial-gradient(circle at 42% 38%, #e0ae4c, #d6a03c 60%, #c08a2e);"></div>
+<svg class="abs" style="left:110px; top:236px;" width="500" height="500" viewBox="0 0 500 500"><circle cx="250" cy="250" r="248" fill="none" stroke="#17130f" stroke-width="3"/></svg>
+<div class="abs" id="hero" style="left:150px; top:150px; width:420px; height:910px;"></div>
+<svg class="abs" id="ann" style="left:0; top:0; z-index:5;" width="1920" height="1080"></svg>
+
+<!-- expressions -->
+<div class="abs" style="left:700px; top:140px; width:1180px;">
+  <div class="sec"><span class="num">01</span>Ausdrücke</div>
+  <div class="expr" id="expr" style="margin-top:6px;"></div>
+</div>
+
+<!-- profile test -->
+<div class="abs" style="left:690px; top:448px; width:520px;">
+  <div class="sec"><span class="num">02</span>Profilbild</div>
+</div>
+<div class="abs pfp" id="pfp400" style="left:690px; top:490px; width:400px; height:400px;"></div>
+<div class="abs lbl" style="left:690px; top:900px; width:400px;">400 px</div>
+<div class="abs" style="left:1108px; top:500px; width:104px;">
+  <div class="pfp" id="pfp98" style="width:98px; height:98px;"></div>
+  <div class="lbl" style="margin-top:6px; width:98px;">98 px</div>
+  <div class="pfp" id="pfp48" style="width:48px; height:48px; margin:22px 0 0 25px;"></div>
+  <div class="lbl" style="margin-top:6px; width:98px;">48 px</div>
+</div>
+<div class="abs yt" style="left:690px; top:955px; width:520px;">
+  <div class="pfp ava" id="pfpYT"></div>
+  <div><div class="t">Deutsch mit Melo</div><div class="s">@deutschmitmelo · B1–C1 · nur auf Deutsch</div></div>
+</div>
+
+<!-- thumbnail -->
+<div class="abs" style="left:1240px; top:448px; width:640px;">
+  <div class="sec"><span class="num">03</span>Thumbnail-Test</div>
+</div>
+<div class="abs thumbWrap" style="left:1240px; top:490px;">
+  <div class="thumb">
+    <svg class="rays" width="1280" height="720" id="rays"></svg>
+    <div class="melo" id="thumbMelo"></div>
+    <div class="t1">DAS SAGT<br>KEIN<br><span class="y">DEUTSCHER</span></div>
+    <div class="card"><s>Ich bin heiß.</s><div class="ok">Mir ist heiß.</div></div>
+    <div class="dur">13:47</div>
+  </div>
+</div>
+<div class="abs note" style="left:1240px; top:856px; width:640px; font-size:16px; opacity:.75;">1280×720, hier 50 % · Posen:</div>
+<div class="abs poses" id="poses" style="left:1240px; top:870px; width:640px;"></div>
+
+<script src="melo-b.js"></script>
+<script>
+(function () {
+  var M = window.MeloB;
+  // hero
+  var HERO = { box: [150, 150, 420, 910], vb: [-118, -515, 240, 540] };
+  document.getElementById('hero').innerHTML = M.svg({ pose: 'finger', expression: 'smirk', pencil: true, seed: 11, width: 420, height: 910, viewBox: HERO.vb.join(' ') });
+
+  // expressions
+  var ex = [['deadpan', 'Trocken', 'deadpan'], ['smirk', 'Grinsen', 'Standard'], ['talking', 'Erklärt', 'mouthOpen'], ['surprised', 'Überrascht', 'surprised'], ['annoyed', 'Genervt', 'annoyed'], ['laughing', 'Lacht', 'laughing']];
+  document.getElementById('expr').innerHTML = ex.map(function (e, i) {
+    return '<div>' + M.svg({ view: 'head', expression: e[0], seed: 11 }) + '<div class="lbl">' + e[1] + '<small>' + e[2] + '</small></div></div>';
+  }).join('');
+
+  // profile pictures
+  ['pfp400', 'pfp98', 'pfp48', 'pfpYT'].forEach(function (id) {
+    document.getElementById(id).innerHTML = M.svg({ view: 'head', expression: 'smirk', seed: 11, viewBox: '-100 -100 200 200' });
+  });
+
+  // thumbnail
+  document.getElementById('thumbMelo').innerHTML = M.svg({ pose: 'finger', expression: 'unimpressed', seed: 11, viewBox: '-122 -500 244 300' });
+  var rays = '';
+  for (var i = 0; i < 26; i++) {
+    var a = i / 26 * Math.PI * 2, a2 = a + 0.06;
+    rays += 'M947 374L' + (947 + Math.cos(a) * 1200).toFixed(0) + ' ' + (374 + Math.sin(a) * 1200).toFixed(0) + 'L' + (947 + Math.cos(a2) * 1200).toFixed(0) + ' ' + (374 + Math.sin(a2) * 1200).toFixed(0) + 'Z';
+  }
+  document.getElementById('rays').innerHTML = '<path d="' + rays + '" fill="#000" opacity=".22"/>';
+
+  // poses
+  var ps = [['idle', 'Stand'], ['point', 'Zeigen'], ['explain', 'Erklären'], ['crossed', 'Verschränkt'], ['chin', 'Hmm']];
+  document.getElementById('poses').innerHTML = ps.map(function (p) {
+    return '<div>' + M.svg({ pose: p[0], expression: p[0] === 'chin' ? 'deadpan' : p[0] === 'explain' ? 'talking' : 'smirk', seed: 11, viewBox: '-180 -500 360 520' }) + '<div class="lbl" style="font-size:13px">' + p[1] + '</div></div>';
+  }).join('');
+
+  // annotations (character coords → page coords)
+  var sc = Math.min(HERO.box[2] / HERO.vb[2], HERO.box[3] / HERO.vb[3]);
+  var ox = HERO.box[0] + (HERO.box[2] - HERO.vb[2] * sc) / 2, oy = HERO.box[1] + (HERO.box[3] - HERO.vb[3] * sc) / 2;
+  function C(x, y) { return [ox + (x - HERO.vb[0]) * sc, oy + (y - HERO.vb[1]) * sc]; }
+  var svg = '', notes = '';
+  function ann(tx, ty, px, py, _, bend) {
+    var t = [px, py], s0 = [tx, ty];
+    var mx = (s0[0] + t[0]) / 2 + (bend || 0), my = (s0[1] + t[1]) / 2 - Math.abs(bend || 0) * 0.4;
+    svg += '<path d="M' + s0[0] + ' ' + s0[1] + 'Q' + mx + ' ' + my + ' ' + t[0] + ' ' + t[1] + '" fill="none" stroke="#17130f" stroke-width="2.2" stroke-linecap="round"/>';
+    var ang = Math.atan2(t[1] - my, t[0] - mx);
+    [-0.5, 0.5].forEach(function (d) {
+      svg += '<path d="M' + t[0] + ' ' + t[1] + 'l' + (-Math.cos(ang + d) * 13).toFixed(1) + ' ' + (-Math.sin(ang + d) * 13).toFixed(1) + '" stroke="#17130f" stroke-width="2.4" stroke-linecap="round"/>';
+    });
+  }
+  var A = [
+    ann(140, 250, 300, 296, 0, 30),
+    ann(604, 540, 412, 352, 0, -30),
+    ann(84, 552, 238, 472, 0, 24),
+    ann(120, 812, 350, 618, 0, -30),
+    ann(512, 186, 420, 238, 0, 10)
+  ];
+  document.getElementById('ann').innerHTML = svg;
+  var N = [
+    [36, 156, 200, '<b>flach angeschnitten:</b> Fruchtfleisch + Kerne = Frisur'],
+    [540, 555, 150, 'eine Braue <b>immer</b> oben'],
+    [36, 560, 150, 'Schraffur + Körnung <b>statt Verlauf</b>'],
+    [36, 822, 130, '„ß“ auf dem Shirt'],
+    [520, 140, 160, 'Bleistift = der Korrektor <span style="opacity:.6">(optional)</span>']
+  ];
+  N.forEach(function (n) {
+    var d = document.createElement('div');
+    d.className = 'abs note'; d.style.left = n[0] + 'px'; d.style.top = n[1] + 'px'; d.style.width = n[2] + 'px'; d.style.zIndex = 6;
+    d.innerHTML = n[3]; document.body.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
