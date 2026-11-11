@@ -23,6 +23,7 @@ SCALED_W = 1352                       # 1920×1080 → 1352×760 (height-fit ×1
 SUB_X, SUB_Y = 500, 1500              # subtitle block centre (kept left of YouTube's right-hand buttons)
 SUB_MAXW, SUB_SIZE = 800, 150         # px per line, ASS font size (Anton: cap height ≈ 0.5 × size)
 SUB_GAP = 118                         # baseline distance of the two subtitle lines
+MAX_LINES = 2                         # subtitle lines per page (config 'subtitle_lines')
 XFADE = 0.04
 FONTS = ROOT / 'brand' / 'fonts' / 'ttf'
 
@@ -102,7 +103,7 @@ def fill_lines(ws, meas, max_words):
     if ok(ws):
         return [ws]
     best = None
-    for k in range(1, len(ws)):
+    for k in (range(1, len(ws)) if MAX_LINES > 1 else ()):
         l1, l2 = ws[:k], ws[k:]
         if not (ok(l1) and ok(l2)):
             continue
@@ -128,7 +129,7 @@ def build_pages(words, seg, meas, max_words):
     """Pages of ≤ 2 lines (≤ max_words words and ≤ SUB_MAXW px per line). A page never crosses a sentence end
     or a pause > 0.55 s; long sentences are split at commas/colons/dashes first, then evenly by words."""
     ws = words[seg['i0']:seg['i1'] + 1]
-    fits = lambda c: len(fill_lines(c, meas, max_words)) <= 2
+    fits = lambda c: len(fill_lines(c, meas, max_words)) <= MAX_LINES
     sents, cur = [], []
     for k, w in enumerate(ws):
         cur.append(w)
@@ -262,7 +263,11 @@ def make_cover(cfg, sdir, build):
 def apply_fit(cfg):
     """'fit': 'full' shows the whole 16:9 frame (1080×608, no zoom/crop) centred in the
     video area; default 'zoom' keeps the old height-fit ×1.25 centre crop."""
-    global SLOT_Y, SLOT_H, SCALED_W
+    global SLOT_Y, SLOT_H, SCALED_W, SUB_X, SUB_Y, SUB_SIZE, SUB_MAXW, MAX_LINES
+    st = cfg.get('subtitle_style') or {}
+    SUB_X = st.get('x', SUB_X); SUB_Y = st.get('y', SUB_Y)
+    SUB_SIZE = st.get('size', SUB_SIZE); SUB_MAXW = st.get('max_width', SUB_MAXW)
+    MAX_LINES = st.get('lines', MAX_LINES)
     if cfg.get('fit') == 'full':
         SLOT_H, SCALED_W = 608, 1080
         SLOT_Y = 676          # centred in the former 600–1360 video area

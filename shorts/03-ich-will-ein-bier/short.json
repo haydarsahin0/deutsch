@@ -37,5 +37,13 @@
   },
   "pad": 0.15,
   "max_duration": 59,
-  "fit": "full"
+  "fit": "full",
+  "subtitle_style": {
+    "lines": 1,
+    "size": 110,
+    "x": 540,
+    "y": 1375,
+    "max_width": 760
+  },
+  "subtitle_max_words": 3
 }
