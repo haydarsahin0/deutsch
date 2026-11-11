@@ -68,7 +68,13 @@
     };
   }
   function f1(n) { return Math.round(n * 10) / 10; }
-  function P(p) { return f1(p[0]) + ' ' + f1(p[1]); }
+  // DISP: optional coordinate displacement hook (animation rig: "baked" ink roughness / line boil instead of the
+  // costly SVG displacement filter). null = off → output unchanged.
+  var DISP = null;
+  function P(p) {
+    if (DISP) { var d = DISP(p[0], p[1]); return f1(p[0] + d[0]) + ' ' + f1(p[1] + d[1]); }
+    return f1(p[0]) + ' ' + f1(p[1]);
+  }
   function polyD(pts, close) {
     var s = 'M' + P(pts[0]);
     for (var i = 1; i < pts.length; i++) s += 'L' + P(pts[i]);
@@ -837,7 +843,9 @@
     face: function (ink, ex, opts, id, addDef) { return buildFace(ink, ex, opts || {}, id, addDef); },
     shadow: shadow, legs: legs, neck: neck, torso: torso,
     arm: function (ink, A, cls, tee) { return arm(ink, A, cls, tee !== false); },
-    filter: roughFilter
+    filter: roughFilter,
+    // set (fn(x,y) → [dx,dy]) / clear (null) the displacement hook; returns the previous one
+    displace: function (fn) { var o = DISP; DISP = fn || null; return o; }
   };
 
   return { svg: svg, parts: parts, EXPRESSIONS: Object.keys(EXPR), POSES: Object.keys(POSES), PALETTE: C, _EXPR: EXPR, _POSES: POSES, _HANDS: HANDS,

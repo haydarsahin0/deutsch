@@ -120,23 +120,6 @@ def write_wav(path, x, sr, af):
     os.replace(tmp, path)
 
 
-def shift_alignment(al, f):
-    for w in al["words"]:
-        w["start"], w["end"] = round(f(w["start"]), 3), round(f(w["end"]), 3)
-    for c in al["cues"]:
-        c["t"] = round(f(c["t"]), 3)
-        if "prev_end" in c:
-            c["prev_end"] = round(f(c["prev_end"]), 3)
-    for s in al["sentences"]:
-        s["start"], s["end"] = round(f(s["start"]), 3), round(f(s["end"]), 3)
-    for s in al["sections"]:
-        s["t"] = round(f(s["t"]), 3)
-    for x in al["stats"]["extra_words"] + al["stats"]["tags_spoken"]:
-        x["start"], x["end"] = round(f(x["start"]), 3), round(f(x["end"]), 3)
-    for d in al["stats"]["deviations"] + al["stats"]["unmatched_script_words"]:
-        d["t"] = round(f(d["t"]), 3)
-
-
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("ep")
@@ -181,7 +164,8 @@ def main():
     # 2. transcribe + align (times in the joined timeline)
     parts = A.parts_from_manifest(ep, script, manifest, args.model, args.retranscribe)
     xrts = [(p["transcript"]["duration"], p["transcript"]["elapsed"]) for p in parts]
-    al = A.align_episode(ep, script, parts, audio=joined, sr=SR, duration=len(joined) / SR)
+    al = A.align_episode(ep, script, parts, audio=joined, sr=SR, duration=len(joined) / SR,
+                         clip_fn=A.clip_fn_from_manifest(ep, manifest), model=args.model)
     n_cov = len(al["words"])
 
     # 3. long pauses
@@ -235,8 +219,7 @@ def main():
     out_chunks.append(seg)
     voice = np.concatenate(out_chunks)
     manifest["insertions"] = [x for x in insertions if x["dur"] > 0]
-    f = A.map_time_fn(manifest)
-    shift_alignment(al, f)
+    A.apply_insertions(al, manifest["insertions"])
     al["duration"] = round(len(voice) / SR, 3)
 
     # 4. loudness
@@ -251,6 +234,8 @@ def main():
     log(f"loudness {li:.1f} LUFS (TP {tp:.1f}) → gain {gain:+.2f} dB{' + limiter' if limited else ''}")
     vpath = os.path.join(ep, "audio", "voice.wav")
     write_wav(vpath, voice, SR, af)
+    # snap boundaries again on the final audio (words right after an inserted silence)
+    A.refine_alignment(al, A.load_audio(vpath, A.SR_ANALYSIS), A.SR_ANALYSIS)
     manifest["voice_sha1"] = A.file_sha1(vpath)
     manifest["duration"] = al["duration"]
 
@@ -265,6 +250,8 @@ def main():
                                     "elapsed_s": round(tot_e, 1),
                                     "xrt": round(tot_e / max(tot_d, 1e-6), 3),
                                     "note": "elapsed from cache creation time"}
+    al["subtitles"] = A.make_subtitles(al)
+    A.check_pauses(al, script, min_pause=args.min_pause)
     subs = A.write_outputs(ep, al)
     A.atomic_write_json(os.path.join(ep, "build", "voice-manifest.json"), manifest, indent=1)
     A.report(al, subs)

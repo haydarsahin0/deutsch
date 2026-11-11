@@ -33,11 +33,15 @@
     padEnd: 0.03,
     gate: 0.06,            // loudness gate (normalised envelope 0..1)
     closeBelow: 0.05,      // hysteresis: mouth snaps fully shut below this
-    openMax: 0.78,         // max lip-sync openness passed to melo-b
+    openMax: 0.9,          // max lip-sync openness passed to melo-b
     transition: 0.32,      // expression / pose / look easing (s)
     blinkMin: 2.5, blinkMax: 6.0, doubleBlink: 0.18,
     breathPeriod: 3.9,
-    boilEvery: 4           // re-seed line boil every N frames
+    boilEvery: 4,          // new line-boil variant every N frames
+    roughFreq: 0.035, roughAmp: 0.75,   // baked ink wobble (≈ the brand's feTurbulence 0.035 / scale 2.6)
+    grainFreq: 0.45, grainAmp: 0.32,    // baked fine edge grain when the grain filter is off
+    grainAmpWithFilter: 0.12,           // … and when it is on
+    grainTile: 24, grainTilePx: 32, grainFilter: 1.4  // grain filter: noise tile size (user units / px), displacement
   };
 
   // ───────────────────────────── small utils ─────────────────────────────
@@ -194,6 +198,16 @@
     var L = new Float32Array(N), HF = new Float32Array(N);
     for (var k = 0; k < N; k++) { L[k] = sampleArr(envArr, envHop, k * hop); HF[k] = sampleArr(envHf, envHop, k * hop); }
 
+    // robustness: words much longer than their audible part (e.g. stretched over an inserted silence) are clipped to it
+    if (envArr.length) words.forEach(function (w) {
+      if (w.end - w.start < 0.6) return;
+      var i0 = Math.floor(w.start / hop), i1 = Math.min(N - 1, Math.ceil(w.end / hop)), a = -1, b = -1;
+      for (var i = i0; i <= i1; i++) if (L[i] > T.gate * 2) { if (a < 0) a = i; b = i; }
+      if (a < 0) { w.end = w.start + 0.06; w.silent = true; return; }
+      var s0 = Math.max(w.start, a * hop - 0.04), s1 = Math.min(w.end, b * hop + 0.06);
+      if (s1 - s0 < (w.end - w.start) * 0.75) { w.start = s0; w.end = Math.max(s1, s0 + 0.08); }
+    });
+
     // speech mask: word intervals (bridged over short gaps) – or, without words, envelope with hysteresis
     var mask = new Uint8Array(N), segs = [];
     if (words.length) {
@@ -258,7 +272,7 @@
         var l = L[k];
         if (l > T.gate) {
           var lf = Math.pow(clamp((l - T.gate) / 0.55, 0, 1), 0.6);
-          tgt = lf * (0.22 + 0.78 * vO[k]) * (1 - 0.25 * HF[k] * (1 - vO[k]));
+          tgt = lf * (0.3 + 0.7 * vO[k]) * (1 - 0.25 * HF[k] * (1 - vO[k]));
         }
         if (vC[k]) tgt = 0;
       }
@@ -270,6 +284,10 @@
       yr += (vR[k] - yr) * aShape; yw += (vW[k] + 0.25 * HF[k] - yw) * aShape; yf += (vF[k] - yf) * aShape;
       rnd[k] = yr; wid[k] = clamp(yw, -1, 1); lip[k] = yf;
     }
+
+    // smoothed speech weight: open-mouth expressions (laughing, surprised, annoyed) hand the mouth to lip sync while talking
+    var sw = new Float32Array(N), sv = 0, swUp = 1 - Math.exp(-hop / 0.06), swDn = 1 - Math.exp(-hop / 0.18);
+    for (k = 0; k < N; k++) { var m0 = mask[k] ? 1 : 0; sv += (m0 - sv) * (m0 > sv ? swUp : swDn); sw[k] = sv; }
 
     // talk energy (slow) for gestures, and speech activity
     var energy = new Float32Array(N), e = 0;
@@ -315,8 +333,8 @@
 
     var rig = {
       fps: fps, seed: seed, duration: duration, tuning: T,
-      _d: { hop: hop, N: N, mask: mask, open: open, rnd: rnd, wid: wid, lip: lip, energy: energy, L: L, beats: beats, blinks: blinks, tracks: tracks, glances: glances, sacc: sacc, segs: segs },
-      _cache: new Map(), _id: cfg.id || 'mr'
+      _d: { hop: hop, N: N, mask: mask, sw: sw, open: open, rnd: rnd, wid: wid, lip: lip, energy: energy, L: L, beats: beats, blinks: blinks, tracks: tracks, glances: glances, sacc: sacc, segs: segs },
+      _cache: new Map(), _id: cfg.id || 'mr', pencil: !!cfg.pencil
     };
     rig.render = function (t, hint) { return render(rig, t, hint || {}); };
     rig.stateAt = function (t, hint) { return computeState(rig, t, hint || {}); };
@@ -355,8 +373,11 @@
         ov.pose.push([c.t, c.t + 1.8, 'finger', 'auto']);
       } else if (c.cue === 'pause' && +a.s >= 2) {
         // quiz countdown: chin pose + look at the board while waiting
-        var q = cues.filter(function (x) { return x.cue === 'quiz' && x.t <= c.t + 0.01 && c.t - x.t < 60; });
-        if (q.length) { ov.pose.push([c.t, c.t + (+a.s), 'chin', 'auto']); ov.look.push([c.t + 0.2, c.t + (+a.s) - 0.3, 'board', 'auto']); }
+        // the silence ends at the cue time (cue = first word after it); prev_end = end of the word before
+        var p0 = isFinite(c.prev_end) ? c.prev_end : c.t - (+a.s), p1 = c.t;
+        if (p1 - p0 < 1) { p0 = c.t; p1 = c.t + (+a.s); } // older alignments: cue at the start of the silence
+        var q = cues.filter(function (x) { return x.cue === 'quiz' && x.t <= p0 + 0.01 && p0 - x.t < 60; });
+        if (q.length) { ov.pose.push([p0 + 0.1, p1 - 0.15, 'chin', 'auto']); ov.look.push([p0 + 0.3, p1 - 0.4, 'board', 'auto']); }
       }
     });
     function apply(track, list) {
@@ -365,6 +386,8 @@
         var a = o[0], b = o[1];
         // explicit cues win: an overlay never overrides an explicit cue inside its window
         var nextE = track.filter(function (k) { return k.x && k.t > a - 0.15; })[0];
+        // an explicit cue shortly after the overlay would end → hold the overlay until it (no flicker back and forth)
+        if (nextE && nextE.t > b && nextE.t - b < 0.7) b = nextE.t;
         var end = nextE ? Math.min(b, nextE.t) : b;
         if (end - a < 0.45) return;
         var base = valueAt(track, a);
@@ -400,8 +423,8 @@
     var d = rig._d, tr = d.tracks;
     var boardDir = hint.boardSide === 'left' ? -1 : 1;
     var hasBoard = hint.board !== false;
-    var ex = evalTrack(tr.expr, t, EXPR_P, blendExpr);
-    var pose = evalTrack(tr.pose, t, POSE_P, blendPose);
+    var ex = clone(evalTrack(tr.expr, t, EXPR_P, blendExpr));   // clone: per-frame tweaks must never leak into the tables
+    var pose = clone(evalTrack(tr.pose, t, POSE_P, blendPose));
     var exprName = valueAt(tr.expr, t), poseName = valueAt(tr.pose, t), lookName = valueAt(tr.look, t);
 
     // mouth
@@ -409,9 +432,14 @@
     var lipOpen = at(d.open, d, t) * T.openMax;
     var speaking = !!d.mask[clamp(ki, 0, d.N - 1)];
     var restOpen = ex.open || 0;
-    var m = ex.mouth, talkW = clamp((lipOpen - restOpen + 0.02) / 0.12, 0, 1);
-    var mouthOpen = Math.max(restOpen, lipOpen);
+    var m = ex.mouth, talkW = clamp((lipOpen - restOpen * (1 - at(d.sw, d, t) * 0.8) + 0.02) / 0.12, 0, 1);
+    var spW = at(d.sw, d, t);
+    var mouthOpen = lerp(Math.max(restOpen, lipOpen), Math.max(lipOpen, restOpen * 0.2), spW);
     if (lipOpen > 0.01) {
+      // narrow resting mouths (unimpressed, surprised) get a usable talking width
+      var kw = clamp(lipOpen * 3, 0, 1) * 0.6;
+      m.l = [lerp(m.l[0], Math.min(m.l[0], -14), kw), m.l[1]];
+      m.r = [lerp(m.r[0], Math.max(m.r[0], 16), kw), m.r[1]];
       m.round = lerp(m.round || 0, at(d.rnd, d, t), clamp(lipOpen * 4, 0, 1));
       m.wide = lerp(m.wide || 0, at(d.wid, d, t), clamp(lipOpen * 4, 0, 1));
       m.lipIn = at(d.lip, d, t) * clamp(lipOpen * 6, 0, 1);
@@ -505,33 +533,115 @@
   }
   function rk(p) { return Math.round(p[0] * 2) / 2 + ',' + Math.round(p[1] * 2) / 2; }
 
+  // 2D value noise (deterministic), used for the baked ink roughness
+  function vnoise(seed) {
+    var tab = new Float32Array(1024), r = U.rng(hash(seed) || 1);
+    for (var i = 0; i < 1024; i++) tab[i] = r() * 2 - 1;
+    return function (x, y) {
+      var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+      var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+      function h(a, b) { return tab[((a * 73856093) ^ (b * 19349663)) & 1023]; }
+      var a = h(xi, yi), b = h(xi + 1, yi), c = h(xi, yi + 1), d = h(xi + 1, yi + 1);
+      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    };
+  }
+  // displacement field for boil variant v at a given local scale (face is drawn ×1.6)
+  function dispField(seed, v, sc, amp, gmul) {
+    var nx = vnoise(seed * 101 + v * 7 + 1), ny = vnoise(seed * 103 + v * 7 + 2), gx = vnoise(seed * 107 + v * 7 + 3), gy = vnoise(seed * 109 + v * 7 + 4);
+    var f = T.roughFreq * sc, ff = T.grainFreq * sc, A = T.roughAmp * amp / sc, G = T.grainAmp * amp * (gmul == null ? 1 : gmul) / sc;
+    return function (x, y) {
+      return [A * (nx(x * f, y * f) + 0.5 * nx(x * f * 2.1 + 17, y * f * 2.1 + 5)) + G * gx(x * ff, y * ff),
+              A * (ny(x * f, y * f) + 0.5 * ny(x * f * 2.1 + 9, y * f * 2.1 + 13)) + G * gy(x * ff, y * ff)];
+    };
+  }
+  var BOIL_PERM = [0, 2, 1, 3];
+
+  // tiny random noise tile as a BMP data URL (no canvas needed → identical in Node and the browser)
+  var B64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  function b64(bytes) {
+    var out = '', i;
+    for (i = 0; i + 2 < bytes.length; i += 3) { var n = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2]; out += B64[n >> 18 & 63] + B64[n >> 12 & 63] + B64[n >> 6 & 63] + B64[n & 63]; }
+    var rem = bytes.length - i;
+    if (rem === 1) { n = bytes[i] << 16; out += B64[n >> 18 & 63] + B64[n >> 12 & 63] + '=='; }
+    else if (rem === 2) { n = (bytes[i] << 16) | (bytes[i + 1] << 8); out += B64[n >> 18 & 63] + B64[n >> 12 & 63] + B64[n >> 6 & 63] + '='; }
+    return out;
+  }
+  function noiseTile(seed, size) {
+    var r = U.rng(hash(seed) || 1), row = size * 3, pad = (4 - row % 4) % 4, data = (row + pad) * size, len = 54 + data;
+    var b = new Uint8Array(len);
+    function u32(o, v) { b[o] = v & 255; b[o + 1] = v >> 8 & 255; b[o + 2] = v >> 16 & 255; b[o + 3] = v >>> 24; }
+    b[0] = 66; b[1] = 77; u32(2, len); u32(10, 54); u32(14, 40); u32(18, size); u32(22, size); b[26] = 1; b[28] = 24; u32(34, data);
+    // white noise, wrapped 3×3 blur (→ fractalNoise-like spread around 0.5), stretched ×2.2
+    var gr = [new Float32Array(size * size), new Float32Array(size * size)], c, x, y, dx, dy;
+    for (c = 0; c < 2; c++) for (x = 0; x < size * size; x++) gr[c][x] = r();
+    var o = 54;
+    for (y = 0; y < size; y++) {
+      for (x = 0; x < size; x++) {
+        var px = [0, 0];
+        for (c = 0; c < 2; c++) {
+          var acc = 0;
+          for (dy = -1; dy <= 1; dy++) for (dx = -1; dx <= 1; dx++) acc += gr[c][((y + dy + size) % size) * size + (x + dx + size) % size];
+          px[c] = clamp(Math.round(128 + (acc / 9 - 0.5) * 2.2 * 255), 0, 255);
+        }
+        b[o++] = 128; b[o++] = px[1]; b[o++] = px[0];
+      }
+      o += pad;
+    }
+    return 'data:image/bmp;base64,' + b64(b);
+  }
+  function grainFilter(fid, seed, v, amp) {
+    var url = noiseTile(seed * 13 + v * 101 + 1, T.grainTilePx);
+    return '<filter id="' + fid + '" x="-12%" y="-8%" width="124%" height="116%" color-interpolation-filters="sRGB">' +
+      '<feImage href="' + url + '" x="0" y="0" width="' + T.grainTile + '" height="' + T.grainTile + '" preserveAspectRatio="none" result="t"/>' +
+      '<feTile in="t" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="' + f1(T.grainFilter * amp) + '" xChannelSelector="R" yChannelSelector="G"/></filter>';
+  }
+
   function render(rig, t, hint) {
     var S = computeState(rig, t, hint);
     var seed = rig.seed, id = rig._id;
     var mirror = hint.mirror != null ? !!hint.mirror : S.boardDir < 0;
     var pose = S.pose, ex = S.ex, defs = '';
+    var rough = hint.rough == null ? 1 : hint.rough;
+    var useFilter = !!hint.filter && rough > 0;           // original SVG-filter look (slow, for stills)
+    var baked = !useFilter && rough > 0;
+    var grain = baked && hint.grain !== false;            // cheap tiled-noise edge grain on top of the baked wobble
+    // boil: a new line variant every N frames (4 cached variants cycled)
+    var block = Math.floor(t * rig.fps / T.boilEvery + 1e-6);
+    var bv = hint.boil === false ? 0 : BOIL_PERM[((block % 4) + 4) % 4];
+    var rk0 = (baked ? 'b' + bv + 'r' + rough + (grain ? 'g' : '') : useFilter ? 'f' : 'n') + ':';
+    var fields = baked ? cached(rig, 'field' + rk0, function () {
+      var ga = grain ? T.grainAmpWithFilter / T.grainAmp : 1;
+      return { body: dispField(seed, bv, 1, rough, ga), face: dispField(seed, bv, P.HEAD.face, rough, ga) };
+    }) : null;
+    function withDisp(fn, which) {
+      if (!baked) return fn();
+      var prev = P.displace(fields[which || 'body']);
+      try { return fn(); } finally { P.displace(prev); }
+    }
 
-    // static layers (cached)
-    var head = cached(rig, 'head', function () {
-      var dd = '', add = function (x) { dd += x; };
-      var g = P.skull(new Ink(seed), new Ink(seed * 31 + 5), id, add) + P.cut(new Ink(seed + 101), new Ink(seed * 31 + 77), {}, id, add);
-      return { svg: g, defs: dd };
+    // static layers (cached per boil variant)
+    var head = cached(rig, rk0 + 'head', function () {
+      return withDisp(function () {
+        var dd = '', add = function (x) { dd += x; };
+        var g = P.skull(new Ink(seed), new Ink(seed * 31 + 5), id, add) + P.cut(new Ink(seed + 101), new Ink(seed * 31 + 77), { pencil: rig.pencil }, id, add);
+        return { svg: g, defs: dd };
+      });
     });
     defs += head.defs;
-    var shadow = cached(rig, 'shadow', function () { return P.shadow(new Ink(seed + 3)); });
-    var legsKey = 'legs' + rk(pose.la.kn) + rk(pose.la.an) + rk(pose.lb.kn) + rk(pose.lb.an) + rk(pose.la.hip);
-    var legs = cached(rig, legsKey, function () { return P.legs(new Ink(seed + 5), pose); });
+    var shadow = cached(rig, rk0 + 'shadow', function () { return withDisp(function () { return P.shadow(new Ink(seed + 3)); }); });
+    var legsKey = rk0 + 'legs' + rk(pose.la.kn) + rk(pose.la.an) + rk(pose.lb.kn) + rk(pose.lb.an) + rk(pose.la.hip);
+    var legs = cached(rig, legsKey, function () { return withDisp(function () { return P.legs(new Ink(seed + 5), pose); }); });
 
     // breathing: shoulders / torso
     var br = S.breath, shY = -br * 0.9;
     var P2 = clone(pose);
     ['a', 'b'].forEach(function (s) { P2[s].sh[1] += shY; P2[s].el[1] += shY * 0.6; });
-    var torsoKey = 'torso' + pose.torso.map(rk).join('|') + rk(pose.a.sh) + rk(pose.b.sh);
-    var torso = cached(rig, torsoKey, function () { return P.torso(new Ink(seed + 7), pose, true); });
+    var torsoKey = rk0 + 'torso' + pose.torso.map(rk).join('|') + rk(pose.a.sh) + rk(pose.b.sh);
+    var torso = cached(rig, torsoKey, function () { return withDisp(function () { return P.torso(new Ink(seed + 7), pose, true); }); });
     var torsoG = '<g transform="translate(0 ' + f1(-168) + ') scale(1 ' + (1 + br * 0.006).toFixed(4) + ') translate(0 168)">' + torso + '</g>';
 
     // talking gestures (arms)
-    var n = noise(seed + 2), t = S.t, en = S.energy;
+    var n = noise(seed + 2), en = S.energy;
     var gw = blendGesture(rig, t);
     ['a', 'b'].forEach(function (s, si) {
       var amp = gw[si], A = P2[s], o = si * 50;
@@ -545,26 +655,28 @@
 
     // neck + head
     var hx = pose.torso[0][0] + S.headDx, hy = HEAD_Y + S.headDy;
-    var neck = P.neck(new Ink(seed + 9), [pose.torso[0][0], pose.torso[0][1] + shY * 0.5], hx, hy + HEAD.ry - 6);
+    var neck = withDisp(function () { return P.neck(new Ink(seed + 9), [pose.torso[0][0], pose.torso[0][1] + shY * 0.5], hx, hy + HEAD.ry - 6); });
     var tilt = (pose.tilt || 0) + (ex.tilt || 0) + S.headTilt;
     var faceDefs = '';
-    var face = P.face(new Ink(seed + 13), ex, { blink: S.blink, look: S.look }, id + 'f', function (x) { faceDefs += x; });
+    var face = withDisp(function () { return P.face(new Ink(seed + 13), ex, { blink: S.blink, look: S.look }, id + 'f', function (x) { faceDefs += x; }); }, 'face');
     defs += faceDefs;
     var headX = mirror ? -hx : hx;
     var headG = '<g class="mb-head" transform="translate(' + f1(headX) + ' ' + f1(hy) + ') rotate(' + f1(tilt) + ' 0 ' + HEAD.ry + ')"><g class="mb-head-inner">' + head.svg + face + '</g></g>';
 
-    var armA = P.arm(new Ink(seed + 17), toArm(P2.a), 'a', true), armB = P.arm(new Ink(seed + 19), toArm(P2.b), 'b', true);
+    var armA = withDisp(function () { return P.arm(new Ink(seed + 17), toArm(P2.a), 'a', true); });
+    var armB = withDisp(function () { return P.arm(new Ink(seed + 19), toArm(P2.b), 'b', true); });
 
-    // boil: re-seed the displacement every N frames (cheap: only the filter changes)
-    var block = Math.floor(t * rig.fps / T.boilEvery + 1e-6), hb = hash(block * 977 + seed);
-    var rough = hint.rough == null ? 1 : hint.rough;
-    if (rough > 0) defs += P.filter(id + '-rough', hb % 97, (hb >>> 8) % 89 + 3, rough, 'x="-12%" y="-8%" width="124%" height="116%"');
+    if (grain) defs += cached(rig, rk0 + 'grain', function () { return grainFilter(id + '-rough', seed, bv, rough); });
+    if (useFilter) {
+      var hb = hash(block * 977 + seed);
+      defs += P.filter(id + '-rough', hb % 97, (hb >>> 8) % 89 + 3, rough, 'x="-12%" y="-8%" width="124%" height="116%"');
+    }
 
     var body = '<g class="mb-body"' + (mirror ? ' transform="scale(-1 1)"' : '') + '>' + shadow + legs + neck + torsoG + '</g>';
     var arms = '<g class="mb-arms"' + (mirror ? ' transform="scale(-1 1)"' : '') + '>' + armA + armB + '</g>';
     var swayT = 'rotate(' + S.sway.toFixed(2) + ')';
     var svg = '<g class="melo-rig" data-expr="' + S.exprName + '" data-pose="' + S.poseName + '"><defs>' + defs + '</defs>' +
-      '<g' + (rough > 0 ? ' filter="url(#' + id + '-rough)"' : '') + '><g transform="' + swayT + '">' + body + headG + arms + '</g></g></g>';
+      '<g' + (useFilter || grain ? ' filter="url(#' + id + '-rough)"' : '') + '><g transform="' + swayT + '">' + body + headG + arms + '</g></g></g>';
 
     return { svg: svg, anchors: anchors(S, P2, hx, hy, tilt, mirror), state: publicState(S) };
   }

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Melo Player</title>
+<!--
+  Deutsch mit Melo – frame renderer.
+  player.html?ep=01-das-sagt-kein-deutscher[&scale=0.5][&subs=0][&dev=1]
+  Loads ../episodes/<ep>/build/timeline.js (window.TIMELINE), exposes window.renderFrame(t) (async).
+  dev=1: scrubber + audio preview.
+-->
+<style>
+  @font-face { font-family: 'Fraunces'; font-weight: 900; src: url('../brand/fonts/fraunces-latin-900-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-weight: 900; src: url('../brand/fonts/fraunces-latin-ext-900-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Anton'; font-weight: 400; src: url('../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; font-weight: 400; src: url('../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../brand/fonts/oswald-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 700; src: url('../brand/fonts/caveat-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 400; src: url('../brand/fonts/caveat-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 700; src: url('../brand/fonts/kalam-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 400; src: url('../brand/fonts/kalam-latin-400-normal.woff2') format('woff2'); }
+  html, body { margin: 0; background: #111; overflow: hidden; }
+  #frame { display: block; }
+  body.dev { overflow: auto; color: #eee; font: 14px system-ui, sans-serif; }
+  body.dev #frame { width: min(100vw, 1600px); height: auto; }
+  #ui { display: none; padding: 8px; gap: 10px; align-items: center; }
+  body.dev #ui { display: flex; }
+  #scrub { flex: 1; }
+</style>
+<script src="../brand/concepts/b/melo-b.js"></script>
+<script src="../brand/channel/scene-ink.js"></script>
+<script src="stub-rig.js"></script>
+<script src="character/rig.js"></script>
+<script src="js/set.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/engine.js"></script>
+</head>
+<body>
+<canvas id="frame" width="1920" height="1080"></canvas>
+<div id="ui"><button id="play">▶</button><input id="scrub" type="range" min="0" max="100" step="0.033" value="0"><span id="time">0.00</span><audio id="audio" preload="auto"></audio></div>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var ep = q.get('ep');
+  window.__ready = false;
+  function start() {
+    var tl = window.TIMELINE;
+    if (!tl) { document.title = 'no timeline'; console.error('no TIMELINE (build/timeline.js) for ep=' + ep); return; }
+    MeloEngine.init(tl, { scale: parseFloat(q.get('scale') || '1'), subs: q.get('subs') !== '0' }).then(function (info) {
+      window.__ready = true; window.__info = info;
+      if (q.get('dev')) dev(tl); else renderFrame(parseFloat(q.get('t') || '0'));
+    }).catch(function (e) { console.error(e); window.__error = String(e && e.stack || e); });
+  }
+  function dev(tl) {
+    document.body.className = 'dev';
+    var audio = document.getElementById('audio'), scrub = document.getElementById('scrub'), time = document.getElementById('time');
+    if (tl.audio) audio.src = '../episodes/' + ep + '/' + tl.audio;
+    scrub.max = tl.duration;
+    var busy = false, want = parseFloat(q.get('t') || '0');
+    function draw(t) { want = t; if (busy) return; busy = true; renderFrame(t).then(function () { busy = false; time.textContent = t.toFixed(2); if (want !== t) draw(want); }); }
+    scrub.oninput = function () { audio.currentTime = +scrub.value; draw(+scrub.value); };
+    document.getElementById('play').onclick = function () { if (audio.paused) audio.play(); else audio.pause(); };
+    (function loop() { if (!audio.paused) { scrub.value = audio.currentTime; draw(audio.currentTime); } requestAnimationFrame(loop); })();
+    draw(want);
+  }
+  window.__start = start;
+  if (window.TIMELINE) start();
+  else if (ep) {
+    var s = document.createElement('script');
+    s.src = '../episodes/' + ep + '/build/timeline.js';
+    s.onload = start; s.onerror = function () { console.error('cannot load timeline.js'); };
+    document.head.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

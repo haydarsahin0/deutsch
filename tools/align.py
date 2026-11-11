@@ -41,7 +41,7 @@ except ImportError:  # pragma: no cover
         return difflib.SequenceMatcher(None, a, b).ratio()
 
 DEFAULT_MODEL = os.environ.get("MELO_WHISPER_MODEL", "large-v3-turbo")
-TRANSCRIBE_VERSION = 2  # bump to invalidate transcript caches
+TRANSCRIBE_VERSION = 3  # bump to invalidate transcript caches
 SR_ANALYSIS = 16000
 
 
@@ -335,7 +335,9 @@ def transcribe(audio_path, ep, model=DEFAULT_MODEL, prompt=None, force=False):
     segs, info = m.transcribe(load_audio(audio_path, 16000), language="de", word_timestamps=True, vad_filter=True,
                               vad_parameters={"min_silence_duration_ms": 300, "speech_pad_ms": 200},
                               beam_size=5, initial_prompt=prompt,
-                              condition_on_previous_text=True)
+                              # True makes turbo skip whole phrases at 30-s window
+                              # boundaries (measured on ep. 1), False transcribes everything
+                              condition_on_previous_text=False)
     words, segments = [], []
     for s in segs:
         segments.append({"s": round(s.start, 3), "e": round(s.end, 3), "text": s.text.strip()})
@@ -353,9 +355,19 @@ def transcribe(audio_path, ep, model=DEFAULT_MODEL, prompt=None, force=False):
 
 
 def prompt_for(script_words, a, b=None):
-    """initial_prompt: the first ~45 script words of the part (biases spelling + style)."""
-    ws = script_words[a:(b if b is not None else a + 45)][:45]
-    return " ".join(w["raw"] for w in ws) if ws else None
+    """initial_prompt: a short glossary of the longest distinct words of the part (biases the
+    spelling of compounds/names). Not the sentences themselves: a prompt that contains the
+    upcoming text makes whisper skip it."""
+    ws = script_words[a:(b if b is not None else a + 700)]
+    seen, vocab = set(), []
+    for w in sorted(ws, key=lambda w: -len(w["text"])):
+        t = w["text"]
+        if len(t) >= 9 and t.lower() not in seen:
+            seen.add(t.lower())
+            vocab.append(t)
+        if len(vocab) >= 25:
+            break
+    return ("Deutsch mit Melo. " + ", ".join(vocab) + ".") if vocab else None
 
 
 # --------------------------------------------------------------------- alignment
@@ -571,7 +583,7 @@ def refine_times(wt, audio, sr):
         ns = s
         if not voiced[f]:
             g = f
-            lim = fi(min(e - 0.02, s + 0.30))
+            lim = fi(e - 0.02)  # first voiced frame inside the word
             while g < lim and not voiced[g]:
                 g += 1
             if voiced[g]:
@@ -588,7 +600,7 @@ def refine_times(wt, audio, sr):
         ne = e
         if not voiced[f]:
             g = f
-            lim = fi(max(ns + 0.02, e - 0.35))
+            lim = fi(ns + 0.02)
             while g > lim and not voiced[g]:
                 g -= 1
             if voiced[g]:
@@ -609,9 +621,14 @@ def refine_times(wt, audio, sr):
 
 
 # --------------------------------------------------------------- full alignment
-def align_episode(ep, script, parts, audio=None, sr=SR_ANALYSIS, duration=None, ranges=None):
+def align_episode(ep, script, parts, audio=None, sr=SR_ANALYSIS, duration=None, clip_fn=None,
+                  model=DEFAULT_MODEL):
     """parts: list of {"words": [...recognised words with times in the target timeline...],
-    "range": (a, b, tags) or None}. Returns the alignment dict (without writing)."""
+    "range": (a, b, tags) or None}. The tts ranges are only a hint: each part is aligned
+    free-end over its expected range + a margin (ElevenLabs parts do not always end exactly
+    where teil-N.txt ends), except the last part of the script, which must cover the rest.
+    clip_fn(t0, t1) -> 16 kHz audio of the target timeline, used to re-transcribe stretches
+    whisper skipped. Returns the alignment dict (without writing)."""
     sw = script["words"]
     N = len(sw)
     timed_all, extras_all = {}, []
@@ -619,30 +636,112 @@ def align_episode(ep, script, parts, audio=None, sr=SR_ANALYSIS, duration=None, 
     part_info = []
     for pi, p in enumerate(parts):
         rng = p.get("range")
-        if rng is not None and rng[0] == pos:
-            a, b, tags = rng
-            free = False
+        tags = tuple(rng[2]) if rng else ()
+        a = pos
+        if rng is not None and rng[1] >= N and pi == len(parts) - 1:
+            b, free = N, False  # last part of the episode: must cover the rest
         else:
-            if rng is not None:
-                warn(f"part {pi + 1}: expected script start {rng[0]}, previous part ended at {pos}")
-            a, tags = pos, (rng[2] if rng else ())
-            b = min(N, a + int(1.6 * len(p["words"])) + 60)
-            free = True
+            hint = rng[1] if rng is not None else a + len(p["words"])
+            b = min(N, max(hint, a + len(p["words"])) + 120)
+            free = b < N or pi < len(parts) - 1
+        if rng is not None and rng[0] != pos:
+            log(f"part {pi + 1}: teil-{pi + 1}.txt starts at script word {rng[0]}, audio of the "
+                f"previous part ended at {pos}")
         timed, extras, cov = align_part(sw, a, b, p["words"], free_end=free, tags=tags)
         if not free:
             cov = b - 1
         timed_all.update(timed)
         extras_all += extras
         part_info.append({"part": pi + 1, "script_words": [a, cov + 1], "recognised": len(p["words"]),
-                          "free_end": free})
+                          "tts_range": [rng[0], rng[1]] if rng else None, "free_end": free})
         pos = cov + 1
     n_cov = pos
     wt = build_word_times(sw, n_cov, timed_all, extras_all)
+    repaired = []
+    if clip_fn is not None and n_cov:
+        repaired = repair_gaps(ep, sw, wt, n_cov, timed_all, clip_fn, model)
+        if repaired:
+            for x in extras_all:
+                x.pop("absorbed", None)
+            extras_all = [x for x in extras_all
+                          if not any(r["t0"] <= x["start"] and x["end"] <= r["t1"] for r in repaired)]
+            wt = build_word_times(sw, n_cov, timed_all, extras_all)
     moved, thr = (0, None)
     if audio is not None and n_cov:
         moved, thr = refine_times(wt, audio, sr)
-    return assemble_alignment(ep, script, wt, n_cov, extras_all, part_info,
-                              duration=duration, refine_moved=moved, thr=thr)
+    al = assemble_alignment(ep, script, wt, n_cov, extras_all, part_info,
+                            duration=duration, refine_moved=moved, thr=thr)
+    al["stats"]["repaired_gaps"] = repaired
+    return al
+
+
+def transcribe_clip(ep, clip, model, prompt):
+    """Second-pass transcription of a short clip (no VAD, no conditioning), cached."""
+    key = hashlib.sha1(clip.tobytes() + f"|{model}|{prompt}|{TRANSCRIBE_VERSION}".encode()).hexdigest()[:16]
+    cpath = os.path.join(ep, "build", "transcripts", f"clip-{key}.json")
+    if os.path.exists(cpath):
+        return json.load(open(cpath, encoding="utf-8"))
+    m = get_model(model)
+    segs, _ = m.transcribe(clip, language="de", word_timestamps=True, vad_filter=False,
+                           beam_size=5, initial_prompt=prompt, condition_on_previous_text=False)
+    words = [{"w": w.word.strip(), "s": round(w.start, 3), "e": round(w.end, 3), "p": round(w.probability, 3)}
+             for sg in segs for w in (sg.words or [])]
+    atomic_write_json(cpath, words)
+    return words
+
+
+def repair_gaps(ep, sw, wt, n_cov, timed_all, clip_fn, model, min_run=2):
+    """Whisper (esp. turbo) sometimes skips a phrase at a 30-s window boundary. For every run of
+    >= min_run interpolated script words, re-transcribe just that stretch and align it again."""
+    runs = []
+    k = 0
+    while k < n_cov:
+        if wt[k]["kind"] != "interp":
+            k += 1
+            continue
+        j = k
+        while j < n_cov and wt[j]["kind"] == "interp":
+            j += 1
+        if j - k >= min_run:
+            runs.append((k, j))
+        k = j
+    done = []
+    for i, j in runs:
+        lo = wt[i - 1]["e"] if i > 0 else 0.0
+        hi = wt[j]["s"] if j < n_cov else wt[j - 1]["e"] + 1.0
+        t0, t1 = max(0.0, lo - 0.15), hi + 0.15
+        if t1 - t0 < 0.3:
+            continue
+        clip = clip_fn(t0, t1)
+        if clip is None or len(clip) < 1600:
+            continue
+        ctx = " ".join(w["raw"] for w in sw[max(0, i - 25):i]) or None
+        rec = transcribe_clip(ep, clip, model, ctx)
+        rec = [dict(r, s=r["s"] + t0, e=r["e"] + t0) for r in rec if norm(r["w"])]
+        if not rec:
+            continue
+        sn = [w["norm"] for w in sw[i:j]]
+        tn = [norm(r["w"]) for r in rec]
+        ops = align_sequences(sn, tn, free_end=False)
+        got = 0
+        for op, si, tj, r in ops:
+            if op != "m" or r < 0.6:
+                continue
+            s_, e_ = rec[tj[0]]["s"], rec[tj[-1]]["e"]
+            if len(si) == 1:
+                timed_all[i + si[0]] = (s_, e_, "match" if r >= 0.75 else "subst", r,
+                                        " ".join(rec[x]["w"] for x in tj))
+                got += 1
+            else:
+                mid = (s_ + e_) / 2
+                timed_all[i + si[0]] = (s_, mid, "match", r, rec[tj[0]]["w"])
+                timed_all[i + si[1]] = (mid, e_, "match", r, rec[tj[0]]["w"])
+                got += 2
+        done.append({"words": [i, j - 1], "t0": round(t0, 3), "t1": round(t1, 3),
+                     "heard": " ".join(r["w"] for r in rec), "recovered": got})
+        log(f"repair #{i}-{j - 1} ({t0:.2f}-{t1:.2f}s): recovered {got}/{j - i} – heard „"
+            f"{' '.join(r['w'] for r in rec)[:80]}“")
+    return done
 
 
 def assemble_alignment(ep, script, wt, n_cov, extras, part_info, duration=None,
@@ -901,17 +1000,127 @@ def report(al, subs=None):
         log(f"  not heard  #{d['i']} @{d['t']:.2f}s  „{d['script']}“")
     for x in st["extra_words"]:
         log(f"  extra      @{x['start']:.2f}s  „{x['text']}“{'  <- AUDIO TAG SPOKEN' if x['tag_spoken'] else ''}")
+    for pc in st.get("pause_checks", []):
+        log(f"  pause s={pc['pause_s']:g} @{pc['prev_end']:.2f}s: silence {pc['silence']:.2f}s, next cue "
+            f"{pc['first_cue_t']:.2f}s  {'OK' if pc['ok'] else 'FAIL'}")
     log(f"cues: {len(al['cues'])} kept, {st['cues_dropped']} dropped; "
         f"sentences {len(al['sentences'])}; subtitles {len(subs) if subs else 0}")
 
 
 # ------------------------------------------------------------------- manifest mode
+def recompute_derived(al):
+    """Re-derive cue times, sentence/section times and deviation times from the words."""
+    W = al["words"]
+    for c in al["cues"]:
+        wi = c["word"]
+        if c.get("at") == "end":
+            c["t"] = W[wi]["end"]
+        else:
+            c["t"] = W[wi]["start"]
+            if wi > 0:
+                c["prev_end"] = W[wi - 1]["end"]
+    for x in al["sentences"]:
+        x["start"], x["end"] = W[x["words"][0]]["start"], W[x["words"][1]]["end"]
+    for x in al["sections"]:
+        x["t"] = W[x["word"]]["start"]
+    for d in al["stats"]["deviations"] + al["stats"]["unmatched_script_words"]:
+        d["t"] = W[d["i"]]["start"]
+
+
+def apply_insertions(al, insertions):
+    """Shift the alignment for silences inserted into the audio. Word-index based: every word
+    at or after the cue's word moves by the inserted duration (start AND end), the word before
+    is clamped to the insertion point, so no word can stretch over an inserted silence."""
+    ins = [x for x in insertions if x["dur"] > 0]
+    W = al["words"]
+    for x in ins:
+        if 0 < x["word"] <= len(W):
+            wb = W[x["word"] - 1]
+            wb["end"] = min(wb["end"], x["at"])
+            wb["start"] = min(wb["start"], wb["end"])
+        if x["word"] < len(W):
+            wa = W[x["word"]]
+            wa["start"] = max(wa["start"], x["at"])
+            wa["end"] = max(wa["end"], wa["start"])
+    for w in W:
+        sh = sum(x["dur"] for x in ins if w["i"] >= x["word"])
+        w["start"] = round(w["start"] + sh, 3)
+        w["end"] = round(w["end"] + sh, 3)
+    f = map_time_fn({"insertions": ins})
+    for x in al["stats"]["extra_words"] + al["stats"]["tags_spoken"]:
+        x["start"], x["end"] = round(f(x["start"]), 3), round(f(x["end"]), 3)
+    recompute_derived(al)
+
+
+def refine_alignment(al, audio, sr):
+    """Energy-snap word boundaries on the FINAL audio and re-derive cue/sentence times."""
+    wt = [{"s": w["start"], "e": w["end"]} for w in al["words"]]
+    moved, thr = refine_times(wt, audio, sr)
+    for w, t in zip(al["words"], wt):
+        w["start"], w["end"] = round(t["s"], 3), round(t["e"], 3)
+    recompute_derived(al)
+    al["stats"]["refine"]["moved_words_final"] = moved
+    al["stats"]["refine"]["gate_db_final"] = round(float(thr), 1)
+    return moved
+
+
+def check_pauses(al, script, min_pause=2.0, tol=0.3):
+    """Self-check: for every [[pause s>=min_pause]] the next word/cue starts >= s - tol after
+    the previous word's end. Result goes to stats.pause_checks."""
+    W = al["words"]
+    res = []
+    for c in script["cues"]:
+        if c["cue"] != "pause" or _pause_s(c) < min_pause:
+            continue
+        w = c["word"]
+        if w == 0 or w > len(W):
+            continue
+        prev_end = W[w - 1]["end"]
+        if w == len(W):
+            nxt = al["duration"]
+            cue_ts = []
+        else:
+            nxt = W[w]["start"]
+            cue_ts = [x["t"] for x in al["cues"] if x["word"] == w and x.get("at") == "start"]
+        need = _pause_s(c)
+        first_cue = min(cue_ts) if cue_ts else nxt
+        sub_bad = [s_ for s_ in al.get("subtitles", []) if prev_end + 0.3 < s_["start"] < nxt - 0.05]
+        ok = (nxt - prev_end) >= need - tol and (first_cue - prev_end) >= need - tol and not sub_bad
+        res.append({"word": w, "pause_s": need, "prev_end": prev_end, "next_start": nxt,
+                    "silence": round(nxt - prev_end, 3), "first_cue_t": first_cue, "ok": ok,
+                    "line": c["line"]})
+        if not ok:
+            warn(f"PAUSE CHECK FAILED line {c['line']}: s={need} but next word/cue after "
+                 f"{nxt - prev_end:.2f}s / {first_cue - prev_end:.2f}s")
+    al["stats"]["pause_checks"] = res
+    al["stats"]["pause_checks_ok"] = all(r["ok"] for r in res)
+    return res
+
+
 def map_time_fn(manifest):
     ins = sorted(manifest.get("insertions", []), key=lambda x: x["at"])
 
     def f(t):
         return t + sum(x["dur"] for x in ins if x["at"] <= t + 1e-9)
     return f
+
+
+def clip_fn_from_manifest(ep, manifest):
+    """clip(t0, t1) in the joined (pre-pause-insertion) timeline -> 16 kHz audio."""
+    cache = {}
+
+    def clip(t0, t1):
+        for k, p in enumerate(manifest["parts"]):
+            L = p["trim_end"] - p["trim_start"]
+            if p["offset"] - 0.2 <= t0 < p["offset"] + L:
+                if k not in cache:
+                    cache[k] = load_audio(os.path.join(ep, p["file"]), SR_ANALYSIS)
+                x = cache[k]
+                a = int(max(0.0, t0 - p["offset"] + p["trim_start"]) * SR_ANALYSIS)
+                b = int(min(p["trim_end"], t1 - p["offset"] + p["trim_start"]) * SR_ANALYSIS)
+                return x[a:b].copy() if b > a else None
+        return None
+    return clip
 
 
 def parts_from_manifest(ep, script, manifest, model, force=False):
@@ -921,7 +1130,7 @@ def parts_from_manifest(ep, script, manifest, model, force=False):
     for pi, p in enumerate(manifest["parts"]):
         path = os.path.join(ep, p["file"])
         rng = ranges[pi]
-        prompt = prompt_for(sw, rng[0]) if rng else prompt_for(sw, 0)
+        prompt = prompt_for(sw, rng[0], rng[1]) if rng else prompt_for(sw, 0)
         tr = transcribe(path, ep, model=model, prompt=prompt, force=force)
         rec = []
         for w in tr["words"]:
@@ -960,10 +1169,6 @@ def main():
             manifest = None
     if manifest:
         parts = parts_from_manifest(ep, script, manifest, args.model, args.retranscribe)
-        f = map_time_fn(manifest)
-        for p in parts:
-            for w in p["words"]:
-                w["s"], w["e"] = f(w["s"]), f(w["e"])
         # pause cues must still match what was inserted
         want = sorted(round(float(c["args"].get("s", 0)), 2) for c in script["cues"]
                       if c["cue"] == "pause" and _pause_s(c) >= 2 and c["word"] <= len(script["words"]))
@@ -978,7 +1183,18 @@ def main():
         if rng is not None:
             rng = None  # a single arbitrary file: we do not know which parts it covers
         parts = [{"words": tr["words"], "range": rng}]
-    al = align_episode(ep, script, parts, audio=audio, duration=dur)
+    if manifest:
+        al = align_episode(ep, script, parts, audio=None, duration=dur,
+                           clip_fn=clip_fn_from_manifest(ep, manifest), model=args.model)
+        apply_insertions(al, manifest.get("insertions", []))
+        al["inserted_pauses"] = manifest.get("insertions", [])
+        al["parts"] = manifest["parts"]
+    else:
+        al = align_episode(ep, script, parts, audio=None, duration=dur)
+    al["duration"] = round(dur, 3)
+    refine_alignment(al, audio, SR_ANALYSIS)
+    al["subtitles"] = make_subtitles(al)
+    check_pauses(al, script)
     al["audio"] = os.path.relpath(audio_path, ep)
     al["model"] = args.model
     subs = write_outputs(ep, al)

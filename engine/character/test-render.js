@@ -44,14 +44,14 @@ function pageHtml() {
   return `<!doctype html><html><head><meta charset="utf-8"><style>
   html,body{margin:0;background:#ebe1c8;overflow:hidden}
   #st{position:absolute;inset:0}
-  #dbg{position:absolute;left:0;right:0;bottom:0;height:46px;font:14px monospace;color:#17130f;padding:4px 10px;box-sizing:border-box;background:rgba(235,225,200,.85)}
+  #dbg{position:absolute;left:46%;right:0;top:0;height:40px;font:bold 15px monospace;color:#17130f;padding:4px 10px;box-sizing:border-box;background:rgba(235,225,200,.85)}
   </style><script src="${mb}"></script><script src="${rg}"></script></head><body>
   <svg id="st" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"></svg><div id="dbg"></div></body></html>`;
 }
 
 async function setup(browser, data) {
   const page = await browser.newPage({ viewport: { width: W, height: H } });
-  const tmp = path.join(path.dirname(outFile), `.page-${process.pid}.html`);
+  const tmp = path.join(path.dirname(outFile), `.page-${process.pid}-${Math.random().toString(36).slice(2)}.html`);
   fs.mkdirSync(path.dirname(tmp), { recursive: true });
   fs.writeFileSync(tmp, pageHtml());
   await page.goto('file://' + tmp);
@@ -62,7 +62,7 @@ async function setup(browser, data) {
     const st = document.getElementById('st'), dbg = document.getElementById('dbg');
     window.draw = (t) => {
       const t0 = performance.now();
-      const fr = rig.render(t, { boardSide, rough: window.ROUGH });
+      const fr = rig.render(t, { boardSide, rough: window.ROUGH, filter: window.FILTER });
       const t1 = performance.now();
       let html = '';
       if (layout === 'split' || layout === 'full') {
@@ -83,6 +83,7 @@ async function setup(browser, data) {
     };
   }, { data, W, H, layout, boardSide });
   if (opt('--rough', null) != null) await page.evaluate(r => { window.ROUGH = r; }, +opt('--rough', 1));
+  if (flag('--filter')) await page.evaluate(() => { window.FILTER = true; });
   if (flag('--blank')) await page.evaluate(() => { window.draw = () => 0; });
   return page;
 }
@@ -120,7 +121,7 @@ async function setup(browser, data) {
     const sheetOut = path.resolve(opt('--sheet-out', outFile.replace(/\.mp4$/, `-sheet.png`)));
     const rows = Math.ceil(sel.length / cols);
     execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', '1', '-i', path.join(dir, 'f%04d.png'),
-      '-vf', `scale=${Math.round(W / 4)}:-1,tile=${cols}x${rows}:padding=4:color=white`, '-frames:v', '1', sheetOut]);
+      '-vf', `${opt('--crop', '') ? 'crop=' + opt('--crop', '') + ',' : ''}scale=${+opt('--tile-w', Math.round(W / 4))}:-1,tile=${cols}x${rows}:padding=4:color=white`, '-frames:v', '1', sheetOut]);
     fs.rmSync(dir, { recursive: true, force: true });
     console.log('wrote', sheetOut, `(${sel.length} frames, every ${sheetEvery}th from ${from}s)`);
     await browser.close();

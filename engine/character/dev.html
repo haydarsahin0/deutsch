@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melo Rig Dev</title>
+<!--
+  Character rig preview: plays an episode's voice with the rig in sync.
+  Serve the repo root over http (fetch does not work on file://), e.g.
+    python3 -m http.server 8000      →  http://localhost:8000/engine/character/dev.html?ep=episodes/01-das-sagt-kein-deutscher
+  or open the file directly and pick alignment.json / envelope.json / voice.wav with the file inputs.
+  Keys: space = play/pause, ←/→ = ±1 s (shift: ±1 frame), 1/2/3 = layout full/split/head, b = board side.
+-->
+<style>
+  :root { --paper: #ebe1c8; --ink: #17130f; --muted: #6b6255; --accent: #d2433a; --panel: #e2d6b8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 14px/1.4 system-ui, sans-serif; }
+  header { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 10px 16px; background: var(--panel); }
+  header h1 { font-size: 15px; margin: 0 8px 0 0; }
+  button, select { font: inherit; padding: 4px 10px; border: 1.5px solid var(--ink); background: var(--paper); border-radius: 4px; cursor: pointer; }
+  #stage { width: 100%; aspect-ratio: 16 / 9; max-height: 70vh; display: block; background: var(--paper); }
+  #bar { padding: 6px 16px 12px; }
+  #scrub { width: 100%; }
+  #info { font: 13px ui-monospace, monospace; white-space: pre-wrap; min-height: 2.8em; }
+  #graph { width: 100%; height: 70px; display: block; background: #f3ecd9; border: 1px solid #cbbf9f; }
+  .files { font-size: 12px; color: var(--muted); }
+  .files label { margin-right: 10px; }
+  @media (max-width: 600px) { header h1 { width: 100%; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Melo · Rig Dev</h1>
+  <button id="play">▶ Play</button>
+  <select id="layout"><option value="split">split</option><option value="full">full</option><option value="head">head</option></select>
+  <select id="board"><option value="right">board right</option><option value="left">board left</option></select>
+  <label><input type="checkbox" id="grain" checked> grain</label>
+  <span id="time">0.00 s</span>
+  <span class="files">
+    <label>alignment <input type="file" id="fA" accept=".json"></label>
+    <label>envelope <input type="file" id="fE" accept=".json"></label>
+    <label>audio <input type="file" id="fW" accept="audio/*"></label>
+  </span>
+</header>
+<svg id="stage" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet"></svg>
+<div id="bar">
+  <input type="range" id="scrub" min="0" max="100" step="0.0333" value="0">
+  <canvas id="graph" width="1600" height="70"></canvas>
+  <div id="info">loading…</div>
+</div>
+<audio id="audio" preload="auto"></audio>
+<script src="../../brand/concepts/b/melo-b.js"></script>
+<script src="rig.js"></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var ep = q.get('ep') || 'episodes/01-das-sagt-kein-deutscher';
+  var base = '../../' + ep.replace(/\/$/, '') + '/';
+  var data = { align: null, env: null }, rig = null;
+  var $ = function (id) { return document.getElementById(id); };
+  var audio = $('audio'), stage = $('stage'), scrub = $('scrub'), info = $('info'), graph = $('graph');
+  var W = 1920, H = 1080;
+
+  function build() {
+    if (!data.env) return;
+    var a = data.align || { words: [], cues: [] };
+    rig = MeloRig.prepare({ fps: 30, envelope: data.env, words: a.words || [], cues: a.cues || [], seed: 7 });
+    scrub.max = rig.duration.toFixed(2);
+    info.textContent = 'ready: ' + (a.words || []).length + ' words, ' + (a.cues || []).length + ' cues, ' + rig.duration.toFixed(1) + ' s';
+    draw();
+  }
+  function fetchJson(u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }); }
+  fetchJson(base + 'build/alignment.json').then(function (j) { data.align = j; build(); }).catch(function () { info.textContent = 'no build/alignment.json (pick it below)'; });
+  fetchJson(base + 'build/envelope.json').then(function (j) { data.env = j; build(); }).catch(function () { info.textContent += '\nno build/envelope.json (run node tools/envelope.js ' + ep + ')'; });
+  audio.src = base + 'audio/voice.wav';
+  audio.onerror = function () { if (!/teil-1/.test(audio.src)) audio.src = base + 'audio/teil-1.mp3'; };
+
+  function readFile(inp, cb) { inp.onchange = function () { var f = inp.files[0]; if (f) cb(f); }; }
+  readFile($('fA'), function (f) { f.text().then(function (s) { data.align = JSON.parse(s); build(); }); });
+  readFile($('fE'), function (f) { f.text().then(function (s) { data.env = JSON.parse(s); build(); }); });
+  readFile($('fW'), function (f) { audio.src = URL.createObjectURL(f); });
+
+  var lastMs = 0;
+  function draw() {
+    if (!rig) return;
+    var t = audio.currentTime || +scrub.value || 0;
+    var layout = $('layout').value, hint = { boardSide: $('board').value, grain: $('grain').checked };
+    var t0 = performance.now();
+    var fr = rig.render(Math.round(t * 30) / 30, hint);
+    lastMs = performance.now() - t0;
+    var html = '';
+    if (layout !== 'head') {
+      var s = H * 0.92 / 534, cx = layout === 'split' ? W * 0.25 : W * 0.5;
+      html += '<g transform="translate(' + cx + ' ' + H * 0.96 + ') scale(' + s + ')">' + fr.svg + '</g>';
+    }
+    if (layout !== 'full') {
+      var hc = fr.anchors.headCenter, s2 = H * 0.85 / 200, cx2 = layout === 'split' ? W * 0.68 : W * 0.5;
+      html += '<g transform="translate(' + cx2 + ' ' + H * 0.47 + ') scale(' + s2 + ') translate(' + (-hc[0]) + ' ' + (-hc[1]) + ')">' + fr.svg + '</g>';
+    }
+    stage.innerHTML = html;
+    $('time').textContent = t.toFixed(2) + ' s';
+    if (document.activeElement !== scrub) scrub.value = t;
+    var S = fr.state, words = (data.align && data.align.words) || [];
+    var w = words.filter(function (x) { return t >= x.start - 0.4 && t <= x.end + 0.4; }).map(function (x) { return (t >= x.start && t <= x.end) ? '[' + x.text + ']' : x.text; }).join(' ');
+    info.textContent = (S.speaking ? 'SPEAK ' : '      ') + 'open ' + S.mouthOpen.toFixed(2) + '  ' + S.expr + ' / ' + S.pose + ' / ' + S.look +
+      '  blink ' + S.blink + '  render ' + lastMs.toFixed(1) + ' ms\n' + w;
+    drawGraph(t);
+  }
+  // ±3 s strip: speech mask (grey), loudness (thin), mouth openness (red), now (black)
+  function drawGraph(t) {
+    var g = graph.getContext('2d'), gw = graph.width, gh = graph.height, d = rig._d, span = 3;
+    g.clearRect(0, 0, gw, gh);
+    for (var x = 0; x < gw; x++) {
+      var tt = t - span + x / gw * 2 * span, k = Math.round(tt / d.hop);
+      if (k < 0 || k >= d.N) continue;
+      if (d.mask[k]) { g.fillStyle = '#d9cfb3'; g.fillRect(x, 0, 1, gh); }
+      g.fillStyle = '#8a8070'; g.fillRect(x, gh - d.L[k] * gh, 1, 1.5);
+      g.fillStyle = '#d2433a'; g.fillRect(x, gh - d.open[k] * gh, 1, 2.5);
+    }
+    g.fillStyle = '#17130f'; g.fillRect(gw / 2, 0, 2, gh);
+  }
+
+  function loop() { draw(); if (!audio.paused) requestAnimationFrame(loop); }
+  $('play').onclick = function () { if (audio.paused) { audio.currentTime = +scrub.value; audio.play(); } else audio.pause(); };
+  audio.onplay = function () { $('play').textContent = '❚❚ Pause'; loop(); };
+  audio.onpause = function () { $('play').textContent = '▶ Play'; draw(); };
+  scrub.oninput = function () { audio.currentTime = +scrub.value; draw(); };
+  ['layout', 'board', 'grain'].forEach(function (id) { $(id).onchange = draw; });
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' && e.target.type !== 'range') return;
+    if (e.key === ' ') { e.preventDefault(); $('play').onclick(); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault(); var dt = (e.shiftKey ? 1 / 30 : 1) * (e.key === 'ArrowRight' ? 1 : -1);
+      audio.currentTime = Math.max(0, audio.currentTime + dt); scrub.value = audio.currentTime; draw();
+    } else if (e.key === '1' || e.key === '2' || e.key === '3') { $('layout').value = ['full', 'split', 'head'][+e.key - 1]; draw(); }
+    else if (e.key === 'b') { $('board').value = $('board').value === 'right' ? 'left' : 'right'; draw(); }
+  });
+})();
+</script>
+</body>
+</html>
