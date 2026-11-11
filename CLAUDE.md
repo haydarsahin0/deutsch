@@ -2,6 +2,9 @@
 
 German lessons (B1–C1) as 10–15 min horizontal YouTube videos, 100 % code-drawn. Host: **Melo** (watermelon head with sliced-off top, Concept B). Owner speaks Turkish; videos are German only. Full pipeline contract: `docs/PIPELINE.md` (read the "Visual flow v2" section for the current look).
 
+## Skills (use them — they encode the whole method)
+`.claude/skills/`: **channel-studio** (owner profile, quality bar, new-channel-from-zero), **melo-episode** (long video end-to-end, writer/director prompt templates), **melo-shorts**, **melo-youtube-meta**, **melo-thumbnail**, **melo-growth**, **melo-deliver**. Helpers: `tools/chapters.py`, `tools/check-long-meta.py`, `shorts/check-meta.py`.
+
 ## Cost rules (the owner's usage limit is tight)
 - The tools are built. A new episode should NOT need new engine work — reuse the 24 sets (`engine/sets/`), 10 cast (`engine/cast/cast.js`), Melo rig (`engine/character/rig.js`).
 - Model choice (owner's rule): **Opus 5.5** for the important, quality-defining work — script writing, German review, visual direction, engine/animation/illustration changes, final visual QA. **Sonnet 5.5** for medium routine work (applying a clear list of small fixes, SEO metadata, validation scripts). **Haiku 5.5** for trivial mechanical tasks (file housekeeping, format checks, renaming, simple greps/reports).
