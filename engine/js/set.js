@@ -237,7 +237,7 @@
     }
     s += '<radialGradient id="tglow" cx="' + (cx / 19.2) + '%" cy="' + (cy / 10.8) + '%" r="70%"><stop offset="0" stop-color="#c8641e"/><stop offset=".45" stop-color="#8a3a14"/><stop offset="1" stop-color="#2a170d"/></radialGradient>';
     s += '<rect width="1920" height="1080" fill="url(#tglow)"/>';
-    s += '<g fill="#e08a2c" opacity=".22">' + rays + '</g>';
+    s += '<g fill="#e08a2c" opacity=".07">' + rays + '</g>';
     // engraved hatch vignette
     var R2 = [[-20, -20], [1940, -20], [1940, 1100], [-20, 1100]];
     s += S.hatch(R2, { ang: 32, gap: 9, w: 1.6, op: 0.55, cond: function (X, Y) { var d = Math.hypot((X - cx) / 1.4, Y - cy); return d > 760; } });

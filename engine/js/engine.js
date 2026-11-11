@@ -716,6 +716,8 @@
     // background (zoom drift)
     ctx.save(); camTransform(ctx, cam);
     ctx.drawImage(E.titleBg, -40, -22, 2000, 1125);
+    ctx.save(); ctx.translate(1400, 470); ctx.rotate(t * 0.035); ctx.globalCompositeOperation = 'screen'; ctx.globalAlpha = 0.5;
+    ctx.drawImage(E.rays, -1400, -1400, 2800, 2800); ctx.restore();
     var M = LAYOUT.title.melo, hy = M.y + (E.headY || -385) * M.s;
     // mustard disc behind Melo's head (banner motif)
     ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.arc(M.x + 16, hy + 2, 330, 0, 7); ctx.fill();
@@ -738,7 +740,7 @@
           drawSlam(ctx, L.number, 120, 860, '400 480px Anton', MUSTARD, p2, 'left');
           if (p2 > 0) { ctx.save(); ctx.globalAlpha = sat(p2 * 3); underlineInk(ctx, 130, 900, 520, hashStr(el.id)); ctx.restore(); }
         } else {
-          var y = 330 + (3 - L.lines.length) * L.fs * 0.45, wi = 0;
+          var y = 285 + (3 - L.lines.length) * L.fs * 0.45, wi = 0;
           L.lines.forEach(function (line, li) {
             var x = 110, ws = line.split(' ');
             ws.forEach(function (w) {
@@ -752,7 +754,7 @@
           });
           var nW = wi;
           if (t > el.appear + nW * 0.17 + 0.2) { ctx.save(); ctx.globalAlpha = sat((t - el.appear - nW * 0.17 - 0.2) * 3); underlineInk(ctx, 112, y - L.fs * 0.78, Math.min(1000, measure(L.lines[L.lines.length - 1], '400 ' + L.fs + 'px Anton')), hashStr(el.id)); ctx.restore(); }
-          el.titleBottom = y - L.fs * 0.6;
+          el.titleBottom = y - L.fs * 0.78;
         }
         ctx.restore();
       }
@@ -765,8 +767,8 @@
     els.forEach(function (el, i) {
       if (el.type === 'title' || t < el.appear) return;
       var title = els.find(function (e) { return e.type === 'title'; });
-      var y = title && title.titleBottom ? title.titleBottom + 120 : 820;
-      var fs = 58, font = '700 ' + fs + 'px Caveat', w = measure(el.text, font) + 70;
+      var y = title && title.titleBottom ? title.titleBottom + 92 : 800;
+      var fs = 54, font = '700 ' + fs + 'px Caveat', w = measure(el.text, font) + 70;
       ctx.save(); camTransform(ctx, cam);
       var p = (t - el.appear) / 0.35;
       ctx.translate(110 + w / 2, y); ctx.rotate(-2.5 * Math.PI / 180);
@@ -896,6 +898,10 @@
     var setImg = await svgImage(MeloSet.svg().replace('width="1920" height="1080"', 'width="' + W * SS + '" height="' + H * SS + '"'));
     E.setC = mk(W * SS, H * SS); var sg = E.setC.getContext('2d'); sg.drawImage(setImg, 0, 0); sg.setTransform(SS, 0, 0, SS, 0, 0); MeloSet.texts(sg);
     var tb = await svgImage(MeloSet.titleSvg()); E.titleBg = mk(1920, 1080); E.titleBg.getContext('2d').drawImage(tb, 0, 0);
+    var rc = mk(1400, 1400), rg = rc.getContext('2d'); rg.translate(700, 700); rg.fillStyle = '#c86a24';
+    for (var ri = 0; ri < 28; ri++) { var a0 = ri / 28 * Math.PI * 2; rg.beginPath(); rg.moveTo(0, 0); rg.arc(0, 0, 700, a0, a0 + Math.PI / 28 * 0.9); rg.closePath(); rg.fill(); }
+    rg.globalCompositeOperation = 'destination-in'; var rgr = rg.createRadialGradient(0, 0, 60, 0, 0, 700); rgr.addColorStop(0, 'rgba(0,0,0,.9)'); rgr.addColorStop(1, 'rgba(0,0,0,0)'); rg.fillStyle = rgr; rg.fillRect(-700, -700, 1400, 1400);
+    E.rays = rc;
     var gi = await svgImage(MeloSet.grainSvg()); E.grain = mk(W * E.scale, H * E.scale); E.grain.getContext('2d').drawImage(gi, 0, 0, W * E.scale, H * E.scale);
     var sp = await svgImage(MeloSet.spongeSvg()); E.sponge = mk(170 * 2, 74 * 2); E.sponge.getContext('2d').drawImage(sp, 0, 0, 340, 148);
     // chalk grain pattern

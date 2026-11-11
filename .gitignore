@@ -7,3 +7,4 @@ node_modules/
 episodes/*/build/cache/
 __pycache__/
 episodes/*/audio/voice.wav
+episodes/*/out/*.mp4

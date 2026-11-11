@@ -348,7 +348,8 @@
     [/laugh|chuckl|giggl|lach/i, 'laughing', 1.3],
     [/sigh|seufz/i, 'unimpressed', 1.2],
     [/sarcas|smug|mischiev|verschmitzt|wink/i, 'smirk', 1.6],
-    [/excited|surpris|überrascht/i, 'surprised', 0.9],
+    [/surpris|überrascht/i, 'surprised', 0.9],
+    [/excited|cheerful|enthusias/i, 'talking', 1.2],
     [/deadpan|dry|trocken/i, 'deadpan', 1.6]
   ];
   function buildTracks(cues, words, seed) {
@@ -600,7 +601,9 @@
     var S = computeState(rig, t, hint);
     var seed = rig.seed, id = rig._id;
     var mirror = hint.mirror != null ? !!hint.mirror : S.boardDir < 0;
-    var pose = S.pose, ex = S.ex, defs = '';
+    var ex = S.ex, defs = '';
+    // board on the left: mirror the body GEOMETRY (not an SVG flip), so the ß print, light and face stay right
+    var pose = mirror ? mirrorPose(S.pose) : S.pose;
     var rough = hint.rough == null ? 1 : hint.rough;
     var useFilter = !!hint.filter && rough > 0;           // original SVG-filter look (slow, for stills)
     var baked = !useFilter && rough > 0;
@@ -636,8 +639,10 @@
     var br = S.breath, shY = -br * 0.9;
     var P2 = clone(pose);
     ['a', 'b'].forEach(function (s) { P2[s].sh[1] += shY; P2[s].el[1] += shY * 0.6; });
-    var torsoKey = rk0 + 'torso' + pose.torso.map(rk).join('|') + rk(pose.a.sh) + rk(pose.b.sh);
-    var torso = cached(rig, torsoKey, function () { return withDisp(function () { return P.torso(new Ink(seed + 7), pose, true); }); });
+    // the shirt outline expects a = viewer-left shoulder
+    var tp = mirror ? { torso: pose.torso, a: pose.b, b: pose.a } : pose;
+    var torsoKey = rk0 + 'torso' + tp.torso.map(rk).join('|') + rk(tp.a.sh) + rk(tp.b.sh);
+    var torso = cached(rig, torsoKey, function () { return withDisp(function () { return P.torso(new Ink(seed + 7), tp, true); }); });
     var torsoG = '<g transform="translate(0 ' + f1(-168) + ') scale(1 ' + (1 + br * 0.006).toFixed(4) + ') translate(0 168)">' + torso + '</g>';
 
     // talking gestures (arms)
@@ -648,9 +653,10 @@
       if (amp <= 0) return;
       var dx = (n(t * 0.8 + o) * 7 + n(t * 1.9 + o + 7) * 2.5) * en * amp;
       var dy = (n(t * 0.7 + o + 3) * 8 - S.beat * 7) * en * amp;
-      A.wr = [A.wr[0] + dx * (si ? 1 : -1), A.wr[1] + dy];
-      A.el = [A.el[0] + dx * 0.35 * (si ? 1 : -1), A.el[1] + dy * 0.3];
-      A.hand.ang += (n(t * 1.1 + o + 11) * 10 - S.beat * 6) * en * amp * (si ? 1 : -1);
+      var sg = (si ? 1 : -1) * (mirror ? -1 : 1);
+      A.wr = [A.wr[0] + dx * sg, A.wr[1] + dy];
+      A.el = [A.el[0] + dx * 0.35 * sg, A.el[1] + dy * 0.3];
+      A.hand.ang += (n(t * 1.1 + o + 11) * 10 - S.beat * 6) * en * amp * sg;
     });
 
     // neck + head
@@ -660,20 +666,28 @@
     var faceDefs = '';
     var face = withDisp(function () { return P.face(new Ink(seed + 13), ex, { blink: S.blink, look: S.look }, id + 'f', function (x) { faceDefs += x; }); }, 'face');
     defs += faceDefs;
-    var headX = mirror ? -hx : hx;
-    var headG = '<g class="mb-head" transform="translate(' + f1(headX) + ' ' + f1(hy) + ') rotate(' + f1(tilt) + ' 0 ' + HEAD.ry + ')"><g class="mb-head-inner">' + head.svg + face + '</g></g>';
+    var headG = '<g class="mb-head" transform="translate(' + f1(hx) + ' ' + f1(hy) + ') rotate(' + f1(tilt) + ' 0 ' + HEAD.ry + ')"><g class="mb-head-inner">' + head.svg + face + '</g></g>';
 
     var armA = withDisp(function () { return P.arm(new Ink(seed + 17), toArm(P2.a), 'a', true); });
     var armB = withDisp(function () { return P.arm(new Ink(seed + 19), toArm(P2.b), 'b', true); });
 
-    if (grain) defs += cached(rig, rk0 + 'grain', function () { return grainFilter(id + '-rough', seed, bv, rough); });
+    if (grain) {
+      var gf = cached(rig, rk0 + 'grain', function () { return grainFilter(id + '-rough', seed, bv, rough); });
+      if (hint.visible) { // filter only the visible area
+        var v = hint.visible, x0 = Math.max(v[0], -200) - 8, y0 = Math.max(v[1], -530) - 8, x1 = Math.min(v[2], 200) + 8, y1 = Math.min(v[3], 40) + 8;
+        gf = gf.replace('x="-12%" y="-8%" width="124%" height="116%"', 'filterUnits="userSpaceOnUse" x="' + f1(x0) + '" y="' + f1(y0) + '" width="' + f1(Math.max(1, x1 - x0)) + '" height="' + f1(Math.max(1, y1 - y0)) + '"');
+      }
+      defs += gf;
+    }
     if (useFilter) {
       var hb = hash(block * 977 + seed);
       defs += P.filter(id + '-rough', hb % 97, (hb >>> 8) % 89 + 3, rough, 'x="-12%" y="-8%" width="124%" height="116%"');
     }
 
-    var body = '<g class="mb-body"' + (mirror ? ' transform="scale(-1 1)"' : '') + '>' + shadow + legs + neck + torsoG + '</g>';
-    var arms = '<g class="mb-arms"' + (mirror ? ' transform="scale(-1 1)"' : '') + '>' + armA + armB + '</g>';
+    // optional culling: hint.visible = [x0, y0, x1, y1] in character coords (the camera's view of Melo)
+    var vis = hint.visible, showLegs = !vis || vis[3] > -178, showTorso = !vis || vis[3] > -290;
+    var body = '<g class="mb-body">' + (showLegs ? shadow + legs : '') + neck + (showTorso ? torsoG : '') + '</g>';
+    var arms = '<g class="mb-arms">' + armA + armB + '</g>';
     var swayT = 'rotate(' + S.sway.toFixed(2) + ')';
     var svg = '<g class="melo-rig" data-expr="' + S.exprName + '" data-pose="' + S.poseName + '"><defs>' + defs + '</defs>' +
       '<g' + (useFilter || grain ? ' filter="url(#' + id + '-rough)"' : '') + '><g transform="' + swayT + '">' + body + headG + arms + '</g></g></g>';
@@ -695,9 +709,20 @@
     var r = deg * Math.PI / 180, cs = Math.cos(r), sn = Math.sin(r), x = p[0] - c[0], y = p[1] - c[1];
     return [c[0] + x * cs - y * sn, c[1] + x * sn + y * cs];
   }
+  function mirrorPose(p) {
+    var o = clone(p);
+    function M(q) { return [-q[0], q[1]]; }
+    ['a', 'b'].forEach(function (s) {
+      var A = o[s]; A.sh = M(A.sh); A.el = M(A.el); A.wr = M(A.wr);
+      A.hand.ang = 180 - A.hand.ang; A.hand.flip = A.hand.flip ? 0 : 1;
+    });
+    ['la', 'lb'].forEach(function (s) { var L = o[s]; L.hip = M(L.hip); L.kn = M(L.kn); L.an = M(L.an); L.foot = -L.foot; });
+    o.torso = o.torso.map(M); o.tilt = -(o.tilt || 0);
+    return o;
+  }
   function anchors(S, pose, hx, hy, tilt, mirror) {
-    var mx = mirror ? -1 : 1, pv = [hx * mx, hy + HEAD.ry];
-    function hp(p) { return rot([hx * mx + p[0], hy + p[1]], pv, tilt); }
+    var mx = 1, pv = [hx, hy + HEAD.ry];
+    function hp(p) { return rot([hx + p[0], hy + p[1]], pv, tilt); }
     function sw(p) { return rot(p, [0, 0], S.sway); }
     function R(p) { return sw([Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10]).map(function (v) { return Math.round(v * 10) / 10; }); }
     function hand(A) {
