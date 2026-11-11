@@ -1,13 +1,13 @@
 # Episode 1 – YouTube-Metadaten
 
-## Titel
-**Das sagt kein Deutscher! 12 Sätze, die dich sofort als Deutschlerner verraten**
-(77 Zeichen – passt; auf dem Handy wird nach ca. 60–70 Zeichen gekürzt, der Kern „Das sagt kein Deutscher! 12 Sätze …“ bleibt sichtbar.)
+## Titel (final)
+**Das sagt KEIN Deutscher! 12 Sätze, die dich sofort verraten**
+(61 Zeichen – auf dem Handy komplett sichtbar; Großschreibung von „KEIN“ als Blickfang, wie bei großen Kanälen üblich.)
 
-### Alternativen
-1. 12 Sätze, die nur Deutschlerner sagen (und was Deutsche wirklich sagen)
-2. „Ich bin heiß“?! 12 typische Fehler, die sofort auffallen – B1 bis C1
-3. Klingst du wie ein Lehrbuch? 12 Sätze, die Muttersprachler anders sagen
+### Alternativen (für A/B-Test in YouTube Studio „Titel testen“)
+1. „Ich bin heiß“?! 12 Sätze, die Deutsche NIE sagen
+2. Klingst du wie ein Lehrbuch? 12 Sätze, die dich verraten
+3. 12 typische Deutschfehler – sogar auf C1 (B1–C1)
 
 ## Thumbnail-Text (≤ 4 Wörter)
 - **DAS SAGT KEIN DEUTSCHER** (Hauptvariante, wie im Konzept-Test; darunter klein auf Tafel: ~~Ich bin heiß.~~ → Mir ist heiß.)
@@ -19,7 +19,9 @@ Bildidee: Melo (Ausdruck „unimpressed“, eine Braue oben) zeigt auf die Tafel
 
 ## Beschreibung
 ```
-Das sagt kein Deutscher! In diesem Video lernst du 12 Sätze, die dich sofort als Deutschlerner verraten – und was Muttersprachler stattdessen sagen. Von „Ich bin heiß“ über „Ich warte für dich“ bis „Das macht Sinn“: typische Fehler, die auch auf B1, B2 und C1 noch passieren. Mit Erklärungen, Beispielsätzen, drei Kernfragen zum Mitraten und vielen Tipps, wie du natürlich Deutsch sprichst – im Alltag, im Job und in der Prüfung (Goethe, telc, TestDaF).
+Klingst du auf Deutsch noch wie ein Lehrbuch? Diese 12 Sätze verraten dich sofort als Deutschlerner – und hier lernst du, was Muttersprachler wirklich sagen. Typische Fehler auf B1, B2 und C1, einfach und mit Humor erklärt.
+
+Von „Ich bin heiß“ über „Ich warte für dich“ bis „Das macht Sinn“: Mit klaren Erklärungen, echten Beispielsätzen aus dem Alltag, drei Kernfragen zum Mitraten und vielen Tipps, wie du natürlich Deutsch sprichst – im Alltag, im Job und in der Prüfung (Goethe-Zertifikat, telc, TestDaF, DSH).
 
 Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier gibt's jede Woche Deutsch mit Kern: Deutsch lernen nur auf Deutsch, für Niveau B1 bis C1.
 
@@ -62,7 +64,7 @@ Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier
 
 🔔 Abonnieren für mehr: Deutsch lernen, typische Fehler, Redewendungen und Grammatik – erklärt wie von einem Freund.
 
-#DeutschLernen #DeutschMitMelo #TypischeFehler #LearnGerman #Deutsch
+#DeutschLernen #TypischeFehler #DeutschMitMelo
 ```
 
 
