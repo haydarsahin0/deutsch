@@ -9764,7 +9764,7 @@
    "erase": 179.31,
    "strike": null,
    "tick": null,
-   "highlight": 170.11,
+   "highlight": null,
    "text": "Winter. Heizung kaputt. Was sagst du?",
    "q": "Winter. Heizung kaputt. Was sagst du?",
    "options": [
@@ -9777,6 +9777,20 @@
    "countdown": 172.245,
    "reveal": 177.245,
    "writeDur": 3.9,
+   "optHi": [
+    {
+     "t": 167.2,
+     "i": 0
+    },
+    {
+     "t": 168.315,
+     "i": 1
+    },
+    {
+     "t": 169.995,
+     "i": 2
+    }
+   ],
    "eraseBy": "ink",
    "countdownEnd": 177.245,
    "eraseEnd": 179.31
@@ -10363,7 +10377,7 @@
    "erase": 352.6,
    "strike": null,
    "tick": null,
-   "highlight": 344.154,
+   "highlight": null,
    "text": "Ich habe eine Frage … dich.",
    "q": "Ich habe eine Frage … dich.",
    "options": [
@@ -10376,6 +10390,20 @@
    "countdown": 346.02,
    "reveal": 351.02,
    "writeDur": 3.4,
+   "optHi": [
+    {
+     "t": 342.51,
+     "i": 0
+    },
+    {
+     "t": 343.4,
+     "i": 1
+    },
+    {
+     "t": 344.154,
+     "i": 2
+    }
+   ],
    "eraseBy": "ink",
    "countdownEnd": 351.02,
    "eraseEnd": 352.6
@@ -10855,7 +10883,7 @@
    "erase": 553.695,
    "strike": null,
    "tick": null,
-   "highlight": 546.445,
+   "highlight": null,
    "text": "… ich gestern nach Hause kam, war die Tür offen.",
    "q": "… ich gestern nach Hause kam, war die Tür offen.",
    "options": [
@@ -10868,6 +10896,20 @@
    "countdown": 548.075,
    "reveal": 553.075,
    "writeDur": 4,
+   "optHi": [
+    {
+     "t": 544.415,
+     "i": 0
+    },
+    {
+     "t": 545.165,
+     "i": 1
+    },
+    {
+     "t": 546.445,
+     "i": 2
+    }
+   ],
    "eraseBy": "ink",
    "countdownEnd": 553.075,
    "eraseEnd": 553.695
@@ -22529,15 +22571,21 @@
  ],
  "assets": {
   "sets": [
+   "cellar.js",
    "dinner-table.js",
    "fonts-embed.js",
    "kit-a.js",
    "kit-b.js",
    "kneipe.js",
+   "living-room.js",
    "office-hot.js",
-   "wg-kitchen.js"
+   "quiz-show.js",
+   "wg-kitchen.js",
+   "winter-room.js"
   ],
-  "cast": []
+  "cast": [
+   "cast.js"
+  ]
  },
  "cues": [
   {

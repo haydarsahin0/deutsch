@@ -1,0 +1,94 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Cast sheet</title>
+<style>
+@font-face{font-family:Oswald;src:url(../../brand/fonts/oswald-latin-700-normal.woff2)}
+@font-face{font-family:Caveat;src:url(../../brand/fonts/caveat-latin-700-normal.woff2)}
+@font-face{font-family:Anton;src:url(../../brand/fonts/anton-latin-400-normal.woff2)}
+html,body{margin:0;background:#ebe1c8;overflow:hidden}
+svg{display:block}
+</style>
+<script src="../../brand/concepts/b/melo-b.js"></script>
+<script src="cast.js"></script>
+</head><body>
+<svg id="st" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+<script>
+// Pages (query ?page=…):
+//   sheet  (default) lineup next to Melo + per character 4 expressions (heads) and 3 poses
+//   char&id=<castId>  one character large: expressions + poses + props
+//   exprs&id=<castId> all expressions as heads
+//   lineup            only the lineup, large
+//   size              readability check: figures at 30 % and 50 % frame height on a scene-like background
+// &t=<seconds> &talk=0..1 &flip=1 &grain=0
+var Q = new URLSearchParams(location.search), PAGE = Q.get('page') || 'sheet';
+var T0 = +(Q.get('t') || 0), TALK = +(Q.get('talk') || 0), FLIP = Q.get('flip') === '1', GRAIN = Q.get('grain') !== '0';
+var UID = 0;
+function fig(id, o, x, y, s) { // place a character with feet at (x,y), scale s
+  o = Object.assign({ t: T0, talk: TALK, flip: FLIP, grain: GRAIN, id: 'u' + (++UID) }, o || {});
+  var fr = Cast.render(id, o);
+  return { svg: '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')">' + fr.svg + '</g>', fr: fr };
+}
+function head(id, o, cx, cy, size) { // head close-up: head centre at (cx,cy), head ≈ size px tall
+  o = Object.assign({ t: T0, talk: TALK, flip: FLIP, grain: GRAIN, id: 'u' + (++UID) }, o || {});
+  var fr = Cast.render(id, o), hc = fr.anchors.headCenter, R = 125;
+  return '<svg x="' + (cx - size / 2) + '" y="' + (cy - size / 2) + '" width="' + size + '" height="' + size + '" viewBox="' + (hc[0] - R) + ' ' + (hc[1] - R - 8) + ' ' + 2 * R + ' ' + 2 * R + '">' + fr.svg + '</svg>';
+}
+function melo(x, y, s, o) {
+  var m = MeloB.svg(Object.assign({ expression: 'smirk', pose: 'idle', seed: 7, id: 'mm' + (++UID) }, o || {}));
+  // MeloB.svg returns a full <svg viewBox="-180 -512 360 534">; nest it with feet at (x,y)
+  return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><svg x="-180" y="-512" width="360" height="534" overflow="visible" viewBox="-180 -512 360 534">' + m.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '') + '</svg></g>';
+}
+function label(x, y, txt, size, col, font, anchor) {
+  return '<text x="' + x + '" y="' + y + '" font-family="' + (font || 'Oswald') + '" font-size="' + (size || 16) + '" fill="' + (col || '#17130f') + '" text-anchor="' + (anchor || 'middle') + '" letter-spacing="1">' + txt + '</text>';
+}
+var IDS = Cast.list();
+var out = '', tStart = performance.now();
+if (PAGE === 'sheet') {
+  out += label(40, 44, 'DEUTSCH MIT MELO · CAST', 22, '#17130f', 'Oswald', 'start');
+  out += label(1880, 44, 'Ensemble – gleicher Strich, andere Frucht.', 30, '#9d2c27', 'Caveat', 'end');
+  // lineup (ground at y=480), Melo first
+  var gy = 470, s = 0.72, x0 = 95, dx = 166;
+  out += '<path d="M30 ' + (gy + 12) + 'H1890" stroke="#17130f" stroke-width="1.5" opacity="0.4"/>';
+  out += melo(x0, gy, s);
+  out += label(x0, gy + 38, 'MELO', 15);
+  IDS.forEach(function (id, i) {
+    var ex = Cast._CH[id].defaults.expr;
+    out += fig(id, { expr: ex }, x0 + dx * (i + 1), gy, s).svg;
+    out += label(x0 + dx * (i + 1), gy + 38, Cast._CH[id].name.toUpperCase(), 15);
+  });
+  // per character: 4 expressions + 3 poses
+  var EX4 = ['happy', 'surprised', 'annoyed', 'embarrassed'], PO3 = ['talk', 'arms-crossed', 'hold'];
+  var colW = 1920 / IDS.length;
+  IDS.forEach(function (id, i) {
+    var cx = colW * i + colW / 2;
+    EX4.forEach(function (e, k) { out += head(id, { expr: e, pose: 'idle' }, cx - 46 + (k % 2) * 92, 590 + Math.floor(k / 2) * 104, 92); });
+    PO3.forEach(function (p, k) { out += fig(id, { pose: p, expr: k === 1 ? 'skeptical' : 'neutral' }, cx - 60 + k * 60, 1040, 0.3).svg; });
+  });
+  out += label(40, 1072, 'Ausdrücke: happy · surprised · annoyed · embarrassed — Posen: talk · arms-crossed · hold', 14, '#5a4a3a', 'Oswald', 'start');
+} else if (PAGE === 'char') {
+  var id = Q.get('id') || IDS[0];
+  out += label(40, 50, Cast._CH[id].name.toUpperCase() + ' · ' + Cast._CH[id].fruit, 26, '#17130f', 'Oswald', 'start');
+  var POS = ['idle', 'talk', 'point', 'arms-crossed', 'hands-up', 'facepalm', 'hold', 'sit', 'wave'];
+  POS.forEach(function (p, k) { out += fig(id, { pose: p, expr: ['neutral', 'happy', 'smug', 'skeptical', 'shocked', 'tired', 'neutral', 'laughing', 'happy'][k] }, 110 + k * 212, 600, 0.95).svg; out += label(110 + k * 212, 640, p, 16); });
+  var EXS = Cast.EXPRESSIONS;
+  EXS.forEach(function (e, k) { out += head(id, { expr: e }, 75 + k * 136, 780 + 0, 140); out += label(75 + k * 136, 880, e, 14); });
+  var PR = Cast.PROPS;
+  PR.forEach(function (p, k) { out += fig(id, { pose: 'hold', prop: p }, 90 + k * 175, 1060, 0.33).svg; out += label(90 + k * 175 + 40, 1072, p, 12); });
+} else if (PAGE === 'exprs') {
+  var id2 = Q.get('id') || IDS[0];
+  Cast.EXPRESSIONS.forEach(function (e, k) { var cx = 160 + (k % 7) * 265, cy = 260 + Math.floor(k / 7) * 470; out += head(id2, { expr: e }, cx, cy, 330); out += label(cx, cy + 210, e, 22); });
+} else if (PAGE === 'lineup') {
+  var gy2 = 1000, s2 = 1.62, x02 = 100, dx2 = 172;
+  out += melo(x02, gy2, s2 * 0.62 / 0.62 * 0.7);
+  IDS.forEach(function (id, i) { out += fig(id, {}, x02 + dx2 * (i + 1), gy2, s2 * 0.7).svg; });
+} else if (PAGE === 'size') {
+  // scene-like strip: 50 % and 30 % frame height
+  out += '<rect width="1920" height="1080" fill="#d9cfb2"/><rect y="760" width="1920" height="320" fill="#b9a77f"/>';
+  var h50 = 1080 * 0.5 / 520, h30 = 1080 * 0.3 / 520;
+  out += melo(160, 820, h50); out += fig('kollegin', { expr: 'sweaty', pose: 'hold', prop: 'fan' }, 420, 820, h50).svg; out += fig('schwiegermutter', { expr: 'skeptical', pose: 'hold', prop: 'bowl' }, 700, 820, h50).svg;
+  IDS.forEach(function (id, i) { out += fig(id, { expr: ['happy', 'annoyed', 'surprised', 'tired', 'confused'][i % 5], pose: ['talk', 'arms-crossed', 'point', 'idle', 'hold'][i % 5] }, 950 + i * 95, 1000, h30).svg; });
+}
+document.getElementById('st').innerHTML = out;
+window.BUILD_MS = performance.now() - tStart;
+document.fonts.ready.then(function () { window.READY = true; });
+</script>
+</body></html>

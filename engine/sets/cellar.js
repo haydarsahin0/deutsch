@@ -37,7 +37,7 @@
 
   function build(S) {
     var bg = '', fg = '';
-    var STONE = '#8a7c68', STONE_D = '#6f6352';
+    var STONE = '#6f6454', STONE_D = '#5a5043';
     // ── vaulted stone wall ──
     bg += S.fillOnly([[-20, -20], [1940, -20], [1940, WALL_Y], [-20, WALL_Y]], STONE);
     // stone blocks
@@ -52,7 +52,7 @@
     // some blocks lighter / darker
     for (var i = 0; i < 40; i++) {
       var bx = Math.floor(S.rand(0, 16)) * 120 + (S.r() < 0.5 ? 0 : 60), by = 30 + Math.floor(S.rand(0, 13)) * 56;
-      bg += S.fillOnly(S.rect(bx + 4, by + 4, 110, 48, 30, 2), S.r() < 0.5 ? '#9a8c76' : STONE_D, ' opacity=".55"');
+      bg += S.fillOnly(S.rect(bx + 4, by + 4, 110, 48, 30, 2), S.r() < 0.5 ? '#7d715f' : STONE_D, ' opacity=".55"');
     }
     bg += S.hatch([[-20, -20], [1940, -20], [1940, WALL_Y], [-20, WALL_Y]], { ang: 30, gap: 9, w: 1.3, op: 0.22 });
     // vault arch (dark ceiling corners)
@@ -84,7 +84,7 @@
     bg += web(-10, 250, 1, -1) + web(1930, 250, -1, -1);
 
     // ── floor: concrete with cracks + drain ──
-    bg += S.fillOnly([[-20, WALL_Y], [1940, WALL_Y], [1940, 1100], [-20, 1100]], '#7a6f60');
+    bg += S.fillOnly([[-20, WALL_Y], [1940, WALL_Y], [1940, 1100], [-20, 1100]], '#635a4e');
     bg += S.hatch([[-20, WALL_Y], [1940, WALL_Y], [1940, 1100], [-20, 1100]], { ang: 0, gap: 10, w: 1.2, op: 0.2 });
     bg += S.stipple([[-20, WALL_Y], [1940, WALL_Y], [1940, 1100], [-20, 1100]], 1400, { r: 2.4, op: 0.25 });
     bg += S.line([[-20, WALL_Y], [1940, WALL_Y]], { w: 5, ta: 0.02, tb: 0.02, min: 0.6 });
@@ -96,10 +96,15 @@
     bg += S.box(1610, 120, 150, 260, '#f3d68a', { w: 3, extra: 3, hatch: false });
     bg += S.glow(1685, 250, 260, 220, '#fbe6a8', 0.45);
     bg += S.box(1598, 108, 174, 20, P.woodD, { w: 2.4, extra: 2.4, hatch: 'b', hk: 0.5 });
+    bg += S.box(1592, 116, 18, 270, P.woodD, { w: 2.2, extra: 2.4, hatch: false }) + S.box(1760, 116, 18, 270, P.woodD, { w: 2.2, extra: 2.4, hatch: false });
+    var dl = S.poly([[1760, 128], [1840, 96], [1840, 420], [1760, 386]], 30, 1);
+    bg += S.shape(dl, '#6b4a2f', { w: 2.8, extra: 3 }) + S.hatch(dl, { ang: 90, gap: 8, w: 1.2, op: 0.45 }) + S.circ(1774, 260, 6, '#c9b06a', { w: 1.4, extra: 1 });
+    bg += A.shaft([[1610, 380], [1760, 380], [1700, 560], [1520, 560]], '#fbe6a8', 0.18);
     for (i = 0; i < steps; i++) {
       var sy = WALL_Y - i * 64, sxl = sx0 + i * 30;
       bg += S.box(sxl, sy - 64, 1940 - sxl, 64, i % 2 ? '#8d7a60' : '#97836a', { w: 2.6, extra: 2.8, hatch: 'b', hk: 0.3 });
     }
+    bg += S.shape(S.poly([[1440, WALL_Y], [1640, 380], [1660, 380], [1470, WALL_Y]], 30, 1), P.woodDD, { w: 2.4, extra: 2.6 });
     bg += S.line([[1440, WALL_Y - 120], [1720, 380]], { w: 7, ta: 0.02, tb: 0.02, min: 0.85 }, P.woodDD);
     bg += S.lines([[[1450, WALL_Y - 120], [1450, WALL_Y]], [[1580, 560], [1580, 650]]], { w: 6, ta: 0.02, tb: 0.02, min: 0.85 });
 
@@ -125,10 +130,12 @@
     cs += carton(S, 1560, 680, 160, 110, '2008', { col: '#b88d56' });
     bg += S.floorShadow(300, 986, 260, 16, 0.35) + S.floorShadow(1720, 996, 260, 16, 0.35);
     bg += cs;
-    // old sled leaning against the right stack
-    bg += S.line([[1440, 990], [1470, 700]], { w: 12, ta: 0.02, tb: 0.02, min: 0.85 }) + S.line([[1440, 990], [1470, 700]], { w: 6, ta: 0.02, tb: 0.02, min: 0.85 }, P.red);
-    bg += S.line(U.catmull([[1400, 1000], [1410, 960], [1450, 690], [1480, 680]], 5, false), { w: 6, ta: 0.02, tb: 0.1, min: 0.8 }, '#5a5048');
-
+    // old suitcase on the floor
+    bg += S.floorShadow(1405, 992, 90, 10, 0.3);
+    bg += S.box(1330, 900, 150, 92, '#7a4a2c', { w: 2.8, extra: 3.2, hatch: 'r', hk: 0.3 });
+    bg += S.box(1360, 900, 14, 92, '#c9a46a', { w: 1.6, extra: 1.2, step: 20, hatch: false }) + S.box(1436, 900, 14, 92, '#c9a46a', { w: 1.6, extra: 1.2, step: 20, hatch: false });
+    bg += S.line(U.catmull([[1384, 900], [1392, 884], [1418, 884], [1426, 900]], 4, false), { w: 6, ta: 0.05, tb: 0.05, min: 0.8 });
+    bg += S.T(1405, 960, 'Urlaub 92', { f: 'Kalam', s: 18, c: '#f1e8d0', r: -3, a: 'middle' });
     // light pool on the floor + the bulb (ambient)
     bg += '<!--amb:pool-->';
     bg += '<!--amb:bulb-->';
@@ -157,13 +164,13 @@
       },
       dark: function (t) {
         var p = bulbPos(t);
-        return '<rect x="-20" y="-20" width="1960" height="1120" fill="url(#cellar-dark)" transform="translate(' + f1((p[0] - BX) * 1.6) + ' 0)"/>';
+        return '<rect x="-400" y="-20" width="2720" height="1120" fill="url(#cellar-dark)" transform="translate(' + f1((p[0] - BX) * 1.6) + ' 0)"/>';
       }
     };
     var defs = '<radialGradient id="cellar-halo"><stop offset="0" stop-color="#fff2b8" stop-opacity=".9"/><stop offset=".35" stop-color="#ffe08a" stop-opacity=".35"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>' +
-      '<radialGradient id="cellar-pool"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".38"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>' +
-      '<radialGradient id="cellar-wallglow"><stop offset="0" stop-color="#ffdf96" stop-opacity=".32"/><stop offset=".6" stop-color="#ffdf96" stop-opacity=".08"/><stop offset="1" stop-color="#ffdf96" stop-opacity="0"/></radialGradient>' +
-      '<radialGradient id="cellar-dark" gradientUnits="userSpaceOnUse" cx="960" cy="520" r="1150"><stop offset=".38" stop-color="#140d07" stop-opacity="0"/><stop offset=".75" stop-color="#140d07" stop-opacity=".42"/><stop offset="1" stop-color="#140d07" stop-opacity=".72"/></radialGradient>';
+      '<radialGradient id="cellar-pool"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".5"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="cellar-wallglow"><stop offset="0" stop-color="#ffdf96" stop-opacity=".42"/><stop offset=".6" stop-color="#ffdf96" stop-opacity=".08"/><stop offset="1" stop-color="#ffdf96" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="cellar-dark" gradientUnits="userSpaceOnUse" cx="960" cy="520" r="1150"><stop offset=".3" stop-color="#140d07" stop-opacity="0"/><stop offset=".7" stop-color="#140d07" stop-opacity=".5"/><stop offset="1" stop-color="#140d07" stop-opacity=".8"/></radialGradient>';
     S.defs += defs;
     return { bg: bg, fg: fg, amb: amb };
   }

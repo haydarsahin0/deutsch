@@ -720,12 +720,17 @@
   // head spec: { sil: [[x,y]…] (local, centre (0,0) = head centre, chin at y = bottom), c: lighting centre, bottom, top,
   //   col: {base, lit, shade, light (mottle), dark (stipple)}, tex(ctx), back(ctx), front(ctx), gloss, hatch: opacity }
   function headStatic(ch, D, bv, uid, seed) {
-    var H = ch.head, ink = new Ink(seed * 3 + 11), tex = new Ink(seed * 31 + 5);
-    var sil = H.sil, c = H.c || [0, 0], R = radial(sil, c), L = lightVec(D), SH = [0.55 * D, 0.83];
+    var H = ch.head, ink = new Ink(seed * 3 + 11), tex = new Ink(seed * 31 + 5), K = H.k || 1;
+    var sil = sc(H.sil, K), c = sc([H.c || [0, 0]], K)[0], R = radial(sil, c), L = lightVec(D), SH = [0.55 * D, 0.83];
     var minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
     sil.forEach(function (p) { minx = Math.min(minx, p[0]); maxx = Math.max(maxx, p[0]); miny = Math.min(miny, p[1]); maxy = Math.max(maxy, p[1]); });
     var Rb = Math.max(maxx - minx, maxy - miny) / 2 + 6, box = [(minx + maxx) / 2, (miny + maxy) / 2, Rb];
     function inside(x, y) { var dx = x - c[0], dy = y - c[1]; return Math.hypot(dx, dy) < R(Math.atan2(dy, dx)); }
+    // texture / extra builders work in the unscaled design coords (wrapped in scale(K))
+    function insideU(x, y) { return inside(x * K, y * K); }
+    function lumU(x, y) { return lum(x * K, y * K); }
+    function qU(x, y) { return q(x * K, y * K); }
+    function wrapK(svg) { return K === 1 || !svg ? svg : '<g transform="scale(' + K + ')">' + svg + '</g>'; }
     function q(x, y) { var dx = x - c[0], dy = y - c[1]; return Math.hypot(dx, dy) / (R(Math.atan2(dy, dx)) || 1); }
     function lum(x, y) {
       var dx = x - c[0], dy = y - c[1], a = Math.atan2(dy, dx), qq = Math.min(0.999, Math.hypot(dx, dy) / (R(a) || 1));
@@ -734,15 +739,15 @@
     }
     var defs = '', clip = uid + '-hd';
     defs += '<clipPath id="' + clip + '"><path d="' + polyD(sil, true) + '"/></clipPath>';
-    var ctx = { ink: ink, tex: tex, inside: inside, lum: lum, q: q, R: R, c: c, sil: sil, D: D, SH: SH, L: L, uid: uid, box: box, clip: 'url(#' + clip + ')', defs: '', minx: minx, maxx: maxx, miny: miny, maxy: maxy,
+    var ctx = { ink: ink, tex: tex, inside: insideU, lum: lumU, q: qU, R: R, c: H.c || [0, 0], sil: H.sil, D: D, SH: SH, L: L, uid: uid, box: box, clip: 'url(#' + clip + ')', defs: '', minx: minx / K, maxx: maxx / K, miny: miny / K, maxy: maxy / K, K: K,
       ha: function (a) { return D > 0 ? a : 180 - a; } };
     var col = H.col, s = '';
-    if (H.back) s += H.back(ctx);
+    if (H.back) s += wrapK(H.back(ctx));
     s += '<g class="cast-skull"><path d="' + polyD(sil, true) + '" fill="' + col.shade + '"/>';
     var w = maxx - minx, h = maxy - miny;
     var lit = sc(sil, 0.9, [c[0] - 0.07 * w * D, c[1] - 0.06 * h]);
     var tx = '<path d="' + polyD(lit, true) + '" fill="' + col.base + '"/>';
-    if (H.tex) tx += H.tex(ctx);
+    if (H.tex) tx += wrapK(H.tex(ctx));
     // mottling + stipple following the light
     var nd = Math.round(2400 * (w * h) / (168 * 192)), dk = '', lt = '';
     for (var i = 0; i < nd; i++) {
@@ -757,11 +762,11 @@
     tx += hatch(ink, ctx.ha(52), 3.6, inside, function (x, y) { return lum(x, y) < 0.16; }, box, 1.15, INK, hop);
     tx += hatch(ink, ctx.ha(-38), 4.2, inside, function (x, y) { return lum(x, y) < -0.12 && q(x, y) < 0.965; }, box, 1.05, INK, hop);
     tx += hatch(ink, ctx.ha(10), 3.8, inside, function (x, y) { return lum(x, y) < -0.36 && q(x, y) < 0.95; }, box, 0.95, INK, hop);
-    if (H.gloss) tx += H.gloss(ctx);
+    if (H.gloss) tx += wrapK(H.gloss(ctx));
     s += '<g clip-path="url(#' + clip + ')">' + tx + '</g>';
     s += ringEl(ink, sil, SH, { w: 2.4, extra: 4.6, jit: 0.35 });
     s += '</g>';
-    if (H.front) s += H.front(ctx);
+    if (H.front) s += wrapK(H.front(ctx));
     return { svg: s, defs: defs + ctx.defs };
   }
 
@@ -777,7 +782,7 @@
     defaults: { expr: 'neutral', pose: 'idle', prop: 'cup' },
     head: {
       sil: closed([[6, -126], [22, -120], [32, -98], [40, -64], [62, -34], [80, 2], [82, 42], [66, 78], [34, 98], [0, 103], [-36, 98], [-66, 78], [-82, 42], [-78, 2], [-58, -32], [-38, -62], [-27, -96], [-14, -120]]),
-      c: [0, 18], bottom: 101, top: -126,
+      k: 0.84, c: [0, 18], bottom: 101, top: -126,
       col: { base: '#cbc153', shade: '#99993d', light: '#e6dc8a', dark: '#4f4a1e' },
       tex: function (c) { // lenticels + russet around the top
         var s = '', tk = c.tex, sp = '';
@@ -838,7 +843,7 @@
     defaults: { expr: 'skeptical', pose: 'idle', prop: 'bowl' },
     head: {
       sil: closed([[0, -74], [20, -90], [50, -90], [76, -68], [90, -30], [89, 12], [77, 50], [52, 80], [24, 92], [0, 88], [-24, 92], [-52, 80], [-77, 50], [-89, 12], [-90, -30], [-76, -68], [-50, -90], [-20, -90]]),
-      c: [0, 0], bottom: 90, top: -92,
+      k: 0.86, c: [0, 0], bottom: 90, top: -92,
       col: { base: '#bd3a2c', shade: '#8a2620', light: '#e47b52', dark: '#3a0f0c' },
       tex: function (c) { // streaks along the meridians
         var s = '', tk = c.tex, lt = '', dk = '';
@@ -889,18 +894,18 @@
         // dress neckline
         s += vNeck(c, g.n0, g.n0[1] + 14, 6, '#5f7895');
         // apron (bib + skirt) with gingham, clipped
-        var top = g.n0[1] + 22, waistY = c.hip[1] - 6, hemY = c.sit ? c.knee[1] - 2 : lerp(c.knee[1], c.ank[1], 0.3), cx0 = cxAt(c.tp, top), cx1 = c.hip[0];
-        var ap = catmull([[cx0 - 10 * c.k, top], [cx0 + 10 * c.k, top], [cx1 + 12 * c.k, waistY - 6], [cx1 + 17 * c.k, waistY], [cx1 + 20 * c.k, hemY - 3], [cx1, hemY + 1], [cx1 - 20 * c.k, hemY - 3], [cx1 - 17 * c.k, waistY], [cx1 - 12 * c.k, waistY - 6]], 4, true);
+        var top = g.n0[1] + 26, waistY = c.hip[1] - 6, hemY = c.sit ? c.knee[1] - 2 : c.knee[1] + 2, cx0 = cxAt(c.tp, top), cx1 = c.hip[0];
+        var ap = catmull([[cx0 - 7.5 * c.k, top], [cx0 + 7.5 * c.k, top], [cx1 + 9 * c.k, waistY - 8], [cx1 + 15 * c.k, waistY], [cx1 + 17 * c.k, hemY - 3], [cx1, hemY + 1], [cx1 - 17 * c.k, hemY - 3], [cx1 - 15 * c.k, waistY], [cx1 - 9 * c.k, waistY - 8]], 4, true);
         var cl = clipDef(c, 'apron', ap);
         s += '<path d="' + polyD(ap, true) + '" fill="#f1ead8"/>';
-        s += '<g clip-path="' + cl + '">' + gridPattern(cx1 - 30, top - 4, cx1 + 30, hemY + 4, 5.5, '#c0392b', 2.2, 0.35) + '</g>';
+        s += '<g clip-path="' + cl + '">' + gridPattern(cx1 - 30, top - 4, cx1 + 30, hemY + 4, 8, '#b5332b', 3.6, 0.5) + '</g>';
         s += ringEl(ink, ap, c.SH, { w: 1.4, extra: 2 });
         // waist tie + pocket
         s += stroke(ink, [[cx1 - 17 * c.k, waistY], [cx1 + 17 * c.k, waistY]], { w: 3, ta: 0.05, tb: 0.05, min: 0.8 }, '#c0392b');
         s += shape(ink, [[cx1 - 8, waistY + 14], [cx1 + 8, waistY + 14], [cx1 + 7, waistY + 26], [cx1 - 7, waistY + 26]], '#f1ead8', c.SH, { w: 1, extra: 0.8 });
         // pearls
         var pr = '';
-        for (var i = 0; i <= 12; i++) { var u = i / 12, a = Math.PI * u; var px = g.n0[0] - Math.cos(a) * 8.6 * c.k, py = g.n0[1] + 2 + Math.sin(a) * 10; pr += '<circle cx="' + f1(px) + '" cy="' + f1(py) + '" r="2.1" fill="#f6f1e4" stroke="' + INK + '" stroke-width="0.8"/>'; }
+        for (var i = 0; i <= 10; i++) { var u = i / 10, a = Math.PI * (0.08 + 0.84 * u); var px = g.n0[0] - Math.cos(a) * 11 * c.k, py = g.n0[1] + 6 + Math.sin(a) * 14; pr += '<circle cx="' + f1(px) + '" cy="' + f1(py) + '" r="2.4" fill="#f6f1e4" stroke="' + INK + '" stroke-width="0.9"/>'; }
         s += pr;
         return s;
       }
@@ -980,7 +985,7 @@
       }
     }
     var P = mapPose(ch, P0);
-    var H = ch.head, F = ch.face;
+    var H = ch.head, F = ch.face, HK = H.k || 1, Hb = H.bottom * HK, Ht = (H.top || -100) * HK;
 
     // life: breathing, sway, head motion, blink
     var n = noise(seed + 2), br = Math.sin((t / T.breathPeriod + (seed % 97) / 97) * Math.PI * 2);
@@ -1015,14 +1020,14 @@
 
     // head placement
     var neckTop = P.torso[0], attach = [neckTop[0] + headDx, neckTop[1] - ch.neck * ch.S + headDy];
-    var hc = [attach[0], attach[1] - H.bottom];
+    var hc = [attach[0], attach[1] - Hb];
     var tilt = (P.tilt || 0) + (ex.tilt || 0) + headTilt;
     function headPt(p) { return rot([hc[0] + p[0], hc[1] + p[1]], attach, tilt); }
-    var fcx = F.c[0], fcy = F.c[1];
+    var fcx = F.c[0] * HK, fcy = F.c[1] * HK, FS = F.s * HK;
     ['a', 'b'].forEach(function (k) {
       var A = P[k];
       if (A.wrFace) {
-        A.wr = headPt([fcx + A.wrFace[0] * F.s / 1.4, fcy + A.wrFace[1] * F.s / 1.4]);
+        A.wr = headPt([fcx + A.wrFace[0] * FS / 1.4, fcy + A.wrFace[1] * FS / 1.4]);
         if (A.hand.g === 'open') A.hand.ang = -128 + tilt;
         A.el = [Math.max(A.el[0], A.wr[0] + 26 * ch.S), A.el[1]];
       }
@@ -1033,7 +1038,7 @@
     var rk = id + '|' + seed + '|' + D + '|' + bv + '|' + rough + (grain ? 'g' : '') + '|';
     var fields = rough > 0 ? cached(rk + 'field', function () {
       var ga = grain ? T.grainAmpWithFilter / T.grainAmp : 1;
-      return { body: dispField(seed, bv, 1, rough, ga), face: dispField(seed, bv, F.s, rough, ga) };
+      return { body: dispField(seed, bv, 1, rough, ga), face: dispField(seed, bv, F.s * (H.k || 1), rough, ga) };
     }) : { body: null, face: null };
     var defs = '';
 
@@ -1077,8 +1082,8 @@
     var faceDefs = '';
     var face = withDisp(fields.face, function () { return faceSvg(new Ink(seed + 13), ch, ex, st, uid + 'f', function (x) { faceDefs += x; }); });
     defs += faceDefs;
-    var faceG = '<g class="cast-face" transform="translate(' + f1(fcx) + ' ' + f1(fcy) + ') scale(' + F.s + ')">' + face + '</g>';
-    var headG = '<g class="cast-head" transform="translate(' + f1(hc[0]) + ' ' + f1(hc[1]) + ') rotate(' + f1(tilt) + ' 0 ' + f1(H.bottom) + ')">' + head.svg + faceG + (H.over ? H.over : '') + '</g>';
+    var faceG = '<g class="cast-face" transform="translate(' + f1(fcx) + ' ' + f1(fcy) + ') scale(' + f1(FS * 100) / 100 + ')">' + face + '</g>';
+    var headG = '<g class="cast-head" transform="translate(' + f1(hc[0]) + ' ' + f1(hc[1]) + ') rotate(' + f1(tilt) + ' 0 ' + f1(Hb) + ')">' + head.svg + faceG + (H.over ? H.over : '') + '</g>';
 
     var prop = null, propTip = null;
     if (pName === 'hold' && propName && propName !== 'none' && PROPS[propName]) {
@@ -1094,7 +1099,7 @@
     var armB = withDisp(fields.body, function () { return armSvg(new Ink(seed + 19), P.b, ch, SH, 'b', prop); });
 
     // bbox (local, before flip/scale)
-    var top = hc[1] + (H.top || -100) - 34, bx0 = -70 * ch.S, bx1 = 70 * ch.S;
+    var top = hc[1] + Ht - 34, bx0 = -70 * ch.S, bx1 = 70 * ch.S;
     [P.a.wr, P.b.wr, P.a.el, P.b.el].forEach(function (p) { bx0 = Math.min(bx0, p[0] - 40); bx1 = Math.max(bx1, p[0] + 40); });
     bx0 = Math.min(bx0, hc[0] - 100); bx1 = Math.max(bx1, hc[0] + 100);
     var box = [bx0, top, bx1 - bx0, 30 - top];
@@ -1111,8 +1116,8 @@
     function A(p) { var q = rot(p, [0, 0], sway); return [Math.round(q[0] * D * scale * 10) / 10, Math.round(q[1] * scale * 10) / 10]; }
     var wA = A(P.a.wr), wB = A(P.b.wr);
     var anchors = {
-      feet: [0, 0], headCenter: A(headPt([0, 0])), headTop: A(headPt([0, H.top || -100])), mouth: A(headPt([fcx + 3 * F.s, fcy + (F.mouthY || 30) * F.s])),
-      eyes: A(headPt([fcx + 3 * F.s, fcy])), handL: D > 0 ? wA : wB, handR: D > 0 ? wB : wA, propTip: propTip ? A(propTip) : null,
+      feet: [0, 0], headCenter: A(headPt([0, 0])), headTop: A(headPt([0, Ht])), mouth: A(headPt([fcx + 3 * FS, fcy + (F.mouthY || 30) * FS])),
+      eyes: A(headPt([fcx + 3 * FS, fcy])), handL: D > 0 ? wA : wB, handR: D > 0 ? wB : wA, propTip: propTip ? A(propTip) : null,
       bbox: D > 0 ? [box[0] * scale, box[1] * scale, box[2] * scale, box[3] * scale] : [-(box[0] + box[2]) * scale, box[1] * scale, box[2] * scale, box[3] * scale]
     };
     return { svg: svg, anchors: anchors, state: { id: id, expr: exprN, pose: pName, prop: propName, talk: talk, blink: Math.round(blink * 100) / 100, boil: bv } };

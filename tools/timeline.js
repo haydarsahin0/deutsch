@@ -394,6 +394,7 @@ function compile(ep, opts = {}) {
       }
       case 'strike': case 'tick': case 'highlight': {
         const el = byId.get(a.id);
+        if (el && el.type === 'quiz' && c.cue === 'highlight' && a.option != null) { (el.optHi = el.optHi || []).push({ t: r3(c.t), i: parseInt(a.option, 10) }); break; }
         if (!el && shotById.has(a.id)) { const sh = shotById.get(a.id); sh[c.cue + 'T'] = r3(Math.max(c.t, sh.contentStart + 0.3)); break; }
         if (!el) { warn(`${c.cue}: unknown id "${a.id}"`); break; }
         const minT = el.appear + (el.writeDur || 0);
@@ -545,7 +546,7 @@ function compile(ep, opts = {}) {
   const silent = new Set();
   for (const q of quotes) if (q.who !== 'melo' && q.w0 != null) for (let w = q.w0; w <= q.w1; w++) silent.add(w);
   const rigWords = words.filter(w => !silent.has(w.i));
-  const listJs = d => { try { return fs.readdirSync(path.join(__dirname, '..', d)).filter(f => /\.js$/.test(f)).sort(); } catch (e) { return []; } };
+  const listJs = d => { try { return fs.readdirSync(path.join(__dirname, '..', d)).filter(f => /\.js$/.test(f) && !/render|sheet|test|^dev|tool|bench/.test(f)).sort(); } catch (e) { return []; } };
   const assets = { sets: listJs('engine/sets').filter(f => f !== 'sets.js'), cast: listJs('engine/cast') };
   const TL = {
     version: 1, episode: path.basename(path.resolve(ep)), fps: 30, width: 1920, height: 1080,

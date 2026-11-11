@@ -410,6 +410,15 @@
         }
         ctx.restore(); return null;
       } });
+      // [[highlight id=q option=i]]: marker sweep behind the option being read
+      if (el.optHi && el.optHi.length) parts.unshift({ kind: 'custom', noTip: true, t0: el.optHi[0].t, t1: el.optHi[0].t + 0.3, draw: function (ctx, tt) {
+        var cur = null; el.optHi.forEach(function (h) { if (h.t <= tt) cur = h; });
+        if (!cur || (el.reveal != null && tt >= el.reveal) || (el.countdown != null && tt >= el.countdown)) return null;
+        var ro = rows[cur.i]; if (!ro) return null;
+        var a = sat((tt - cur.t) / 0.25);
+        ctx.save(); ctx.globalAlpha = 0.3; ctx.fillStyle = '#f4d061'; ctx.fillRect(ro.x, ro.y + 12, (ro.w + 40) * ease(a), ro.h - 16); ctx.restore();
+        return null;
+      } });
       // reveal: circle the right answer, dim the others
       if (el.reveal != null) {
         var rr = rows[el.answer];
@@ -956,7 +965,10 @@
   var DEFAULT_SLOTS = {
     left: { x: 560, y: 1010, scale: 1.12 }, center: { x: 960, y: 1010, scale: 1.12 }, right: { x: 1360, y: 1010, scale: 1.12 },
     back: { x: 960, y: 860, scale: 0.78 }, 'table-left': { x: 620, y: 990, scale: 1.05 }, 'table-right': { x: 1300, y: 990, scale: 1.05 },
-    'far-left': { x: 300, y: 1010, scale: 1.12 }, 'far-right': { x: 1620, y: 1010, scale: 1.12 }
+    'far-left': { x: 300, y: 1010, scale: 1.12 }, 'far-right': { x: 1620, y: 1010, scale: 1.12 },
+    waiter: { x: 1380, y: 1010, scale: 1.12 }, host: { x: 960, y: 1000, scale: 1.08 }, 'podium-left': { x: 520, y: 1000, scale: 1.0 }, 'podium-right': { x: 1400, y: 1000, scale: 1.0 },
+    'bar-left': { x: 620, y: 1010, scale: 1.12 }, 'bar-right': { x: 1300, y: 1010, scale: 1.12 }, customer: { x: 600, y: 1010, scale: 1.12 }, 'behind-counter': { x: 1150, y: 960, scale: 1.0 },
+    interviewer: { x: 1350, y: 1000, scale: 1.08 }, candidate: { x: 580, y: 1000, scale: 1.08 }, fridge: { x: 1500, y: 1000, scale: 1.1 }, counter: { x: 1200, y: 990, scale: 1.0 }, door: { x: 300, y: 1000, scale: 1.1 }
   };
   var MAP_FALLBACK = { norden: [930, 230], hamburg: [930, 250], berlin: [1170, 330], rheinland: [700, 470], koeln: [700, 470], 'köln': [700, 470],
     schwaben: [880, 690], stuttgart: [880, 690], bayern: [1060, 660], 'münchen': [1080, 720], muenchen: [1080, 720], wien: [1400, 660],
@@ -1095,6 +1107,11 @@
     var qs = E.quotesBy[id]; if (!qs) return 0;
     for (var i = 0; i < qs.length; i++) {
       var q = qs[i];
+      if (q.w0 == null) { // gag bubble (not in the narration): soft talk while the text writes on
+        var wd2 = Math.max(0.6, Math.min(2.2, q.text.length * 0.05));
+        if (t >= q.t && t <= q.t + wd2) return 0.25 + 0.3 * Math.abs(Math.sin((t - q.t) * 11)) * (0.6 + 0.4 * Math.sin((t - q.t) * 3.7));
+        continue;
+      }
       if (t < q.start - 0.03 || t > q.end + 0.05) continue;
       // only inside the quote's words (closed in pauses)
       var inside = q.w0 == null;
@@ -1105,13 +1122,21 @@
     return 0;
   }
   function castState(sc, m, t) {
-    var st = { expr: m.expr || 'neutral', pose: m.pose || 'idle', flip: !!m.flip };
-    (sc.castCues || []).forEach(function (c) { if (c.id === m.id && c.t <= t) { if (c.expr) st.expr = c.expr; if (c.pose) st.pose = c.pose; if (c.flip != null) st.flip = c.flip === true || c.flip === 'true' || c.flip === '1'; } });
+    var st = { expr: m.expr || 'neutral', pose: m.pose || 'idle', flip: !!m.flip, from: null, w: 1 };
+    (sc.castCues || []).forEach(function (c) {
+      if (c.id !== m.id || c.t > t) return;
+      if ((c.expr && c.expr !== st.expr) || (c.pose && c.pose !== st.pose)) {
+        var w = (t - c.t) / 0.3;
+        if (w < 1) { st.from = { expr: st.expr, pose: st.pose }; st.w = Math.max(0, w); } else { st.from = null; st.w = 1; }
+      }
+      if (c.expr) st.expr = c.expr; if (c.pose) st.pose = c.pose;
+      if (c.flip != null) st.flip = c.flip === true || c.flip === 'true' || c.flip === '1';
+    });
     return st;
   }
   function bboxOf(a) {
     if (!a) return { x0: -220, y0: -580, x1: 220, y1: 40 };
-    if (Array.isArray(a)) return { x0: a[0], y0: a[1], x1: a[2], y1: a[3] };
+    if (Array.isArray(a)) return { x0: a[0], y0: a[1], x1: a[0] + a[2], y1: a[1] + a[3] };  // cast: [x, y, w, h]
     if (a.w != null) return { x0: a.x, y0: a.y, x1: a.x + a.w, y1: a.y + a.h };
     if (a.x0 != null) return a;
     return { x0: -220, y0: -580, x1: 220, y1: 40 };
@@ -1126,7 +1151,7 @@
       '<ellipse cx="-30" cy="-395" rx="9" ry="12" fill="#f3ead3"/><ellipse cx="30" cy="-395" rx="9" ry="12" fill="#f3ead3"/>' +
       '<ellipse cx="0" cy="-340" rx="18" ry="' + mouthH.toFixed(1) + '" fill="#35110e"/>' +
       '<text x="0" y="-480" text-anchor="middle" font-family="sans-serif" font-size="34" fill="#17130f">' + id + '</text></g>';
-    return { svg: g, anchors: { headCenter: [0, -385], mouth: [0, -340], bbox: [-120, -520, 120, 30] } };
+    return { svg: g, anchors: { headCenter: [0, -385], mouth: [0, -340], bbox: [-120, -520, 240, 550] } };
   }
   async function drawFigure(ctx, svgG, bb, pos, cam) {
     // pos {x,y,s,flip}; rasterise only the visible part of the figure's bbox
@@ -1147,7 +1172,9 @@
     var st = castState(sc, m, t), sl = slotPos(sc, m.slot), talk = talkLevel(m.id, t, sc), r;
     if (sl.seated && (!m.pose || m.pose === 'idle') && !(sc.castCues || []).some(function (c) { return c.id === m.id && c.pose && c.t <= t; })) st.pose = 'sit';
     var have = root.Cast && Cast.list && Cast.list().indexOf(m.id) >= 0;
-    try { r = have ? Cast.render(m.id, { expr: st.expr, pose: st.pose, talk: talk, t: t, seed: 3, flip: false, scale: 1 }) : null; } catch (e) { if (!E.warned['ce' + m.id]) { E.warned['ce' + m.id] = 1; console.warn('cast ' + m.id + ': ' + e.message); } }
+    // eyes toward Melo (or the screen centre)
+    var tgt = E.heads.melo || [960, 400], lk = [clamp((tgt[0] - sl.x) / 500, -1, 1) * (st.flip ? -1 : 1), 0.1];
+    try { r = have ? Cast.render(m.id, { expr: st.expr, pose: st.pose, talk: talk, t: t, seed: 3, flip: false, scale: 1, look: lk, from: st.from, w: st.from ? st.w : undefined, id: 'c' + m.id }) : null; } catch (e) { if (!E.warned['ce' + m.id]) { E.warned['ce' + m.id] = 1; console.warn('cast ' + m.id + ': ' + e.message); } }
     if (!r) { if (!have && !E.warned['c' + m.id]) { E.warned['c' + m.id] = 1; console.warn('cast "' + m.id + '" missing → placeholder'); } r = placeholderCast(m.id, { talk: talk }); }
     var a = r.anchors || {}, bb = bboxOf(a.bbox), s = sl.scale || 1.1, fl = st.flip ? -1 : 1;
     bb = { x0: bb.x0 - 30, y0: bb.y0 - 30, x1: bb.x1 + 30, y1: bb.y1 + 20 };
@@ -1205,7 +1232,7 @@
         ctx.fill(new Path2D(ink.brush([tail[2], tail[1]], { w: 6, ta: 0.05, tb: 0.3, min: 0.4 })));
       } else { ctx.fillStyle = INK; ctx.fill(new Path2D(ink.brush(handLine(outline, 5, 10, 1.2), { w: 6.5, ta: 0.02, tb: 0.02, min: 0.6, jit: 0.25 }))); }
       // text writes on over the quote (min 0.45 s)
-      var dur = Math.max(0.45, Math.min(2.2, (q.end - q.start) || 0.6)), prog = sat((t - q.t - 0.08) / dur);
+      var dur = q.w0 == null ? Math.max(0.6, Math.min(2.2, q.text.length * 0.05)) : Math.max(0.45, Math.min(2.2, (q.end - q.start) || 0.6)), prog = sat((t - q.t - 0.08) / dur);
       var total = lines.join('').length, shown = prog * total, acc = 0;
       ctx.font = font; ctx.fillStyle = INK; ctx.textBaseline = 'alphabetic';
       lines.forEach(function (l, li) {
@@ -1239,7 +1266,7 @@
       if (p <= 0) return;
       var pr = prefix(handLine(o.p, seed + i, 5, 1.2), p);
       var col = o.s.col === 'w' || o.s.col === 'k' ? INK : darken(PROPC[o.s.col] || INK);
-      ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = col; ctx.lineWidth = Math.max(3, 6.5 * sc2 * o.s.w * 1.6);
+      ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = col; ctx.lineWidth = Math.max(3, 3.4 * sc2 * o.s.w);
       pathOf(ctx, pr.pts); ctx.stroke(); ctx.restore();
     });
   }
@@ -1493,7 +1520,7 @@
     }
     var R = panel(1440, a.rightLabel, a.right || '', sc.rightT || sc.tStart + 2, true);
     if (R) {
-      var tt = (sc.rightT || 0) + 0.6, l2 = R.lines[R.lines.length - 1], w2 = measure(l2, R.font), y2 = R.y0 + (R.lines.length - 1) * R.fs * 1.08;
+      var tt = sc.tickT != null ? sc.tickT : (sc.rightT || 0) + 0.6, l2 = R.lines[R.lines.length - 1], w2 = measure(l2, R.font), y2 = R.y0 + (R.lines.length - 1) * R.fs * 1.08;
       var tx = Math.min(1440 + w2 / 2 + 30, 1860), S2 = R.fs * 0.8;
       brushStroke(ctx, [[tx - S2 * 0.6, y2 + 50], [tx - S2 * 0.35, y2 + 50 + S2 * 0.3], [tx + S2 * 0.2, y2 + 50 - S2 * 0.6]], R.fs * 0.12, '#3f7d2f', sat((t - tt) / 0.35), 51);
     }
