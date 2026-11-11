@@ -30,6 +30,8 @@
 </style>
 <script src="../brand/concepts/b/melo-b.js"></script>
 <script src="../brand/channel/scene-ink.js"></script>
+<script src="sets/fonts-embed.js" onerror="0"></script>
+<script src="sets/sets.js"></script>
 <script src="stub-rig.js"></script>
 <script src="character/rig.js"></script>
 <script src="js/set.js"></script>
@@ -44,9 +46,27 @@
   var q = new URLSearchParams(location.search);
   var ep = q.get('ep');
   window.__ready = false;
+  // sets (engine/sets/*.js, kits first) and cast (engine/cast/*.js, cast.js first), listed by tools/timeline.js
+  function loadAssets(tl, done) {
+    var a = tl.assets || {}, list = [];
+    var sets = (a.sets || []).filter(function (f) { return f !== 'fonts-embed.js' && f !== 'sets.js'; });
+    var rank = function (f) { return f === 'kit-b.js' ? 0 : f === 'kit-a.js' ? 1 : /^kit/.test(f) ? 2 : 3; };  // kit-a needs kit-b
+    sets.sort(function (x, y) { return rank(x) - rank(y) || (x < y ? -1 : 1); });
+    sets.forEach(function (f) { list.push('sets/' + f); });
+    var cast = (a.cast || []).slice().sort(function (x, y) { return (y === 'cast.js' ? 1 : 0) - (x === 'cast.js' ? 1 : 0) || (x < y ? -1 : 1); });
+    cast.forEach(function (f) { list.push('cast/' + f); });
+    (function next(i) {
+      if (i >= list.length) return done();
+      var s = document.createElement('script'); s.src = list[i];
+      s.onload = function () { next(i + 1); };
+      s.onerror = function () { console.warn('asset failed to load: ' + list[i]); next(i + 1); };
+      document.head.appendChild(s);
+    })(0);
+  }
   function start() {
     var tl = window.TIMELINE;
     if (!tl) { document.title = 'no timeline'; console.error('no TIMELINE (build/timeline.js) for ep=' + ep); return; }
+    if (!window.__assetsLoaded) { window.__assetsLoaded = true; return loadAssets(tl, start); }
     MeloEngine.init(tl, { scale: parseFloat(q.get('scale') || '1'), subs: q.get('subs') !== '0' }).then(function (info) {
       window.__ready = true; window.__info = info;
       if (q.get('dev')) dev(tl); else renderFrame(parseFloat(q.get('t') || '0'));

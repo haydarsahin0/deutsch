@@ -28,7 +28,7 @@ async function openPage(ep, scale, subs) {
   const W = Math.round(1920 * scale), H = Math.round(1080 * scale);
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') { const s = m.text(); if (!/layout: scene|MeloIcons/.test(s) || process.env.VERBOSE) console.log('  [page]', s); } });
-  page.on('pageerror', e => console.log('  [page error]', e.message));
+  page.on('pageerror', e => console.log('  [page error]', e.message, (e.stack || '').split('\n').slice(1, 2).join(' ')));
   const url = 'file://' + path.resolve(__dirname, '..', 'engine', 'player.html') + `?ep=${encodeURIComponent(path.basename(path.resolve(ep)))}&scale=${scale}&subs=${subs ? 1 : 0}&t=-1`;
   await page.goto(url);
   await page.waitForFunction(() => window.__ready || window.__error, null, { timeout: 120000 });

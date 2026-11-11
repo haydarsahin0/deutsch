@@ -234,6 +234,7 @@ function compile(ep, opts = {}) {
   }
 
   const quotes = [];
+  const shotById = new Map();
   // time each token of an on-screen text to where it is spoken (within the next ~60 words), else stagger
   function timeTokens(text, c, minT) {
     const toks = String(text).split(/\s+/).filter(Boolean);
@@ -281,9 +282,14 @@ function compile(ep, opts = {}) {
       case 'shot': {
         let type = a.type;
         if (!SHOT_TYPES.has(type)) { warn(`unknown shot type "${type}" → scene`); type = 'scene'; }
+        if (type === 'melo' && a.bg === 'board') { type = 'board'; a.melo = a.melo || 'side-left'; a.framing = a.framing || 'wide'; }
         let mm = a.melo || (type === 'melo' ? 'medium' : type === 'board' ? 'side-left' : type === 'chapter' ? 'off' : 'off');
         if (!MELO_MODES.test(mm)) { warn(`shot: unknown melo mode "${mm}" → off`); mm = 'off'; }
+        if (type === 'board' && a.framing) mm = a.melo || 'side-left';
         const sc = newScene(c, { type, layout: type === 'board' || type === 'quiz' ? 'board' : type, melo: mm, args: a });
+        sc.cams = [];
+        if (a.id) { if (byId.has(a.id)) warn(`duplicate id "${a.id}" on shot`); shotById.set(a.id, sc); }
+        if (type === 'board' && a.framing === 'wide') camera.push({ t: r3(sc.tStart), shot: 'wide', focus: null });
         if (type === 'scene' || type === 'melo') {
           sc.set = a.set || (type === 'melo' ? null : 'paper');
           sc.cast = String(a.cast || '').split(',').map(x => x.trim()).filter(Boolean).map(x => {
@@ -291,7 +297,16 @@ function compile(ep, opts = {}) {
             return { id, slot: slot || 'center', expr: expr || 'neutral', pose: pose || 'idle' };
           });
         }
-        if (type === 'text') sc.tokens = timeTokens(String(a.text || ''), c, sc.contentStart);
+        if (type === 'text') {
+          // style=stack: lines separated by "|"; tokens remember their line
+          const lines = String(a.text || '').split('|').map(x => x.trim()).filter(Boolean);
+          sc.tokens = timeTokens(lines.join(' '), c, sc.contentStart);
+          let k = 0; lines.forEach((ln, li) => ln.split(/\s+/).filter(Boolean).forEach(() => { if (sc.tokens[k]) sc.tokens[k].line = li; k++; }));
+          sc.lineCount = lines.length;
+          const last = sc.tokens.length ? sc.tokens[sc.tokens.length - 1].t : sc.contentStart;
+          if (a.style === 'wrong' && a.strike !== 'manual') sc.strikeT = r3(last + 0.7);
+          if (a.style === 'right') sc.tickT = r3(last + 0.5);
+        }
         if (type === 'split') {
           sc.leftT = r3(sc.contentStart + 0.1);
           const rt = timeTokens(String(a.right || ''), c, sc.contentStart + 0.8);
@@ -333,6 +348,11 @@ function compile(ep, opts = {}) {
         break;
       }
       case 'camera': {
+        if (scene && scene.isShot && scene.type !== 'board' && scene.type !== 'quiz') {
+          // camera moves inside an illustrated shot (push/tilt/pan aimed at a character or anchor)
+          scene.cams.push({ t: r3(c.t), shot: a.shot || 'push', focus: a.focus || null });
+          break;
+        }
         const shot = SHOTS.has(a.shot) ? a.shot : (a.focus ? 'close' : (warn(`unknown camera shot "${a.shot}" → wide`), 'wide'));
         camera.push({ t: r3(c.t), shot, focus: a.focus || null });
         break;
@@ -374,6 +394,7 @@ function compile(ep, opts = {}) {
       }
       case 'strike': case 'tick': case 'highlight': {
         const el = byId.get(a.id);
+        if (!el && shotById.has(a.id)) { const sh = shotById.get(a.id); sh[c.cue + 'T'] = r3(Math.max(c.t, sh.contentStart + 0.3)); break; }
         if (!el) { warn(`${c.cue}: unknown id "${a.id}"`); break; }
         const minT = el.appear + (el.writeDur || 0);
         el[c.cue] = r3(Math.max(c.t, minT));

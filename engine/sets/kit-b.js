@@ -84,6 +84,17 @@
     };
     // soft offset shadow behind an object
     S.drop = function (x, y, w, h, dx, dy, col) { return this.fillOnly(this.rect(x + (dx == null ? 12 : dx), y + (dy == null ? 14 : dy), w, h, 60, 1), col || P.shadow); };
+    // rounded rectangle outline points (radius per corner: r or [tl, tr, br, bl])
+    S.rrect = function (x, y, w, h, r, jit) {
+      var rr = typeof r === 'number' ? [r, r, r, r] : r, out = [], self = this, j = jit == null ? 0.8 : jit;
+      function arc(cx, cy, R, a0) { for (var i = 0; i <= 6; i++) { var a = a0 + i / 6 * Math.PI / 2; out.push([cx + R * Math.cos(a), cy + R * Math.sin(a)]); } }
+      function edge(x0, y0, x1, y1) { var L = Math.hypot(x1 - x0, y1 - y0), n = Math.max(1, Math.round(L / 34)); for (var i = 1; i < n; i++) out.push([x0 + (x1 - x0) * i / n + (self.r() - 0.5) * j, y0 + (y1 - y0) * i / n + (self.r() - 0.5) * j]); }
+      arc(x + rr[0], y + rr[0], rr[0], Math.PI); edge(x + rr[0], y, x + w - rr[1], y);
+      arc(x + w - rr[1], y + rr[1], rr[1], -Math.PI / 2); edge(x + w, y + rr[1], x + w, y + h - rr[2]);
+      arc(x + w - rr[2], y + h - rr[2], rr[2], 0); edge(x + w - rr[2], y + h, x + rr[3], y + h);
+      arc(x + rr[3], y + h - rr[3], rr[3], Math.PI / 2); edge(x, y + h - rr[3], x, y + rr[0]);
+      return out;
+    };
     S.circ = function (cx, cy, r, fill, o) { o = o || {}; return this.shape(this.ellipse(cx, cy, r, o.ry || r, o.n || 40, o.jit || 0.01), fill, { w: o.w == null ? 2.6 : o.w, extra: o.extra == null ? 2.6 : o.extra, color: o.color }); };
     S.dot = function (cx, cy, r, fill) { return '<circle cx="' + f1(cx) + '" cy="' + f1(cy) + '" r="' + f1(r) + '" fill="' + (fill || P.ink) + '"/>'; };
     S.seg = function (x0, y0, x1, y1, w, col, extra) { return this.line([[x0, y0], [x1, y1]], { w: w || 2.4, ta: 0.05, tb: 0.05, min: 0.6 }, col, extra); };
@@ -376,8 +387,8 @@
   // render(opts) → { bg, fg } (+ still: {bg, fg} without the ambient bits, for ambient sets). Static layers are cached per seed|variant.
   function define(name, def) {
     var cache = {}, Sets = root.Sets || (isNode ? require('./sets.js') : null);
-    function layer(seed, fn) {
-      var S = ink(name, seed);
+    function layer(seed, fn, tag) {
+      var S = ink(name + tag, seed);
       var body = withWobble(seed, def.wobble == null ? 1 : def.wobble, function () { return fn(S); });
       return (S.defs ? '<defs>' + S.defs + '</defs>' : '') + body;
     }
@@ -385,7 +396,7 @@
       var seed = opts.seed || 0, key = seed + '|' + (opts.variant || '');
       if (cache[key]) return cache[key];
       var t0 = now(), b = def.build(opts || {}), base = (def.seed || 1) * 1000 + seed * 7;
-      var bg = layer(base + 1, b.bg), fg = b.fg ? layer(base + 2, b.fg) : '';
+      var bg = layer(base + 1, b.bg, ''), fg = b.fg ? layer(base + 2, b.fg, '-fg') : '';
       var fb = Fonts.css(bg), ff = fg ? Fonts.css(fg) : '';
       return (cache[key] = { bg: (fb ? '<defs>' + fb + '</defs>' : '') + bg, fg: fg ? (ff ? '<defs>' + ff + '</defs>' : '') + fg : '', amb: b.amb || {}, ms: now() - t0 });
     }

@@ -149,6 +149,79 @@
     return { strokes: [S([[44, 70], [44, 14], [50, 8], [56, 14], [56, 70]], 'w', 1.2), S(circ(50, 80, 12), 'w', 1.2), S([[50, 76], [50, 30]], 'r', 2)],
       fills: [F(circ(50, 80, 10), 'r')] };
   };
+
+  I['badge-c1'] = function () {
+    var p = []; for (var i = 0; i <= 24; i++) { var a = i / 24 * Math.PI * 2, r = i % 2 ? 34 : 42; p.push([50 + r * Math.cos(a), 46 + r * Math.sin(a)]); }
+    return { strokes: [S(p, 'y', 1.3), S([[36, 78], [30, 98], [42, 92], [48, 98], [46, 82]], 'r', 1), S([[64, 78], [70, 98], [58, 92], [52, 98], [54, 82]], 'r', 1),
+      S([[48, 34], [38, 34], [34, 42], [34, 52], [38, 58], [48, 58]], 'w', 1.3), S([[56, 38], [62, 32], [62, 60]], 'w', 1.3)], fills: [F(p, 'y')] };
+  };
+  I['broken-ac'] = function () {
+    var box = rrect(6, 20, 88, 34, 5);
+    return { strokes: [S(box, 'w', 1.3), S([[14, 44], [86, 44]], 'w', 0.7), S([[14, 49], [86, 49]], 'w', 0.7), S(circ(80, 30, 3), 'g', 1),
+      S([[30, 56], [26, 66], [32, 72]], 'r', 1), S([[48, 56], [52, 66], [46, 74], [50, 82]], 'r', 1), S([[70, 56], [66, 64]], 'r', 1),
+      S([[38, 8], [44, 16], [36, 14], [42, 22]], 'y', 1), S([[60, 10], [56, 18], [64, 16], [58, 24]], 'y', 1)], fills: [F(box, 'b')] };
+  };
+  I['calendar-july'] = function () {
+    var s = [S(rect(12, 18, 76, 72), 'w', 1.3), S([[12, 38], [88, 38]], 'w', 1.1), S([[30, 10], [30, 24]], 'w', 1.2), S([[70, 10], [70, 24]], 'w', 1.2),
+      S([[40, 52], [40, 76], [34, 80]], 'w', 1.6), S([[50, 52], [50, 80], [60, 80]], 'w', 1.6), S([[64, 52], [70, 64], [76, 52]], 'w', 1.4), S([[70, 64], [70, 80]], 'w', 1.4),
+      S(circ(80, 82, 9), 'y', 1)];
+    return { strokes: s, fills: [F(rect(12, 18, 76, 20), 'r'), F(circ(80, 82, 9), 'y')] };
+  };
+  I.football = function () {
+    var s = [S(circ(50, 52, 38), 'w', 1.4)], pent = [];
+    for (var i = 0; i <= 5; i++) { var a = -Math.PI / 2 + i / 5 * Math.PI * 2; pent.push([50 + 12 * Math.cos(a), 52 + 12 * Math.sin(a)]); }
+    s.push(S(pent, 'w', 1.2));
+    for (i = 0; i < 5; i++) { var a2 = -Math.PI / 2 + i / 5 * Math.PI * 2; s.push(S([[50 + 12 * Math.cos(a2), 52 + 12 * Math.sin(a2)], [50 + 30 * Math.cos(a2), 52 + 30 * Math.sin(a2)]], 'w', 1)); }
+    s.push(S([[4, 70], [12, 72]], 'w', 0.8), S([[2, 80], [12, 80]], 'w', 0.8));
+    return { strokes: s, fills: [F(pent, 'w')] };
+  };
+  I['green-face'] = function () {
+    var f = circ(50, 50, 38);
+    return { strokes: [S(f, 'g', 1.3), S([[34, 40], [42, 44]], 'w', 1.2), S([[66, 40], [58, 44]], 'w', 1.2), S([[36, 68], [42, 62], [50, 68], [58, 62], [64, 68]], 'w', 1.2),
+      S([[80, 18], [84, 28]], 'b', 1), S(circ(84, 32, 3), 'b', 1)], fills: [F(f, 'g')] };
+  };
+  I['juice-drops'] = function () {
+    function drop(x, y, k) { var p = []; for (var i = 0; i <= 20; i++) { var a = i / 20 * Math.PI * 2, r = (1 - Math.sin(a)) * 0.5; p.push([x + Math.cos(a) * 10 * k * (0.4 + r), y + Math.sin(a) * 14 * k]); } return p; }
+    var d1 = drop(30, 40, 1.5), d2 = drop(64, 30, 1.1), d3 = drop(56, 72, 1.3);
+    return { strokes: [S(d1, 'r', 1.2), S(d2, 'r', 1.2), S(d3, 'r', 1.2), S([[24, 36], [26, 30]], 'w', 0.8)], fills: [F(d1, 'r'), F(d2, 'r'), F(d3, 'r')] };
+  };
+  I['melon-seed'] = function () {
+    var p = []; for (var i = 0; i <= 28; i++) { var t = i / 28 * Math.PI * 2, u = Math.cos(t) * 30, v = Math.sin(t) * 18 * (0.5 + 0.5 * (1 - Math.cos(t)) / 2); p.push([50 + v, 50 - u]); }
+    return { strokes: [S(p, 'w', 1.4), S([[46, 34], [44, 42]], 'y', 1)], fills: [F(p, 'k')] };
+  };
+  I['plate-stack'] = function () {
+    var s = [];
+    for (var i = 0; i < 4; i++) s.push(S(arc(50, 80 - i * 13, 40, 8, 0, 362, 30), 'w', 1.2));
+    s.push(S([[34, 30], [40, 20], [50, 16], [60, 20], [66, 30]], 'y', 1.1));
+    return { strokes: s, fills: [F([[34, 30], [40, 20], [50, 16], [60, 20], [66, 30]], 'y')] };
+  };
+  I['speech-bubbles'] = function () {
+    var a = [[6, 12], [58, 12], [58, 46], [24, 46], [12, 58], [16, 46], [6, 46], [6, 12]], b = [[42, 52], [94, 52], [94, 84], [84, 84], [88, 96], [74, 84], [42, 84], [42, 52]];
+    return { strokes: [S(a, 'w', 1.2), S(b, 'y', 1.2), S([[16, 26], [48, 26]], 'w', 0.6), S([[16, 34], [40, 34]], 'w', 0.6), S([[52, 66], [84, 66]], 'y', 0.6)], fills: [F(a, 'b'), F(b, 'o')] };
+  };
+  I.sunglasses = function () {
+    var l = [[8, 40], [44, 40], [42, 58], [32, 64], [16, 62], [10, 52]], r = [[56, 40], [92, 40], [90, 52], [84, 62], [68, 64], [58, 58]];
+    return { strokes: [S(l, 'w', 1.3), S(r, 'w', 1.3), S([[44, 44], [50, 40], [56, 44]], 'w', 1.2), S([[8, 40], [2, 34]], 'w', 1), S([[92, 40], [98, 34]], 'w', 1), S([[16, 46], [24, 46]], 'y', 0.8)],
+      fills: [F(l, 'k'), F(r, 'k')] };
+  };
+  I.textbook = function () {
+    var cover = [[18, 10], [80, 10], [80, 88], [18, 88]];
+    return { strokes: [S(cover.concat([[18, 10]]), 'w', 1.3), S([[26, 10], [26, 88]], 'w', 0.9), S([[34, 28], [72, 28]], 'w', 1), S([[34, 38], [64, 38]], 'w', 0.8),
+      S([[80, 14], [86, 18], [86, 92], [24, 92], [18, 88]], 'w', 0.9), S([[40, 60], [62, 60]], 'y', 1)], fills: [F(cover, 'r')] };
+  };
+  I['thermometer-35'] = function () {
+    var r = I.thermometer();
+    r.strokes.push(S([[64, 22], [70, 18], [74, 22], [70, 28], [74, 32], [70, 36], [64, 32]], 'r', 1.1), S([[80, 18], [90, 18], [80, 28], [88, 28], [90, 34], [82, 38]], 'r', 1.1), S(circ(94, 14, 3), 'r', 0.8));
+    return r;
+  };
+  I.zzz = function () {
+    return { strokes: [S([[14, 60], [36, 60], [14, 84], [38, 84]], 'b', 1.4), S([[46, 34], [64, 34], [46, 54], [66, 54]], 'b', 1.2), S([[72, 10], [86, 10], [72, 26], [88, 26]], 'b', 1)], fills: [] };
+  };
+  I.doodle = function () { // generic fallback: a sparkle burst
+    var s = [];
+    for (var i = 0; i < 8; i++) { var a = i / 8 * Math.PI * 2, r0 = 12, r1 = i % 2 ? 30 : 44; s.push(S([[50 + r0 * Math.cos(a), 50 + r0 * Math.sin(a)], [50 + r1 * Math.cos(a), 50 + r1 * Math.sin(a)]], 'y', 1.2)); }
+    return { strokes: s, fills: [] };
+  };
   // aliases
   I['thumbs-up'] = I.thumbup = I.thumbsup; I['thumbs-down'] = I.thumbdown = I.thumbsdown; I.bulb = I.idea = I.lightbulb;
   I.bubble = I.speechbubble = I['speech-bubble'] = I.speech; I.kaffee = I.coffee; I.bier = I.beer; I.sonne = I.sun;
@@ -156,9 +229,10 @@
 
   root.MeloIcons = {
     names: Object.keys(I),
+    has: function (name) { return !!I[String(name || '').toLowerCase()]; },
     get: function (name) {
       var f = I[String(name || '').toLowerCase()];
-      if (!f) { console.warn('MeloIcons: unknown icon "' + name + '" → question'); f = I.question; }
+      if (!f) { console.warn('MeloIcons: unknown icon "' + name + '" → doodle'); f = I.doodle; }
       return f();
     }
   };
