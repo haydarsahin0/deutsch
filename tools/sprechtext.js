@@ -58,6 +58,9 @@ function renderParagraph(par) {
       return ' (Pause) ';
     }
     if (name === 'melo' && args.expr === 'laughing') return ' _(lachend)_ ';
+    // [[voice tag="..."]]: delivery direction for AI voices (ElevenLabs v3 audio tag).
+    // Kept as an invisible marker; only the ElevenLabs output shows it as [tag].
+    if (name === 'voice' && args.tag) return ` \u0001${args.tag}\u0002 `;
     return ' ';
   });
   // any malformed leftover brackets
@@ -71,7 +74,7 @@ function renderParagraph(par) {
 
 // Spoken text only, for AI text-to-speech: drop markers, keep sentences and paragraphs.
 function toTTS(text) {
-  return text
+  return stripVoice(text)
     .replace(/\(lange Pause[^)]*\)/g, '\n\n')
     .replace(/\(Pause\)|_\(lachend\)_/g, ' ')
     .split('\n\n')
@@ -80,8 +83,41 @@ function toTTS(text) {
     .join('\n\n');
 }
 
-function countWords(text) {
+const stripVoice = t => t.replace(/\u0001[^\u0002]*\u0002/g, ' ');
+
+// ElevenLabs v3: audio tags in [brackets], pauses via "…" and paragraph breaks.
+// v3 ignores SSML <break> tags, so none are used.
+function toElevenV3(text) {
   return text
+    .replace(/\(lange Pause[^)]*\)/g, '\n\n')
+    .replace(/\(Pause\)/g, ' … ')
+    .replace(/_\(lachend\)_/g, ' [chuckles] ')
+    .replace(/\u0001([^\u0002]*)\u0002/g, ' [$1] ')
+    .split('\n\n')
+    .map(p => p.replace(/[ \t]+/g, ' ')
+      .replace(/\s+([.,!?;:])/g, '$1')
+      .replace(/(…\s*){2,}/g, '… ')
+      .replace(/(\[chuckles\]\s*)+(\[[^\]]+\])/g, '$2')   // explicit tag wins over auto chuckle
+      .replace(/…\s*$/, '')
+      .trim())
+    .filter(Boolean)
+    .join('\n\n');
+}
+
+// Split into chunks of at most `max` characters at paragraph boundaries.
+function chunk(paragraphs, max) {
+  const parts = [];
+  let cur = '';
+  for (const p of paragraphs) {
+    if (cur && cur.length + 2 + p.length > max) { parts.push(cur); cur = ''; }
+    cur = cur ? cur + '\n\n' + p : p;
+  }
+  if (cur) parts.push(cur);
+  return parts;
+}
+
+function countWords(text) {
+  return stripVoice(text)
     .replace(/_\(lachend\)_/g, ' ')
     .replace(/\((lange )?Pause[^)]*\)/g, ' ')
     .split(/\s+/)
@@ -97,6 +133,7 @@ function main() {
 
   const out = [];
   const tts = [];
+  const v3 = [];
   let words = 0, pauses = 0;
   const sections = [];
   // paragraphs = blocks separated by blank lines; headings are their own blocks
@@ -104,15 +141,17 @@ function main() {
   let buf = [];
   const flush = () => {
     if (!buf.length) return;
-    const { text, pauseSeconds } = renderParagraph(buf.join(' '));
+    const { text: raw, pauseSeconds } = renderParagraph(buf.join(' '));
+    const text = raw;
     buf = [];
     pauses += pauseSeconds;
     if (!text || /^(\(Pause\)|\(lange Pause[^)]*\)|\s)*$/.test(text)) return;
     const w = countWords(text);
     words += w;
     if (sections.length) sections[sections.length - 1].words += w;
-    out.push(text, '');
+    out.push(stripVoice(text).replace(/[ \t]+/g, ' ').replace(/\s+([.,!?;:])/g, '$1').trim(), '');
     tts.push(toTTS(text));
+    v3.push(toElevenV3(text));
   };
   for (const line of lines) {
     const h = line.match(/^(#{1,6})\s+(.*)$/);
@@ -156,6 +195,16 @@ function main() {
   const ttsText = tts.join('\n\n') + '\n';
   fs.writeFileSync(path.join(dir, 'tts.txt'), ttsText);
   console.log(`wrote ${path.join(dir, 'tts.txt')} (${ttsText.length} characters)`);
+  // ElevenLabs v3 version: one full file + parts under the per-request limit.
+  const V3_MAX = 4500;
+  const v3Paras = v3.join('\n\n').split('\n\n').filter(Boolean);
+  const v3dir = path.join(dir, 'tts-elevenlabs');
+  fs.rmSync(v3dir, { recursive: true, force: true });
+  fs.mkdirSync(v3dir, { recursive: true });
+  fs.writeFileSync(path.join(v3dir, 'komplett.txt'), v3Paras.join('\n\n') + '\n');
+  const parts = chunk(v3Paras, V3_MAX);
+  parts.forEach((t, i) => fs.writeFileSync(path.join(v3dir, `teil-${i + 1}.txt`), t + '\n'));
+  console.log(`wrote ${v3dir}/ (${parts.length} parts: ${parts.map(t => t.length).join(', ')} characters)`);
   console.log(`spoken words: ${words}`);
   console.log(`pauses: ${Math.round(pauses * 10) / 10} s`);
   console.log(`estimated duration: ${fmt(words / WPM)} min speech @ ${WPM} wpm, ${fmt(minutes)} min incl. pauses`);
