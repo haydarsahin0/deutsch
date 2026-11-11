@@ -19,7 +19,7 @@ _Last update: 2026-11-11 (evening)_
 | 2026-11-12 | Short „Ich bin voll“ | ready, delivered to owner | `shorts/02-ich-bin-voll/` |
 | 2026-11-13 | Short „Ich will ein Bier“ | ready, delivered | `shorts/03-ich-will-ein-bier/` |
 | 2026-11-14 | Short „Doch!“ | ready, delivered | `shorts/05-doch/` |
-| 2026-11-15 | Long #2 „50 Wörter am Tag“ (20-15-10-5-Formel: Wortfamilien, Komposita, Internationalismen, Lückenwörter) | ✍️ script in progress | `episodes/02-50-woerter-am-tag/` |
+| 2026-11-15 | Long #2 „50 Wörter am Tag“ (20-15-10-5-Formel: Wortfamilien, Komposita, Internationalismen, Lückenwörter) | ✍️ script done, waiting for ElevenLabs voice (teil-1..3) | `episodes/02-50-woerter-am-tag/` |
 | spare | Short „Tschüss/Servus“ (map) | config only, not rendered | `shorts/04-tschuess-servus/` |
 
 ## Next

@@ -2,8 +2,8 @@
 title: "50 Wörter am Tag – die ehrliche Methode, die wirklich funktioniert"
 episode: 2
 source: script.md (generiert mit tools/sprechtext.js – nicht von Hand bearbeiten)
-words: 1620
-estimated_duration: "13:10 min (bei 130 Wörtern/Min. + 43 s Pausen)"
+words: 1622
+estimated_duration: "13:11 min (bei 130 Wörtern/Min. + 43 s Pausen)"
 ---
 
 # Sprechtext: 50 Wörter am Tag – die ehrliche Methode, die wirklich funktioniert
@@ -40,7 +40,7 @@ Heute geht's um eine Frage, die ich ständig bekomme: Kann man fünfzig Wörter 
 
 Ich zeige dir das Fünf-mal-zehn-System. Kein Trick, keine App, kein Wunder. Es ist Arbeit: ungefähr fünfundsiebzig bis neunzig Minuten am Tag. Aber es funktioniert – und ich zeige dir genau, warum.
 
-Und wir machen es nicht nur theoretisch: Wir lernen zusammen ein echtes Paket mit zehn Wörtern. _(lachend)_ Der Test kommt bestimmt.
+Und wir machen es nicht nur theoretisch: Wir lernen zusammen ein echtes Paket: zehn Wörter. _(lachend)_ Der Test kommt bestimmt.
 
 ## 1 – Wörter mit Adresse
 
@@ -66,11 +66,11 @@ Ich suche gerade eine Wohnung. Und ich habe diese Anzeige gefunden:
 
 Zehn Wörter. Eine Adresse. Gehen wir sie durch.
 
-Der Nachmieter. Der Mieter wohnt jetzt in der Wohnung. Der Nachmieter wohnt danach drin. Also: du. (Pause) Hoffentlich.
+Der Nachmieter. Der Mieter wohnt jetzt in der Wohnung. Der Nachmieter zieht danach ein. Also: du. (Pause) Hoffentlich.
 
 Möbliert heißt: mit Möbeln. Bett, Tisch, Schrank – alles schon da.
 
-Provisionsfrei heißt: Du zahlst keine Provision an einen Makler. _(lachend)_ Der Makler bekommt also: nichts.
+Provisionsfrei heißt: Du zahlst keine Provision an einen Makler. _(lachend)_ Der Makler bekommt sein Geld also: nicht von dir.
 
 Die Kaltmiete ist die Miete ohne Heizung, ohne Wasser, ohne Müll. Nur die Wohnung. Kalt eben. Ich als Melone mag es ja kalt.
 
@@ -86,7 +86,7 @@ Achthundertdreißig Euro. Wenn jemand sagt „achthundertdreißig warm“, meint
 
 Die Kaution: Geld, das du am Anfang zahlst – als Sicherheit für den Vermieter. Wenn du ausziehst und alles okay ist, bekommst du es zurück.
 
-In Deutschland sind das höchstens drei Kaltmieten. In unserer Anzeige also: fast zweitausend Euro.
+In Deutschland darf sie höchstens drei Kaltmieten betragen. In unserer Anzeige also: fast zweitausend Euro.
 
 „Gekündigt“ kommt von kündigen: einen Vertrag beenden. Die Wohnung kündigen, den Handyvertrag kündigen, den Job kündigen.
 
@@ -106,7 +106,7 @@ Spur eins: laut, mit Artikel und Plural. Sag es mit mir: die Kaution, die Kautio
 
 Spur zwei: mit der Hand schreiben. Nicht tippen. Die Hand ist langsamer als die Tastatur – und genau das hilft dem Kopf.
 
-Spur drei: ein eigener Satz über dein Leben. Nicht aus dem Buch, sondern von dir. Wörter, die du selbst benutzt, bleiben viel besser hängen. Das nennt man den Generierungseffekt.
+Spur drei: ein eigener Satz über dein Leben. Nicht aus dem Buch, sondern von dir. Was du selbst formulierst, bleibt viel besser hängen. Das nennt man den Generierungseffekt.
 
 Mein Satz: „Für meine erste Wohnung habe ich zwei Kaltmieten Kaution bezahlt. Danach gab es drei Monate Nudeln.“ (Pause)
 
@@ -162,7 +162,7 @@ Und noch ehrlicher: die Sieben-Tage-Regel. Ein Wort zählt erst als gelernt, wen
 
 Von fünfzig Wörtern schaffen das realistisch fünfunddreißig bis vierzig. Klingt nach Verlust? Rechne mal: sechs Lerntage pro Woche, vier Wochen. Jeden Tag fünfunddreißig bis vierzig Wörter.
 
-Das sind fast tausend Wörter im Monat, die du wirklich kannst. Nicht gesehen. (Pause) Gekonnt.
+Das sind achthundertvierzig bis neunhundertsechzig Wörter im Monat. Wörter, die du wirklich kannst. Nicht gesehen. (Pause) Gekonnt.
 
 ## 8 – Der Sonntag
 
@@ -202,7 +202,7 @@ Wie viele hattest du? Acht oder mehr: super. Weniger? Ab in die Notaufnahme – 
 
 Und jetzt: der Kern der Sache. Alles noch mal ganz schnell.
 
-Wörter mit Adresse: zehn Wörter aus einer echten Quelle, mit dem Satz, in dem du sie gefunden hast. Fünf Pakete über den Tag. Vier Spuren: laut, mit der Hand, eigener Satz, absurdes Bild.
+Wörter mit Adresse: zehn Wörter aus einer echten Quelle, jedes mit seinem Satz. Fünf Pakete über den Tag. Vier Spuren: laut, mit der Hand, eigener Satz, absurdes Bild.
 
 Die Abruf-Leiter: zehn Minuten, eine Stunde, vor dem Schlafen – immer von der Bedeutung zum Wort. Die Notaufnahme und der Morgen-Check. Wiederholen an Tag zwei, vier, sieben, vierzehn und dreißig.
 
@@ -214,6 +214,6 @@ So. Jetzt bist du dran. Schreib mir in die Kommentare: Woher kommt dein erstes P
 
 Und schreib einen Satz mit einem Wort von heute – über dein Leben. _(lachend)_ Ich lese alles. Und ich korrigiere auch. (Pause)
 
-Wenn du so ehrlich Deutsch lernen willst, abonnier den Kanal.
+Wenn du Deutsch lieber ehrlich als bequem lernen willst, abonnier den Kanal.
 
 Und wenn du heute Nacht von einer Vermieterin träumst, die auf Geldscheinen kaut – (Pause) dann hat es funktioniert. (Pause) Ich bin Melo. Wir sehen uns. (Pause) Spätestens an Tag sieben.
