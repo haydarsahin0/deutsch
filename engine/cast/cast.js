@@ -951,6 +951,7 @@
 
 
   function BAN_CX(u) { return 36 * Math.pow(1 - u, 2.2) - 4; }
+  function BAN_W(u) { return 52 * (0.22 + 0.78 * ease(u / 0.6)) * (u > 0.66 ? Math.sqrt(Math.max(0, 1 - Math.pow((u - 0.66) / 0.34, 2))) : 1); }
   // —— kellner: banana head, tall and slightly bent; white shirt, black vest, bow tie, long bistro apron ——
   CH.kellner = {
     name: 'Kellner', who: 'waiter', fruit: 'banana',
@@ -961,7 +962,7 @@
       k: 0.84,
       sil: (function () { // crescent: centre line leans right toward the stem, inner (right) side flatter
         var Rt = [], Lt = [];
-        for (var i = 0; i <= 32; i++) { var u = i / 32, y = -150 + u * 254, w = 47 * Math.pow(Math.sin(Math.PI * Math.min(u, 0.999) * 0.5 + (u > 0.5 ? (u - 0.5) * Math.PI : 0)), 0.5) * (0.3 + 0.7 * ease(u / 0.55));
+        for (var i = 0; i <= 32; i++) { var u = i / 32, y = -150 + u * 254, w = BAN_W(u);
           var cx = BAN_CX(u); Rt.push([cx + w * 0.92, y]); Lt.push([cx - w * 1.06, y]); }
         return Rt.concat(Lt.reverse().slice(1, -1));
       })(),
@@ -971,7 +972,7 @@
         var s = '', tk = c.tex;
         // facet ridges following the bend
         [[-0.42, 0.6], [0.38, 0.45]].forEach(function (r) {
-          var pts = []; for (var y = -134; y <= 92; y += 8) { var u = (y + 150) / 254, w = 47 * Math.pow(Math.sin(Math.PI * Math.min(u, 0.999) * 0.5 + (u > 0.5 ? (u - 0.5) * Math.PI : 0)), 0.5) * (0.3 + 0.7 * ease(u / 0.55)); pts.push([BAN_CX(u) + r[0] * w, y]); }
+          var pts = []; for (var y = -134; y <= 92; y += 8) { var u = (y + 150) / 254, w = BAN_W(u); pts.push([BAN_CX(u) + r[0] * w, y]); }
           s += stroke(c.ink, pts, { w: 1.3, ta: 0.3, tb: 0.3, min: 0.2, jit: 0.3 }, '#7a5a14');
           s += '<path d="' + polyD(pts.map(function (p) { return [p[0] - 2.2, p[1]]; }), false) + '" stroke="#f7e08a" stroke-width="1.4" fill="none" opacity="' + r[1] + '"/>';
         });
@@ -990,7 +991,7 @@
         return s;
       }
     },
-    face: { c: [0, 22], s: 1.24, eyeX: 21, eyeW: 22, lid: -1.4, browW: 5, browLen: 22, nose: 'long', mouthW: 0.82, chin: 1, halo: '#f7e08a', moustache: { w: 3.6 }, bag: 1, mouthY: 33 },
+    face: { c: [0, 22], s: 1.3, eyeX: 21, eyeW: 22, lid: -1.4, browW: 5, browLen: 22, nose: 'long', mouthW: 0.82, chin: 1, halo: '#f7e08a', moustache: { w: 3.6 }, bag: 1, mouthY: 33 },
     outfit: {
       sleeve: { type: 'long', col: '#efe8d6', r0: 7.8, r1: 6.6, len: 0.82, cuff: '#e2d9c2' },
       legs: { type: 'pants', col: '#24211e', r0: 8, r1: 6.8 }, shoes: { col: '#1a1715', laces: false },
@@ -1176,7 +1177,7 @@
   // —— kind: cherry, child (≈ 60 % height), backwards-ish cap with the stem poking out, striped tee, shorts ——
   CH.kind = {
     name: 'Kind', who: 'small child', fruit: 'cherry',
-    S: 0.56, legK: 0.95, torsoK: 0.92, wK: 1.1, armK: 1, neck: 6, limbK: 0.85, handK: 0.7,
+    S: 0.5, legK: 0.98, torsoK: 0.95, wK: 1.15, armK: 1.05, neck: 6, limbK: 0.85, handK: 0.68,
     col: { limb: '#a83440', skin: '#9e1f2c', outfit: '#2f5d8a', accent: '#efe6cc' },
     defaults: { expr: 'happy', pose: 'idle', prop: 'icecream' },
     head: {

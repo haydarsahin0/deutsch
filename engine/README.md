@@ -73,5 +73,59 @@ The compiler adds default shots at scene starts and reframes after about 8 s on 
 ### Timeline schema (build/timeline.json)
 `{duration, fps, audio, partial, scenes[{i, layout, tStart, tEnd, transition: cut|move|erase|ink}], elements[{id, type, scene, appear, writeDur, strike, tick, highlight, erase, eraseEnd, eraseBy, items[{text, t, dur}], q, options, answer (0-based), countdown, countdownEnd, reveal}], camera[{t, shot, focus, auto}], chapters[{t, num, label, kind}], melo[{t, args}], cues, words, sentences, subs[{start, end, lines[[{text, w}]]}]}`
 
+
+## Visual flow v2 — shot system (docs/PIPELINE.md "Visual flow v2")
+
+Every `[[shot type=…]]` starts a new full-frame composition. Scenes in the timeline are now shots
+(`scenes[i].type`), each with its own transition `in=cut|ink|whip|slide|zoom|flash`. The default is a clean
+0-frame cut. A board→board change with chalk on the board still gets the eraser wipe.
+
+| type | renderer |
+|---|---|
+| `scene` | `Sets.render(set,{t,seed,variant})` → bg/fg rasterised once (ambient sets re-rasterised at 4 fps). Cast and in-scene Melo are sorted by slot y and drawn between them. Seated slots (`seated`, `seatY`) get the `sit` pose. `fg` is drawn after the characters, then fx and bubbles. |
+| `text` | Kinetic typography in Fraunces Black. Each word pops in on its spoken word. When a word is spoken late, it still appears on a brisk cadence from the shot start, so no frame is empty. `style=wrong` adds a red brush strike (or `strike=manual` + `[[strike id]]`), `right` a green tick and underline, `question` a big "?", and `stack` uses `\|` lines. `sub=` adds a Caveat line. |
+| `split` | Red "wrong" panel against a green "right" panel with stamp labels and a VS badge. The left side is struck. The right side appears when spoken, and `[[tick id]]` ticks it. |
+| `board` | The chalkboard world (v1) with Melo `side-left`/`side-right` (~50 % height) or off. `[[camera]]` cues work as before. `type=melo bg=board` maps to a board shot. |
+| `list` | Notebook page with a title. `draw type=list` + `next` are written in ink. |
+| `map` | `map-dach` set with `Sets.mapPoint(name)` pins. Until that set exists, a hand-inked DACH fallback map is used. |
+| `chapter` | Dark rays card showing „NR. n" + title, or only the title when there is no `num`. |
+| `melo` | Melo medium shot (head ≈ 33 % of frame height) on a colour (`bg=mustard\|red\|green\|navy\|paper`) or a set. |
+| `quiz` | Board shot with the camera on the quiz. `[[highlight id=q option=i]]` sweeps a marker behind the option being read. |
+
+**Melo modes** (`melo=`):
+- `off`
+- `corner-left|right`: narrator about 35 % visible, slides in
+- `side-left|right`
+- `in-scene:<slot>`
+- `walk-in(-left|-right)`
+- `peek(-left|-right)`
+
+Text shots narrow and shift away from a corner Melo.
+
+**Cast**: `Cast.render(id,{expr,pose,talk,t,flip,look,from,w})`. The cast faces the slot's `face` direction (or Melo) and looks at Melo. `[[cast]]` changes are eased over 0.3 s. `talk` follows the narrator's loudness while that character's quote is spoken. Gag bubbles that are not in the narration get a soft generic talk while they write on. Missing cast members are drawn as labelled silhouettes.
+
+**Melo's mouth stays shut during other characters' quotes**: tools/timeline.js removes those quote words from `rigWords`, which is the word list the rig gets. No rig change was needed.
+
+**`[[say]]`**: hand-inked paper bubble with a tail to the speaker's mouth anchor. The text writes on during the quote. At most 2 bubbles are shown, the newest per speaker.
+
+**`[[prop]]`**: ink doodles from `engine/js/icons.js`, about 90 names, plus parametric `clock-NNh`, `flag-xx` and `birthday-cake-NN`. Unknown names get a generic doodle and a warning. Props are placed at set slots or screen anchors and animate with `pop`, `drop` or `wiggle`.
+
+**`[[fx]]`**:
+- `shake`, `zoom-punch`, `flash`
+- `sweat`, `steam`, `hearts`, `question-marks`, `sparkle`: drawn around the target head
+- `record-scratch`: freezes the shot for 0.9 s, desaturates it and shows a spinning vinyl
+
+**Camera inside shots**: `cam=push|pan-left|pan-right|tilt|wide`, plus `[[camera shot=push|tilt|… focus=<castId|melo|slot|table>]]` keys eased over 0.85 s. Constant drift keeps every frame moving.
+
+**Draw cues in non-board shots** are written in ink on a paper card (`surf-*` layouts) at the top of the frame. The bottom 170 px stay free for subtitles.
+
+**Fallbacks**: a missing set gets a paper backdrop with a wooden sign naming the set. A missing cast member gets a silhouette. A failing set or cast script is logged and never stops the render.
+
+**Assets**: `tools/timeline.js` lists `engine/sets/*.js` and `engine/cast/*.js` in `timeline.assets`. The player loads them in order: kit-b, kit-a, the sets, then cast.js.
+
+**Re-cue**: when script.md has the same spoken words as the alignment, cue times are recomputed from script.md word indices, so the director can edit cues without re-aligning. `--no-recue` disables this.
+
+Measured speed: about 50 ms per frame overall with 4 workers (200 ms per frame per worker) on the 90-s v3 preview, so the full 11.6-minute episode renders in about 18 min.
+
 ## Performance
 4 workers on 4 CPUs take about 65–90 ms per frame overall (260–360 ms per frame per worker), including JPEG capture and x264. The 11.6-minute episode 1 renders in roughly 25–35 min.

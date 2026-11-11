@@ -22577,6 +22577,8 @@
    "cellar.js",
    "cinema-front.js",
    "dinner-table.js",
+   "doctor-office.js",
+   "exam-room.js",
    "fonts-embed.js",
    "football-park.js",
    "job-interview.js",
@@ -22586,6 +22588,8 @@
    "living-room.js",
    "office-hot.js",
    "quiz-show.js",
+   "street-day.js",
+   "supermarket-checkout.js",
    "wg-kitchen.js",
    "winter-room.js"
   ],

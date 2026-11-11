@@ -970,7 +970,11 @@
     'bar-left': { x: 620, y: 1010, scale: 1.12 }, 'bar-right': { x: 1300, y: 1010, scale: 1.12 }, customer: { x: 600, y: 1010, scale: 1.12 }, 'behind-counter': { x: 1150, y: 960, scale: 1.0 },
     interviewer: { x: 1350, y: 1000, scale: 1.08 }, candidate: { x: 580, y: 1000, scale: 1.08 }, fridge: { x: 1500, y: 1000, scale: 1.1 }, counter: { x: 1200, y: 990, scale: 1.0 }, door: { x: 300, y: 1000, scale: 1.1 }
   };
-  var MAP_FALLBACK = { norden: [930, 230], hamburg: [930, 250], berlin: [1170, 330], rheinland: [700, 470], koeln: [700, 470], 'köln': [700, 470],
+  function geo(lon, lat) { return [960 + (lon - 11.2) * 56, 40 + (55.1 - lat) * 88]; }
+  var MAP_GEO = { norden: [10, 53.55], hamburg: [10, 53.55], berlin: [13.4, 52.5], rheinland: [6.95, 50.94], koeln: [6.95, 50.94], 'köln': [6.95, 50.94],
+    schwaben: [9.18, 48.78], stuttgart: [9.18, 48.78], bayern: [11.9, 48.7], 'münchen': [11.58, 48.14], muenchen: [11.58, 48.14], wien: [16.37, 48.21],
+    oesterreich: [14.3, 47.6], 'österreich': [14.3, 47.6], schweiz: [8.2, 46.8], zuerich: [8.54, 47.37], 'zürich': [8.54, 47.37], sachsen: [13.2, 51.05], center: [10.5, 50] };
+  var MAP_FALLBACK0 = { norden: [930, 230], hamburg: [930, 250], berlin: [1170, 330], rheinland: [700, 470], koeln: [700, 470], 'köln': [700, 470],
     schwaben: [880, 690], stuttgart: [880, 690], bayern: [1060, 660], 'münchen': [1080, 720], muenchen: [1080, 720], wien: [1400, 660],
     oesterreich: [1290, 730], 'österreich': [1290, 730], schweiz: [800, 820], zuerich: [820, 800], 'zürich': [820, 800], sachsen: [1230, 470], center: [960, 520] };
 
@@ -1122,7 +1126,9 @@
     return 0;
   }
   function castState(sc, m, t) {
-    var st = { expr: m.expr || 'neutral', pose: m.pose || 'idle', flip: !!m.flip, from: null, w: 1 };
+    var dflt = {};
+    try { if (root.Cast && Cast.info && Cast.list().indexOf(m.id) >= 0) dflt = Cast.info(m.id).defaults || {}; } catch (e) { }
+    var st = { expr: m.expr || dflt.expr || 'neutral', pose: m.pose || dflt.pose || 'idle', prop: dflt.prop || null, flip: !!m.flip, from: null, w: 1 };
     (sc.castCues || []).forEach(function (c) {
       if (c.id !== m.id || c.t > t) return;
       if ((c.expr && c.expr !== st.expr) || (c.pose && c.pose !== st.pose)) {
@@ -1170,14 +1176,14 @@
   }
   async function drawCast(ctx, sc, m, t, cam) {
     var st = castState(sc, m, t), sl = slotPos(sc, m.slot), talk = talkLevel(m.id, t, sc), r;
-    if (sl.seated && (!m.pose || m.pose === 'idle') && !(sc.castCues || []).some(function (c) { return c.id === m.id && c.pose && c.t <= t; })) st.pose = 'sit';
+    if (sl.seated && (!m.pose || m.pose === 'idle' || st.pose === 'idle') && !(sc.castCues || []).some(function (c) { return c.id === m.id && c.pose && c.t <= t; })) st.pose = 'sit';
     var have = root.Cast && Cast.list && Cast.list().indexOf(m.id) >= 0;
     // face the slot's direction (or Melo / the screen centre); eyes toward Melo
     var tgt = E.heads.melo || [960, 400];
     var faceLeft = (sc.castCues || []).some(function (c) { return c.id === m.id && c.flip != null && c.t <= t; }) ? st.flip : sl.face === -1 ? true : sl.face === 1 ? false : tgt[0] < sl.x - 40;
     var lk = [clamp(Math.abs(tgt[0] - sl.x) / 500, 0, 1), 0.08];
     var feetY = sl.seated && sl.seatY && st.pose === 'sit' ? sl.seatY + 112 * (sl.scale || 1) : sl.y;
-    try { r = have ? Cast.render(m.id, { expr: st.expr, pose: st.pose, talk: talk, t: t, seed: 3, flip: faceLeft, scale: 1, look: lk, from: st.from, w: st.from ? st.w : undefined, id: 'c' + m.id }) : null; } catch (e) { if (!E.warned['ce' + m.id]) { E.warned['ce' + m.id] = 1; console.warn('cast ' + m.id + ': ' + e.message); } }
+    try { r = have ? Cast.render(m.id, { expr: st.expr, pose: st.pose, prop: st.pose === 'hold' ? st.prop : undefined, talk: talk, t: t, seed: 3, flip: faceLeft, scale: 1, look: lk, from: st.from, w: st.from ? st.w : undefined, id: 'c' + m.id }) : null; } catch (e) { if (!E.warned['ce' + m.id]) { E.warned['ce' + m.id] = 1; console.warn('cast ' + m.id + ': ' + e.message); } }
     if (!r) { if (!have && !E.warned['c' + m.id]) { E.warned['c' + m.id] = 1; console.warn('cast "' + m.id + '" missing → placeholder'); } r = placeholderCast(m.id, { talk: talk }); }
     var a = r.anchors || {}, bb = bboxOf(a.bbox), s = sl.scale || 1.1, fl = st.flip ? -1 : 1;
     bb = { x0: bb.x0 - 30, y0: bb.y0 - 30, x1: bb.x1 + 30, y1: bb.y1 + 20 };
@@ -1579,12 +1585,13 @@
   function drawMapShot(ctx, t, sc) {
     var cam = shotCam(sc, t); camTransform(ctx, cam);
     var bg = E.mapLayer;
-    if (bg) ctx.drawImage(bg.bg, 0, 0, 1920, 1080); else ctx.drawImage(fallbackSet('Karte: DACH').bg, 0, 0, 1920, 1080);
+    if (bg) ctx.drawImage(bg.bg, 0, 0, 1920, 1080); else ctx.drawImage(E.mapFallback || (E.mapFallback = drawFallbackMap()), 0, 0, 1920, 1080);
     (sc.pins || []).forEach(function (p, i) {
       if (t < p.t) return;
       var pt = null, key = String(p.at || '').toLowerCase();
       try { if (root.Sets && Sets.mapPoint) { var q = Sets.mapPoint(key); if (q) pt = Array.isArray(q) ? q : [q.x, q.y]; } } catch (e) { }
-      if (!pt) { pt = MAP_FALLBACK[key] || MAP_FALLBACK.center; if (!E.warned['pin' + key]) { E.warned['pin' + key] = 1; if (!MAP_FALLBACK[key]) console.warn('pin at "' + key + '" unknown'); } }
+      if (!pt && !E.mapLayer && MAP_GEO[key]) pt = geo(MAP_GEO[key][0], MAP_GEO[key][1]);
+      if (!pt) { pt = MAP_FALLBACK0[key] || MAP_FALLBACK0.center; if (!E.warned['pin' + key]) { E.warned['pin' + key] = 1; if (!MAP_FALLBACK[key]) console.warn('pin at "' + key + '" unknown'); } }
       var a = t - p.t, dy = (1 - easeOutBack(a / 0.4)) * -260;
       ctx.save(); ctx.translate(pt[0], pt[1] + dy);
       ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.ellipse(6, 4 - dy, 16, 6, 0, 0, 7); ctx.fill();
@@ -1599,6 +1606,29 @@
       ctx.restore();
     });
     return cam;
+  }
+
+  // simple hand-inked DACH map (used until engine/sets provides 'map-dach')
+  function drawFallbackMap() {
+    var k = E.SS2, c = mk(1920 * k, 1080 * k), g = c.getContext('2d'); g.scale(k, k);
+    g.fillStyle = '#9fc3c4'; g.fillRect(0, 0, 1920, 1080);
+    g.strokeStyle = 'rgba(23,19,15,.12)'; g.lineWidth = 2; for (var y = 20; y < 1080; y += 26) { g.beginPath(); g.moveTo(0, y); g.bezierCurveTo(500, y + 8, 1400, y - 8, 1920, y); g.stroke(); }
+    var C = {
+      de: [[6.0, 51.8], [5.9, 50.8], [6.4, 49.5], [8.2, 49.0], [7.6, 47.6], [9.6, 47.5], [10.5, 47.5], [12.9, 47.6], [13.0, 48.2], [13.8, 48.8], [12.5, 49.6], [12.1, 50.3], [14.6, 50.9], [14.8, 51.5], [14.2, 52.6], [14.4, 53.3], [14.2, 53.9], [12.3, 54.4], [11.0, 54.0], [10.9, 54.4], [9.9, 54.8], [8.6, 54.9], [8.7, 53.9], [7.2, 53.3], [6.9, 52.6], [6.7, 52.1]],
+      at: [[9.55, 47.5], [9.6, 47.1], [10.5, 46.85], [12.2, 47.0], [13.7, 46.5], [14.9, 46.6], [16.1, 46.9], [16.5, 47.5], [17.1, 48.0], [16.9, 48.6], [15.0, 49.0], [13.8, 48.8], [13.0, 48.2], [12.9, 47.6], [10.5, 47.5]],
+      ch: [[6.0, 46.2], [7.0, 45.9], [8.4, 46.3], [9.0, 45.9], [10.1, 46.2], [10.5, 46.85], [9.6, 47.1], [9.55, 47.5], [8.6, 47.7], [7.6, 47.6], [6.9, 47.4], [6.0, 46.7]]
+    };
+    var fill = { de: '#efd9a0', at: '#f0c4b4', ch: '#d4e2b8' }, lab = { de: ['Deutschland', 10.3, 51.3], at: ['Österreich', 14.6, 47.45], ch: ['Schweiz', 8.0, 46.55] };
+    Object.keys(C).forEach(function (key, i) {
+      var pts = handLine(C[key].map(function (q) { return geo(q[0], q[1]); }).concat([geo(C[key][0][0], C[key][0][1])]), 7 + i, 14, 3);
+      g.fillStyle = 'rgba(0,0,0,.18)'; g.beginPath(); pts.forEach(function (q, j) { g[j ? 'lineTo' : 'moveTo'](q[0] + 8, q[1] + 10); }); g.fill();
+      g.fillStyle = fill[key]; g.beginPath(); pts.forEach(function (q, j) { g[j ? 'lineTo' : 'moveTo'](q[0], q[1]); }); g.fill();
+      g.fill(new Path2D(new MeloB._Ink(11 + i).brush(pts, { w: 5, ta: 0.01, tb: 0.01, min: 0.7, jit: 0.3 }))); g.fillStyle = INK;
+      g.fill(new Path2D(new MeloB._Ink(11 + i).brush(pts, { w: 5, ta: 0.01, tb: 0.01, min: 0.7, jit: 0.3 })));
+      var L = geo(lab[key][1], lab[key][2]); g.font = '700 ' + (key === 'de' ? 64 : 44) + 'px Caveat'; g.textAlign = 'center'; g.fillStyle = 'rgba(23,19,15,.55)'; g.fillText(lab[key][0], L[0], L[1]);
+    });
+    g.drawImage(E.paperTex, 0, 0, 1920, 1080);
+    return c;
   }
 
   // ── Melo medium shot

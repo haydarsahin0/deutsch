@@ -294,7 +294,7 @@ function compile(ep, opts = {}) {
           sc.set = a.set || (type === 'melo' ? null : 'paper');
           sc.cast = String(a.cast || '').split(',').map(x => x.trim()).filter(Boolean).map(x => {
             const [id, slot, expr, pose] = x.split(':').map(y => y && y.trim());
-            return { id, slot: slot || 'center', expr: expr || 'neutral', pose: pose || 'idle' };
+            return { id, slot: slot || 'center', expr: expr || null, pose: pose || null };
           });
         }
         if (type === 'text') {
