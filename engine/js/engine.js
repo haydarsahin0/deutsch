@@ -1075,7 +1075,7 @@
       if (name && name !== 'paper' && !E.warned['set' + name]) { E.warned['set' + name] = 1; console.warn('set "' + name + '" missing → fallback'); }
       return fallbackSet(name && name !== 'paper' ? name : '');
     }
-    var tq = Math.floor(t * 8) / 8, r;
+    var tq = Math.floor(t * 4) / 4, r;  // ambient sets: re-rasterised at 4 fps
     try { r = Sets.render(name, { t: tq, seed: 1, variant: sc.args && sc.args.variant }); } catch (e) { console.warn('set ' + name + ' failed: ' + e.message); return fallbackSet(name); }
     var key = name + '|' + (sc.args && sc.args.variant || ''), ent = E.setCache[key];
     if (ent && ent.src === r.bg && ent.srcFg === r.fg) return ent;
@@ -1087,7 +1087,11 @@
 
   // ── characters: supporting cast (engine/cast) and Melo, rasterised from SVG at screen resolution
   function envAt(t) { var env = E.tl.envelope; if (!env || !env.rms) return 0; return env.rms[Math.max(0, Math.min(env.rms.length - 1, Math.floor(t * (env.fps || 30))))] || 0; }
-  function talkLevel(id, t) {
+  function talkLevel(id, t, sc) {
+    // [[cast id=.. talk=on]] → mouth follows the narrator's loudness until talk=off
+    var forced = null;
+    if (sc) (sc.castCues || []).forEach(function (c) { if (c.id === id && c.talk && c.t <= t) forced = c.talk === 'on' || c.talk === 'true' || c.talk === '1'; });
+    if (forced === true) { var v0 = envAt(t); return v0 < 0.06 ? 0 : clamp((v0 - 0.06) * 1.6, 0, 1); }
     var qs = E.quotesBy[id]; if (!qs) return 0;
     for (var i = 0; i < qs.length; i++) {
       var q = qs[i];
@@ -1140,7 +1144,8 @@
     ctx.drawImage(img, vx0, vy0, vx1 - vx0, vy1 - vy0);
   }
   async function drawCast(ctx, sc, m, t, cam) {
-    var st = castState(sc, m, t), sl = slotPos(sc, m.slot), talk = talkLevel(m.id, t), r;
+    var st = castState(sc, m, t), sl = slotPos(sc, m.slot), talk = talkLevel(m.id, t, sc), r;
+    if (sl.seated && (!m.pose || m.pose === 'idle') && !(sc.castCues || []).some(function (c) { return c.id === m.id && c.pose && c.t <= t; })) st.pose = 'sit';
     var have = root.Cast && Cast.list && Cast.list().indexOf(m.id) >= 0;
     try { r = have ? Cast.render(m.id, { expr: st.expr, pose: st.pose, talk: talk, t: t, seed: 3, flip: false, scale: 1 }) : null; } catch (e) { if (!E.warned['ce' + m.id]) { E.warned['ce' + m.id] = 1; console.warn('cast ' + m.id + ': ' + e.message); } }
     if (!r) { if (!have && !E.warned['c' + m.id]) { E.warned['c' + m.id] = 1; console.warn('cast "' + m.id + '" missing → placeholder'); } r = placeholderCast(m.id, { talk: talk }); }
@@ -1239,7 +1244,7 @@
     });
   }
   function darken(hex) { var n = parseInt(hex.slice(1), 16), r = (n >> 16) * 0.62, g = ((n >> 8) & 255) * 0.62, b = (n & 255) * 0.62; return 'rgb(' + (r | 0) + ',' + (g | 0) + ',' + (b | 0) + ')'; }
-  var SCREEN_AT = { center: [960, 430], left: [470, 440], right: [1450, 440], top: [960, 210], back: [960, 330], 'top-left': [360, 230], 'top-right': [1560, 230] };
+  var SCREEN_AT = { center: [960, 800], left: [210, 330], right: [1710, 330], top: [960, 150], back: [960, 160], 'top-left': [210, 200], 'top-right': [1710, 200], 'bottom-left': [210, 760], 'bottom-right': [1710, 760] };
   function propPos(sc, at) {
     if (sc.type === 'scene') {
       var S = slotsOf(sc);
@@ -1253,13 +1258,13 @@
     (sc.props || []).forEach(function (pr, i) {
       if (t < pr.t) return;
       if (!MeloIcons.has(pr.name) && !E.warned['p' + pr.name]) { E.warned['p' + pr.name] = 1; console.warn('prop "' + pr.name + '" unknown → doodle'); }
-      var pos = propPos(sc, pr.at), a = t - pr.t, size = 230 * (pr.scale || 1), x = pos[0], y = pos[1], rot = 0, s = 1;
+      var pos = propPos(sc, pr.at), a = t - pr.t, size = (sc.type === 'scene' ? 230 : 260) * (pr.scale || 1), x = pos[0], y = pos[1], rot = 0, s = 1;
       if (pr.anim === 'drop') { var pd = sat(a / 0.45); y -= (1 - easeOutBack(pd)) * 380; }
       else if (pr.anim === 'wiggle') { rot = 0.12 * Math.sin(a * 9) * Math.exp(-a * 0.5) + 0.03 * Math.sin(a * 3); }
       else { s = lerp(0.3, 1, easeOutBack(a / 0.3)); }
       ctx.save(); ctx.translate(x, y); ctx.rotate(rot + 0.04 * Math.sin(t * 1.3 + i)); ctx.scale(s, s);
       // soft paper halo so doodles read on busy sets
-      ctx.fillStyle = 'rgba(246,239,220,.55)'; ctx.beginPath(); ctx.arc(0, 0, size * 0.55, 0, 7); ctx.fill();
+      if (sc.type === 'scene') { ctx.fillStyle = 'rgba(246,239,220,.35)'; ctx.beginPath(); ctx.arc(0, 0, size * 0.52, 0, 7); ctx.fill(); }
       drawDoodle(ctx, pr.name, 0, 0, size, pr.t, t, hashStr(pr.id) % 997);
       ctx.restore();
     });
@@ -1406,7 +1411,8 @@
     if (style === 'wrong') paperBg(ctx, '#f0d9cc', t); else if (style === 'right') paperBg(ctx, '#dfe6c8', t);
     else if (dark) darkBg(ctx, t); else paperBg(ctx, style === 'stack' ? '#efe0b4' : '#ece2c8', t);
     var fam = 'Fraunces', stack = style === 'stack' || (sc.lineCount || 1) > 1;
-    var L = fitWords(toks, stack, 1500, sc.args.sub ? 520 : 640, fam, stack ? 5 : 3);
+    var sideProps = (sc.props || []).some(function (p) { return /left|right/.test(p.at); });
+    var L = fitWords(toks, stack, sideProps ? 1220 : 1500, sc.args.sub ? 520 : 640, fam, stack ? 5 : 3);
     var lh = L.fs * 1.08, top = 540 - (L.lines.length * lh) / 2 - (a.sub ? 70 : 20) + L.fs * 0.8;
     var colMain = dark ? CREAM : INK, colAcc = dark ? MUSTARD : (style === 'wrong' ? RED : style === 'right' ? '#3f7d2f' : '#b5402f');
     var lastT = toks.length ? toks[toks.length - 1].t : sc.tStart, ends = [];
@@ -1587,7 +1593,7 @@
       var f = figs[i];
       if (f.kind === 'cast') await drawCast(ctx, sc, f.m, tc, cam);
       else {
-        var sl = slotPos(sc, f.slot), side = (sc.cast && sc.cast.length && slotPos(sc, sc.cast[0].slot).x < sl.x) ? 'left' : 'right';
+        var sl = slotPos(sc, f.slot), side = sl.face === -1 ? 'left' : sl.face === 1 ? 'right' : (sc.cast && sc.cast.length && slotPos(sc, sc.cast[0].slot).x < sl.x) ? 'left' : 'right';
         await drawMeloFig(ctx, tc, { x: sl.x, y: sl.y, s: sl.scale || 1.1 }, cam, { boardSide: side, board: false });
       }
     }

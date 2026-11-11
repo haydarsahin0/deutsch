@@ -279,24 +279,24 @@
    "tokens": [
     {
      "text": "Ich",
-     "t": 22.925,
-     "end": 23.12,
-     "w": 55,
-     "matched": true,
+     "t": 11.74,
+     "end": 12.04,
+     "w": null,
+     "matched": false,
      "line": 0
     },
     {
      "text": "bin",
-     "t": 23.07,
-     "end": 23.28,
-     "w": 56,
-     "matched": true,
+     "t": 11.92,
+     "end": 12.22,
+     "w": null,
+     "matched": false,
      "line": 0
     },
     {
      "text": "heiß.",
-     "t": 23.25,
-     "end": 23.55,
+     "t": 12.1,
+     "end": 12.4,
      "w": null,
      "matched": false,
      "line": 0
@@ -782,10 +782,10 @@
      "who": "melo",
      "text": "Ich habe 25 Jahre.",
      "id": null,
-     "start": 44.7,
-     "end": 44.87,
-     "w0": 116,
-     "w1": 116
+     "start": 38.45,
+     "end": 39.65,
+     "w0": null,
+     "w1": null
     }
    ],
    "props": [],
@@ -1020,31 +1020,31 @@
    "tokens": [
     {
      "text": "Ich",
-     "t": 55.905,
+     "t": 52.08,
      "end": 56.07,
      "w": 141,
-     "matched": true,
+     "matched": false,
      "line": 0
     },
     {
      "text": "bin",
-     "t": 56.02,
-     "end": 56.25,
-     "w": 142,
-     "matched": true,
+     "t": 52.24,
+     "end": 56.385,
+     "w": null,
+     "matched": false,
      "line": 0
     },
     {
      "text": "heiß.",
-     "t": 56.2,
-     "end": 56.61,
-     "w": 143,
-     "matched": true,
+     "t": 52.4,
+     "end": 56.565,
+     "w": null,
+     "matched": false,
      "line": 0
     }
    ],
    "lineCount": 1,
-   "tickT": 56.7
+   "tickT": 52.9
   },
   {
    "i": 18,
@@ -1056,12 +1056,12 @@
    "tStart": 54.01,
    "tEnd": 54.01,
    "contentStart": 54.01,
-   "melo": "side-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "question",
     "text": "Und die Bedeutung?",
-    "melo": "side-left"
+    "melo": "off"
    },
    "word": 136,
    "cast": [],
@@ -1082,26 +1082,26 @@
    "tokens": [
     {
      "text": "Und",
-     "t": 76.61,
-     "end": 76.77,
-     "w": 190,
-     "matched": true,
+     "t": 54.01,
+     "end": 54.31,
+     "w": null,
+     "matched": false,
      "line": 0
     },
     {
      "text": "die",
-     "t": 76.79,
-     "end": 77.09,
-     "w": null,
-     "matched": false,
+     "t": 54.79,
+     "end": 54.96,
+     "w": 139,
+     "matched": true,
      "line": 0
     },
     {
      "text": "Bedeutung?",
-     "t": 76.97,
-     "end": 77.27,
-     "w": null,
-     "matched": false,
+     "t": 54.91,
+     "end": 55.51,
+     "w": 140,
+     "matched": true,
      "line": 0
     }
    ],
@@ -1360,12 +1360,12 @@
    "tStart": 76.66,
    "tEnd": 77.00999999999999,
    "contentStart": 76.86999999999999,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "wrong",
     "text": "Ich bin langweilig.",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "whip"
    },
    "word": 190,
@@ -1463,10 +1463,10 @@
      "who": "kumpel",
      "text": "… und dann meine Steuererklärung …",
      "id": null,
-     "start": 96.815,
-     "end": 96.97,
-     "w0": 235,
-     "w1": 235
+     "start": 80.76,
+     "end": 82.56,
+     "w0": null,
+     "w1": null
     }
    ],
    "props": [
@@ -2120,12 +2120,12 @@
    "tStart": 126.85,
    "tEnd": 126.85,
    "contentStart": 126.85,
-   "melo": "side-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "right",
     "text": "„satt“ passt immer.",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 313,
    "cast": [],
@@ -2292,12 +2292,12 @@
    "tStart": 136.41,
    "tEnd": 136.76,
    "contentStart": 136.62,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "wrong",
     "text": "Ich habe 25 Jahre.",
-    "melo": "corner-right",
+    "melo": "off",
     "in": "whip"
    },
    "word": 337,
@@ -2431,7 +2431,7 @@
    "tStart": 144.88,
    "tEnd": 144.88,
    "contentStart": 144.88,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "split",
     "id": "sp3",
@@ -2439,7 +2439,7 @@
     "right": "Ich bin 25.",
     "leftLabel": "haben",
     "rightLabel": "sein",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 356,
    "cast": [],
@@ -2532,7 +2532,7 @@
     }
    ],
    "lineCount": 1,
-   "tickT": 152.18
+   "tickT": 152.015
   },
   {
    "i": 45,
@@ -2692,32 +2692,22 @@
   },
   {
    "i": 47,
-   "type": "scene",
-   "layout": "scene",
+   "type": "chapter",
+   "layout": "chapter",
    "start": 162.025,
    "end": 164.26,
-   "transition": "whip",
+   "transition": "zoom",
    "tStart": 162.025,
-   "tEnd": 162.375,
-   "contentStart": 162.235,
-   "melo": "in-scene:podium-left",
+   "tEnd": 162.475,
+   "contentStart": 162.29500000000002,
+   "melo": "off",
    "args": {
-    "type": "scene",
-    "set": "quiz-show",
-    "cast": "moderator:host:happy",
-    "melo": "in-scene:podium-left",
-    "in": "whip",
-    "cam": "wide"
+    "type": "chapter",
+    "title": "Kernfrage 1",
+    "in": "zoom"
    },
    "word": 400,
-   "cast": [
-    {
-     "id": "moderator",
-     "slot": "host",
-     "expr": "happy",
-     "pose": "idle"
-    }
-   ],
+   "cast": [],
    "castCues": [],
    "says": [],
    "props": [],
@@ -2732,7 +2722,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "quiz-show"
+   "num": null,
+   "title": "Kernfrage 1"
   },
   {
    "i": 48,
@@ -2788,10 +2779,10 @@
    "tStart": 166.21,
    "tEnd": 166.21,
    "contentStart": 166.21,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "quiz",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 410,
    "cast": [],
@@ -3111,13 +3102,13 @@
    "tStart": 194.985,
    "tEnd": 195.335,
    "contentStart": 195.19500000000002,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "wrong",
     "text": "Ich gehe zu Hause.",
     "sub": "fast richtig …",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "whip"
    },
    "word": 467,
@@ -3132,39 +3123,39 @@
    "tokens": [
     {
      "text": "Ich",
-     "t": 209.84,
-     "end": 210.08,
-     "w": 502,
-     "matched": true,
-     "line": 0
-    },
-    {
-     "text": "gehe",
-     "t": 210.03,
-     "end": 210.24,
-     "w": 503,
-     "matched": true,
-     "line": 0
-    },
-    {
-     "text": "zu",
-     "t": 210.21,
-     "end": 210.51,
+     "t": 195.195,
+     "end": 195.495,
      "w": null,
      "matched": false,
      "line": 0
     },
     {
+     "text": "gehe",
+     "t": 195.375,
+     "end": 195.675,
+     "w": null,
+     "matched": false,
+     "line": 0
+    },
+    {
+     "text": "zu",
+     "t": 195.375,
+     "end": 194.08,
+     "w": 465,
+     "matched": true,
+     "line": 0
+    },
+    {
      "text": "Hause.",
-     "t": 210.97,
-     "end": 211.395,
-     "w": 508,
+     "t": 195.375,
+     "end": 194.43,
+     "w": 466,
      "matched": true,
      "line": 0
     }
    ],
    "lineCount": 1,
-   "strikeT": 211.67
+   "strikeT": 196.075
   },
   {
    "i": 57,
@@ -3403,12 +3394,12 @@
    "tStart": 217.02,
    "tEnd": 217.02,
    "contentStart": 217.02,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "right",
     "text": "Ich geh jetzt heim.",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 522,
    "cast": [],
@@ -3599,10 +3590,10 @@
      "who": "kumpel",
      "text": "Super, dann bleib ich auf dem Sofa.",
      "id": null,
-     "start": 243.285,
-     "end": 250.22,
-     "w0": 601,
-     "w1": 621
+     "start": 230.2,
+     "end": 230.41,
+     "w0": 565,
+     "w1": 565
     }
    ],
    "props": [],
@@ -3622,14 +3613,15 @@
    "tStart": 229.96,
    "tEnd": 229.96,
    "contentStart": 229.96,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "split",
+    "id": "sp5",
     "left": "Ich warte für dich.",
     "right": "Ich warte auf dich.",
     "leftLabel": "nicht",
     "rightLabel": "sondern",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "cut"
    },
    "word": 563,
@@ -3642,7 +3634,8 @@
    "isShot": true,
    "cams": [],
    "leftT": 230.06,
-   "rightT": 232.85
+   "rightT": 232.85,
+   "tickT": 233
   },
   {
    "i": 68,
@@ -3691,12 +3684,12 @@
    "tStart": 238.14,
    "tEnd": 238.14,
    "contentStart": 238.14,
-   "melo": "side-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "stack",
     "text": "für dich|= statt dir",
-    "melo": "side-left"
+    "melo": "off"
    },
    "word": 585,
    "cast": [],
@@ -3749,10 +3742,10 @@
     },
     {
      "text": "dir",
-     "t": 243.63,
-     "end": 243.8,
-     "w": 604,
-     "matched": true,
+     "t": 238.89,
+     "end": 239.19,
+     "w": null,
+     "matched": false,
      "line": 1
     }
    ],
@@ -3869,13 +3862,13 @@
    "tStart": 248.385,
    "tEnd": 248.385,
    "contentStart": 248.385,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "scene",
     "set": "football-park",
     "variant": "sepia",
     "cast": "kind:center:happy",
-    "melo": "corner-right",
+    "melo": "off",
     "cam": "wide"
    },
    "word": 616,
@@ -3989,26 +3982,26 @@
    "tokens": [
     {
      "text": "wann",
-     "t": 257.81,
+     "t": 255.5,
      "end": 258.18,
      "w": 643,
-     "matched": true,
+     "matched": false,
      "line": 0
     },
     {
      "text": "als",
-     "t": 263.16,
-     "end": 263.55,
-     "w": 658,
-     "matched": true,
+     "t": 255.66,
+     "end": 258.29,
+     "w": null,
+     "matched": false,
      "line": 1
     },
     {
      "text": "wenn",
-     "t": 272.815,
-     "end": 273.435,
-     "w": 685,
-     "matched": true,
+     "t": 255.82,
+     "end": 258.47,
+     "w": null,
+     "matched": false,
      "line": 2
     }
    ],
@@ -4050,13 +4043,13 @@
    "tStart": 263.21,
    "tEnd": 263.21,
    "contentStart": 263.21,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "big",
     "text": "als = einmal",
     "sub": "Vergangenheit · Zeitraum",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 658,
    "cast": [],
@@ -4250,31 +4243,31 @@
    "tokens": [
     {
      "text": "Vergangenheit",
-     "t": 280.674,
+     "t": 280.43,
      "end": 281.57,
      "w": 707,
-     "matched": true,
+     "matched": false,
      "line": 0
     },
     {
      "text": "immer",
-     "t": 281.794,
+     "t": 280.59,
      "end": 282.104,
      "w": 710,
-     "matched": true,
+     "matched": false,
      "line": 1
     },
     {
      "text": "wieder",
-     "t": 282.054,
+     "t": 280.75,
      "end": 282.384,
      "w": 711,
-     "matched": true,
+     "matched": false,
      "line": 1
     },
     {
      "text": "→",
-     "t": 282.234,
+     "t": 280.91,
      "end": 282.534,
      "w": null,
      "matched": false,
@@ -4282,10 +4275,10 @@
     },
     {
      "text": "wenn",
-     "t": 283.744,
+     "t": 281.07,
      "end": 283.974,
      "w": 715,
-     "matched": true,
+     "matched": false,
      "line": 1
     }
    ],
@@ -4874,12 +4867,12 @@
    "tStart": 326.42,
    "tEnd": 326.77000000000004,
    "contentStart": 326.63,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "wrong",
     "text": "Ich will Arzt bekommen.",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "whip"
    },
    "word": 824,
@@ -4926,7 +4919,7 @@
     }
    ],
    "lineCount": 1,
-   "strikeT": 328.47
+   "strikeT": 328.27
   },
   {
    "i": 94,
@@ -4990,12 +4983,12 @@
    "tStart": 331.975,
    "tEnd": 331.975,
    "contentStart": 331.975,
-   "melo": "side-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "right",
     "text": "Ich will Arzt werden.",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 838,
    "cast": [],
@@ -5106,17 +5099,24 @@
    "tStart": 338.025,
    "tEnd": 338.025,
    "contentStart": 338.025,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "quiz",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 851,
    "cast": [],
    "castCues": [],
    "says": [],
    "props": [],
-   "fx": [],
+   "fx": [
+    {
+     "t": 339.765,
+     "name": "question-marks",
+     "who": null,
+     "dur": null
+    }
+   ],
    "pins": [],
    "isShot": true,
    "cams": []
@@ -5198,7 +5198,7 @@
     }
    ],
    "lineCount": 1,
-   "tickT": 354.404
+   "tickT": 354.365
   },
   {
    "i": 99,
@@ -5246,12 +5246,12 @@
    "tStart": 357.115,
    "tEnd": 357.115,
    "contentStart": 357.115,
-   "melo": "side-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "stack",
     "text": "„Eine Frage für dich“|immer öfter …",
-    "melo": "side-left"
+    "melo": "off"
    },
    "word": 880,
    "cast": [],
@@ -5942,12 +5942,12 @@
    "tStart": 399.36,
    "tEnd": 399.36,
    "contentStart": 399.36,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "big",
     "text": "Geht so.",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 988,
    "cast": [],
@@ -6078,12 +6078,12 @@
    "tStart": 411.295,
    "tEnd": 411.295,
    "contentStart": 411.295,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "big",
     "text": "Sehr deutsch.",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1014,
    "cast": [],
@@ -6197,14 +6197,14 @@
    "tStart": 420.515,
    "tEnd": 420.515,
    "contentStart": 420.515,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "split",
     "left": "Kneipe: „Und Ihnen?“",
     "right": "Chefin: „Und Ihnen?“",
     "leftLabel": "zu steif",
     "rightLabel": "genau richtig",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 1036,
    "cast": [],
@@ -6400,10 +6400,10 @@
      "who": "chefin",
      "text": "Wir melden uns. Auf Wiedersehen!",
      "id": null,
-     "start": 448.95,
-     "end": 449.824,
-     "w0": 1111,
-     "w1": 1112
+     "start": 432.724,
+     "end": 434.224,
+     "w0": null,
+     "w1": null
     }
    ],
    "props": [],
@@ -6504,11 +6504,11 @@
    "tStart": 441.365,
    "tEnd": 441.365,
    "contentStart": 441.365,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "map",
     "map": "dach",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1094,
    "cast": [],
@@ -6561,11 +6561,11 @@
    "tStart": 449,
    "tEnd": 449,
    "contentStart": 449,
-   "melo": "side-right",
+   "melo": "off",
    "args": {
     "type": "list",
     "title": "„Auf Wiedersehen“ für:",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1111,
    "cast": [],
@@ -7257,10 +7257,10 @@
      "who": "kumpel",
      "text": "Das macht Sinn.",
      "id": null,
-     "start": 512.755,
-     "end": 527.58,
-     "w0": 1268,
-     "w1": 1305
+     "start": 501.914,
+     "end": 502.814,
+     "w0": null,
+     "w1": null
     }
    ],
    "props": [],
@@ -7280,12 +7280,12 @@
    "tStart": 504.095,
    "tEnd": 504.095,
    "contentStart": 504.095,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "stack",
     "text": "That makes sense|→ Das macht Sinn",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 1250,
    "cast": [],
@@ -7308,31 +7308,31 @@
    "tokens": [
     {
      "text": "That",
-     "t": 506.42,
+     "t": 504.145,
      "end": 506.694,
      "w": 1257,
-     "matched": true,
+     "matched": false,
      "line": 0
     },
     {
      "text": "makes",
-     "t": 506.644,
+     "t": 504.305,
      "end": 507.014,
      "w": 1258,
-     "matched": true,
+     "matched": false,
      "line": 0
     },
     {
      "text": "sense",
-     "t": 506.964,
+     "t": 504.465,
      "end": 507.57,
      "w": 1259,
-     "matched": true,
+     "matched": false,
      "line": 0
     },
     {
      "text": "→",
-     "t": 507.144,
+     "t": 504.625,
      "end": 507.444,
      "w": null,
      "matched": false,
@@ -7340,26 +7340,26 @@
     },
     {
      "text": "Das",
-     "t": 512.755,
-     "end": 512.954,
-     "w": 1268,
-     "matched": true,
+     "t": 504.785,
+     "end": 507.624,
+     "w": null,
+     "matched": false,
      "line": 1
     },
     {
      "text": "macht",
-     "t": 526.844,
-     "end": 527.165,
-     "w": 1304,
-     "matched": true,
+     "t": 504.945,
+     "end": 507.804,
+     "w": null,
+     "matched": false,
      "line": 1
     },
     {
      "text": "Sinn",
-     "t": 527.115,
-     "end": 527.58,
-     "w": 1305,
-     "matched": true,
+     "t": 505.105,
+     "end": 507.984,
+     "w": null,
+     "matched": false,
      "line": 1
     }
    ],
@@ -7615,13 +7615,13 @@
    "tStart": 534.195,
    "tEnd": 534.195,
    "contentStart": 534.195,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "right",
     "text": "Das ergibt Sinn.",
     "sub": "auf der sicheren Seite",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1326,
    "cast": [],
@@ -7725,7 +7725,14 @@
    "castCues": [],
    "says": [],
    "props": [],
-   "fx": [],
+   "fx": [
+    {
+     "t": 541.575,
+     "name": "question-marks",
+     "who": null,
+     "dur": null
+    }
+   ],
    "pins": [],
    "isShot": true,
    "cams": []
@@ -7740,12 +7747,12 @@
    "tStart": 553.695,
    "tEnd": 553.695,
    "contentStart": 553.695,
-   "melo": "side-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "stack",
     "text": "gestern|einmal|Vergangenheit",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1362,
    "cast": [],
@@ -7832,6 +7839,7 @@
    "melo": "corner-left",
    "args": {
     "type": "split",
+    "id": "sp12",
     "left": "zu Hause",
     "right": "nach Hause",
     "leftLabel": "nicht",
@@ -7849,7 +7857,8 @@
    "isShot": true,
    "cams": [],
    "leftT": 559.21,
-   "rightT": 560.82
+   "rightT": 560.82,
+   "tickT": 560.97
   },
   {
    "i": 155,
@@ -8047,12 +8056,12 @@
    "tStart": 576.22,
    "tEnd": 576.22,
    "contentStart": 576.22,
-   "melo": "corner-right",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "big",
     "text": "Riesenhunger!",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 1413,
    "cast": [],
@@ -8410,12 +8419,12 @@
    "tStart": 602.64,
    "tEnd": 602.64,
    "contentStart": 602.64,
-   "melo": "corner-left",
+   "melo": "off",
    "args": {
     "type": "text",
     "style": "stack",
     "text": "„Nein.“|= Stimmt, kein Hunger.",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1475,
    "cast": [],
@@ -8908,11 +8917,11 @@
    "tStart": 654.5,
    "tEnd": 654.5,
    "contentStart": 654.5,
-   "melo": "side-right",
+   "melo": "off",
    "args": {
     "type": "list",
     "title": "Zum Abschied",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1590,
    "cast": [],
@@ -9122,7 +9131,14 @@
      "scale": 1
     }
    ],
-   "fx": [],
+   "fx": [
+    {
+     "t": 673.99,
+     "name": "question-marks",
+     "who": null,
+     "dur": null
+    }
+   ],
    "pins": [],
    "isShot": true,
    "cams": [],
@@ -9169,10 +9185,10 @@
     },
     {
      "text": "gesagt?",
-     "t": 674.9,
-     "end": 675.47,
-     "w": 1642,
-     "matched": true,
+     "t": 674.74,
+     "end": 675.04,
+     "w": null,
+     "matched": false,
      "line": 0
     }
    ],
@@ -9281,11 +9297,11 @@
    "tStart": 683.175,
    "tEnd": 683.175,
    "contentStart": 683.175,
-   "melo": "side-right",
+   "melo": "off",
    "args": {
     "type": "list",
     "title": "Nächste Woche:",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1661,
    "cast": [],
@@ -9748,7 +9764,7 @@
    "erase": 179.31,
    "strike": null,
    "tick": null,
-   "highlight": null,
+   "highlight": 170.11,
    "text": "Winter. Heizung kaputt. Was sagst du?",
    "q": "Winter. Heizung kaputt. Was sagst du?",
    "options": [
@@ -10347,7 +10363,7 @@
    "erase": 352.6,
    "strike": null,
    "tick": null,
-   "highlight": null,
+   "highlight": 344.154,
    "text": "Ich habe eine Frage … dich.",
    "q": "Ich habe eine Frage … dich.",
    "options": [
@@ -10839,7 +10855,7 @@
    "erase": 553.695,
    "strike": null,
    "tick": null,
-   "highlight": null,
+   "highlight": 546.445,
    "text": "… ich gestern nach Hause kam, war die Tür offen.",
    "q": "… ich gestern nach Hause kam, war die Tür offen.",
    "options": [
@@ -12389,10 +12405,10 @@
    "who": "melo",
    "text": "Ich habe 25 Jahre.",
    "id": null,
-   "start": 44.7,
-   "end": 44.87,
-   "w0": 116,
-   "w1": 116
+   "start": 38.45,
+   "end": 39.65,
+   "w0": null,
+   "w1": null
   },
   {
    "t": 55.955,
@@ -12409,10 +12425,10 @@
    "who": "kumpel",
    "text": "… und dann meine Steuererklärung …",
    "id": null,
-   "start": 96.815,
-   "end": 96.97,
-   "w0": 235,
-   "w1": 235
+   "start": 80.76,
+   "end": 82.56,
+   "w0": null,
+   "w1": null
   },
   {
    "t": 95.81,
@@ -12519,10 +12535,10 @@
    "who": "kumpel",
    "text": "Super, dann bleib ich auf dem Sofa.",
    "id": null,
-   "start": 243.285,
-   "end": 250.22,
-   "w0": 601,
-   "w1": 621
+   "start": 230.2,
+   "end": 230.41,
+   "w0": 565,
+   "w1": 565
   },
   {
    "t": 241.535,
@@ -12669,10 +12685,10 @@
    "who": "chefin",
    "text": "Wir melden uns. Auf Wiedersehen!",
    "id": null,
-   "start": 448.95,
-   "end": 449.824,
-   "w0": 1111,
-   "w1": 1112
+   "start": 432.724,
+   "end": 434.224,
+   "w0": null,
+   "w1": null
   },
   {
    "t": 455.645,
@@ -12749,10 +12765,10 @@
    "who": "kumpel",
    "text": "Das macht Sinn.",
    "id": null,
-   "start": 512.755,
-   "end": 527.58,
-   "w0": 1268,
-   "w1": 1305
+   "start": 501.914,
+   "end": 502.814,
+   "w0": null,
+   "w1": null
   },
   {
    "t": 574.85,
@@ -14235,6 +14251,12 @@
    "text": "fragt",
    "start": 95.03,
    "end": 95.41
+  },
+  {
+   "i": 235,
+   "text": "Und",
+   "start": 96.865,
+   "end": 96.97
   },
   {
    "i": 236,
@@ -16121,12 +16143,6 @@
    "end": 230.25
   },
   {
-   "i": 565,
-   "text": "auf",
-   "start": 230.25,
-   "end": 230.41
-  },
-  {
    "i": 566,
    "text": "jemanden",
    "start": 230.41,
@@ -16335,6 +16351,132 @@
    "text": "Handwerker",
    "start": 242.58,
    "end": 243.22
+  },
+  {
+   "i": 601,
+   "text": "dann",
+   "start": 243.335,
+   "end": 243.42
+  },
+  {
+   "i": 602,
+   "text": "musst",
+   "start": 243.42,
+   "end": 243.58
+  },
+  {
+   "i": 603,
+   "text": "du",
+   "start": 243.58,
+   "end": 243.68
+  },
+  {
+   "i": 604,
+   "text": "dir",
+   "start": 243.68,
+   "end": 243.8
+  },
+  {
+   "i": 605,
+   "text": "nicht",
+   "start": 243.8,
+   "end": 243.96
+  },
+  {
+   "i": 606,
+   "text": "freinehmen",
+   "start": 243.96,
+   "end": 244.505
+  },
+  {
+   "i": 607,
+   "text": "Das",
+   "start": 244.835,
+   "end": 245.22
+  },
+  {
+   "i": 608,
+   "text": "ist",
+   "start": 245.22,
+   "end": 245.38
+  },
+  {
+   "i": 609,
+   "text": "dann",
+   "start": 245.38,
+   "end": 245.52
+  },
+  {
+   "i": 610,
+   "text": "aber",
+   "start": 245.52,
+   "end": 245.7
+  },
+  {
+   "i": 611,
+   "text": "auch",
+   "start": 245.7,
+   "end": 245.88
+  },
+  {
+   "i": 612,
+   "text": "echte",
+   "start": 245.88,
+   "end": 246.26
+  },
+  {
+   "i": 613,
+   "text": "Freundschaft",
+   "start": 246.26,
+   "end": 246.895
+  },
+  {
+   "i": 614,
+   "text": "Nummer",
+   "start": 247.375,
+   "end": 247.56
+  },
+  {
+   "i": 615,
+   "text": "sechs",
+   "start": 247.56,
+   "end": 248.065
+  },
+  {
+   "i": 616,
+   "text": "Du",
+   "start": 248.385,
+   "end": 248.46
+  },
+  {
+   "i": 617,
+   "text": "erzählst",
+   "start": 248.46,
+   "end": 248.9
+  },
+  {
+   "i": 618,
+   "text": "von",
+   "start": 248.9,
+   "end": 249.06
+  },
+  {
+   "i": 619,
+   "text": "früher",
+   "start": 249.06,
+   "end": 249.545
+  },
+  {
+   "i": 620,
+   "text": "Wann",
+   "start": 249.965,
+   "end": 250.1
+  },
+  {
+   "i": 621,
+   "text": "ich",
+   "start": 250.1,
+   "end": 250.22
   },
   {
    "i": 622,
@@ -19103,6 +19245,18 @@
    "end": 448.525
   },
   {
+   "i": 1111,
+   "text": "Auf",
+   "start": 449,
+   "end": 449.184
+  },
+  {
+   "i": 1112,
+   "text": "Wiedersehen",
+   "start": 449.184,
+   "end": 449.824
+  },
+  {
    "i": 1113,
    "text": "hebst",
    "start": 449.824,
@@ -19971,6 +20125,234 @@
    "text": "klingt",
    "start": 512.014,
    "end": 512.475
+  },
+  {
+   "i": 1268,
+   "text": "Das",
+   "start": 512.805,
+   "end": 512.954
+  },
+  {
+   "i": 1269,
+   "text": "ergibt",
+   "start": 512.954,
+   "end": 513.394
+  },
+  {
+   "i": 1270,
+   "text": "Sinn",
+   "start": 513.394,
+   "end": 513.675
+  },
+  {
+   "i": 1271,
+   "text": "Das",
+   "start": 514.035,
+   "end": 514.154
+  },
+  {
+   "i": 1272,
+   "text": "ist",
+   "start": 514.154,
+   "end": 514.334
+  },
+  {
+   "i": 1273,
+   "text": "sinnvoll",
+   "start": 514.334,
+   "end": 514.865
+  },
+  {
+   "i": 1274,
+   "text": "Oder",
+   "start": 515.16,
+   "end": 515.53
+  },
+  {
+   "i": 1275,
+   "text": "Das",
+   "start": 515.8,
+   "end": 515.954
+  },
+  {
+   "i": 1276,
+   "text": "leuchtet",
+   "start": 515.954,
+   "end": 516.334
+  },
+  {
+   "i": 1277,
+   "text": "mir",
+   "start": 516.334,
+   "end": 516.474
+  },
+  {
+   "i": 1278,
+   "text": "ein",
+   "start": 516.474,
+   "end": 516.74
+  },
+  {
+   "i": 1279,
+   "text": "Und",
+   "start": 517.14,
+   "end": 517.254
+  },
+  {
+   "i": 1280,
+   "text": "ein",
+   "start": 517.254,
+   "end": 517.474
+  },
+  {
+   "i": 1281,
+   "text": "echter",
+   "start": 517.474,
+   "end": 517.834
+  },
+  {
+   "i": 1282,
+   "text": "Klassiker",
+   "start": 517.834,
+   "end": 518.57
+  },
+  {
+   "i": 1283,
+   "text": "im",
+   "start": 518.79,
+   "end": 518.914
+  },
+  {
+   "i": 1284,
+   "text": "Negativen",
+   "start": 518.914,
+   "end": 519.665
+  },
+  {
+   "i": 1285,
+   "text": "Es",
+   "start": 519.95,
+   "end": 520.074
+  },
+  {
+   "i": 1286,
+   "text": "hat",
+   "start": 520.074,
+   "end": 520.234
+  },
+  {
+   "i": 1287,
+   "text": "keinen",
+   "start": 520.234,
+   "end": 520.654
+  },
+  {
+   "i": 1288,
+   "text": "Sinn",
+   "start": 520.654,
+   "end": 520.974
+  },
+  {
+   "i": 1289,
+   "text": "heute",
+   "start": 520.974,
+   "end": 521.234
+  },
+  {
+   "i": 1290,
+   "text": "noch",
+   "start": 521.234,
+   "end": 521.434
+  },
+  {
+   "i": 1291,
+   "text": "anzurufen",
+   "start": 521.434,
+   "end": 522.115
+  },
+  {
+   "i": 1292,
+   "text": "Das",
+   "start": 522.475,
+   "end": 522.594
+  },
+  {
+   "i": 1293,
+   "text": "heißt",
+   "start": 522.594,
+   "end": 522.99
+  },
+  {
+   "i": 1294,
+   "text": "Es",
+   "start": 523.205,
+   "end": 523.354
+  },
+  {
+   "i": 1295,
+   "text": "bringt",
+   "start": 523.354,
+   "end": 523.714
+  },
+  {
+   "i": 1296,
+   "text": "nichts",
+   "start": 523.714,
+   "end": 524.195
+  },
+  {
+   "i": 1297,
+   "text": "Mein",
+   "start": 524.57,
+   "end": 524.754
+  },
+  {
+   "i": 1298,
+   "text": "Tipp",
+   "start": 524.754,
+   "end": 525
+  },
+  {
+   "i": 1299,
+   "text": "Im",
+   "start": 525.445,
+   "end": 525.554
+  },
+  {
+   "i": 1300,
+   "text": "Gespräch",
+   "start": 525.554,
+   "end": 526.054
+  },
+  {
+   "i": 1301,
+   "text": "kannst",
+   "start": 526.054,
+   "end": 526.314
+  },
+  {
+   "i": 1302,
+   "text": "du",
+   "start": 526.314,
+   "end": 526.63
+  },
+  {
+   "i": 1303,
+   "text": "Das",
+   "start": 526.755,
+   "end": 526.894
+  },
+  {
+   "i": 1304,
+   "text": "macht",
+   "start": 526.894,
+   "end": 527.165
+  },
+  {
+   "i": 1305,
+   "text": "Sinn",
+   "start": 527.165,
+   "end": 527.58
   },
   {
    "i": 1306,
@@ -22151,6 +22533,7 @@
    "fonts-embed.js",
    "kit-a.js",
    "kit-b.js",
+   "kneipe.js",
    "office-hot.js",
    "wg-kitchen.js"
   ],
@@ -22914,7 +23297,7 @@
     "type": "text",
     "style": "question",
     "text": "Und die Bedeutung?",
-    "melo": "side-left"
+    "melo": "off"
    },
    "word": 136,
    "t": 54.01
@@ -23202,7 +23585,7 @@
     "type": "text",
     "style": "wrong",
     "text": "Ich bin langweilig.",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "whip"
    },
    "word": 190,
@@ -23771,7 +24154,7 @@
     "type": "text",
     "style": "right",
     "text": "„satt“ passt immer.",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 313,
    "t": 126.85
@@ -23858,7 +24241,7 @@
     "type": "text",
     "style": "wrong",
     "text": "Ich habe 25 Jahre.",
-    "melo": "corner-right",
+    "melo": "off",
     "in": "whip"
    },
    "word": 337,
@@ -23961,7 +24344,7 @@
     "right": "Ich bin 25.",
     "leftLabel": "haben",
     "rightLabel": "sein",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 356,
    "t": 144.88
@@ -24106,12 +24489,9 @@
   {
    "cue": "shot",
    "args": {
-    "type": "scene",
-    "set": "quiz-show",
-    "cast": "moderator:host:happy",
-    "melo": "in-scene:podium-left",
-    "in": "whip",
-    "cam": "wide"
+    "type": "chapter",
+    "title": "Kernfrage 1",
+    "in": "zoom"
    },
    "word": 400,
    "t": 162.025
@@ -24185,7 +24565,7 @@
    "cue": "shot",
    "args": {
     "type": "quiz",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 410,
    "t": 166.21
@@ -24201,6 +24581,33 @@
    },
    "word": 410,
    "t": 166.21
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q1",
+    "option": "0"
+   },
+   "word": 413,
+   "t": 167.2
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q1",
+    "option": "1"
+   },
+   "word": 416,
+   "t": 168.315
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q1",
+    "option": "2"
+   },
+   "word": 420,
+   "t": 169.995
   },
   {
    "cue": "melo",
@@ -24456,7 +24863,7 @@
     "style": "wrong",
     "text": "Ich gehe zu Hause.",
     "sub": "fast richtig …",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "whip"
    },
    "word": 467,
@@ -24694,7 +25101,7 @@
     "type": "text",
     "style": "right",
     "text": "Ich geh jetzt heim.",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 522,
    "t": 217.02
@@ -24848,11 +25255,12 @@
    "cue": "shot",
    "args": {
     "type": "split",
+    "id": "sp5",
     "left": "Ich warte für dich.",
     "right": "Ich warte auf dich.",
     "leftLabel": "nicht",
     "rightLabel": "sondern",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "cut"
    },
    "word": 563,
@@ -24867,6 +25275,14 @@
    },
    "word": 563,
    "t": 229.96
+  },
+  {
+   "cue": "tick",
+   "args": {
+    "id": "sp5"
+   },
+   "word": 571,
+   "t": 233
   },
   {
    "cue": "shot",
@@ -24906,7 +25322,7 @@
     "type": "text",
     "style": "stack",
     "text": "für dich|= statt dir",
-    "melo": "side-left"
+    "melo": "off"
    },
    "word": 585,
    "t": 238.14
@@ -25021,7 +25437,7 @@
     "set": "football-park",
     "variant": "sepia",
     "cast": "kind:center:happy",
-    "melo": "corner-right",
+    "melo": "off",
     "cam": "wide"
    },
    "word": 616,
@@ -25166,7 +25582,7 @@
     "style": "big",
     "text": "als = einmal",
     "sub": "Vergangenheit · Zeitraum",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 658,
    "t": 263.21
@@ -25805,7 +26221,7 @@
     "type": "text",
     "style": "wrong",
     "text": "Ich will Arzt bekommen.",
-    "melo": "corner-left",
+    "melo": "off",
     "in": "whip"
    },
    "word": 824,
@@ -25882,7 +26298,7 @@
     "type": "text",
     "style": "right",
     "text": "Ich will Arzt werden.",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 838,
    "t": 331.975
@@ -25961,7 +26377,7 @@
    "cue": "shot",
    "args": {
     "type": "quiz",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 851,
    "t": 338.025
@@ -25986,6 +26402,41 @@
    },
    "word": 851,
    "t": 338.025
+  },
+  {
+   "cue": "fx",
+   "args": {
+    "name": "question-marks"
+   },
+   "word": 854,
+   "t": 339.765
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q2",
+    "option": "0"
+   },
+   "word": 859,
+   "t": 342.51
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q2",
+    "option": "1"
+   },
+   "word": 860,
+   "t": 343.4
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q2",
+    "option": "2"
+   },
+   "word": 862,
+   "t": 344.154
   },
   {
    "cue": "melo",
@@ -26062,7 +26513,7 @@
     "type": "text",
     "style": "stack",
     "text": "„Eine Frage für dich“|immer öfter …",
-    "melo": "side-left"
+    "melo": "off"
    },
    "word": 880,
    "t": 357.115
@@ -26528,7 +26979,7 @@
     "type": "text",
     "style": "big",
     "text": "Geht so.",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 988,
    "t": 399.36
@@ -26646,7 +27097,7 @@
     "type": "text",
     "style": "big",
     "text": "Sehr deutsch.",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1014,
    "t": 411.295
@@ -26725,7 +27176,7 @@
     "right": "Chefin: „Und Ihnen?“",
     "leftLabel": "zu steif",
     "rightLabel": "genau richtig",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 1036,
    "t": 420.515
@@ -26940,7 +27391,7 @@
    "args": {
     "type": "map",
     "map": "dach",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1094,
    "t": 441.365
@@ -27000,7 +27451,7 @@
    "args": {
     "type": "list",
     "title": "„Auf Wiedersehen“ für:",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1111,
    "t": 449
@@ -27581,7 +28032,7 @@
     "type": "text",
     "style": "stack",
     "text": "That makes sense|→ Das macht Sinn",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 1250,
    "t": 504.095
@@ -27855,7 +28306,7 @@
     "style": "right",
     "text": "Das ergibt Sinn.",
     "sub": "auf der sicheren Seite",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1326,
    "t": 534.195
@@ -27940,6 +28391,41 @@
    "t": 539.355
   },
   {
+   "cue": "fx",
+   "args": {
+    "name": "question-marks"
+   },
+   "word": 1346,
+   "t": 541.575
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q3",
+    "option": "0"
+   },
+   "word": 1355,
+   "t": 544.415
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q3",
+    "option": "1"
+   },
+   "word": 1356,
+   "t": 545.165
+  },
+  {
+   "cue": "highlight",
+   "args": {
+    "id": "q3",
+    "option": "2"
+   },
+   "word": 1358,
+   "t": 546.445
+  },
+  {
    "cue": "melo",
    "args": {
     "expr": "deadpan",
@@ -27981,7 +28467,7 @@
     "type": "text",
     "style": "stack",
     "text": "gestern|einmal|Vergangenheit",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1362,
    "t": 553.695
@@ -28019,6 +28505,7 @@
    "cue": "shot",
    "args": {
     "type": "split",
+    "id": "sp12",
     "left": "zu Hause",
     "right": "nach Hause",
     "leftLabel": "nicht",
@@ -28037,6 +28524,14 @@
    },
    "word": 1375,
    "t": 559.11
+  },
+  {
+   "cue": "tick",
+   "args": {
+    "id": "sp12"
+   },
+   "word": 1379,
+   "t": 560.97
   },
   {
    "cue": "shot",
@@ -28191,7 +28686,7 @@
     "type": "text",
     "style": "big",
     "text": "Riesenhunger!",
-    "melo": "corner-right"
+    "melo": "off"
    },
    "word": 1413,
    "t": 576.22
@@ -28444,7 +28939,7 @@
     "type": "text",
     "style": "stack",
     "text": "„Nein.“|= Stimmt, kein Hunger.",
-    "melo": "corner-left"
+    "melo": "off"
    },
    "word": 1475,
    "t": 602.64
@@ -28881,7 +29376,7 @@
    "args": {
     "type": "list",
     "title": "Zum Abschied",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1590,
    "t": 654.5
@@ -29052,6 +29547,14 @@
    "t": 671.35
   },
   {
+   "cue": "fx",
+   "args": {
+    "name": "question-marks"
+   },
+   "word": 1637,
+   "t": 673.99
+  },
+  {
    "cue": "shot",
    "args": {
     "type": "scene",
@@ -29153,7 +29656,7 @@
    "args": {
     "type": "list",
     "title": "Nächste Woche:",
-    "melo": "side-right"
+    "melo": "off"
    },
    "word": 1661,
    "t": 683.175

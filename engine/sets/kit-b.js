@@ -369,7 +369,7 @@
     var k = seed + ':' + amp;
     if (FIELDS[k]) return FIELDS[k];
     var nx = vnoise(seed * 11 + 1), ny = vnoise(seed * 13 + 2), gx = vnoise(seed * 17 + 3), gy = vnoise(seed * 19 + 4);
-    var f = 0.02, ff = 0.4, A = 1.7 * amp, Gm = 0.35 * amp;
+    var f = 0.022, ff = 0.42, A = 1.5 * amp, Gm = 0.3 * amp; // keep identical to SetKitA's field
     return (FIELDS[k] = function (x, y) {
       return [A * (nx(x * f, y * f) + 0.5 * nx(x * f * 2.3 + 7, y * f * 2.3 + 3)) + Gm * gx(x * ff, y * ff),
               A * (ny(x * f, y * f) + 0.5 * ny(x * f * 2.3 + 5, y * f * 2.3 + 9)) + Gm * gy(x * ff, y * ff)];

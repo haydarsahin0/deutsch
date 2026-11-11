@@ -87,7 +87,7 @@ Legend: *Melo* = `off` / `corner-*` (small narrator) / `side-*` (next to text/bo
 | 65 | 3:41.7 | 1.9s | scene | cinema-front | in-scene:center | prop phone · bubble: Ich warte für dich vorm Kino! |
 | 66 | 3:43.6 | 3.2s | melo |  | medium | note: für ihn = an seiner Stelle |
 | 67 | 3:46.8 | 3.2s | scene | living-room · kumpel | off | kumpel  sit · kumpel: „Super, dann bleib ich auf dem Sofa.“ |
-| 68 | 3:50.0 | 4.6s | split |  | off | ✗ Ich warte für dich. ↔ ✓ Ich warte auf dich. |
+| 68 | 3:50.0 | 4.6s | split |  | off | ✗ Ich warte für dich. ↔ ✓ Ich warte auf dich. · tick sp5 |
 | 69 | 3:54.6 | 3.6s | scene | street-day | in-scene:center | prop bus · note: warten auf + Akkusativ |
 | 70 | 3:58.1 | 3.4s | text/stack |  | off | „für dich/= statt dir“ · fx zoom-punch |
 | 71 | 4:01.5 | 5.8s | scene | living-room · mitbewohnerin | in-scene:right | melo: „Ich warte für dich auf den Handwerker.“ · prop toolbox · mitbewohnerin laughing · fx hearts |
@@ -215,7 +215,7 @@ Legend: *Melo* = `off` / `corner-*` (small narrator) / `side-*` (next to text/bo
 | 182 | 11:05.3 | 3.5s | melo |  | medium | right: Doch! |
 | | | | **Outro** | | | |
 | 183 | 11:08.8 | 2.0s | melo |  | wide |  |
-| 184 | 11:10.8 | 5.0s | text/question |  | corner-right | „Welchen Satz hast du schon gesagt?“ · prop comment-bubble |
+| 184 | 11:10.8 | 5.0s | text/question |  | corner-right | „Welchen Satz hast du schon gesagt?“ · prop comment-bubble · fx question-marks |
 | 185 | 11:15.7 | 4.4s | scene | after-work-desk | in-scene:center | cam push · prop laptop-comments · prop red-pen |
 | 186 | 11:20.2 | 3.0s | text/big |  | side-left | „Abonnieren!“ · prop subscribe-button |
 | 187 | 11:23.2 | 2.6s | list |  | off | „Nächste Woche:“ · list: Deutsch mit Kern · next lo |

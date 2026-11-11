@@ -8,8 +8,8 @@
   'use strict';
   var K = root.SetKitB || require('./kit-b.js');
   var P = K.P, U = K.U;
-  var YW = 470, YF = 700, CT = 752; // wainscot top, wall/floor junction, counter top (back edge)
-  var WALL = '#b8955a', PANEL = '#6b4a2f', PANEL_D = '#4e3522', BAR = '#4a3020', BAR_L = '#7a5236', BRASS = '#c9a24a';
+  var YW = 470, YF = 700, CT = 822; // wainscot top, wall/floor junction, counter top (back edge)
+  var WALL = '#a8844c', PANEL = '#6b4a2f', PANEL_D = '#4e3522', BAR = '#4a3020', BAR_L = '#7a5236', BRASS = '#c9a24a';
 
   function room(S) {
     var s = '';
@@ -29,7 +29,10 @@
     // floor strip (dark boards)
     s += S.fillOnly([[-20, YF], [1940, YF], [1940, 1100], [-20, 1100]], '#3e2c1f');
     s += S.line([[-20, YF], [1940, YF + 1]], { w: 4, ta: 0.02, tb: 0.02, min: 0.6 });
-    s += S.hatch([[-20, YF + 4], [1940, YF + 4], [1940, 820], [-20, 820]], { ang: 0, gap: 7, w: 1.2, op: 0.45 });
+    s += S.hatch([[-20, YF + 4], [1940, YF + 4], [1940, 900], [-20, 900]], { ang: 0, gap: 7, w: 1.2, op: 0.45 });
+    var FL = [];
+    for (var bx = -900; bx < 2900; bx += 150) FL.push([[960 + (bx - 960) * 0.55, YF + 2], [bx, 900]]);
+    s += S.lines(FL, { w: 1.6, ta: 0.05, tb: 0.05, min: 0.5 }, P.ink, ' opacity=".5"');
     return s;
   }
 
@@ -213,17 +216,17 @@
   function counter(S) {
     var s = '';
     // top surface (slight perspective: back edge CT, front edge 800)
-    var top = [[-30, CT], [1950, CT - 4], [1950, 808], [-30, 812]];
+    var top = [[-30, CT], [1950, CT - 4], [1950, 876], [-30, 880]];
     s += S.shape(top, '#6d4529', { w: 4, extra: 3 });
     s += S.lines([[[0, CT + 18], [700, CT + 16]], [[900, CT + 20], [1900, CT + 14]], [[200, CT + 38], [1100, CT + 36]]], { w: 2.4, ta: 0.2, tb: 0.3 }, '#e9c38a', ' opacity=".35"');
     s += S.hatch(top, { ang: 2, gap: 7, w: 1.1, op: 0.35 });
     // front: panelled, brass foot rail, very calm (subtitle band)
-    var front = [[-30, 810], [1950, 806], [1950, 1100], [-30, 1100]];
+    var front = [[-30, 878], [1950, 874], [1950, 1100], [-30, 1100]];
     s += S.fillOnly(front, BAR);
-    s += S.box(-30, 806, 1980, 26, '#5a3a25', { w: 3, extra: 3.5, hatch: 'b', hk: 0.5 });
-    for (var x = 20; x < 1920; x += 240) s += S.box(x, 860, 200, 260, '#55372a', { w: 2.4, extra: 2.6, hatch: 'r', hk: 0.15, hop: 0.4 });
+    s += S.box(-30, 874, 1980, 24, '#5a3a25', { w: 3, extra: 3.5, hatch: 'b', hk: 0.5 });
+    for (var x = 20; x < 1920; x += 240) s += S.box(x, 922, 200, 200, '#55372a', { w: 2.4, extra: 2.6, hatch: 'r', hk: 0.15, hop: 0.4 });
     s += S.hatch(front, { ang: 88, gap: 9, w: 1.1, op: 0.25 });
-    s += '<rect x="-30" y="806" width="1980" height="300" fill="' + S.linear([[0, '#000', 0], [1, '#000', 0.25]], 0, 0, 0, 1) + '"/>';
+    s += '<rect x="-30" y="874" width="1980" height="230" fill="' + S.linear([[0, '#000', 0], [1, '#000', 0.25]], 0, 0, 0, 1) + '"/>';
     // beer mats + glasses (between the two bar slots, so hands/torsos stay free)
     function mat(cx, cy, tally) {
       var m = S.ellipse(cx, cy, 52, 15, 30, 0.01), g = S.shape(m, '#efe5cc', { w: 2, extra: 1.6 });
@@ -236,30 +239,30 @@
       }
       return g;
     }
-    s += mat(820, 784, false) + pils(S, 820, 786, 1.05, 1);
-    s += mat(1120, 782, false) + pils(S, 1120, 784, 1.05, 0.55);
-    s += mat(968, 790, true);
-    s += S.line([[930, 778], [1000, 768]], { w: 5, ta: 0.05, tb: 0.4, min: 0.6 }, P.mustard); // pencil
+    s += mat(830, 852, false) + pils(S, 830, 854, 1.0, 1);
+    s += mat(1110, 850, false) + pils(S, 1110, 852, 1.0, 0.55);
+    s += mat(968, 860, true);
+    s += S.line([[930, 848], [1000, 838]], { w: 5, ta: 0.05, tb: 0.4, min: 0.6 }, P.mustard); // pencil
     // peanut bowl on the left
-    var bw = U.catmull([[160, 762], [170, 792], [230, 800], [290, 792], [300, 762]], 5, false);
-    for (var n = 0; n < 9; n++) s += S.circ(180 + n * 12, 758 - (n % 3) * 6, 9, '#c98e4d', { w: 1.2, extra: 1, ry: 6 });
-    s += S.shape(bw.concat([[300, 762]]), P.cream, { w: 2.4, extra: 2.6 });
-    s += S.hatch(bw.concat([[300, 762]]), { ang: 80, gap: 6, w: 1, op: 0.4, cond: function (X) { return X > 250; } });
+    var bw = U.catmull([[160, 834], [170, 862], [230, 870], [290, 862], [300, 834]], 5, false);
+    for (var n = 0; n < 9; n++) s += S.circ(180 + n * 12, 830 - (n % 3) * 6, 9, '#c98e4d', { w: 1.2, extra: 1, ry: 6 });
+    s += S.shape(bw.concat([[300, 834]]), P.cream, { w: 2.4, extra: 2.6 });
+    s += S.hatch(bw.concat([[300, 834]]), { ang: 80, gap: 6, w: 1, op: 0.4, cond: function (X) { return X > 250; } });
     // tap tower on the right
     var tx = 1650;
     s += S.fillOnly(S.rect(tx - 120, CT + 6, 240, 24, 20, 0.6), 'rgba(23,19,15,.4)');
     s += S.box(tx - 110, CT - 6, 220, 22, '#9a9d96', { w: 2.4, extra: 2.4, step: 40 });
-    var col = S.rrect(tx - 32, 560, 64, CT - 560, 12);
+    var col = S.rrect(tx - 30, 676, 60, CT - 676, 12);
     s += S.shape(col, '#b9bcb4', { w: 3, extra: 3.4 });
     s += S.hatch(col, { ang: 90, gap: 5, w: 1.1, op: 0.5, cond: function (X) { return X > tx + 8; } });
-    s += S.line([[tx - 18, 576], [tx - 18, CT - 20]], { w: 4, ta: 0.2, tb: 0.2 }, '#ffffff', ' opacity=".6"');
-    s += S.box(tx - 92, 560, 184, 26, '#b9bcb4', { w: 2.6, extra: 3, step: 40, hatch: 'b', hk: 0.4 });
+    s += S.line([[tx - 16, 690], [tx - 16, CT - 20]], { w: 4, ta: 0.2, tb: 0.2 }, '#ffffff', ' opacity=".6"');
+    s += S.box(tx - 92, 664, 184, 26, '#b9bcb4', { w: 2.6, extra: 3, step: 40, hatch: 'b', hk: 0.4 });
     [[tx - 66, 'PILS', P.cream], [tx, 'HELL', P.mustard], [tx + 66, 'WEIZEN', P.red]].forEach(function (h) {
-      s += S.line([[h[0], 586], [h[0], 612], [h[0] + 6, 622]], { w: 7, ta: 0.05, tb: 0.05, min: 0.8 }, '#8f928b');
-      var hd = S.rrect(h[0] - 12, 446, 24, 110, 10);
+      s += S.line([[h[0], 690], [h[0], 716], [h[0] + 6, 726]], { w: 7, ta: 0.05, tb: 0.05, min: 0.8 }, '#8f928b');
+      var hd = S.rrect(h[0] - 12, 556, 24, 104, 10);
       s += S.shape(hd, '#1e1a16', { w: 2, extra: 2 });
-      s += S.box(h[0] - 18, 476, 36, 46, h[2], { w: 1.6, extra: 1.4, step: 20 });
-      s += S.T(h[0], 504, h[1], { f: 'Oswald', s: h[1].length > 4 ? 9 : 11, a: 'middle', c: P.ink });
+      s += S.box(h[0] - 18, 584, 36, 46, h[2], { w: 1.6, extra: 1.4, step: 20 });
+      s += S.T(h[0], 612, h[1], { f: 'Oswald', s: h[1].length > 4 ? 9 : 11, a: 'middle', c: P.ink });
     });
     return s;
   }
@@ -270,14 +273,14 @@
       'bar-left': K.slot(620, 1010, 1.12, { face: 1, behind: 'counter' }),
       'bar-right': K.slot(1310, 1010, 1.12, { face: -1, behind: 'counter' }),
       left: K.slot(520, 1010, 1.12, { behind: 'counter' }), center: K.slot(965, 1012, 1.12, { behind: 'counter' }), right: K.slot(1400, 1010, 1.12, { behind: 'counter' }),
-      back: K.slot(400, 745, 0.7, { face: 1 }),          // standing at the Stammtisch, in the room
-      dart: K.slot(1500, 748, 0.72, { face: 1 })          // throwing darts
+      back: K.slot(560, 790, 0.7, { face: 1 }),          // standing at the Stammtisch, in the room
+      dart: K.slot(1440, 792, 0.72, { face: 1 })          // throwing darts
     },
     build: function () {
       return {
         bg: function (S) {
           var s = room(S) + butzenWindow(S) + middleWall(S) + stammtisch(S) + dart(S) + lamps(S);
-          s += '<rect x="0" y="0" width="1920" height="1080" fill="' + S.radial([[0.45, '#1a1008', 0], [1, '#1a1008', 0.5]], { cx: '50%', cy: '40%', r: '75%' }) + '"/>';
+          s += '<rect x="0" y="0" width="1920" height="1080" fill="' + S.radial([[0.35, '#1a1008', 0], [1, '#140c06', 0.62]], { cx: '50%', cy: '42%', r: '72%' }) + '"/>';
           return s;
         },
         fg: function (S) { return counter(S); }

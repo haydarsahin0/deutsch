@@ -244,7 +244,7 @@ function compile(ep, opts = {}) {
       const n = Script.norm(tok);
       let found = null;
       if (n) for (let j = wi; j < Math.min(words.length, wi + 60); j++) if (Script.norm(words[j].text) === n) { found = j; break; }
-      if (found != null && words[found].start + 0.05 >= minT - 1.5) {
+      if (found != null && words[found].start + 0.05 >= minT - 1.5 && words[found].start <= minT + 4) {
         const t = Math.max(words[found].start - 0.05, prevT);
         out.push({ text: tok, t: r3(t), end: r3(words[found].end), w: found, matched: true });
         wi = found + 1; prevT = t;
@@ -437,6 +437,15 @@ function compile(ep, opts = {}) {
   }
   if (!scenes.length) newScene({ t: 0, args: { layout: 'board' } });
   scene.end = duration;
+  // on-screen words matched too late (after their shot ends) → simple stagger from the shot start
+  for (const sc of scenes) {
+    if (!sc.tokens || !sc.tokens.length) continue;
+    const end = sc.end != null ? sc.end : duration;
+    if (sc.tokens.some(k => k.t > end - 0.4)) sc.tokens.forEach((k, i) => { k.t = r3(sc.contentStart + 0.05 + i * 0.16); k.matched = false; });
+    const last = sc.tokens[sc.tokens.length - 1].t;
+    if (sc.args.style === 'wrong' && sc.args.strike !== 'manual') sc.strikeT = r3(Math.min(last + 0.7, end - 0.3));
+    if (sc.args.style === 'right') sc.tickT = r3(Math.min(last + 0.5, end - 0.3));
+  }
   scenes[0].start = 0; scenes[0].tStart = 0; scenes[0].tEnd = 0; scenes[0].transition = 'cut';
 
   // finish lists: items never revealed by `next` show up at the end of their scene? → stagger after appear

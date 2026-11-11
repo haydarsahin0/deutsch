@@ -173,7 +173,7 @@
     s.push(S(pent, 'w', 1.2));
     for (i = 0; i < 5; i++) { var a2 = -Math.PI / 2 + i / 5 * Math.PI * 2; s.push(S([[50 + 12 * Math.cos(a2), 52 + 12 * Math.sin(a2)], [50 + 30 * Math.cos(a2), 52 + 30 * Math.sin(a2)]], 'w', 1)); }
     s.push(S([[4, 70], [12, 72]], 'w', 0.8), S([[2, 80], [12, 80]], 'w', 0.8));
-    return { strokes: s, fills: [F(pent, 'w')] };
+    return { strokes: s, fills: [F(circ(50, 52, 38), 'w'), F(pent, 'k')] };
   };
   I['green-face'] = function () {
     var f = circ(50, 50, 38);
