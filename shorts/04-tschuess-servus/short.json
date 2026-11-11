@@ -1,0 +1,15 @@
+{
+  "id": "04-tschuess-servus",
+  "episode": "episodes/01-das-sagt-kein-deutscher",
+  "segments": [
+    { "from": 424.00, "to": 456.77, "crop_x": 0, "note": "Nr. 9: „Auf Wiedersehen!“ unter Freunden → Tschüss, Mach's gut, Ciao; DACH-Karte Servus/Tschö/Ade/Baba (439.6–448.5) … schönen Tag noch!" }
+  ],
+  "cta": { "from": 680.18, "to": 682.77, "hold": 0.6, "note": "Wenn dir das Video geholfen hat, abonnier den Kanal." },
+  "hook": ["NICHT UNTER FREUNDEN!", "„Auf Wiedersehen!“"],
+  "tag": "DEUTSCH MIT MELO",
+  "endcard": { "line1": "MEHR DAVON?", "line2": "ABONNIEREN!", "sub": "Ganzes Video auf dem Kanal" },
+  "cover": { "headline": "SERVUS? TSCHÖ? BABA?", "wrong": "„Auf Wiedersehen!“", "right": "„Tschüss! Mach's gut!“",
+             "cast": "kumpel", "castExpr": "confused", "castPose": "wave", "meloExpr": "smirk", "badge": "B1–C1" },
+  "pad": 0.15,
+  "max_duration": 59
+}

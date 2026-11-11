@@ -1,0 +1,16 @@
+{
+  "id": "01-ich-bin-heiss",
+  "episode": "episodes/01-das-sagt-kein-deutscher",
+  "segments": [
+    { "from": 0.05, "to": 11.01, "crop_x": 0, "note": "Hook: Büro, 35 Grad, Kollegin – „Ich bin heiß.“ … Lange." },
+    { "from": 50.60, "to": 88.19, "crop_x": 0, "note": "Nr. 1: „Ich bin heiß.“ Grammatisch … ziemlich saftig." }
+  ],
+  "cta": { "from": 680.18, "to": 682.77, "hold": 0.6, "note": "Wenn dir das Video geholfen hat, abonnier den Kanal." },
+  "hook": ["SAG DAS NIE!", "„Ich bin heiß.“"],
+  "tag": "DEUTSCH MIT MELO",
+  "endcard": { "line1": "MEHR DAVON?", "line2": "ABONNIEREN!", "sub": "Ganzes Video auf dem Kanal" },
+  "cover": { "headline": "SAG DAS NIE!", "wrong": "„Ich bin heiß.“", "right": "„Mir ist heiß.“",
+             "cast": "kollegin", "castExpr": "shocked", "castPose": "hands-up", "meloExpr": "smirk", "badge": "B1–C1" },
+  "pad": 0.15,
+  "max_duration": 59
+}

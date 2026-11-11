@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Short graphics</title>
+<!-- Vertical (1080×1920) graphics for YouTube Shorts, driven by tools/make-short.py via tools/html-frames.js.
+     window.SHORT_PARAMS.mode:
+       bg      – static background (navy, glows, rays, grain, vignette, shadow behind the video slot)   opaque
+       top     – hook title + channel tag + ink frame around the video slot, pop-in over ~0.6 s     transparent
+       endcard – CTA panel wiping in under the title: "Mehr davon? ➜ Abonnieren!", subscribe-button doodle
+                 (cursor click), "Ganzes Video auf dem Kanal" card, Melo pointing + lip sync        transparent
+       cover   – Shorts cover: headline, wrong ✗ → right ✓ cards, Melo + a cast member reacting     opaque
+     Open directly in a browser for a demo (mode via #bg/#top/#endcard/#cover). -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../brand/fonts/caveat-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  svg { display: block; }
+</style>
+<script src="../../brand/concepts/b/melo-b.js"></script>
+<script src="../../brand/channel/scene-ink.js"></script>
+<script src="../../engine/cast/cast.js"></script>
+</head>
+<body>
+<svg id="stage" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+(async function () {
+  try {
+  await Promise.all(['400 100px Anton', '700 100px Oswald', '700 100px Caveat'].map(function (f) { return document.fonts.load(f); }));
+  var DEMO = {
+    mode: (location.hash || '#cover').slice(1), slot: { y: 600, h: 760 },
+    hook: ['SAG DAS NIE!', '„Ich bin heiß.“'], tag: 'DEUTSCH MIT MELO',
+    endcard: { line1: 'MEHR DAVON?', line2: 'ABONNIEREN!', sub: 'Ganzes Video auf dem Kanal', panelTop: 580, click: 1.75 },
+    cover: { headline: 'SAG DAS NIE!', wrong: '„Ich bin heiß.“', right: '„Mir ist heiß.“', cast: 'kollegin', castExpr: 'shocked', castPose: 'hands-up', meloExpr: 'smirk', badge: 'B1–C1' },
+    mouth: [], bg: ''
+  };
+  var P = Object.assign({}, DEMO, window.SHORT_PARAMS || {});
+  var W = 1080, H = 1920, MODE = P.mode;
+  var INK = '#14110d', RED = '#E5302A', YEL = '#FFC83A', MUST = '#E0A93B', GREEN = '#1f9a3e', PAPER = '#f4ecd8', NAVY = '#0a1026';
+  var U = MeloB._util, S;
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function outBack(x) { x = clamp(x); var c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }
+  function outCubic(x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); }
+  function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+  var DEFS = '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="glowSh" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/><feGaussianBlur in="d" stdDeviation="16"/>' +
+    '<feOffset dx="10" dy="14"/><feComponentTransfer><feFuncA type="linear" slope=".75"/></feComponentTransfer></filter>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dx="8" dy="12"/><feComponentTransfer><feFuncA type="linear" slope=".6"/></feComponentTransfer></filter>';
+  var defs;
+  function reseed(n) { defs += S.defs; S = new SceneInk(n); }  // fresh RNG per element: stable shapes across frames
+
+  // ── helpers (same ink language as the episode thumbnails) ─────────────────
+  function glows(list, base) {
+    var o = base ? '<rect width="' + W + '" height="' + H + '" fill="' + base + '"/>' : '';
+    list.forEach(function (g, i) {
+      var id = 'gl' + i + Math.round(g.x) + Math.round(g.y);
+      defs += '<radialGradient id="' + id + '" cx="' + g.x + '" cy="' + g.y + '" r="' + g.r + '" gradientUnits="userSpaceOnUse">' +
+        '<stop offset="0" stop-color="' + g.c + '" stop-opacity="' + (g.o || 1) + '"/><stop offset=".45" stop-color="' + g.c + '" stop-opacity="' + ((g.o || 1) * 0.45) + '"/><stop offset="1" stop-color="' + g.c + '" stop-opacity="0"/></radialGradient>';
+      o += '<rect width="' + W + '" height="' + H + '" fill="url(#' + id + ')"/>';
+    });
+    return o;
+  }
+  function rays(cx, cy, n, color, op) {
+    var d = '';
+    for (var i = 0; i < n; i++) {
+      var a0 = i / n * Math.PI * 2, a1 = a0 + Math.PI / n * 0.9;
+      d += 'M' + cx + ' ' + cy + 'L' + U.f1(cx + 2400 * Math.cos(a0)) + ' ' + U.f1(cy + 2400 * Math.sin(a0)) + 'L' + U.f1(cx + 2400 * Math.cos(a1)) + ' ' + U.f1(cy + 2400 * Math.sin(a1)) + 'Z';
+    }
+    return '<path d="' + d + '" fill="' + color + '" opacity="' + op + '"/>';
+  }
+  function grainVig() {
+    defs += '<radialGradient id="vig" cx="540" cy="960" r="1150" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>';
+    return '<rect width="' + W + '" height="' + H + '" fill="url(#vig)"/><rect width="' + W + '" height="' + H + '" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
+  }
+  // big outlined poster word, fitted to width w. o: anchor, rot, font, weight, sw (stroke ratio)
+  function word(t, x, y, w, maxSize, fill, o) {
+    o = o || {};
+    var font = o.font || 'Anton', weight = o.weight || 400;
+    var size = Math.min(maxSize, maxSize * w / measure(t, weight + ' ' + maxSize + 'px ' + font));
+    var sw = size * (o.sw || 0.075), sh = size * 0.055;
+    var attrs = 'x="' + x + '" y="' + y + '" font-family="' + font + '" font-weight="' + weight + '" font-size="' + U.f1(size) + '" text-anchor="' + (o.anchor || 'start') + '"';
+    var g = '<g' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + U.f1(sh * 0.8) + ' ' + U.f1(sh) + ')">' + esc(t) + '</text>';
+    g += '<text ' + attrs + ' fill="' + fill + '" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + esc(t) + '</text>';
+    return { svg: g + '</g>', size: size, w: measure(t, weight + ' ' + size + 'px ' + font) };
+  }
+  // scale about (cx,cy)
+  function pop(svg, cx, cy, k, op) {
+    if (k <= 0.001) return '';
+    return '<g opacity="' + U.f1(op === undefined ? 1 : op) + '" transform="translate(' + cx + ' ' + cy + ') scale(' + k.toFixed(4) + ') translate(' + (-cx) + ' ' + (-cy) + ')">' + svg + '</g>';
+  }
+  // Melo with a heavy black silhouette outline + soft shadow. hx,hy = skull centre on canvas, hh = skull height px
+  function melo(opts, hx, hy, hh) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh, cx = 0, cy = -388;
+    var vb = [cx - hx * u, cy - hy * u, W * u, H * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+  }
+  // cast member, feet at (x,y), skull-equivalent scale like melo()
+  function castMember(id, opts, x, y, hh) {
+    var fr = Cast.render(id, Object.assign({ t: 0.4, id: 'c' + id }, opts));
+    var g = '<g transform="translate(' + x + ' ' + y + ') scale(' + (hh / 196).toFixed(4) + ')">' + fr.svg + '</g>';
+    return '<g filter="url(#glowSh)">' + g + '</g><g filter="url(#sil)">' + g + '</g>' + g;
+  }
+  function brushLine(pts, w, color, smooth) { return S.line(pts, { w: w, ta: 0.15, tb: 0.2, min: 0.5, jit: 0.15, smooth: smooth || 0 }, color); }
+  function arrow(pts, w, color) {
+    var a = pts[pts.length - 2], b = pts[pts.length - 1], ang = Math.atan2(b[1] - a[1], b[0] - a[0]), L = w * 3.6;
+    var h1 = [b[0] - L * Math.cos(ang - 0.55), b[1] - L * Math.sin(ang - 0.55)], h2 = [b[0] - L * Math.cos(ang + 0.55), b[1] - L * Math.sin(ang + 0.55)];
+    return S.line(pts, { w: w, ta: 0.1, tb: 0.02, min: 0.7, jit: 0.1, smooth: 8 }, color) +
+      S.line([h1, b], { w: w, ta: 0.2, tb: 0.05, min: 0.7 }, color) + S.line([h2, b], { w: w, ta: 0.2, tb: 0.05, min: 0.7 }, color);
+  }
+  function card(x, y, w, h, rot, fill, inner) {
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ' ' + w / 2 + ' ' + h / 2 + ')">' +
+      '<rect x="0" y="0" width="' + w + '" height="' + h + '" fill="#000" filter="url(#soft)"/>' +
+      S.shape(S.rect(0, 0, w, h, 26, 2.2), fill, { w: 4.5, extra: 3 }) +
+      S.hatch(S.rect(0, 0, w, h, 60, 0), { ang: 45, gap: 9, w: 1.3, op: 0.12, cond: function (X, Y) { return X + Y > w + h * 0.55; } }) +
+      inner + '</g>';
+  }
+  function badge(cx, y, t, bgc, fg, size, rot) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.9, h = size * 1.4, x = cx - w / 2;
+    return '<g transform="translate(' + U.f1(x) + ' ' + y + ') rotate(' + (rot || 0) + ' ' + U.f1(w / 2) + ' ' + U.f1(h / 2) + ')">' +
+      S.shape(S.rect(0, 0, w, h, 20, 1.2), bgc, { w: 3.5, extra: 2 }) +
+      '<text x="' + U.f1(w / 2) + '" y="' + U.f1(h * 0.75) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" letter-spacing="2" fill="' + fg + '" text-anchor="middle">' + esc(t) + '</text></g>';
+  }
+  function stampX(cx, cy, r, color) {
+    return '<g transform="translate(' + cx + ' ' + cy + ') rotate(-8)">' +
+      S.line([[-r, -r], [-r * 0.1, -r * 0.08], [r, r]], { w: r * 0.36, ta: 0.08, tb: 0.15, min: 0.6, jit: 0.2 }, color) +
+      S.line([[r * 0.95, -r * 1.02], [0, 0.05 * r], [-r * 0.98, r * 0.95]], { w: r * 0.36, ta: 0.08, tb: 0.15, min: 0.6, jit: 0.2 }, color) + '</g>';
+  }
+  function check(cx, cy, r, color) {
+    return '<g transform="translate(' + cx + ' ' + cy + ')">' +
+      S.line([[-r, -r * 0.05], [-r * 0.55, r * 0.35], [-r * 0.2, r * 0.75], [r * 0.25, r * 0.05], [r * 1.05, -r * 1.0]], { w: r * 0.38, ta: 0.15, tb: 0.1, min: 0.55, jit: 0.15, smooth: 6 }, color) + '</g>';
+  }
+  function hookTitle(t) {
+    // channel tag + two hook lines (white / yellow), each popping in
+    var s = '', L = P.hook || [];
+    var kt = outBack((t - 0.0) / 0.3);
+    s += pop(badge(540, 128, P.tag || 'DEUTSCH MIT MELO', MUST, INK, 34, -2), 540, 160, 0.6 + 0.4 * kt, clamp(t / 0.2));
+    if (L[0]) { var a = word(L[0], 540, 360, 900, 200, '#ffffff', { anchor: 'middle', rot: -3 }); s += pop(a.svg, 540, 300, outBack((t - 0.05) / 0.32)); }
+    if (L[1]) { var b = word(L[1], 540, 535, 960, 150, YEL, { anchor: 'middle', rot: -3 }); s += pop(b.svg, 540, 480, outBack((t - 0.2) / 0.32)); }
+    return s;
+  }
+  function slotFrame() {
+    var y0 = P.slot.y, y1 = P.slot.y + P.slot.h;
+    return brushLine([[-20, y0 + 2], [300, y0 - 1], [700, y0 + 1], [1100, y0 - 1]], 11, '#000') +
+      brushLine([[-20, y1 - 1], [380, y1 + 1], [760, y1 - 1], [1100, y1 + 1]], 11, '#000');
+  }
+
+  // ── modes ──────────────────────────────────────────────
+  function bgSvg() {
+    var s = glows([{ x: 540, y: 330, r: 760, c: '#ff7a1a', o: 0.8 }, { x: 540, y: 1650, r: 900, c: '#1f4bd1', o: 0.45 }, { x: 80, y: 980, r: 600, c: '#e5302a', o: 0.25 }], NAVY);
+    s += rays(540, 330, 26, '#000', 0.13);
+    if (!P.noSlot) s += '<rect x="-20" y="' + (P.slot.y + 18) + '" width="1120" height="' + P.slot.h + '" fill="#000" opacity=".55" filter="url(#soft)"/>';
+    if (!P.noSlot) s += '<rect x="0" y="' + P.slot.y + '" width="1080" height="' + P.slot.h + '" fill="#05070f"/>';
+    s += grainVig();
+    return s;
+  }
+
+  // subscribe button doodle (local coords centred at 0,0)
+  function subButton(subscribed) {
+    var w = 470, h = 136, x = -w / 2, y = -h / 2;
+    var fill = subscribed ? '#4a4a4a' : RED, label = subscribed ? 'ABONNIERT' : 'ABONNIEREN';
+    var s = '<rect x="' + (x + 10) + '" y="' + (y + 14) + '" width="' + w + '" height="' + h + '" rx="40" fill="#000" opacity=".85"/>';
+    var r = S.rect(x, y, w, h, 30, 1.6);
+    s += S.shape(r, fill, { w: 6, extra: 3 });
+    // bell / check icon
+    if (subscribed) s += check(x + 72, 2, 26, '#fff');
+    else s += '<g transform="translate(' + (x + 70) + ' 0)"><path d="M-22 14 Q-22 -22 0 -26 Q22 -22 22 14 L28 22 H-28 Z" fill="#fff" stroke="#000" stroke-width="4" stroke-linejoin="round"/><circle cx="0" cy="28" r="7" fill="#fff" stroke="#000" stroke-width="4"/></g>';
+    s += '<text x="' + (x + 120) + '" y="' + (y + h * 0.69) + '" font-family="Oswald" font-weight="700" font-size="62" letter-spacing="2" fill="#fff" stroke="#000" stroke-width="6" paint-order="stroke fill">' + label + '</text>';
+    return s;
+  }
+  function cursor() {
+    return '<path d="M0 0 L0 62 L15 48 L26 74 L38 69 L27 44 L47 44 Z" fill="#fff" stroke="#000" stroke-width="5" stroke-linejoin="round"/>';
+  }
+
+  function endcardSvg(t) {
+    var E = P.endcard, top0 = E.panelTop, s = '';
+    var p = outCubic(t / 0.32), top = H - (H - top0) * p;
+    // panel (the short's own background image, so it reads as the same world)
+    defs += '<clipPath id="pan"><rect x="0" y="' + U.f1(top) + '" width="' + W + '" height="' + H + '"/></clipPath>';
+    s += '<g clip-path="url(#pan)">' + (P.bg ? '<image href="' + P.bg + '" x="0" y="0" width="' + W + '" height="' + H + '"/>' : glows([{ x: 540, y: 1200, r: 900, c: '#1f4bd1', o: 0.6 }], NAVY)) +
+      glows([{ x: 650, y: 1170, r: 520, c: '#ff7a1a', o: 0.55 }], null) + '</g>';
+    s += '<g transform="translate(0 ' + U.f1(top - top0) + ')">' + brushLine([[-20, top0 + 2], [360, top0 - 2], [760, top0 + 1], [1100, top0 - 1]], 12, '#000') + '</g>';
+    if (t < 0.12) return s;
+    reseed(21);
+    // headline
+    var h1 = word(E.line1, 540, 790, 860, 170, '#ffffff', { anchor: 'middle', rot: -3 });
+    s += pop(h1.svg, 540, 720, outBack((t - 0.18) / 0.32));
+    var h2 = word(E.line2, 590, 955, 700, 150, YEL, { anchor: 'middle', rot: -3 });
+    var k2 = outBack((t - 0.32) / 0.32);
+    s += pop(h2.svg + arrow([[70, 930], [130, 905], [200, 900]], 15, YEL), 540, 890, k2);
+    // subscribe button + cursor click
+    reseed(22);
+    var bx = 655, by = 1150, tc = E.click || 1.75, sub = t >= tc;
+    var kb = outBack((t - 0.55) / 0.3), squash = 1;
+    if (t >= tc - 0.08 && t < tc + 0.2) squash = t < tc ? 0.9 : 0.9 + 0.18 * Math.sin(Math.PI * clamp((t - tc) / 0.2));
+    var wob = sub ? Math.sin((t - tc) * 22) * 4 * Math.exp(-(t - tc) * 3) : 0;
+    s += '<g transform="translate(' + bx + ' ' + by + ') rotate(' + U.f1(-2 + wob) + ') scale(' + (kb * squash).toFixed(4) + ')">' + subButton(sub) + '</g>';
+    if (sub) { // burst lines
+      var kk = clamp((t - tc) / 0.35), bs = '';
+      if (kk < 1) for (var i = 0; i < 8; i++) { var a = i / 8 * Math.PI * 2, r0 = 270 + 60 * kk, r1 = r0 + 50 * (1 - kk);
+        bs += '<line x1="' + U.f1(bx + r0 * Math.cos(a)) + '" y1="' + U.f1(by + r0 * 0.45 * Math.sin(a)) + '" x2="' + U.f1(bx + r1 * Math.cos(a)) + '" y2="' + U.f1(by + r1 * 0.45 * Math.sin(a)) + '" stroke="' + YEL + '" stroke-width="10" stroke-linecap="round"/>'; }
+      s += bs;
+    }
+    var c0 = [1000, 1560], c1 = [760, 1175], kc = outCubic((t - (tc - 0.6)) / 0.5);
+    if (t > tc - 0.6 && t < tc + 0.9) {
+      var cx = c0[0] + (c1[0] - c0[0]) * kc, cy = c0[1] + (c1[1] - c0[1]) * kc, cs = (t >= tc - 0.05 && t < tc + 0.12) ? 0.85 : 1;
+      s += '<g opacity="' + U.f1(clamp((tc + 0.9 - t) / 0.25)) + '" transform="translate(' + U.f1(cx) + ' ' + U.f1(cy) + ') scale(' + cs + ')">' + cursor() + '</g>';
+    }
+    // "Ganzes Video auf dem Kanal" card
+    reseed(23);
+    var sz = Math.min(64, 64 * 470 / measure(E.sub, '700 64px Caveat')), cw = measure(E.sub, '700 ' + sz + 'px Caveat') + 64;
+    var kcard = outBack((t - 0.8) / 0.32);
+    var inner = '<text x="32" y="' + U.f1(64 + sz * 0.3) + '" font-family="Caveat" font-weight="700" font-size="' + U.f1(sz) + '" fill="' + INK + '">' + esc(E.sub) + '</text>';
+    var cardX = 925 - cw;
+    s += pop(card(cardX, 1300, cw, 118, -2, PAPER, inner), cardX + cw / 2, 1360, kcard);
+    // Melo, pointing at the button, lip-synced to the CTA line
+    var f = Math.round(t * 30), mo = (P.mouth && P.mouth[f]) || 0, km = outBack((t - 0.25) / 0.4);
+    var blink = (t > 2.35 && t < 2.47) ? 1 : 0, bob = Math.sin(t * 5.2) * 5;
+    var mel = melo({ view: 'full', pose: 'point', expression: 'smirk', mouthOpen: mo, blink: blink, look: [0.9, -0.5], headTilt: 4 }, 215, 1190, 215);
+    s += '<g transform="translate(' + U.f1(-(1 - km) * 380) + ' ' + U.f1(bob) + ')">' + mel + '</g>';
+    return s;
+  }
+
+  function coverSvg() {
+    var C = P.cover, s = '';
+    s += glows([{ x: 540, y: 760, r: 760, c: '#e5302a', o: 0.6 }, { x: 540, y: 1350, r: 800, c: '#ff7a1a', o: 0.75 }, { x: 540, y: 1900, r: 700, c: '#1f4bd1', o: 0.4 }], NAVY);
+    s += rays(540, 1250, 26, '#000', 0.14);
+    s += badge(540, 250, P.tag || 'DEUTSCH MIT MELO', MUST, INK, 46, -2);
+    var hl = word(C.headline, 540, 590, 960, 240, '#ffffff', { anchor: 'middle', rot: -3 });
+    s += hl.svg;
+    // wrong card
+    var fs = Math.min(118, 118 * 760 / Math.max(measure(C.wrong, '700 118px Caveat'), measure(C.right, '700 118px Caveat')));
+    var w1 = measure(C.wrong, '700 ' + fs + 'px Caveat') + 90, x1 = 540 - w1 / 2 - 40;
+    var in1 = '<text x="40" y="' + U.f1(85 + fs * 0.36) + '" font-family="Caveat" font-weight="700" font-size="' + U.f1(fs) + '" fill="' + INK + '">' + esc(C.wrong) + '</text>' +
+      brushLine([[26, 100], [w1 * 0.5, 94], [w1 - 24, 88]], 15, RED);
+    s += card(x1, 645, w1, 170, -3, PAPER, in1);
+    s += '<circle cx="' + U.f1(x1 + w1 + 40) + '" cy="728" r="74" fill="#fbf6ea" stroke="#000" stroke-width="8"/>' + stampX(x1 + w1 + 40, 728, 42, RED);
+    // right card
+    var w2 = measure(C.right, '700 ' + fs + 'px Caveat') + 90, x2 = 540 - w2 / 2 - 40;
+    var in2 = '<text x="40" y="' + U.f1(85 + fs * 0.36) + '" font-family="Caveat" font-weight="700" font-size="' + U.f1(fs) + '" fill="' + INK + '">' + esc(C.right) + '</text>' +
+      brushLine([[40, 150], [w2 * 0.5, 154], [w2 - 40, 148]], 9, GREEN);
+    s += card(x2, 880, w2, 170, 2, '#fbf6ea', in2);
+    s += '<circle cx="' + U.f1(x2 + w2 + 40) + '" cy="962" r="74" fill="#fbf6ea" stroke="#000" stroke-width="8"/>' + check(x2 + w2 + 46, 968, 44, GREEN);
+    s += arrow([[x1 - 10, 790], [x1 - 60, 860], [x2 - 14, 950]], 14, YEL);
+    // characters
+    s += castMember(C.cast, { expr: C.castExpr, pose: C.castPose, flip: true }, 812, 1725, 240);
+    s += melo({ view: 'full', pose: 'point', expression: C.meloExpr || 'smirk', look: [1, -0.1], headTilt: 4 }, 280, 1265, 235);
+    s += '<g transform="translate(965 1190) rotate(10)">' + word('?!', 0, 0, 200, 150, RED, { anchor: 'middle' }).svg + '</g>';
+    if (C.badge) s += badge(540, 1770, C.badge, YEL, INK, 50, 2);
+    s += grainVig();
+    return s;
+  }
+
+  function build(t) {
+    S = new SceneInk(7); defs = DEFS;
+    var s = MODE === 'bg' ? bgSvg() : MODE === 'top' ? hookTitle(t) + slotFrame() : MODE === 'endcard' ? endcardSvg(t) : coverSvg();
+    document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+  }
+  window.renderFrame = function (t) { build(t); };
+  if (!window.SHORT_PARAMS) {
+    document.body.style.background = MODE === 'top' || MODE === 'endcard' ? '#335' : 'none';
+    var T = MODE === 'top' ? 0.7 : MODE === 'endcard' ? 2.4 : 0; build(T);
+  }
+  window.__ready = true;
+  } catch (e) { window.__error = e.message + ' ' + (e.stack || '').split('\n')[1]; }
+})();
+</script>
+</body>
+</html>
