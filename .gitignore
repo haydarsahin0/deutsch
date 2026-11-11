@@ -9,3 +9,5 @@ __pycache__/
 episodes/*/audio/voice.wav
 episodes/*/out/*.mp4
 engine/dev/stills/
+shorts/*/build/
+shorts/*/out/*.mp4
