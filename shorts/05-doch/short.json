@@ -2,14 +2,40 @@
   "id": "05-doch",
   "episode": "episodes/01-das-sagt-kein-deutscher",
   "segments": [
-    { "from": 568.21, "to": 620.56, "crop_x": 0, "note": "Nr. 12: „Hast du keinen Hunger?“ – „Ja!“ → „Doch!“ … Also perfekt für mich." }
+    {
+      "from": 568.21,
+      "to": 620.56,
+      "crop_x": 0,
+      "note": "Nr. 12: „Hast du keinen Hunger?“ – „Ja!“ → „Doch!“ … Also perfekt für mich."
+    }
   ],
-  "cta": { "from": 680.18, "to": 682.77, "hold": 0.6, "note": "Wenn dir das Video geholfen hat, abonnier den Kanal." },
-  "hook": ["SOGAR C1 STOLPERT!", "„Ja!“ oder „Doch!“?"],
+  "cta": {
+    "from": 680.18,
+    "to": 682.77,
+    "hold": 0.6,
+    "note": "Wenn dir das Video geholfen hat, abonnier den Kanal."
+  },
+  "hook": [
+    "SOGAR C1 STOLPERT!",
+    "„Ja!“ oder „Doch!“?"
+  ],
   "tag": "DEUTSCH MIT MELO",
-  "endcard": { "line1": "MEHR DAVON?", "line2": "ABONNIEREN!", "sub": "Ganzes Video auf dem Kanal" },
-  "cover": { "headline": "JA ODER DOCH?", "wrong": "„Ja!“", "right": "„Doch!“",
-             "cast": "mitbewohnerin", "castExpr": "confused", "castPose": "hold", "meloExpr": "smirk", "badge": "B1–C1" },
+  "endcard": {
+    "line1": "MEHR DAVON?",
+    "line2": "ABONNIEREN!",
+    "sub": "Ganzes Video auf dem Kanal"
+  },
+  "cover": {
+    "headline": "JA ODER DOCH?",
+    "wrong": "„Ja!“",
+    "right": "„Doch!“",
+    "cast": "mitbewohnerin",
+    "castExpr": "confused",
+    "castPose": "hold",
+    "meloExpr": "smirk",
+    "badge": "B1–C1"
+  },
   "pad": 0.15,
-  "max_duration": 59
+  "max_duration": 59,
+  "fit": "full"
 }

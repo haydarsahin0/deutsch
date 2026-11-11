@@ -2,14 +2,40 @@
   "id": "02-ich-bin-voll",
   "episode": "episodes/01-das-sagt-kein-deutscher",
   "segments": [
-    { "from": 90.41, "to": 130.81, "crop_x": 0, "note": "Nr. 2: Schwiegermutter, Kartoffelsalat – „Ich bin voll.“ → „Ich bin satt.“ … du hättest getrunken." }
+    {
+      "from": 90.41,
+      "to": 130.81,
+      "crop_x": 0,
+      "note": "Nr. 2: Schwiegermutter, Kartoffelsalat – „Ich bin voll.“ → „Ich bin satt.“ … du hättest getrunken."
+    }
   ],
-  "cta": { "from": 680.18, "to": 682.77, "hold": 0.6, "note": "Wenn dir das Video geholfen hat, abonnier den Kanal." },
-  "hook": ["PEINLICH!", "„Ich bin voll.“"],
+  "cta": {
+    "from": 680.18,
+    "to": 682.77,
+    "hold": 0.6,
+    "note": "Wenn dir das Video geholfen hat, abonnier den Kanal."
+  },
+  "hook": [
+    "PEINLICH!",
+    "„Ich bin voll.“"
+  ],
   "tag": "DEUTSCH MIT MELO",
-  "endcard": { "line1": "MEHR DAVON?", "line2": "ABONNIEREN!", "sub": "Ganzes Video auf dem Kanal" },
-  "cover": { "headline": "SAG DAS NIE!", "wrong": "„Ich bin voll.“", "right": "„Ich bin satt.“",
-             "cast": "schwiegermutter", "castExpr": "shocked", "castPose": "hands-up", "meloExpr": "smirk", "badge": "B1–C1" },
+  "endcard": {
+    "line1": "GEFÄLLT'S DIR?",
+    "line2": "LIKE & ABONNIEREN!",
+    "sub": "Ganzes Video auf dem Kanal"
+  },
+  "cover": {
+    "headline": "SAG DAS NIE!",
+    "wrong": "„Ich bin voll.“",
+    "right": "„Ich bin satt.“",
+    "cast": "schwiegermutter",
+    "castExpr": "shocked",
+    "castPose": "hands-up",
+    "meloExpr": "smirk",
+    "badge": "B1–C1"
+  },
   "pad": 0.15,
-  "max_duration": 59
+  "max_duration": 59,
+  "fit": "full"
 }

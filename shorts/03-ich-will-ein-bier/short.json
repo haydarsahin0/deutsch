@@ -2,14 +2,40 @@
   "id": "03-ich-will-ein-bier",
   "episode": "episodes/01-das-sagt-kein-deutscher",
   "segments": [
-    { "from": 292.11, "to": 333.88, "crop_x": 0, "note": "Nr. 7: Biergarten – „Ich will ein Bier.“ → „Ich hätte gern …“; bekommen ≠ become – „Ich will Arzt werden.“" }
+    {
+      "from": 292.11,
+      "to": 333.88,
+      "crop_x": 0,
+      "note": "Nr. 7: Biergarten – „Ich will ein Bier.“ → „Ich hätte gern …“; bekommen ≠ become – „Ich will Arzt werden.“"
+    }
   ],
-  "cta": { "from": 680.18, "to": 682.77, "hold": 0.6, "note": "Wenn dir das Video geholfen hat, abonnier den Kanal." },
-  "hook": ["SO NICHT BESTELLEN!", "„Ich will ein Bier.“"],
+  "cta": {
+    "from": 680.18,
+    "to": 682.77,
+    "hold": 0.6,
+    "note": "Wenn dir das Video geholfen hat, abonnier den Kanal."
+  },
+  "hook": [
+    "SO NICHT BESTELLEN!",
+    "„Ich will ein Bier.“"
+  ],
   "tag": "DEUTSCH MIT MELO",
-  "endcard": { "line1": "MEHR DAVON?", "line2": "ABONNIEREN!", "sub": "Ganzes Video auf dem Kanal" },
-  "cover": { "headline": "BIER ODER ARZT?!", "wrong": "„Ich will Arzt bekommen.“", "right": "„Ich will Arzt werden.“",
-             "cast": "kellner", "castExpr": "skeptical", "castPose": "hold", "meloExpr": "smirk", "badge": "B1–C1" },
+  "endcard": {
+    "line1": "MEHR DAVON?",
+    "line2": "ABONNIEREN!",
+    "sub": "Ganzes Video auf dem Kanal"
+  },
+  "cover": {
+    "headline": "BIER ODER ARZT?!",
+    "wrong": "„Ich will Arzt bekommen.“",
+    "right": "„Ich will Arzt werden.“",
+    "cast": "kellner",
+    "castExpr": "skeptical",
+    "castPose": "hold",
+    "meloExpr": "smirk",
+    "badge": "B1–C1"
+  },
   "pad": 0.15,
-  "max_duration": 59
+  "max_duration": 59,
+  "fit": "full"
 }

@@ -259,6 +259,15 @@ def make_cover(cfg, sdir, build):
     html_frames(dict(base_params(cfg), mode='cover', cover=c), sdir / 'out' / 'cover.png', build=build)
 
 
+def apply_fit(cfg):
+    """'fit': 'full' shows the whole 16:9 frame (1080×608, no zoom/crop) centred in the
+    video area; default 'zoom' keeps the old height-fit ×1.25 centre crop."""
+    global SLOT_Y, SLOT_H, SCALED_W
+    if cfg.get('fit') == 'full':
+        SLOT_H, SCALED_W = 608, 1080
+        SLOT_Y = 676          # centred in the former 600–1360 video area
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('config')
@@ -270,6 +279,7 @@ def main():
 
     cfg_path = (ROOT / o.config) if not os.path.isabs(o.config) else Path(o.config)
     cfg = json.loads(cfg_path.read_text(encoding='utf-8'))
+    apply_fit(cfg)
     sdir = cfg_path.parent
     build, out = sdir / 'build', sdir / 'out'
     build.mkdir(exist_ok=True); out.mkdir(exist_ok=True)
