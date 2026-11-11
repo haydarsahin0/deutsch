@@ -1211,6 +1211,7 @@
     // newest per speaker, at most 2
     var by = {}; says.forEach(function (q) { by[q.who] = q; });
     var list = Object.keys(by).map(function (k) { return by[k]; }).sort(function (a, b) { return a.t - b.t; }).slice(-2);
+    var placedB = [];
     list.forEach(function (q, qi) {
       var fs = 60, font = '700 ' + fs + 'px ' + HAND, maxW = 760, lines = wrap(q.text, font, maxW), lh = fs * 1.15;
       var tw = Math.max.apply(0, lines.map(function (l) { return measure(l, font); })), bw = tw + 70, bh = lines.length * lh + 44;
@@ -1219,6 +1220,15 @@
       if (head) { bx = head[0] - bw / 2 + (head[0] < 960 ? 120 : -120); by2 = head[1] - hr - 70 - bh; }
       else { bx = 960 - bw / 2; by2 = 160; }
       bx = clamp(bx, 50, 1870 - bw); by2 = clamp(by2, 40, 1080 - 210 - bh);
+      // keep bubbles from overlapping each other: move up, else down, else sideways
+      placedB.forEach(function (o) {
+        if (bx < o.x + o.w + 16 && bx + bw + 16 > o.x && by2 < o.y + o.h + 16 && by2 + bh + 16 > o.y) {
+          if (o.y - bh - 24 >= 30) by2 = o.y - bh - 24;
+          else if (o.y + o.h + 24 + bh <= 1080 - 200) by2 = o.y + o.h + 24;
+          else bx = o.x + o.w / 2 < 960 ? Math.min(1870 - bw, o.x + o.w + 24) : Math.max(50, o.x - bw - 24);
+        }
+      });
+      placedB.push({ x: bx, y: by2, w: bw, h: bh });
       var p = easeOutBack((t - q.t) / 0.28), cxm = bx + bw / 2, cym = by2 + bh / 2;
       ctx.save(); ctx.translate(cxm, cym); ctx.scale(lerp(0.5, 1, p), lerp(0.5, 1, p)); ctx.translate(-cxm, -cym); ctx.globalAlpha = sat((t - q.t) / 0.1);
       var pts = rrectPts(bx, by2, bw, bh, 34);
@@ -1468,7 +1478,7 @@
         var col = stack ? (li % 2 ? colAcc : colMain) : (li === L.lines.length - 1 && L.lines.length > 1 && !dark ? colMain : (li === L.lines.length - 1 && dark ? MUSTARD : colMain));
         if (style === 'wrong' || style === 'right') col = INK;
         if (p > 0) {
-          var s = lerp(1.7, 1, easeOutBack(p)), rot = (1 - sat(p)) * (wi % 2 ? 0.12 : -0.12);
+          var s = lerp(1.3, 1, easeOutBack(p)), rot = (1 - sat(p)) * (wi % 2 ? 0.08 : -0.08);
           ctx.save(); var cx = x + o.w / 2; ctx.translate(cx, y - L.fs * 0.35); ctx.rotate(rot); ctx.scale(s, s); ctx.translate(-cx, -(y - L.fs * 0.35)); ctx.globalAlpha = sat(p * 4);
           ctx.font = L.font; ctx.textBaseline = 'alphabetic';
           ctx.fillStyle = dark ? '#120b07' : (style === 'wrong' ? 'rgba(196,61,51,.45)' : style === 'right' ? 'rgba(63,125,47,.45)' : 'rgba(214,160,60,.85)');
