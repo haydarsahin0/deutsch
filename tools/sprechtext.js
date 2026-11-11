@@ -3,6 +3,9 @@
 // Reads episodes/<ep>/script.md and writes episodes/<ep>/sprechtext.md:
 // clean spoken text for the voice actor (all [[...]] cues removed, pauses shown as
 // "(Pause)" / "(lange Pause …)", section headings kept, reading tips on top).
+// Also writes episodes/<ep>/tts.txt: only the words to be spoken, ready to paste into an
+// AI voice (no headings, no pause/laugh markers, no notes). Quiz countdown silences are
+// added later in the video pipeline, not by the voice.
 // Also prints the spoken word count and an estimated duration (130 words/min + pauses).
 // No dependencies. Unknown cues are simply stripped (never crash).
 'use strict';
@@ -66,6 +69,17 @@ function renderParagraph(par) {
   return { text: clean, pauseSeconds };
 }
 
+// Spoken text only, for AI text-to-speech: drop markers, keep sentences and paragraphs.
+function toTTS(text) {
+  return text
+    .replace(/\(lange Pause[^)]*\)/g, '\n\n')
+    .replace(/\(Pause\)|_\(lachend\)_/g, ' ')
+    .split('\n\n')
+    .map(p => p.replace(/[ \t]+/g, ' ').replace(/\s+([.,!?;:])/g, '$1').trim())
+    .filter(Boolean)
+    .join('\n\n');
+}
+
 function countWords(text) {
   return text
     .replace(/_\(lachend\)_/g, ' ')
@@ -82,6 +96,7 @@ function main() {
   const { meta, body } = parseFrontMatter(fs.readFileSync(scriptPath, 'utf8'));
 
   const out = [];
+  const tts = [];
   let words = 0, pauses = 0;
   const sections = [];
   // paragraphs = blocks separated by blank lines; headings are their own blocks
@@ -97,6 +112,7 @@ function main() {
     words += w;
     if (sections.length) sections[sections.length - 1].words += w;
     out.push(text, '');
+    tts.push(toTTS(text));
   };
   for (const line of lines) {
     const h = line.match(/^(#{1,6})\s+(.*)$/);
@@ -137,6 +153,9 @@ function main() {
 
   fs.writeFileSync(path.join(dir, 'sprechtext.md'), head.concat(out).join('\n').replace(/\n{3,}/g, '\n\n'));
   console.log(`wrote ${path.join(dir, 'sprechtext.md')}`);
+  const ttsText = tts.join('\n\n') + '\n';
+  fs.writeFileSync(path.join(dir, 'tts.txt'), ttsText);
+  console.log(`wrote ${path.join(dir, 'tts.txt')} (${ttsText.length} characters)`);
   console.log(`spoken words: ${words}`);
   console.log(`pauses: ${Math.round(pauses * 10) / 10} s`);
   console.log(`estimated duration: ${fmt(words / WPM)} min speech @ ${WPM} wpm, ${fmt(minutes)} min incl. pauses`);
