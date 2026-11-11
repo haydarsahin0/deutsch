@@ -115,7 +115,7 @@
      "id": "kollegin",
      "slot": "left",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -220,7 +220,7 @@
      "id": "kollegin",
      "slot": "center",
      "expr": "shocked",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -329,13 +329,13 @@
      "id": "kumpel",
      "slot": "left",
      "expr": "skeptical",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "oma",
      "slot": "right",
      "expr": "skeptical",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -457,13 +457,13 @@
      "id": "chefin",
      "slot": "left",
      "expr": "confused",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "kumpel",
      "slot": "right",
      "expr": "embarrassed",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -766,13 +766,13 @@
      "id": "kumpel",
      "slot": "left",
      "expr": "confused",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "oma",
      "slot": "right",
      "expr": "skeptical",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -933,7 +933,7 @@
      "id": "kollegin",
      "slot": "center",
      "expr": "tired",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -1131,7 +1131,7 @@
      "id": "kollegin",
      "slot": "right",
      "expr": "embarrassed",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -1194,7 +1194,7 @@
      "id": "kumpel",
      "slot": "left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -1430,13 +1430,13 @@
      "id": "kumpel",
      "slot": "center",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "mitbewohnerin",
      "slot": "right",
      "expr": "tired",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -1587,7 +1587,7 @@
      "id": "schwiegermutter",
      "slot": "table-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -1649,7 +1649,7 @@
      "id": "schwiegermutter",
      "slot": "table-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -1789,13 +1789,13 @@
      "id": "schwiegermutter",
      "slot": "table-left",
      "expr": "shocked",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "oma",
      "slot": "back",
      "expr": "shocked",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -1881,7 +1881,7 @@
      "id": "schwiegermutter",
      "slot": "table-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -2026,7 +2026,7 @@
      "id": "schwiegermutter",
      "slot": "table-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -2078,7 +2078,7 @@
      "id": "kumpel",
      "slot": "center",
      "expr": "tired",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -2627,13 +2627,13 @@
      "id": "kumpel",
      "slot": "left",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "oma",
      "slot": "back",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -2918,7 +2918,7 @@
      "id": "chefin",
      "slot": "center",
      "expr": "annoyed",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -3036,7 +3036,7 @@
      "id": "kollegin",
      "slot": "left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -3250,7 +3250,7 @@
      "id": "kumpel",
      "slot": "bar-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -3571,7 +3571,7 @@
      "id": "kumpel",
      "slot": "center",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -3775,7 +3775,7 @@
      "id": "mitbewohnerin",
      "slot": "left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -3877,7 +3877,7 @@
      "id": "kind",
      "slot": "center",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -4129,7 +4129,7 @@
      "id": "kind",
      "slot": "center",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -4308,7 +4308,7 @@
      "id": "oma",
      "slot": "center",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -4409,7 +4409,7 @@
      "id": "kellner",
      "slot": "waiter",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -4528,7 +4528,7 @@
      "id": "kind",
      "slot": "customer",
      "expr": "annoyed",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -4627,7 +4627,7 @@
      "id": "kellner",
      "slot": "waiter",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -4818,7 +4818,7 @@
      "id": "kellner",
      "slot": "waiter",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -4945,7 +4945,7 @@
      "id": "arzt",
      "slot": "center",
      "expr": "confused",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -5070,7 +5070,7 @@
      "id": "moderator",
      "slot": "host",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -5224,7 +5224,7 @@
      "id": "kollegin",
      "slot": "left",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -5355,7 +5355,7 @@
      "id": "moderator",
      "slot": "host",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -5571,7 +5571,7 @@
      "id": "kumpel",
      "slot": "bar-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -5681,7 +5681,7 @@
      "id": "kumpel",
      "slot": "bar-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -5785,7 +5785,7 @@
      "id": "kumpel",
      "slot": "center",
      "expr": "confused",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -5903,13 +5903,13 @@
      "id": "mitbewohnerin",
      "slot": "left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "kumpel",
      "slot": "right",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -6038,7 +6038,7 @@
      "id": "kollegin",
      "slot": "center",
      "expr": "tired",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -6147,7 +6147,7 @@
      "id": "chefin",
      "slot": "left",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -6271,13 +6271,13 @@
      "id": "kumpel",
      "slot": "bar-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "mitbewohnerin",
      "slot": "center",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -6390,7 +6390,7 @@
      "id": "chefin",
      "slot": "interviewer",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -6601,7 +6601,7 @@
      "id": "oma",
      "slot": "behind-counter",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -6765,7 +6765,7 @@
      "id": "chefin",
      "slot": "left",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -6959,7 +6959,7 @@
      "id": "kollegin",
      "slot": "left",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -7085,7 +7085,7 @@
      "id": "mitbewohnerin",
      "slot": "left",
      "expr": "annoyed",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -7232,13 +7232,13 @@
      "id": "kumpel",
      "slot": "left",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "mitbewohnerin",
      "slot": "right",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -7389,7 +7389,7 @@
      "id": "oma",
      "slot": "center",
      "expr": "annoyed",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -7686,7 +7686,7 @@
      "id": "moderator",
      "slot": "host",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -7956,13 +7956,13 @@
      "id": "chefin",
      "slot": "left",
      "expr": "confused",
-     "pose": "idle"
+     "pose": null
     },
     {
      "id": "kumpel",
      "slot": "right",
      "expr": "confused",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -8014,7 +8014,7 @@
      "id": "mitbewohnerin",
      "slot": "left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -8115,7 +8115,7 @@
      "id": "mitbewohnerin",
      "slot": "left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -8162,7 +8162,7 @@
      "id": "mitbewohnerin",
      "slot": "center",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -8294,7 +8294,7 @@
      "id": "mitbewohnerin",
      "slot": "center",
      "expr": "neutral",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -8367,7 +8367,7 @@
      "id": "mitbewohnerin",
      "slot": "left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -8503,7 +8503,7 @@
      "id": "kumpel",
      "slot": "left",
      "expr": "skeptical",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [
@@ -8827,7 +8827,7 @@
      "id": "kellner",
      "slot": "waiter",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -8874,7 +8874,7 @@
      "id": "kumpel",
      "slot": "bar-left",
      "expr": "happy",
-     "pose": "idle"
+     "pose": null
     }
    ],
    "castCues": [],
@@ -22578,6 +22578,7 @@
    "cinema-front.js",
    "dinner-table.js",
    "doctor-office.js",
+   "doorstep.js",
    "exam-room.js",
    "fonts-embed.js",
    "football-park.js",
@@ -22585,11 +22586,14 @@
    "kit-a.js",
    "kit-b.js",
    "kneipe.js",
+   "laptop-email.js",
    "living-room.js",
+   "map-dach.js",
    "office-hot.js",
    "quiz-show.js",
    "street-day.js",
    "supermarket-checkout.js",
+   "university.js",
    "wg-kitchen.js",
    "winter-room.js"
   ],

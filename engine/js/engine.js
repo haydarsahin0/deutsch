@@ -1092,7 +1092,8 @@
       return fallbackSet(name && name !== 'paper' ? name : '');
     }
     var tq = Math.floor(t * 4) / 4, r;  // ambient sets: re-rasterised at 4 fps
-    try { r = Sets.render(name, { t: tq, seed: 1, variant: sc.args && sc.args.variant }); } catch (e) { console.warn('set ' + name + ' failed: ' + e.message); return fallbackSet(name); }
+    var variant = sc.args && sc.args.variant; if (variant === 'sepia') variant = 'retro';
+    try { r = Sets.render(name, { t: tq, seed: 1, variant: variant }); } catch (e) { console.warn('set ' + name + ' failed: ' + e.message); return fallbackSet(name); }
     var key = name + '|' + (sc.args && sc.args.variant || ''), ent = E.setCache[key];
     if (ent && ent.src === r.bg && ent.srcFg === r.fg) return ent;
     ent = { src: r.bg, srcFg: r.fg, bg: await rasterSvg(r.bg, 1920, 1080), fg: r.fg ? await rasterSvg(r.fg, 1920, 1080) : null };
@@ -1434,7 +1435,8 @@
         cur.push({ tk: tk, w: w }); curW += (cur.length > 1 ? sp : 0) + w;
       });
       if (cur.length) lines.push(cur);
-      var ok = lines.length <= (nLines || 3) && lines.every(function (l) { return l.reduce(function (a, b) { return a + b.w; }, 0) + sp * (l.length - 1) <= maxW; }) && lines.length * fs * 1.08 <= maxH;
+      var widow = !lineOf && tokens.length > 1 && lines.length > 1 && lines.some(function (l) { return l.length === 1 && l[0].tk.text.length <= 4; });
+      var ok = !widow && lines.length <= (nLines || 3) && lines.every(function (l) { return l.reduce(function (a, b) { return a + b.w; }, 0) + sp * (l.length - 1) <= maxW; }) && lines.length * fs * 1.08 <= maxH;
       if (ok || fs <= 70) return { fs: fs, font: font, lines: lines, sp: sp };
     }
   }
@@ -1690,6 +1692,14 @@
     if (surf) drawBoard(ctx, freezeT(sc, t), cam, surf);
     if (sc.type !== 'scene' && sc.type !== 'melo') drawFx(ctx, sc, t);
     ctx.restore();
+    // sepia / retro: tint the whole composited shot (set + characters) like an old photo
+    var vr = sc.args && sc.args.variant;
+    if (vr === 'sepia' || vr === 'retro') {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalCompositeOperation = 'color'; ctx.globalAlpha = 0.62; ctx.fillStyle = '#8a6a3c'; ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = 0.25; ctx.fillStyle = '#e8c890'; ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.restore();
+    }
     ctx.save(); ctx.setTransform(E.scale, 0, 0, E.scale, 0, 0);
     await drawOverlayMelo(ctx, t, sc);
     drawScreenFx(ctx, sc, t);

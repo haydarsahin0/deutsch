@@ -133,6 +133,18 @@
     bg += S.shape(hat, P.teal, { w: 2.4, extra: 2.6 }) + S.circ(230, 326, 12, '#f1e8d0', { w: 1.8, extra: 1.4 });
     bg += S.box(198, 376, 64, 16, '#4a7a78', { w: 1.8, extra: 1.6, step: 20, hatch: false });
 
+    // ── sideboard with a hot-water bottle, candle and a pile of woolly socks (left) ──
+    bg += S.floorShadow(250, WALL_Y + 8, 190, 14, 0.25);
+    bg += S.box(90, WALL_Y - 200, 320, 200, P.woodD, { w: 3, extra: 3.4, hatch: 'r', hk: 0.15 });
+    bg += S.box(80, WALL_Y - 214, 340, 22, P.woodM, { w: 2.6, extra: 3, hatch: 'b', hk: 0.4 });
+    bg += S.box(110, WALL_Y - 180, 130, 160, '#9a6a44', { w: 2, extra: 2, hatch: false }) + S.box(260, WALL_Y - 180, 130, 160, '#9a6a44', { w: 2, extra: 2, hatch: false });
+    bg += S.circ(225, WALL_Y - 100, 6, '#c9b06a', { w: 1.4, extra: 1 }) + S.circ(275, WALL_Y - 100, 6, '#c9b06a', { w: 1.4, extra: 1 });
+    var hwb = U.catmull([[340, WALL_Y - 214], [328, WALL_Y - 260], [340, WALL_Y - 300], [380, WALL_Y - 306], [414, WALL_Y - 290], [420, WALL_Y - 250], [410, WALL_Y - 214]], 5, false);
+    bg += S.shape(hwb, '#c4553f', { w: 2.6, extra: 3 }) + S.hatch(hwb, { ang: 0, gap: 8, w: 1.2, op: 0.35 }) + S.box(366, WALL_Y - 330, 30, 26, '#c4553f', { w: 2, extra: 2, hatch: false }) + S.box(362, WALL_Y - 340, 38, 12, P.ink, { w: 1, extra: 0.6, step: 20, hatch: false });
+    bg += S.box(220, WALL_Y - 290, 34, 76, '#f1e8d0', { w: 2, extra: 2, hatch: 'r', hk: 0.3 }) + S.shape(U.catmull([[237, WALL_Y - 290], [230, WALL_Y - 306], [237, WALL_Y - 326], [244, WALL_Y - 306]], 3, true), '#f0b84a', { w: 1.4, extra: 1 }) + S.glow(237, WALL_Y - 306, 70, 70, '#ffd98a', 0.4);
+    // frost creeping in from the wall corners + pendant lamp
+    bg += S.hatch([[-20, -20], [1940, -20], [1940, WALL_Y], [-20, WALL_Y]], { ang: -35, gap: 6, w: 1.4, op: 0.5, color: '#ffffff', cond: function (X, Y) { var e = Math.min(X, 1920 - X); return e + Y * 0.35 < 70 + 30 * Math.sin(Y / 40) || (Y < 40 && e < 260 + 40 * Math.sin(X / 30)); } });
+    bg += S.line([[1330, -10], [1330, 50]], { w: 2.4 }) + S.shape(S.poly([[1290, 50], [1370, 50], [1400, 92], [1260, 92]], 14, 0.6), '#efeee6', { w: 2.4, extra: 2.6 }) + S.circ(1330, 96, 12, '#fff3cf', { w: 1.4, extra: 1 });
     // ── armchair + side table with tea (right) ──
     bg += armchair(S, 1560, 900);
     bg += S.floorShadow(1300, 902, 70, 10, 0.22);
