@@ -2,6 +2,14 @@
 
 German lessons (B1–C1) as 10–15 min horizontal YouTube videos, 100 % code-drawn. Host: **Melo** (watermelon head with sliced-off top, Concept B). Owner speaks Turkish; videos are German only. Full pipeline contract: `docs/PIPELINE.md` (read the "Visual flow v2" section for the current look).
 
+## Where we are
+Read `docs/CHANNEL-STATUS.md` first (what's published, what's ready, what's next) and keep it updated after every publish/decision.
+
+## Fresh container setup (only what a step needs)
+- Node deps: `npm install` (roughjs, fontsource; Playwright + Chromium are preinstalled — don't install them).
+- Alignment (step 3): `pip install -r tools/requirements.txt`; the whisper model downloads from huggingface.co (needs the „deutsch“ cloud environment, which allows the HF hosts).
+- `audio/voice.wav` and `out/*.mp4` are not in git: rebuild voice.wav with `python3 tools/assemble-audio.py episodes/NN` (uses cached transcripts in `build/transcripts/`), re-render videos with `node tools/build.js`.
+
 ## Skills (use them — they encode the whole method)
 `.claude/skills/`: **channel-studio** (owner profile, quality bar, new-channel-from-zero), **melo-episode** (long video end-to-end, writer/director prompt templates), **melo-shorts**, **melo-youtube-meta**, **melo-thumbnail**, **melo-growth**, **melo-deliver**. Helpers: `tools/chapters.py`, `tools/check-long-meta.py`, `shorts/check-meta.py`.
 
