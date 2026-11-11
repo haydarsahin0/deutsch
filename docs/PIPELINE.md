@@ -79,3 +79,59 @@ Also writes `out/subtitles.de.srt|vtt` (max 2 lines × 42 chars, 1–7 s each, s
 
 ## Rendering
 `node tools/build.js episodes/<ep>` runs: sprechtext → align → envelope → timeline → render → mux. The renderer is a self-contained HTML page with `window.renderFrame(t)`; Playwright captures frames in parallel workers and pipes them to ffmpeg. `--from/--to` seconds for partial renders, `--preview` for 960×540 fast drafts.
+
+---
+
+# Visual flow v2 (owner feedback 2026-11-11 — supersedes the "board-centric" look)
+
+The owner rejected the static classroom look. **Goal: short-form retention in a long video.** Something new must happen all the time; everything that is mentioned is SHOWN (illustrated, written, or acted out).
+
+## Rules for every episode
+- **New shot every 3–6 s** on average; never more than ~8 s on the same composition without a visible change (new element, camera push/pan, character reaction). Typical episode of 11–12 min ≈ 150–220 shots.
+- **Show, don't just tell:** situations in the script („Büro ohne Klimaanlage“, „Schwiegermutter, Kartoffelsalat“, „Biergarten“, „Keller, Kartons“) get a full-frame illustrated scene with characters acting it out. Quotes are spoken by the characters in speech bubbles.
+- **Melo is a presenter, not wallpaper:** visible roughly 40–60 % of the time, in varied ways: (a) `corner` narrator (small, ~30–35 % frame height, bottom-left/right), (b) `side` next to the board/text (~45–55 % height, never bigger), (c) `in-scene` as a participant (he often plays the learner who says the wrong sentence), (d) `walk-in`/`peek` gags, (e) `off` — not on screen. **No more huge close-ups**; the closest shot is a medium shot (head + torso, head ≤ 35 % of frame height), used rarely for punchlines.
+- **Shot types mix** (rotate them; avoid the same type twice in a row more than 2×): illustrated scene, kinetic typography, wrong-vs-right split, board/notebook explanation, list/grid, map, quiz, chapter card, Melo-medium.
+- Transitions are mostly fast **cuts**, with occasional ink-wipe, whip-pan, paper-slide, zoom-through for chapter changes; eraser wipe only on the board.
+- Text on screen is short (≤ 8 words per element) and big enough for phones.
+- Burned-in subtitles stay (bottom), so keep the bottom ~170 px free of essential content.
+
+## New cues (added to the vocabulary; old cues still work)
+| cue | meaning |
+|---|---|
+| `[[shot type=scene set=<setName> cast="<id>:<slot>:<expr>, …" melo=<off\|corner-left\|corner-right\|side-left\|side-right\|in-scene:<slot>> in=<cut\|ink\|whip\|slide\|zoom> cam=<wide\|push\|pan-left\|pan-right\|tilt>]]` | full-frame illustrated situation. `cast` places supporting characters into the set's slots (`left`, `center`, `right`, `back`, `table-left`, … as defined by the set). |
+| `[[shot type=text style=<wrong\|right\|big\|question\|stack> text="…" sub="…" melo=… in=…]]` | kinetic typography full-frame (words slam/pop in on the word timing; `wrong` = red strike, `right` = green tick) |
+| `[[shot type=split left="…" right="…" leftLabel="…" rightLabel="…" melo=…]]` | wrong (left, red) vs. right (right, green) comparison |
+| `[[shot type=board melo=<side-left\|side-right\|off\|corner-…>]]` | the chalkboard/notebook for explanations (rules, tables); subsequent `draw` cues write on it |
+| `[[shot type=list title="…" melo=…]]` | full-frame list/grid; items via `draw type=list` / `next` |
+| `[[shot type=map map=dach melo=…]]` | Germany/Austria/Switzerland map; labels via `[[pin id=.. at=<bayern\|rheinland\|schwaben\|wien\|schweiz\|norden\|…> text="…"]]` |
+| `[[shot type=chapter num=<n> title="…"]]` | chapter card („Nr. 3 – Ich habe 25 Jahre“) |
+| `[[shot type=melo framing=<medium\|wide> bg=<color\|set>]]` | Melo talking to camera (medium at most) |
+| `[[shot type=quiz …]]` | quiz full-frame (uses the existing `quiz`/`reveal` cues) |
+| `[[cast id=<castId> expr=<…> pose=<…> talk=<on\|off>]]` | change a supporting character's state in the current scene |
+| `[[say who=<castId\|melo> text="…"]]` | speech bubble from a character (in scenes). The bubble appears on the word timing; the speaker's mouth moves while the narrator speaks that quote. |
+| `[[prop id=.. name=<iconOrPropName> at=<slot\|x,y> anim=<pop\|drop\|wiggle>]]` | put a prop/icon into the current shot |
+| `[[fx name=<shake\|flash\|zoom-punch\|sweat\|steam\|hearts\|question-marks\|sparkle\|record-scratch>]]` | small comedic effects |
+`draw`, `strike`, `tick`, `highlight`, `note`, `quiz`, `reveal`, `pause`, `voice`, `melo` cues keep working inside any shot (they target the current shot's content area).
+
+## Supporting cast (fruit-headed people, same ink style as Melo; generator `engine/cast/cast.js`)
+Same stick-figure anatomy and scale as Melo (feet at origin, ~530 units tall), different fruit heads, clothes and personalities. **No lemons** (avoids looking like the owner's reference channel). Initial cast:
+| id | who | fruit / look |
+|---|---|---|
+| `kollegin` | office colleague (female) | pear (Birne), blouse, lanyard |
+| `schwiegermutter` | mother-in-law | red apple, cardigan, pearl necklace, apron |
+| `kumpel` | buddy (male) | kiwi (halved top, green flesh), hoodie |
+| `mitbewohnerin` | flatmate (female) | strawberry, oversized tee |
+| `kellner` | waiter (male) | banana (slightly bent, tall), vest + apron, notepad |
+| `chefin` | boss (female) | pineapple (spiky crown = hairdo), blazer |
+| `kind` | small child | cherry, tiny, cap |
+| `oma` | grandma | plum, glasses, bun-like stem |
+| `arzt` | doctor | coconut, white coat, stethoscope |
+| `moderator` | game-show host | orange, shiny suit, microphone |
+API: `Cast.render(id, {expr, pose, talk(0..1), t, seed, flip, scale})` → `{svg:'<g>…</g>', anchors:{headCenter, mouth, handL, handR, bbox}}`; `Cast.list()`. Expressions at least: neutral, happy, laughing, surprised, shocked, confused, annoyed, skeptical, tired, embarrassed; poses: idle, talk, point, arms-crossed, hands-up, facepalm, hold (an object), sit.
+
+## Sets (full-frame illustrated backgrounds; registry `engine/sets/sets.js`, one file per set `engine/sets/<name>.js`)
+API: `Sets.render(name, {t, seed, variant})` → full 1920×1080 SVG string (layers: `bg`, `fg` optional overlay drawn in front of the cast), `Sets.slots(name)` → `{left:{x,y,scale}, right:{…}, …}` (feet positions + scale for cast/Melo), `Sets.list()`. Static parts must be cacheable (pure function of seed/variant; `t` only for small ambient motion like a fan, steam, flicker).
+Initial sets for episode 1: `office-hot` (open office, broken AC, fan, sweating plants, thermometer 35°), `dinner-table` (family dinner, potato-salad bowl, plates), `cellar` (dark cellar, cardboard boxes labelled with years), `winter-room` (broken radiator, frost window, scarf), `living-room` (apartment, door, couch), `cinema-front` (cinema entrance at night, posters), `football-park` (park football, nostalgic sepia variant), `biergarten` (tables, chestnut trees, beer mugs), `supermarket-checkout` (checkout, ice-cream freezer), `doctor-office`, `doorstep` (front door + pizza delivery), `quiz-show` (studio, spotlights, buzzer podiums), `kneipe` (pub at night), `job-interview` (office desk, two chairs), `bakery` (counter, pretzels, bread), `after-work-desk` (desk at night, monitor glow), `park-bench` (break-up mood, autumn), `university` (lecture hall), `laptop-email` (close-up laptop screen with an email UI), `wg-kitchen` (shared-flat kitchen, phone with pizza app), `exam-room` (desks, clock), `map-dach` (stylised DACH map with Bundesländer outlines; used by `shot type=map`), `board` (the existing classroom/chalkboard set).
+
+## Size rules recap
+Melo/cast in scenes: 45–65 % of frame height for full figures in wide scenes; corner narrator ~30–35 %; never a head larger than ~35 % of frame height.
