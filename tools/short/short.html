@@ -144,7 +144,7 @@
     // channel tag + two hook lines (white / yellow), each popping in
     var s = '', L = P.hook || [];
     var kt = outBack((t - 0.0) / 0.3);
-    s += pop(badge(540, 128, P.tag || 'DEUTSCH MIT MELO', MUST, INK, 34, -2), 540, 160, 0.6 + 0.4 * kt, clamp(t / 0.2));
+    s += pop(badge(540, 118, P.tag || 'DEUTSCH MIT MELO', MUST, INK, 40, -2), 540, 155, 0.6 + 0.4 * kt, clamp(t / 0.2));
     if (L[0]) { var a = word(L[0], 540, 360, 900, 200, '#ffffff', { anchor: 'middle', rot: -3 }); s += pop(a.svg, 540, 300, outBack((t - 0.05) / 0.32)); }
     if (L[1]) { var b = word(L[1], 540, 535, 960, 150, YEL, { anchor: 'middle', rot: -3 }); s += pop(b.svg, 540, 480, outBack((t - 0.2) / 0.32)); }
     return s;

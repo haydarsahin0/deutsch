@@ -7,119 +7,200 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Kara,Anton,104,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,1,0,1,8,4,5,40,40,40,1
+Style: Kara,Anton,150,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,1,0,1,10,5,5,40,40,40,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:00.00,0:00:00.72,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Juli,{\c&H00FFFFFF&} 35 Grad, Büro\Nohne Klimaanlage.
-Dialogue: 0,0:00:00.72,0:00:01.36,Kara,,0,0,0,,{\an5\pos(500,1500)}Juli, {\c&H003AC8FF&}35{\c&H00FFFFFF&} Grad, Büro\Nohne Klimaanlage.
-Dialogue: 0,0:00:01.36,0:00:02.13,Kara,,0,0,0,,{\an5\pos(500,1500)}Juli, 35 {\c&H003AC8FF&}Grad,{\c&H00FFFFFF&} Büro\Nohne Klimaanlage.
-Dialogue: 0,0:00:02.13,0:00:02.48,Kara,,0,0,0,,{\an5\pos(500,1500)}Juli, 35 Grad, {\c&H003AC8FF&}Büro{\c&H00FFFFFF&}\Nohne Klimaanlage.
-Dialogue: 0,0:00:02.48,0:00:02.88,Kara,,0,0,0,,{\an5\pos(500,1500)}Juli, 35 Grad, Büro\N{\c&H003AC8FF&}ohne{\c&H00FFFFFF&} Klimaanlage.
-Dialogue: 0,0:00:02.88,0:00:04.25,Kara,,0,0,0,,{\an5\pos(500,1500)}Juli, 35 Grad, Büro\Nohne {\c&H003AC8FF&}Klimaanlage.{\c&H00FFFFFF&}
-Dialogue: 0,0:00:04.25,0:00:04.44,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Deine{\c&H00FFFFFF&} neue\NKollegin fragt:
-Dialogue: 0,0:00:04.44,0:00:04.62,Kara,,0,0,0,,{\an5\pos(500,1500)}Deine {\c&H003AC8FF&}neue{\c&H00FFFFFF&}\NKollegin fragt:
-Dialogue: 0,0:00:04.62,0:00:05.02,Kara,,0,0,0,,{\an5\pos(500,1500)}Deine neue\N{\c&H003AC8FF&}Kollegin{\c&H00FFFFFF&} fragt:
-Dialogue: 0,0:00:05.02,0:00:05.75,Kara,,0,0,0,,{\an5\pos(500,1500)}Deine neue\NKollegin {\c&H003AC8FF&}fragt:{\c&H00FFFFFF&}
-Dialogue: 0,0:00:05.75,0:00:05.92,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Alles{\c&H00FFFFFF&} okay?“ Und\Ndu sagst:
-Dialogue: 0,0:00:05.92,0:00:06.70,Kara,,0,0,0,,{\an5\pos(500,1500)}„Alles {\c&H003AC8FF&}okay?“{\c&H00FFFFFF&} Und\Ndu sagst:
-Dialogue: 0,0:00:06.70,0:00:06.82,Kara,,0,0,0,,{\an5\pos(500,1500)}„Alles okay?“ {\c&H003AC8FF&}Und{\c&H00FFFFFF&}\Ndu sagst:
-Dialogue: 0,0:00:06.82,0:00:06.96,Kara,,0,0,0,,{\an5\pos(500,1500)}„Alles okay?“ Und\N{\c&H003AC8FF&}du{\c&H00FFFFFF&} sagst:
-Dialogue: 0,0:00:06.96,0:00:07.78,Kara,,0,0,0,,{\an5\pos(500,1500)}„Alles okay?“ Und\Ndu {\c&H003AC8FF&}sagst:{\c&H00FFFFFF&}
-Dialogue: 0,0:00:07.78,0:00:07.92,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin heiß.“
-Dialogue: 0,0:00:07.92,0:00:08.06,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} heiß.“
-Dialogue: 0,0:00:08.06,0:00:09.19,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich bin {\c&H003AC8FF&}heiß.“{\c&H00FFFFFF&}
-Dialogue: 0,0:00:09.19,0:00:09.29,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Sie{\c&H00FFFFFF&} schaut dich\Nan.
-Dialogue: 0,0:00:09.29,0:00:09.53,Kara,,0,0,0,,{\an5\pos(500,1500)}Sie {\c&H003AC8FF&}schaut{\c&H00FFFFFF&} dich\Nan.
-Dialogue: 0,0:00:09.53,0:00:09.69,Kara,,0,0,0,,{\an5\pos(500,1500)}Sie schaut {\c&H003AC8FF&}dich{\c&H00FFFFFF&}\Nan.
-Dialogue: 0,0:00:09.69,0:00:10.60,Kara,,0,0,0,,{\an5\pos(500,1500)}Sie schaut dich\N{\c&H003AC8FF&}an.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:00.00,0:00:00.72,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Juli,{\c&H00FFFFFF&} 35 Grad, Büro
+Dialogue: 0,0:00:00.00,0:00:00.72,Kara,,0,0,0,,{\an5\pos(500,1559)}ohne Klimaanlage.
+Dialogue: 0,0:00:00.72,0:00:01.36,Kara,,0,0,0,,{\an5\pos(500,1441)}Juli, {\c&H003AC8FF&}35{\c&H00FFFFFF&} Grad, Büro
+Dialogue: 0,0:00:00.72,0:00:01.36,Kara,,0,0,0,,{\an5\pos(500,1559)}ohne Klimaanlage.
+Dialogue: 0,0:00:01.36,0:00:02.13,Kara,,0,0,0,,{\an5\pos(500,1441)}Juli, 35 {\c&H003AC8FF&}Grad,{\c&H00FFFFFF&} Büro
+Dialogue: 0,0:00:01.36,0:00:02.13,Kara,,0,0,0,,{\an5\pos(500,1559)}ohne Klimaanlage.
+Dialogue: 0,0:00:02.13,0:00:02.48,Kara,,0,0,0,,{\an5\pos(500,1441)}Juli, 35 Grad, {\c&H003AC8FF&}Büro{\c&H00FFFFFF&}
+Dialogue: 0,0:00:02.13,0:00:02.48,Kara,,0,0,0,,{\an5\pos(500,1559)}ohne Klimaanlage.
+Dialogue: 0,0:00:02.48,0:00:02.88,Kara,,0,0,0,,{\an5\pos(500,1441)}Juli, 35 Grad, Büro
+Dialogue: 0,0:00:02.48,0:00:02.88,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}ohne{\c&H00FFFFFF&} Klimaanlage.
+Dialogue: 0,0:00:02.88,0:00:04.25,Kara,,0,0,0,,{\an5\pos(500,1441)}Juli, 35 Grad, Büro
+Dialogue: 0,0:00:02.88,0:00:04.25,Kara,,0,0,0,,{\an5\pos(500,1559)}ohne {\c&H003AC8FF&}Klimaanlage.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:04.25,0:00:04.44,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Deine{\c&H00FFFFFF&} neue Kollegin
+Dialogue: 0,0:00:04.25,0:00:04.44,Kara,,0,0,0,,{\an5\pos(500,1559)}fragt: „Alles okay?“
+Dialogue: 0,0:00:04.44,0:00:04.62,Kara,,0,0,0,,{\an5\pos(500,1441)}Deine {\c&H003AC8FF&}neue{\c&H00FFFFFF&} Kollegin
+Dialogue: 0,0:00:04.44,0:00:04.62,Kara,,0,0,0,,{\an5\pos(500,1559)}fragt: „Alles okay?“
+Dialogue: 0,0:00:04.62,0:00:05.02,Kara,,0,0,0,,{\an5\pos(500,1441)}Deine neue {\c&H003AC8FF&}Kollegin{\c&H00FFFFFF&}
+Dialogue: 0,0:00:04.62,0:00:05.02,Kara,,0,0,0,,{\an5\pos(500,1559)}fragt: „Alles okay?“
+Dialogue: 0,0:00:05.02,0:00:05.75,Kara,,0,0,0,,{\an5\pos(500,1441)}Deine neue Kollegin
+Dialogue: 0,0:00:05.02,0:00:05.75,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}fragt:{\c&H00FFFFFF&} „Alles okay?“
+Dialogue: 0,0:00:05.75,0:00:05.92,Kara,,0,0,0,,{\an5\pos(500,1441)}Deine neue Kollegin
+Dialogue: 0,0:00:05.75,0:00:05.92,Kara,,0,0,0,,{\an5\pos(500,1559)}fragt: {\c&H003AC8FF&}„Alles{\c&H00FFFFFF&} okay?“
+Dialogue: 0,0:00:05.92,0:00:06.70,Kara,,0,0,0,,{\an5\pos(500,1441)}Deine neue Kollegin
+Dialogue: 0,0:00:05.92,0:00:06.70,Kara,,0,0,0,,{\an5\pos(500,1559)}fragt: „Alles {\c&H003AC8FF&}okay?“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.70,0:00:06.82,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Und{\c&H00FFFFFF&} du sagst:
+Dialogue: 0,0:00:06.70,0:00:06.82,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin heiß.“
+Dialogue: 0,0:00:06.82,0:00:06.96,Kara,,0,0,0,,{\an5\pos(500,1441)}Und {\c&H003AC8FF&}du{\c&H00FFFFFF&} sagst:
+Dialogue: 0,0:00:06.82,0:00:06.96,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin heiß.“
+Dialogue: 0,0:00:06.96,0:00:07.78,Kara,,0,0,0,,{\an5\pos(500,1441)}Und du {\c&H003AC8FF&}sagst:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.96,0:00:07.78,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin heiß.“
+Dialogue: 0,0:00:07.78,0:00:07.92,Kara,,0,0,0,,{\an5\pos(500,1441)}Und du sagst:
+Dialogue: 0,0:00:07.78,0:00:07.92,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin heiß.“
+Dialogue: 0,0:00:07.92,0:00:08.06,Kara,,0,0,0,,{\an5\pos(500,1441)}Und du sagst:
+Dialogue: 0,0:00:07.92,0:00:08.06,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} heiß.“
+Dialogue: 0,0:00:08.06,0:00:09.19,Kara,,0,0,0,,{\an5\pos(500,1441)}Und du sagst:
+Dialogue: 0,0:00:08.06,0:00:09.19,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin {\c&H003AC8FF&}heiß.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:09.19,0:00:09.29,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Sie{\c&H00FFFFFF&} schaut dich an.
+Dialogue: 0,0:00:09.29,0:00:09.53,Kara,,0,0,0,,{\an5\pos(500,1500)}Sie {\c&H003AC8FF&}schaut{\c&H00FFFFFF&} dich an.
+Dialogue: 0,0:00:09.53,0:00:09.69,Kara,,0,0,0,,{\an5\pos(500,1500)}Sie schaut {\c&H003AC8FF&}dich{\c&H00FFFFFF&} an.
+Dialogue: 0,0:00:09.69,0:00:10.60,Kara,,0,0,0,,{\an5\pos(500,1500)}Sie schaut dich {\c&H003AC8FF&}an.{\c&H00FFFFFF&}
 Dialogue: 0,0:00:10.60,0:00:11.17,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Lange.{\c&H00FFFFFF&}
 Dialogue: 0,0:00:11.23,0:00:11.45,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin heiß.“
 Dialogue: 0,0:00:11.45,0:00:11.63,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} heiß.“
 Dialogue: 0,0:00:11.63,0:00:12.76,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich bin {\c&H003AC8FF&}heiß.“{\c&H00FFFFFF&}
-Dialogue: 0,0:00:12.76,0:00:13.31,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Grammatisch{\c&H00FFFFFF&} ist\Nder Satz perfekt.
-Dialogue: 0,0:00:13.31,0:00:13.47,Kara,,0,0,0,,{\an5\pos(500,1500)}Grammatisch {\c&H003AC8FF&}ist{\c&H00FFFFFF&}\Nder Satz perfekt.
-Dialogue: 0,0:00:13.47,0:00:13.61,Kara,,0,0,0,,{\an5\pos(500,1500)}Grammatisch ist\N{\c&H003AC8FF&}der{\c&H00FFFFFF&} Satz perfekt.
-Dialogue: 0,0:00:13.61,0:00:13.85,Kara,,0,0,0,,{\an5\pos(500,1500)}Grammatisch ist\Nder {\c&H003AC8FF&}Satz{\c&H00FFFFFF&} perfekt.
-Dialogue: 0,0:00:13.85,0:00:14.74,Kara,,0,0,0,,{\an5\pos(500,1500)}Grammatisch ist\Nder Satz {\c&H003AC8FF&}perfekt.{\c&H00FFFFFF&}
-Dialogue: 0,0:00:14.74,0:00:14.87,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Das{\c&H00FFFFFF&} Problem ist\Ndie Bedeutung.
-Dialogue: 0,0:00:14.87,0:00:15.27,Kara,,0,0,0,,{\an5\pos(500,1500)}Das {\c&H003AC8FF&}Problem{\c&H00FFFFFF&} ist\Ndie Bedeutung.
-Dialogue: 0,0:00:15.27,0:00:15.57,Kara,,0,0,0,,{\an5\pos(500,1500)}Das Problem {\c&H003AC8FF&}ist{\c&H00FFFFFF&}\Ndie Bedeutung.
-Dialogue: 0,0:00:15.57,0:00:15.69,Kara,,0,0,0,,{\an5\pos(500,1500)}Das Problem ist\N{\c&H003AC8FF&}die{\c&H00FFFFFF&} Bedeutung.
-Dialogue: 0,0:00:15.69,0:00:16.69,Kara,,0,0,0,,{\an5\pos(500,1500)}Das Problem ist\Ndie {\c&H003AC8FF&}Bedeutung.{\c&H00FFFFFF&}
-Dialogue: 0,0:00:16.69,0:00:16.80,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin heiß“\Nheißt:
-Dialogue: 0,0:00:16.80,0:00:16.98,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} heiß“\Nheißt:
-Dialogue: 0,0:00:16.98,0:00:17.34,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich bin {\c&H003AC8FF&}heiß“{\c&H00FFFFFF&}\Nheißt:
-Dialogue: 0,0:00:17.34,0:00:18.21,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich bin heiß“\N{\c&H003AC8FF&}heißt:{\c&H00FFFFFF&}
-Dialogue: 0,0:00:18.21,0:00:18.32,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin sexy.
-Dialogue: 0,0:00:18.32,0:00:18.54,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} sexy.
-Dialogue: 0,0:00:18.54,0:00:19.63,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin {\c&H003AC8FF&}sexy.{\c&H00FFFFFF&}
-Dialogue: 0,0:00:19.63,0:00:20.17,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Oder,{\c&H00FFFFFF&} vor einem\NFußballspiel:
-Dialogue: 0,0:00:20.17,0:00:20.28,Kara,,0,0,0,,{\an5\pos(500,1500)}Oder, {\c&H003AC8FF&}vor{\c&H00FFFFFF&} einem\NFußballspiel:
-Dialogue: 0,0:00:20.28,0:00:20.48,Kara,,0,0,0,,{\an5\pos(500,1500)}Oder, vor {\c&H003AC8FF&}einem{\c&H00FFFFFF&}\NFußballspiel:
-Dialogue: 0,0:00:20.48,0:00:21.62,Kara,,0,0,0,,{\an5\pos(500,1500)}Oder, vor einem\N{\c&H003AC8FF&}Fußballspiel:{\c&H00FFFFFF&}
-Dialogue: 0,0:00:21.62,0:00:21.72,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin total\Nmotiviert.
-Dialogue: 0,0:00:21.72,0:00:21.90,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} total\Nmotiviert.
-Dialogue: 0,0:00:21.90,0:00:22.34,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin {\c&H003AC8FF&}total{\c&H00FFFFFF&}\Nmotiviert.
-Dialogue: 0,0:00:22.34,0:00:23.45,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin total\N{\c&H003AC8FF&}motiviert.{\c&H00FFFFFF&}
-Dialogue: 0,0:00:23.45,0:00:23.70,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Heiß{\c&H00FFFFFF&} aufs Spiel\Neben.
-Dialogue: 0,0:00:23.70,0:00:23.96,Kara,,0,0,0,,{\an5\pos(500,1500)}Heiß {\c&H003AC8FF&}aufs{\c&H00FFFFFF&} Spiel\Neben.
-Dialogue: 0,0:00:23.96,0:00:24.22,Kara,,0,0,0,,{\an5\pos(500,1500)}Heiß aufs {\c&H003AC8FF&}Spiel{\c&H00FFFFFF&}\Neben.
-Dialogue: 0,0:00:24.22,0:00:25.08,Kara,,0,0,0,,{\an5\pos(500,1500)}Heiß aufs Spiel\N{\c&H003AC8FF&}eben.{\c&H00FFFFFF&}
-Dialogue: 0,0:00:25.08,0:00:25.18,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Wenn{\c&H00FFFFFF&} du über die\NTemperatur
-Dialogue: 0,0:00:25.18,0:00:25.28,Kara,,0,0,0,,{\an5\pos(500,1500)}Wenn {\c&H003AC8FF&}du{\c&H00FFFFFF&} über die\NTemperatur
-Dialogue: 0,0:00:25.28,0:00:25.46,Kara,,0,0,0,,{\an5\pos(500,1500)}Wenn du {\c&H003AC8FF&}über{\c&H00FFFFFF&} die\NTemperatur
-Dialogue: 0,0:00:25.46,0:00:25.58,Kara,,0,0,0,,{\an5\pos(500,1500)}Wenn du über {\c&H003AC8FF&}die{\c&H00FFFFFF&}\NTemperatur
-Dialogue: 0,0:00:25.58,0:00:26.20,Kara,,0,0,0,,{\an5\pos(500,1500)}Wenn du über die\N{\c&H003AC8FF&}Temperatur{\c&H00FFFFFF&}
-Dialogue: 0,0:00:26.20,0:00:26.74,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}sprichst,{\c&H00FFFFFF&} sagst\Ndu:
-Dialogue: 0,0:00:26.74,0:00:27.06,Kara,,0,0,0,,{\an5\pos(500,1500)}sprichst, {\c&H003AC8FF&}sagst{\c&H00FFFFFF&}\Ndu:
-Dialogue: 0,0:00:27.06,0:00:27.60,Kara,,0,0,0,,{\an5\pos(500,1500)}sprichst, sagst\N{\c&H003AC8FF&}du:{\c&H00FFFFFF&}
-Dialogue: 0,0:00:27.60,0:00:27.84,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Mir{\c&H00FFFFFF&} ist heiß.“
-Dialogue: 0,0:00:27.84,0:00:28.12,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir {\c&H003AC8FF&}ist{\c&H00FFFFFF&} heiß.“
-Dialogue: 0,0:00:28.12,0:00:28.82,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir ist {\c&H003AC8FF&}heiß.“{\c&H00FFFFFF&}
-Dialogue: 0,0:00:28.82,0:00:28.94,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Mit{\c&H00FFFFFF&} Dativ. Nicht du\Nbist heiß – dir ist
-Dialogue: 0,0:00:28.94,0:00:29.78,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit {\c&H003AC8FF&}Dativ.{\c&H00FFFFFF&} Nicht du\Nbist heiß – dir ist
-Dialogue: 0,0:00:29.78,0:00:30.27,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit Dativ. {\c&H003AC8FF&}Nicht{\c&H00FFFFFF&} du\Nbist heiß – dir ist
-Dialogue: 0,0:00:30.27,0:00:30.36,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit Dativ. Nicht {\c&H003AC8FF&}du{\c&H00FFFFFF&}\Nbist heiß – dir ist
-Dialogue: 0,0:00:30.36,0:00:30.64,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit Dativ. Nicht du\N{\c&H003AC8FF&}bist{\c&H00FFFFFF&} heiß – dir ist
-Dialogue: 0,0:00:30.64,0:00:31.47,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit Dativ. Nicht du\Nbist {\c&H003AC8FF&}heiß –{\c&H00FFFFFF&} dir ist
-Dialogue: 0,0:00:31.47,0:00:31.62,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit Dativ. Nicht du\Nbist heiß – {\c&H003AC8FF&}dir{\c&H00FFFFFF&} ist
-Dialogue: 0,0:00:31.62,0:00:31.94,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit Dativ. Nicht du\Nbist heiß – dir {\c&H003AC8FF&}ist{\c&H00FFFFFF&}
-Dialogue: 0,0:00:31.94,0:00:32.76,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}heiß.{\c&H00FFFFFF&} Genauso:\N„Mir ist kalt.“
-Dialogue: 0,0:00:32.76,0:00:33.62,Kara,,0,0,0,,{\an5\pos(500,1500)}heiß. {\c&H003AC8FF&}Genauso:{\c&H00FFFFFF&}\N„Mir ist kalt.“
-Dialogue: 0,0:00:33.62,0:00:33.78,Kara,,0,0,0,,{\an5\pos(500,1500)}heiß. Genauso:\N{\c&H003AC8FF&}„Mir{\c&H00FFFFFF&} ist kalt.“
-Dialogue: 0,0:00:33.78,0:00:34.00,Kara,,0,0,0,,{\an5\pos(500,1500)}heiß. Genauso:\N„Mir {\c&H003AC8FF&}ist{\c&H00FFFFFF&} kalt.“
-Dialogue: 0,0:00:34.00,0:00:34.82,Kara,,0,0,0,,{\an5\pos(500,1500)}heiß. Genauso:\N„Mir ist {\c&H003AC8FF&}kalt.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:12.76,0:00:13.31,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Grammatisch{\c&H00FFFFFF&} ist
+Dialogue: 0,0:00:12.76,0:00:13.31,Kara,,0,0,0,,{\an5\pos(500,1559)}der Satz perfekt.
+Dialogue: 0,0:00:13.31,0:00:13.47,Kara,,0,0,0,,{\an5\pos(500,1441)}Grammatisch {\c&H003AC8FF&}ist{\c&H00FFFFFF&}
+Dialogue: 0,0:00:13.31,0:00:13.47,Kara,,0,0,0,,{\an5\pos(500,1559)}der Satz perfekt.
+Dialogue: 0,0:00:13.47,0:00:13.61,Kara,,0,0,0,,{\an5\pos(500,1441)}Grammatisch ist
+Dialogue: 0,0:00:13.47,0:00:13.61,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}der{\c&H00FFFFFF&} Satz perfekt.
+Dialogue: 0,0:00:13.61,0:00:13.85,Kara,,0,0,0,,{\an5\pos(500,1441)}Grammatisch ist
+Dialogue: 0,0:00:13.61,0:00:13.85,Kara,,0,0,0,,{\an5\pos(500,1559)}der {\c&H003AC8FF&}Satz{\c&H00FFFFFF&} perfekt.
+Dialogue: 0,0:00:13.85,0:00:14.74,Kara,,0,0,0,,{\an5\pos(500,1441)}Grammatisch ist
+Dialogue: 0,0:00:13.85,0:00:14.74,Kara,,0,0,0,,{\an5\pos(500,1559)}der Satz {\c&H003AC8FF&}perfekt.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:14.74,0:00:14.87,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Das{\c&H00FFFFFF&} Problem ist
+Dialogue: 0,0:00:14.74,0:00:14.87,Kara,,0,0,0,,{\an5\pos(500,1559)}die Bedeutung.
+Dialogue: 0,0:00:14.87,0:00:15.27,Kara,,0,0,0,,{\an5\pos(500,1441)}Das {\c&H003AC8FF&}Problem{\c&H00FFFFFF&} ist
+Dialogue: 0,0:00:14.87,0:00:15.27,Kara,,0,0,0,,{\an5\pos(500,1559)}die Bedeutung.
+Dialogue: 0,0:00:15.27,0:00:15.57,Kara,,0,0,0,,{\an5\pos(500,1441)}Das Problem {\c&H003AC8FF&}ist{\c&H00FFFFFF&}
+Dialogue: 0,0:00:15.27,0:00:15.57,Kara,,0,0,0,,{\an5\pos(500,1559)}die Bedeutung.
+Dialogue: 0,0:00:15.57,0:00:15.69,Kara,,0,0,0,,{\an5\pos(500,1441)}Das Problem ist
+Dialogue: 0,0:00:15.57,0:00:15.69,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}die{\c&H00FFFFFF&} Bedeutung.
+Dialogue: 0,0:00:15.69,0:00:16.69,Kara,,0,0,0,,{\an5\pos(500,1441)}Das Problem ist
+Dialogue: 0,0:00:15.69,0:00:16.69,Kara,,0,0,0,,{\an5\pos(500,1559)}die {\c&H003AC8FF&}Bedeutung.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:16.69,0:00:16.80,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin heiß“ heißt:
+Dialogue: 0,0:00:16.69,0:00:16.80,Kara,,0,0,0,,{\an5\pos(500,1559)}Ich bin sexy.
+Dialogue: 0,0:00:16.80,0:00:16.98,Kara,,0,0,0,,{\an5\pos(500,1441)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} heiß“ heißt:
+Dialogue: 0,0:00:16.80,0:00:16.98,Kara,,0,0,0,,{\an5\pos(500,1559)}Ich bin sexy.
+Dialogue: 0,0:00:16.98,0:00:17.34,Kara,,0,0,0,,{\an5\pos(500,1441)}„Ich bin {\c&H003AC8FF&}heiß“{\c&H00FFFFFF&} heißt:
+Dialogue: 0,0:00:16.98,0:00:17.34,Kara,,0,0,0,,{\an5\pos(500,1559)}Ich bin sexy.
+Dialogue: 0,0:00:17.34,0:00:18.21,Kara,,0,0,0,,{\an5\pos(500,1441)}„Ich bin heiß“ {\c&H003AC8FF&}heißt:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:17.34,0:00:18.21,Kara,,0,0,0,,{\an5\pos(500,1559)}Ich bin sexy.
+Dialogue: 0,0:00:18.21,0:00:18.32,Kara,,0,0,0,,{\an5\pos(500,1441)}„Ich bin heiß“ heißt:
+Dialogue: 0,0:00:18.21,0:00:18.32,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin sexy.
+Dialogue: 0,0:00:18.32,0:00:18.54,Kara,,0,0,0,,{\an5\pos(500,1441)}„Ich bin heiß“ heißt:
+Dialogue: 0,0:00:18.32,0:00:18.54,Kara,,0,0,0,,{\an5\pos(500,1559)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} sexy.
+Dialogue: 0,0:00:18.54,0:00:19.63,Kara,,0,0,0,,{\an5\pos(500,1441)}„Ich bin heiß“ heißt:
+Dialogue: 0,0:00:18.54,0:00:19.63,Kara,,0,0,0,,{\an5\pos(500,1559)}Ich bin {\c&H003AC8FF&}sexy.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:19.63,0:00:20.17,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Oder,{\c&H00FFFFFF&} vor einem
+Dialogue: 0,0:00:19.63,0:00:20.17,Kara,,0,0,0,,{\an5\pos(500,1559)}Fußballspiel:
+Dialogue: 0,0:00:20.17,0:00:20.28,Kara,,0,0,0,,{\an5\pos(500,1441)}Oder, {\c&H003AC8FF&}vor{\c&H00FFFFFF&} einem
+Dialogue: 0,0:00:20.17,0:00:20.28,Kara,,0,0,0,,{\an5\pos(500,1559)}Fußballspiel:
+Dialogue: 0,0:00:20.28,0:00:20.48,Kara,,0,0,0,,{\an5\pos(500,1441)}Oder, vor {\c&H003AC8FF&}einem{\c&H00FFFFFF&}
+Dialogue: 0,0:00:20.28,0:00:20.48,Kara,,0,0,0,,{\an5\pos(500,1559)}Fußballspiel:
+Dialogue: 0,0:00:20.48,0:00:21.62,Kara,,0,0,0,,{\an5\pos(500,1441)}Oder, vor einem
+Dialogue: 0,0:00:20.48,0:00:21.62,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}Fußballspiel:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:21.62,0:00:21.72,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin total motiviert.
+Dialogue: 0,0:00:21.72,0:00:21.90,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} total motiviert.
+Dialogue: 0,0:00:21.90,0:00:22.34,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin {\c&H003AC8FF&}total{\c&H00FFFFFF&} motiviert.
+Dialogue: 0,0:00:22.34,0:00:23.45,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin total {\c&H003AC8FF&}motiviert.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:23.45,0:00:23.70,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Heiß{\c&H00FFFFFF&} aufs Spiel eben.
+Dialogue: 0,0:00:23.70,0:00:23.96,Kara,,0,0,0,,{\an5\pos(500,1500)}Heiß {\c&H003AC8FF&}aufs{\c&H00FFFFFF&} Spiel eben.
+Dialogue: 0,0:00:23.96,0:00:24.22,Kara,,0,0,0,,{\an5\pos(500,1500)}Heiß aufs {\c&H003AC8FF&}Spiel{\c&H00FFFFFF&} eben.
+Dialogue: 0,0:00:24.22,0:00:25.08,Kara,,0,0,0,,{\an5\pos(500,1500)}Heiß aufs Spiel {\c&H003AC8FF&}eben.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:25.08,0:00:25.18,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Wenn{\c&H00FFFFFF&} du über die
+Dialogue: 0,0:00:25.08,0:00:25.18,Kara,,0,0,0,,{\an5\pos(500,1559)}Temperatur sprichst,
+Dialogue: 0,0:00:25.18,0:00:25.28,Kara,,0,0,0,,{\an5\pos(500,1441)}Wenn {\c&H003AC8FF&}du{\c&H00FFFFFF&} über die
+Dialogue: 0,0:00:25.18,0:00:25.28,Kara,,0,0,0,,{\an5\pos(500,1559)}Temperatur sprichst,
+Dialogue: 0,0:00:25.28,0:00:25.46,Kara,,0,0,0,,{\an5\pos(500,1441)}Wenn du {\c&H003AC8FF&}über{\c&H00FFFFFF&} die
+Dialogue: 0,0:00:25.28,0:00:25.46,Kara,,0,0,0,,{\an5\pos(500,1559)}Temperatur sprichst,
+Dialogue: 0,0:00:25.46,0:00:25.58,Kara,,0,0,0,,{\an5\pos(500,1441)}Wenn du über {\c&H003AC8FF&}die{\c&H00FFFFFF&}
+Dialogue: 0,0:00:25.46,0:00:25.58,Kara,,0,0,0,,{\an5\pos(500,1559)}Temperatur sprichst,
+Dialogue: 0,0:00:25.58,0:00:26.20,Kara,,0,0,0,,{\an5\pos(500,1441)}Wenn du über die
+Dialogue: 0,0:00:25.58,0:00:26.20,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}Temperatur{\c&H00FFFFFF&} sprichst,
+Dialogue: 0,0:00:26.20,0:00:26.74,Kara,,0,0,0,,{\an5\pos(500,1441)}Wenn du über die
+Dialogue: 0,0:00:26.20,0:00:26.74,Kara,,0,0,0,,{\an5\pos(500,1559)}Temperatur {\c&H003AC8FF&}sprichst,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:26.74,0:00:27.06,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}sagst{\c&H00FFFFFF&} du:
+Dialogue: 0,0:00:26.74,0:00:27.06,Kara,,0,0,0,,{\an5\pos(500,1559)}„Mir ist heiß.“
+Dialogue: 0,0:00:27.06,0:00:27.60,Kara,,0,0,0,,{\an5\pos(500,1441)}sagst {\c&H003AC8FF&}du:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:27.06,0:00:27.60,Kara,,0,0,0,,{\an5\pos(500,1559)}„Mir ist heiß.“
+Dialogue: 0,0:00:27.60,0:00:27.84,Kara,,0,0,0,,{\an5\pos(500,1441)}sagst du:
+Dialogue: 0,0:00:27.60,0:00:27.84,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}„Mir{\c&H00FFFFFF&} ist heiß.“
+Dialogue: 0,0:00:27.84,0:00:28.12,Kara,,0,0,0,,{\an5\pos(500,1441)}sagst du:
+Dialogue: 0,0:00:27.84,0:00:28.12,Kara,,0,0,0,,{\an5\pos(500,1559)}„Mir {\c&H003AC8FF&}ist{\c&H00FFFFFF&} heiß.“
+Dialogue: 0,0:00:28.12,0:00:28.82,Kara,,0,0,0,,{\an5\pos(500,1441)}sagst du:
+Dialogue: 0,0:00:28.12,0:00:28.82,Kara,,0,0,0,,{\an5\pos(500,1559)}„Mir ist {\c&H003AC8FF&}heiß.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:28.82,0:00:28.94,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Mit{\c&H00FFFFFF&} Dativ.
+Dialogue: 0,0:00:28.94,0:00:29.78,Kara,,0,0,0,,{\an5\pos(500,1500)}Mit {\c&H003AC8FF&}Dativ.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:29.78,0:00:30.27,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Nicht{\c&H00FFFFFF&} du bist heiß –
+Dialogue: 0,0:00:29.78,0:00:30.27,Kara,,0,0,0,,{\an5\pos(500,1559)}dir ist heiß.
+Dialogue: 0,0:00:30.27,0:00:30.36,Kara,,0,0,0,,{\an5\pos(500,1441)}Nicht {\c&H003AC8FF&}du{\c&H00FFFFFF&} bist heiß –
+Dialogue: 0,0:00:30.27,0:00:30.36,Kara,,0,0,0,,{\an5\pos(500,1559)}dir ist heiß.
+Dialogue: 0,0:00:30.36,0:00:30.64,Kara,,0,0,0,,{\an5\pos(500,1441)}Nicht du {\c&H003AC8FF&}bist{\c&H00FFFFFF&} heiß –
+Dialogue: 0,0:00:30.36,0:00:30.64,Kara,,0,0,0,,{\an5\pos(500,1559)}dir ist heiß.
+Dialogue: 0,0:00:30.64,0:00:31.47,Kara,,0,0,0,,{\an5\pos(500,1441)}Nicht du bist {\c&H003AC8FF&}heiß –{\c&H00FFFFFF&}
+Dialogue: 0,0:00:30.64,0:00:31.47,Kara,,0,0,0,,{\an5\pos(500,1559)}dir ist heiß.
+Dialogue: 0,0:00:31.47,0:00:31.62,Kara,,0,0,0,,{\an5\pos(500,1441)}Nicht du bist heiß –
+Dialogue: 0,0:00:31.47,0:00:31.62,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}dir{\c&H00FFFFFF&} ist heiß.
+Dialogue: 0,0:00:31.62,0:00:31.94,Kara,,0,0,0,,{\an5\pos(500,1441)}Nicht du bist heiß –
+Dialogue: 0,0:00:31.62,0:00:31.94,Kara,,0,0,0,,{\an5\pos(500,1559)}dir {\c&H003AC8FF&}ist{\c&H00FFFFFF&} heiß.
+Dialogue: 0,0:00:31.94,0:00:32.76,Kara,,0,0,0,,{\an5\pos(500,1441)}Nicht du bist heiß –
+Dialogue: 0,0:00:31.94,0:00:32.76,Kara,,0,0,0,,{\an5\pos(500,1559)}dir ist {\c&H003AC8FF&}heiß.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:32.76,0:00:33.62,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Genauso:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:32.76,0:00:33.62,Kara,,0,0,0,,{\an5\pos(500,1559)}„Mir ist kalt.“
+Dialogue: 0,0:00:33.62,0:00:33.78,Kara,,0,0,0,,{\an5\pos(500,1441)}Genauso:
+Dialogue: 0,0:00:33.62,0:00:33.78,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}„Mir{\c&H00FFFFFF&} ist kalt.“
+Dialogue: 0,0:00:33.78,0:00:34.00,Kara,,0,0,0,,{\an5\pos(500,1441)}Genauso:
+Dialogue: 0,0:00:33.78,0:00:34.00,Kara,,0,0,0,,{\an5\pos(500,1559)}„Mir {\c&H003AC8FF&}ist{\c&H00FFFFFF&} kalt.“
+Dialogue: 0,0:00:34.00,0:00:34.82,Kara,,0,0,0,,{\an5\pos(500,1441)}Genauso:
+Dialogue: 0,0:00:34.00,0:00:34.82,Kara,,0,0,0,,{\an5\pos(500,1559)}„Mir ist {\c&H003AC8FF&}kalt.“{\c&H00FFFFFF&}
 Dialogue: 0,0:00:34.82,0:00:34.94,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Mir{\c&H00FFFFFF&} ist schlecht.“
 Dialogue: 0,0:00:34.94,0:00:35.13,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir {\c&H003AC8FF&}ist{\c&H00FFFFFF&} schlecht.“
 Dialogue: 0,0:00:35.13,0:00:35.94,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir ist {\c&H003AC8FF&}schlecht.“{\c&H00FFFFFF&}
-Dialogue: 0,0:00:35.94,0:00:36.04,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Mir{\c&H00FFFFFF&} ist\Nlangweilig.“
-Dialogue: 0,0:00:36.04,0:00:36.23,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir {\c&H003AC8FF&}ist{\c&H00FFFFFF&}\Nlangweilig.“
-Dialogue: 0,0:00:36.23,0:00:37.39,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir ist\N{\c&H003AC8FF&}langweilig.“{\c&H00FFFFFF&}
-Dialogue: 0,0:00:37.39,0:00:37.50,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Und{\c&H00FFFFFF&} bitte nie:
-Dialogue: 0,0:00:37.50,0:00:37.74,Kara,,0,0,0,,{\an5\pos(500,1500)}Und {\c&H003AC8FF&}bitte{\c&H00FFFFFF&} nie:
-Dialogue: 0,0:00:37.74,0:00:38.53,Kara,,0,0,0,,{\an5\pos(500,1500)}Und bitte {\c&H003AC8FF&}nie:{\c&H00FFFFFF&}
-Dialogue: 0,0:00:38.53,0:00:38.93,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin\Nlangweilig.“
-Dialogue: 0,0:00:38.93,0:00:39.08,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&}\Nlangweilig.“
-Dialogue: 0,0:00:39.08,0:00:40.21,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich bin\N{\c&H003AC8FF&}langweilig.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:35.94,0:00:36.04,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Mir{\c&H00FFFFFF&} ist langweilig.“
+Dialogue: 0,0:00:36.04,0:00:36.23,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir {\c&H003AC8FF&}ist{\c&H00FFFFFF&} langweilig.“
+Dialogue: 0,0:00:36.23,0:00:37.39,Kara,,0,0,0,,{\an5\pos(500,1500)}„Mir ist {\c&H003AC8FF&}langweilig.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:37.39,0:00:37.50,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Und{\c&H00FFFFFF&} bitte nie:
+Dialogue: 0,0:00:37.39,0:00:37.50,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin langweilig.“
+Dialogue: 0,0:00:37.50,0:00:37.74,Kara,,0,0,0,,{\an5\pos(500,1441)}Und {\c&H003AC8FF&}bitte{\c&H00FFFFFF&} nie:
+Dialogue: 0,0:00:37.50,0:00:37.74,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin langweilig.“
+Dialogue: 0,0:00:37.74,0:00:38.53,Kara,,0,0,0,,{\an5\pos(500,1441)}Und bitte {\c&H003AC8FF&}nie:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:37.74,0:00:38.53,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin langweilig.“
+Dialogue: 0,0:00:38.53,0:00:38.93,Kara,,0,0,0,,{\an5\pos(500,1441)}Und bitte nie:
+Dialogue: 0,0:00:38.53,0:00:38.93,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin langweilig.“
+Dialogue: 0,0:00:38.93,0:00:39.08,Kara,,0,0,0,,{\an5\pos(500,1441)}Und bitte nie:
+Dialogue: 0,0:00:38.93,0:00:39.08,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} langweilig.“
+Dialogue: 0,0:00:39.08,0:00:40.21,Kara,,0,0,0,,{\an5\pos(500,1441)}Und bitte nie:
+Dialogue: 0,0:00:39.08,0:00:40.21,Kara,,0,0,0,,{\an5\pos(500,1559)}„Ich bin {\c&H003AC8FF&}langweilig.“{\c&H00FFFFFF&}
 Dialogue: 0,0:00:40.21,0:00:40.48,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Das{\c&H00FFFFFF&} heißt nämlich:
 Dialogue: 0,0:00:40.48,0:00:40.72,Kara,,0,0,0,,{\an5\pos(500,1500)}Das {\c&H003AC8FF&}heißt{\c&H00FFFFFF&} nämlich:
 Dialogue: 0,0:00:40.72,0:00:41.49,Kara,,0,0,0,,{\an5\pos(500,1500)}Das heißt {\c&H003AC8FF&}nämlich:{\c&H00FFFFFF&}
-Dialogue: 0,0:00:41.49,0:00:41.62,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin eine\Nlangweilige
-Dialogue: 0,0:00:41.62,0:00:41.80,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} eine\Nlangweilige
-Dialogue: 0,0:00:41.80,0:00:42.04,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin {\c&H003AC8FF&}eine{\c&H00FFFFFF&}\Nlangweilige
-Dialogue: 0,0:00:42.04,0:00:42.68,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin eine\N{\c&H003AC8FF&}langweilige{\c&H00FFFFFF&}
-Dialogue: 0,0:00:42.68,0:00:43.66,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Person.{\c&H00FFFFFF&} Ich\Npersönlich dürfte
-Dialogue: 0,0:00:43.66,0:00:43.78,Kara,,0,0,0,,{\an5\pos(500,1500)}Person. {\c&H003AC8FF&}Ich{\c&H00FFFFFF&}\Npersönlich dürfte
-Dialogue: 0,0:00:43.78,0:00:44.28,Kara,,0,0,0,,{\an5\pos(500,1500)}Person. Ich\N{\c&H003AC8FF&}persönlich{\c&H00FFFFFF&} dürfte
-Dialogue: 0,0:00:44.28,0:00:44.74,Kara,,0,0,0,,{\an5\pos(500,1500)}Person. Ich\Npersönlich {\c&H003AC8FF&}dürfte{\c&H00FFFFFF&}
-Dialogue: 0,0:00:44.74,0:00:45.24,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}übrigens{\c&H00FFFFFF&} „Ich bin\Nheiß“ sagen.
-Dialogue: 0,0:00:45.24,0:00:45.58,Kara,,0,0,0,,{\an5\pos(500,1500)}übrigens {\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin\Nheiß“ sagen.
-Dialogue: 0,0:00:45.58,0:00:45.80,Kara,,0,0,0,,{\an5\pos(500,1500)}übrigens „Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&}\Nheiß“ sagen.
-Dialogue: 0,0:00:45.80,0:00:46.16,Kara,,0,0,0,,{\an5\pos(500,1500)}übrigens „Ich bin\N{\c&H003AC8FF&}heiß“{\c&H00FFFFFF&} sagen.
-Dialogue: 0,0:00:46.16,0:00:47.08,Kara,,0,0,0,,{\an5\pos(500,1500)}übrigens „Ich bin\Nheiß“ {\c&H003AC8FF&}sagen.{\c&H00FFFFFF&}
-Dialogue: 0,0:00:47.08,0:00:47.18,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin schließlich\Nziemlich saftig.
-Dialogue: 0,0:00:47.18,0:00:47.32,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} schließlich\Nziemlich saftig.
-Dialogue: 0,0:00:47.32,0:00:47.70,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin {\c&H003AC8FF&}schließlich{\c&H00FFFFFF&}\Nziemlich saftig.
-Dialogue: 0,0:00:47.70,0:00:48.18,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin schließlich\N{\c&H003AC8FF&}ziemlich{\c&H00FFFFFF&} saftig.
-Dialogue: 0,0:00:48.18,0:00:49.10,Kara,,0,0,0,,{\an5\pos(500,1500)}Ich bin schließlich\Nziemlich {\c&H003AC8FF&}saftig.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:41.49,0:00:41.62,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin eine
+Dialogue: 0,0:00:41.49,0:00:41.62,Kara,,0,0,0,,{\an5\pos(500,1559)}langweilige Person.
+Dialogue: 0,0:00:41.62,0:00:41.80,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} eine
+Dialogue: 0,0:00:41.62,0:00:41.80,Kara,,0,0,0,,{\an5\pos(500,1559)}langweilige Person.
+Dialogue: 0,0:00:41.80,0:00:42.04,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich bin {\c&H003AC8FF&}eine{\c&H00FFFFFF&}
+Dialogue: 0,0:00:41.80,0:00:42.04,Kara,,0,0,0,,{\an5\pos(500,1559)}langweilige Person.
+Dialogue: 0,0:00:42.04,0:00:42.68,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich bin eine
+Dialogue: 0,0:00:42.04,0:00:42.68,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}langweilige{\c&H00FFFFFF&} Person.
+Dialogue: 0,0:00:42.68,0:00:43.66,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich bin eine
+Dialogue: 0,0:00:42.68,0:00:43.66,Kara,,0,0,0,,{\an5\pos(500,1559)}langweilige {\c&H003AC8FF&}Person.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:43.66,0:00:43.78,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} persönlich
+Dialogue: 0,0:00:43.66,0:00:43.78,Kara,,0,0,0,,{\an5\pos(500,1559)}dürfte übrigens
+Dialogue: 0,0:00:43.78,0:00:44.28,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich {\c&H003AC8FF&}persönlich{\c&H00FFFFFF&}
+Dialogue: 0,0:00:43.78,0:00:44.28,Kara,,0,0,0,,{\an5\pos(500,1559)}dürfte übrigens
+Dialogue: 0,0:00:44.28,0:00:44.74,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich persönlich
+Dialogue: 0,0:00:44.28,0:00:44.74,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}dürfte{\c&H00FFFFFF&} übrigens
+Dialogue: 0,0:00:44.74,0:00:45.24,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich persönlich
+Dialogue: 0,0:00:44.74,0:00:45.24,Kara,,0,0,0,,{\an5\pos(500,1559)}dürfte {\c&H003AC8FF&}übrigens{\c&H00FFFFFF&}
+Dialogue: 0,0:00:45.24,0:00:45.58,Kara,,0,0,0,,{\an5\pos(500,1500)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} bin heiß“ sagen.
+Dialogue: 0,0:00:45.58,0:00:45.80,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} heiß“ sagen.
+Dialogue: 0,0:00:45.80,0:00:46.16,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich bin {\c&H003AC8FF&}heiß“{\c&H00FFFFFF&} sagen.
+Dialogue: 0,0:00:46.16,0:00:47.08,Kara,,0,0,0,,{\an5\pos(500,1500)}„Ich bin heiß“ {\c&H003AC8FF&}sagen.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:47.08,0:00:47.18,Kara,,0,0,0,,{\an5\pos(500,1441)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} bin schließlich
+Dialogue: 0,0:00:47.08,0:00:47.18,Kara,,0,0,0,,{\an5\pos(500,1559)}ziemlich saftig.
+Dialogue: 0,0:00:47.18,0:00:47.32,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich {\c&H003AC8FF&}bin{\c&H00FFFFFF&} schließlich
+Dialogue: 0,0:00:47.18,0:00:47.32,Kara,,0,0,0,,{\an5\pos(500,1559)}ziemlich saftig.
+Dialogue: 0,0:00:47.32,0:00:47.70,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich bin {\c&H003AC8FF&}schließlich{\c&H00FFFFFF&}
+Dialogue: 0,0:00:47.32,0:00:47.70,Kara,,0,0,0,,{\an5\pos(500,1559)}ziemlich saftig.
+Dialogue: 0,0:00:47.70,0:00:48.18,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich bin schließlich
+Dialogue: 0,0:00:47.70,0:00:48.18,Kara,,0,0,0,,{\an5\pos(500,1559)}{\c&H003AC8FF&}ziemlich{\c&H00FFFFFF&} saftig.
+Dialogue: 0,0:00:48.18,0:00:49.10,Kara,,0,0,0,,{\an5\pos(500,1441)}Ich bin schließlich
+Dialogue: 0,0:00:48.18,0:00:49.10,Kara,,0,0,0,,{\an5\pos(500,1559)}ziemlich {\c&H003AC8FF&}saftig.{\c&H00FFFFFF&}

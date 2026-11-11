@@ -21,7 +21,8 @@ W, H = 1080, 1920
 SLOT_Y, SLOT_H = 600, 760            # video window
 SCALED_W = 1352                       # 1920×1080 → 1352×760 (height-fit ×1.25), centre crop to 1080
 SUB_X, SUB_Y = 500, 1500              # subtitle block centre (kept left of YouTube's right-hand buttons)
-SUB_MAXW, SUB_SIZE = 780, 104         # px per line, ASS font size (Anton)
+SUB_MAXW, SUB_SIZE = 800, 150         # px per line, ASS font size (Anton: cap height ≈ 0.5 × size)
+SUB_GAP = 118                         # baseline distance of the two subtitle lines
 XFADE = 0.04
 FONTS = ROOT / 'brand' / 'fonts' / 'ttf'
 
@@ -72,10 +73,13 @@ def plan(cfg, al):
 
 # ── subtitles ─────────────────────────────────────────────────────────────────
 class Measure:
+    """Advance width in px of a string as libass draws it (libass sizes fonts by winAscent+winDescent)."""
     def __init__(self, ttf, size):
         from fontTools.ttLib import TTFont
         f = TTFont(ttf)
-        self.cmap, self.hmtx, self.k = f.getBestCmap(), f['hmtx'], size / f['head'].unitsPerEm
+        o = f['OS/2']
+        self.cmap, self.hmtx = f.getBestCmap(), f['hmtx']
+        self.k = size / (o.usWinAscent + o.usWinDescent)
 
     def __call__(self, s):
         return sum(self.hmtx[self.cmap.get(ord(c), self.cmap[ord('n')])][0] for c in s) * self.k
@@ -86,33 +90,84 @@ def ass_time(t):
     return f'{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}'
 
 
-def build_pages(words, seg, meas, max_words):
-    """Group the segment's words into pages of ≤2 lines (≤max_words words, ≤SUB_MAXW px per line)."""
-    ws = [w for w in words[seg['i0']:seg['i1'] + 1]]
-    pages, cur, line = [], [], []
+def _txt(w):
+    return w['raw'].strip()
 
-    def flush():
-        nonlocal cur, line
-        if line: cur.append(line)
-        if cur: pages.append(cur)
-        cur, line = [], []
 
-    for k, w in enumerate(ws):
-        txt = w['raw'].strip()
-        if line and (len(line) >= max_words or meas(' '.join(x['raw'] for x in line) + ' ' + txt) > SUB_MAXW):
-            cur.append(line); line = []
-            if len(cur) == 2:
-                pages.append(cur); cur = []
+def fill_lines(ws, meas, max_words):
+    """1 line if it fits, else the best 2-line split (balanced, preferring breaks after punctuation or before an
+    opening quote), else greedy lines (> 2 lines tells build_pages to split the page)."""
+    width = lambda line: meas(' '.join(_txt(x) for x in line))
+    ok = lambda line: len(line) <= max_words and width(line) <= SUB_MAXW
+    if ok(ws):
+        return [ws]
+    best = None
+    for k in range(1, len(ws)):
+        l1, l2 = ws[:k], ws[k:]
+        if not (ok(l1) and ok(l2)):
+            continue
+        t1, t2 = _txt(l1[-1]).rstrip('“"»«‘’)'), _txt(l2[0])
+        cost = abs(width(l1) - width(l2)) / SUB_MAXW
+        if not (t1.endswith((',', ':', ';', '–', '.', '!', '?')) or t2.startswith(('„', '–', '"', '»'))):
+            cost += 0.45
+        if min(len(l1), len(l2)) == 1 and max(len(l1), len(l2)) >= 3:
+            cost += 0.3
+        if best is None or cost < best[0]:
+            best = (cost, [l1, l2])
+    if best:
+        return best[1]
+    lines, line = [], []
+    for w in ws:
+        if line and not ok(line + [w]):
+            lines.append(line); line = []
         line.append(w)
+    return lines + [line]
+
+
+def build_pages(words, seg, meas, max_words):
+    """Pages of ≤ 2 lines (≤ max_words words and ≤ SUB_MAXW px per line). A page never crosses a sentence end
+    or a pause > 0.55 s; long sentences are split at commas/colons/dashes first, then evenly by words."""
+    ws = words[seg['i0']:seg['i1'] + 1]
+    fits = lambda c: len(fill_lines(c, meas, max_words)) <= 2
+    sents, cur = [], []
+    for k, w in enumerate(ws):
+        cur.append(w)
         nxt = ws[k + 1] if k + 1 < len(ws) else None
-        sentence_end = txt.rstrip('“"»«‘’)').endswith(('.', '!', '?', ':'))
-        long_gap = nxt is not None and nxt['start'] - w['end'] > 0.55
-        if sentence_end or long_gap:
-            # end the page at a sentence end, unless the page is still a single short line and the pause is short
-            short_page = not cur and len(line) <= 2 and nxt is not None and nxt['start'] - w['end'] < 0.45 and not long_gap
-            if not short_page:
-                flush()
-    flush()
+        end = _txt(w).rstrip('“"»«‘’)').endswith(('.', '!', '?'))
+        if end or nxt is None or nxt['start'] - w['end'] > 0.55:
+            sents.append(cur); cur = []
+    pages = []
+    for sent in sents:
+        if fits(sent):
+            pages.append(fill_lines(sent, meas, max_words)); continue
+        clauses, cl = [], []
+        for w in sent:
+            t = _txt(w)
+            if t.startswith(('–', '-')) and cl:
+                clauses.append(cl); cl = []
+            cl.append(w)
+            if t.rstrip('“"»«‘’)').endswith((',', ':', ';', '–')):
+                clauses.append(cl); cl = []
+        if cl:
+            clauses.append(cl)
+        acc = []
+        for cl in clauses:
+            if fits(acc + cl):
+                acc += cl; continue
+            if acc:
+                pages.append(fill_lines(acc, meas, max_words)); acc = []
+            if fits(cl):
+                acc = cl; continue
+            n = 2
+            while True:
+                chunks = [cl[round(i * len(cl) / n):round((i + 1) * len(cl) / n)] for i in range(n)]
+                if all(fits(c) for c in chunks):
+                    break
+                n += 1
+            pages += [fill_lines(c, meas, max_words) for c in chunks[:-1]]
+            acc = chunks[-1]
+        if acc:
+            pages.append(fill_lines(acc, meas, max_words))
     return pages
 
 
@@ -130,7 +185,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Kara,Anton,{SUB_SIZE},&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,1,0,1,8,4,5,40,40,40,1
+Style: Kara,Anton,{SUB_SIZE},&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,1,0,1,10,5,5,40,40,40,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -150,21 +205,20 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             nxt = pages[pi + 1][0][0]['start'] + off if pi + 1 < len(pages) else None
             p_end = flat[-1]['end'] + off + 0.35
             if nxt is not None:
-                p_end = nxt if nxt - (flat[-1]['end'] + off) < 0.8 else p_end
+                p_end = nxt if nxt - (flat[-1]['end'] + off) < 0.8 else min(p_end, nxt)
             p_end = min(p_end, seg_end)
+            ys = [SUB_Y] if len(page) == 1 else [SUB_Y - SUB_GAP / 2, SUB_Y + SUB_GAP / 2]
             for k, w in enumerate(flat):
                 a = p_start if k == 0 else w['start'] + off
                 b = flat[k + 1]['start'] + off if k + 1 < len(flat) else p_end
                 if b - a < 0.01:
                     continue
-                lines = []
-                for line in page:
+                for line, y in zip(page, ys):
                     parts = []
                     for x in line:
-                        t = x['raw'].strip().replace('{', '(').replace('}', ')')
+                        t = _txt(x).replace('{', '(').replace('}', ')')
                         parts.append(f'{{\\c{hi_ass}}}{t}{{\\c&H00FFFFFF&}}' if x is w else t)
-                    lines.append(' '.join(parts))
-                ev.append(f'Dialogue: 0,{ass_time(a)},{ass_time(b)},Kara,,0,0,0,,{{\\an5\\pos({SUB_X},{SUB_Y})}}' + '\\N'.join(lines))
+                    ev.append(f'Dialogue: 0,{ass_time(a)},{ass_time(b)},Kara,,0,0,0,,{{\\an5\\pos({SUB_X},{y:.0f})}}' + ' '.join(parts))
     path.write_text(head + '\n'.join(ev) + '\n', encoding='utf-8')
     return len(ev)
 
