@@ -169,8 +169,8 @@
     var blobs = [[x - 40, 170, 140], [x + 110, 210, 130], [x - 120, 290, 110], [x + 40, 320, 120], [x + 190, 330, 90], [x - 20, 60, 110]];
     blobs.forEach(function (b, i) {
       var pts = [];
-      for (var k = 0; k < 18; k++) { var a = k / 18 * Math.PI * 2, rr = b[2] * (0.85 + 0.2 * Math.sin(k * 2.7 + i)); pts.push([b[0] + rr * Math.cos(a), b[1] + rr * 0.8 * Math.sin(a)]); }
-      pts = U.catmull(pts, 3, true);
+      for (var k = 0; k < 11; k++) { var a = k / 11 * Math.PI * 2, rr = b[2] * (0.86 + 0.1 * Math.sin(k * 1.9 + i * 3) + 0.06 * S.r()); pts.push([b[0] + rr * Math.cos(a), b[1] + rr * 0.8 * Math.sin(a)]); }
+      pts = U.catmull(pts, 5, true);
       s += S.shape(pts, [P.greenM, '#5f8c3c', P.green, '#7aa04f'][i % 4], { w: 2.2, extra: 2.6 });
       s += S.hatch(pts, { ang: 50, gap: 7, w: 1.1, op: 0.45, cond: function (X, Y) { return (X - b[0]) * 0.5 + (Y - b[1]) > b[2] * 0.25; } });
     });

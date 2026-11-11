@@ -63,7 +63,7 @@ async function main() {
   const tlFile = path.join(ep, 'build', 'timeline.json');
   if (!fs.existsSync(tlFile)) { console.error('missing ' + tlFile + ' – run node tools/timeline.js ' + ep); process.exit(1); }
   const TL = JSON.parse(fs.readFileSync(tlFile, 'utf8'));
-  const opts = { scale: o.preview ? 0.5 : 1, subs: !o['no-subs'] && o.subs !== '0', crf: +(o.crf || (o.preview ? 23 : 18)), preset: o.preset || (o.preview ? 'veryfast' : 'fast') };
+  const opts = { scale: o.preview ? 0.5 : 1, subs: !o['no-subs'] && o.subs !== '0', crf: +(o.crf || (o.preview ? 23 : 20)), preset: o.preset || (o.preview ? 'veryfast' : 'fast') };
 
   // stills mode
   if (o.stills) {

@@ -29,7 +29,7 @@ function fig(id, o, x, y, s) { // place a character with feet at (x,y), scale s
 }
 function head(id, o, cx, cy, size) { // head close-up: head centre at (cx,cy), head ≈ size px tall
   o = Object.assign({ t: T0, talk: TALK, flip: FLIP, grain: GRAIN, id: 'u' + (++UID) }, o || {});
-  var fr = Cast.render(id, o), hc = fr.anchors.headCenter, R = 125;
+  var fr = Cast.render(id, o), hc = fr.anchors.headCenter, R = 112;
   return '<svg x="' + (cx - size / 2) + '" y="' + (cy - size / 2) + '" width="' + size + '" height="' + size + '" viewBox="' + (hc[0] - R) + ' ' + (hc[1] - R - 8) + ' ' + 2 * R + ' ' + 2 * R + '">' + fr.svg + '</svg>';
 }
 function melo(x, y, s, o) {
@@ -60,8 +60,8 @@ if (PAGE === 'sheet') {
   var colW = 1920 / IDS.length;
   IDS.forEach(function (id, i) {
     var cx = colW * i + colW / 2;
-    EX4.forEach(function (e, k) { out += head(id, { expr: e, pose: 'idle' }, cx - 46 + (k % 2) * 92, 590 + Math.floor(k / 2) * 104, 92); });
-    PO3.forEach(function (p, k) { out += fig(id, { pose: p, expr: k === 1 ? 'skeptical' : 'neutral' }, cx - 60 + k * 60, 1040, 0.3).svg; });
+    EX4.forEach(function (e, k) { out += head(id, { expr: e, pose: 'idle' }, cx - 47 + (k % 2) * 94, 584 + Math.floor(k / 2) * 106, 104); });
+    PO3.forEach(function (p, k) { out += fig(id, { pose: p, expr: k === 1 ? 'skeptical' : 'neutral' }, cx - 62 + k * 62, 1040, 0.36).svg; });
   });
   out += label(40, 1072, 'Ausdrücke: happy · surprised · annoyed · embarrassed — Posen: talk · arms-crossed · hold', 14, '#5a4a3a', 'Oswald', 'start');
 } else if (PAGE === 'char') {
