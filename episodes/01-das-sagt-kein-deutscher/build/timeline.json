@@ -15,7 +15,7 @@
    "type": "text",
    "layout": "text",
    "start": 0,
-   "end": 2.13,
+   "end": 2.25,
    "transition": "cut",
    "tStart": 0,
    "tEnd": 0,
@@ -94,12 +94,12 @@
    "i": 1,
    "type": "scene",
    "layout": "scene",
-   "start": 2.13,
+   "start": 2.25,
    "end": 9.19,
    "transition": "cut",
-   "tStart": 2.13,
-   "tEnd": 2.13,
-   "contentStart": 2.13,
+   "tStart": 2.25,
+   "tEnd": 2.25,
+   "contentStart": 2.25,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -137,7 +137,8 @@
      "start": 5.75,
      "end": 6.355,
      "w0": 10,
-     "w1": 11
+     "w1": 11,
+     "maxDur": 2.64
     },
     {
      "t": 7.785,
@@ -147,7 +148,8 @@
      "start": 7.785,
      "end": 8.66,
      "w0": 15,
-     "w1": 17
+     "w1": 17,
+     "maxDur": 0.605
     }
    ],
    "props": [
@@ -162,7 +164,7 @@
    ],
    "fx": [
     {
-     "t": 2.13,
+     "t": 2.25,
      "name": "steam",
      "who": null,
      "dur": null
@@ -194,7 +196,8 @@
      "focus": "melo"
     }
    ],
-   "set": "office-hot"
+   "set": "office-hot",
+   "delayed": 0.12
   },
   {
    "i": 2,
@@ -368,7 +371,7 @@
    "type": "text",
    "layout": "text",
    "start": 17.35,
-   "end": 19.595,
+   "end": 19.9,
    "transition": "cut",
    "tStart": 17.35,
    "tEnd": 17.35,
@@ -437,12 +440,12 @@
    "i": 6,
    "type": "scene",
    "layout": "scene",
-   "start": 19.595,
+   "start": 19.9,
    "end": 22.505,
    "transition": "cut",
-   "tStart": 19.595,
-   "tEnd": 19.595,
-   "contentStart": 19.595,
+   "tStart": 19.9,
+   "tEnd": 19.9,
+   "contentStart": 19.9,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -489,14 +492,15 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "exam-room"
+   "set": "exam-room",
+   "delayed": 0.305
   },
   {
    "i": 7,
    "type": "board",
    "layout": "board",
    "start": 22.505,
-   "end": 23.97,
+   "end": 24.505,
    "transition": "ink",
    "tStart": 22.505,
    "tEnd": 23.105,
@@ -523,12 +527,12 @@
    "i": 8,
    "type": "melo",
    "layout": "melo",
-   "start": 23.97,
+   "start": 24.505,
    "end": 29.5,
    "transition": "cut",
-   "tStart": 23.97,
-   "tEnd": 23.97,
-   "contentStart": 23.97,
+   "tStart": 24.505,
+   "tEnd": 24.505,
+   "contentStart": 24.505,
    "melo": "medium",
    "args": {
     "type": "melo",
@@ -557,14 +561,15 @@
      "focus": "melo"
     }
    ],
-   "set": null
+   "set": null,
+   "delayed": 0.535
   },
   {
    "i": 9,
    "type": "text",
    "layout": "text",
    "start": 29.5,
-   "end": 31.155,
+   "end": 31.5,
    "transition": "cut",
    "tStart": 29.5,
    "tEnd": 29.5,
@@ -627,12 +632,12 @@
    "i": 10,
    "type": "split",
    "layout": "split",
-   "start": 31.155,
+   "start": 31.5,
    "end": 34.78,
    "transition": "cut",
-   "tStart": 31.155,
-   "tEnd": 31.155,
-   "contentStart": 31.155,
+   "tStart": 31.5,
+   "tEnd": 31.5,
+   "contentStart": 31.5,
    "melo": "off",
    "args": {
     "type": "split",
@@ -648,7 +653,7 @@
    "says": [],
    "props": [
     {
-     "t": 31.37,
+     "t": 31.5,
      "id": "book",
      "name": "textbook",
      "at": "left",
@@ -668,8 +673,9 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "leftT": 31.255,
-   "rightT": 33.455
+   "leftT": 31.5,
+   "rightT": 33.455,
+   "delayed": 0.345
   },
   {
    "i": 11,
@@ -747,7 +753,7 @@
    "type": "scene",
    "layout": "scene",
    "start": 38.45,
-   "end": 40.425,
+   "end": 40.45,
    "transition": "cut",
    "tStart": 38.45,
    "tEnd": 38.45,
@@ -785,7 +791,8 @@
      "start": 38.45,
      "end": 39.65,
      "w0": null,
-     "w1": null
+     "w1": null,
+     "maxDur": 1.2
     }
    ],
    "props": [],
@@ -806,12 +813,12 @@
    "i": 13,
    "type": "text",
    "layout": "text",
-   "start": 40.425,
+   "start": 40.45,
    "end": 43.72,
    "transition": "cut",
-   "tStart": 40.425,
-   "tEnd": 40.425,
-   "contentStart": 40.425,
+   "tStart": 40.45,
+   "tEnd": 40.45,
+   "contentStart": 40.45,
    "melo": "off",
    "args": {
     "type": "text",
@@ -841,7 +848,7 @@
    "tokens": [
     {
      "text": "manche",
-     "t": 40.425,
+     "t": 40.57,
      "end": 40.67,
      "w": 103,
      "matched": true,
@@ -849,7 +856,7 @@
     },
     {
      "text": "falsch",
-     "t": 40.78,
+     "t": 40.81,
      "end": 41.35,
      "w": 105,
      "matched": true,
@@ -857,7 +864,7 @@
     },
     {
      "text": "manche",
-     "t": 41.025,
+     "t": 41.05,
      "end": 41.87,
      "w": 106,
      "matched": true,
@@ -865,7 +872,7 @@
     },
     {
      "text": "zu",
-     "t": 41.265,
+     "t": 41.29,
      "end": 41.955,
      "w": null,
      "matched": false,
@@ -873,14 +880,15 @@
     },
     {
      "text": "steif",
-     "t": 41.505,
+     "t": 41.53,
      "end": 42.55,
      "w": 108,
      "matched": true,
      "line": 1
     }
    ],
-   "lineCount": 2
+   "lineCount": 2,
+   "delayed": 0.025
   },
   {
    "i": 14,
@@ -966,7 +974,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 50.6,
-   "end": 52.03,
+   "end": 53.4,
    "transition": "zoom",
    "tStart": 50.6,
    "tEnd": 51.050000000000004,
@@ -994,12 +1002,12 @@
    "i": 17,
    "type": "text",
    "layout": "text",
-   "start": 52.03,
-   "end": 54.01,
+   "start": 53.4,
+   "end": 55.95,
    "transition": "cut",
-   "tStart": 52.03,
-   "tEnd": 52.03,
-   "contentStart": 52.03,
+   "tStart": 53.4,
+   "tEnd": 53.4,
+   "contentStart": 53.4,
    "melo": "off",
    "args": {
     "type": "text",
@@ -1020,7 +1028,7 @@
    "tokens": [
     {
      "text": "Ich",
-     "t": 52.08,
+     "t": 53.45,
      "end": 56.07,
      "w": 141,
      "matched": false,
@@ -1028,7 +1036,7 @@
     },
     {
      "text": "bin",
-     "t": 52.24,
+     "t": 53.61,
      "end": 56.385,
      "w": null,
      "matched": false,
@@ -1036,7 +1044,7 @@
     },
     {
      "text": "heiß.",
-     "t": 52.4,
+     "t": 53.77,
      "end": 56.565,
      "w": null,
      "matched": false,
@@ -1044,18 +1052,19 @@
     }
    ],
    "lineCount": 1,
-   "tickT": 52.9
+   "tickT": 54.27,
+   "delayed": 1.37
   },
   {
    "i": 18,
    "type": "text",
    "layout": "text",
-   "start": 54.01,
-   "end": 55.955,
+   "start": 55.95,
+   "end": 57.95,
    "transition": "cut",
-   "tStart": 54.01,
-   "tEnd": 54.01,
-   "contentStart": 54.01,
+   "tStart": 55.95,
+   "tEnd": 55.95,
+   "contentStart": 55.95,
    "melo": "off",
    "args": {
     "type": "text",
@@ -1070,7 +1079,7 @@
    "props": [],
    "fx": [
     {
-     "t": 54.96,
+     "t": 55.95,
      "name": "question-marks",
      "who": null,
      "dur": null
@@ -1082,7 +1091,7 @@
    "tokens": [
     {
      "text": "Und",
-     "t": 54.01,
+     "t": 56.07,
      "end": 54.31,
      "w": null,
      "matched": false,
@@ -1090,7 +1099,7 @@
     },
     {
      "text": "die",
-     "t": 54.37,
+     "t": 56.31,
      "end": 54.96,
      "w": 139,
      "matched": true,
@@ -1098,25 +1107,26 @@
     },
     {
      "text": "Bedeutung?",
-     "t": 54.61,
+     "t": 56.55,
      "end": 55.51,
      "w": 140,
      "matched": true,
      "line": 0
     }
    ],
-   "lineCount": 1
+   "lineCount": 1,
+   "delayed": 1.94
   },
   {
    "i": 19,
    "type": "scene",
    "layout": "scene",
-   "start": 55.955,
-   "end": 58.895,
+   "start": 57.95,
+   "end": 59.95,
    "transition": "cut",
-   "tStart": 55.955,
-   "tEnd": 55.955,
-   "contentStart": 55.955,
+   "tStart": 57.95,
+   "tEnd": 57.95,
+   "contentStart": 57.95,
    "melo": "in-scene:center",
    "args": {
     "type": "scene",
@@ -1137,19 +1147,20 @@
    "castCues": [],
    "says": [
     {
-     "t": 55.955,
+     "t": 57.95,
      "who": "melo",
      "text": "Ich bin heiß.",
      "id": null,
      "start": 55.955,
      "end": 56.61,
      "w0": 141,
-     "w1": 143
+     "w1": 143,
+     "maxDur": 1.2
     }
    ],
    "props": [
     {
-     "t": 57.475,
+     "t": 57.95,
      "id": "shades",
      "name": "sunglasses",
      "at": "center",
@@ -1159,7 +1170,7 @@
    ],
    "fx": [
     {
-     "t": 57.81,
+     "t": 57.95,
      "name": "hearts",
      "who": null,
      "dur": null
@@ -1168,18 +1179,19 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "street-day"
+   "set": "street-day",
+   "delayed": 1.995
   },
   {
    "i": 20,
    "type": "scene",
    "layout": "scene",
-   "start": 58.895,
+   "start": 59.95,
    "end": 64.35,
    "transition": "cut",
-   "tStart": 58.895,
-   "tEnd": 58.895,
-   "contentStart": 58.895,
+   "tStart": 59.95,
+   "tEnd": 59.95,
+   "contentStart": 59.95,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -1210,7 +1222,7 @@
    "says": [],
    "props": [
     {
-     "t": 59.75,
+     "t": 59.95,
      "id": "ball",
      "name": "football",
      "at": "center",
@@ -1241,7 +1253,8 @@
      "focus": "melo"
     }
    ],
-   "set": "football-park"
+   "set": "football-park",
+   "delayed": 1.055
   },
   {
    "i": 21,
@@ -1466,7 +1479,8 @@
      "start": 80.76,
      "end": 82.56,
      "w0": null,
-     "w1": null
+     "w1": null,
+     "maxDur": 1.365
     }
    ],
    "props": [
@@ -1539,7 +1553,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 89.005,
-   "end": 90.41,
+   "end": 91.805,
    "transition": "zoom",
    "tStart": 89.005,
    "tEnd": 89.455,
@@ -1567,12 +1581,12 @@
    "i": 28,
    "type": "scene",
    "layout": "scene",
-   "start": 90.41,
+   "start": 91.805,
    "end": 96.865,
    "transition": "cut",
-   "tStart": 90.41,
-   "tEnd": 90.41,
-   "contentStart": 90.41,
+   "tStart": 91.805,
+   "tEnd": 91.805,
+   "contentStart": 91.805,
    "melo": "in-scene:table-right",
    "args": {
     "type": "scene",
@@ -1600,7 +1614,8 @@
      "start": 95.81,
      "end": 96.48,
      "w0": 232,
-     "w1": 234
+     "w1": 234,
+     "maxDur": 0.3
     }
    ],
    "props": [
@@ -1623,7 +1638,8 @@
      "focus": "table"
     }
    ],
-   "set": "dinner-table"
+   "set": "dinner-table",
+   "delayed": 1.395
   },
   {
    "i": 29,
@@ -1671,7 +1687,8 @@
      "start": 97.9,
      "end": 99.315,
      "w0": 238,
-     "w1": 242
+     "w1": 242,
+     "maxDur": 1.125
     }
    ],
    "props": [],
@@ -1830,7 +1847,7 @@
    "type": "split",
    "layout": "split",
    "start": 107.64,
-   "end": 109.755,
+   "end": 110.54,
    "transition": "cut",
    "tStart": 107.64,
    "tEnd": 107.64,
@@ -1861,12 +1878,12 @@
    "i": 33,
    "type": "scene",
    "layout": "scene",
-   "start": 109.755,
+   "start": 110.54,
    "end": 115.125,
    "transition": "cut",
-   "tStart": 109.755,
-   "tEnd": 109.755,
-   "contentStart": 109.755,
+   "tStart": 110.54,
+   "tEnd": 110.54,
+   "contentStart": 110.54,
    "melo": "in-scene:table-right",
    "args": {
     "type": "scene",
@@ -1894,7 +1911,8 @@
      "start": 111.4,
      "end": 112.48,
      "w0": 272,
-     "w1": 274
+     "w1": 274,
+     "maxDur": 2.925
     },
     {
      "t": 113.72,
@@ -1904,12 +1922,13 @@
      "start": 113.72,
      "end": 114.625,
      "w0": 277,
-     "w1": 280
+     "w1": 280,
+     "maxDur": 0.605
     }
    ],
    "props": [
     {
-     "t": 109.755,
+     "t": 110.54,
      "id": "plates2",
      "name": "plate-stack",
      "at": "table-right",
@@ -1921,7 +1940,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "dinner-table"
+   "set": "dinner-table",
+   "delayed": 0.785
   },
   {
    "i": 34,
@@ -2100,7 +2120,8 @@
      "start": 125.275,
      "end": 126.515,
      "w0": 309,
-     "w1": 312
+     "w1": 312,
+     "maxDur": 0.775
     }
    ],
    "props": [],
@@ -2179,7 +2200,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 131.655,
-   "end": 133.31,
+   "end": 134.455,
    "transition": "zoom",
    "tStart": 131.655,
    "tEnd": 132.105,
@@ -2207,12 +2228,12 @@
    "i": 39,
    "type": "text",
    "layout": "text",
-   "start": 133.31,
-   "end": 136.41,
+   "start": 134.455,
+   "end": 136.455,
    "transition": "cut",
-   "tStart": 133.31,
-   "tEnd": 133.31,
-   "contentStart": 133.31,
+   "tStart": 134.455,
+   "tEnd": 134.455,
+   "contentStart": 134.455,
    "melo": "off",
    "args": {
     "type": "text",
@@ -2226,7 +2247,7 @@
    "says": [],
    "props": [
     {
-     "t": 133.31,
+     "t": 134.455,
      "id": "fes",
      "name": "flag-es",
      "at": "left",
@@ -2234,7 +2255,7 @@
      "scale": 1
     },
     {
-     "t": 134.015,
+     "t": 134.575,
      "id": "fpt",
      "name": "flag-pt",
      "at": "center",
@@ -2257,7 +2278,7 @@
    "tokens": [
     {
      "text": "Spanisch",
-     "t": 133.31,
+     "t": 134.575,
      "end": 134.015,
      "w": 332,
      "matched": true,
@@ -2265,7 +2286,7 @@
     },
     {
      "text": "Portugiesisch",
-     "t": 133.67,
+     "t": 134.815,
      "end": 134.75,
      "w": 333,
      "matched": true,
@@ -2273,25 +2294,26 @@
     },
     {
      "text": "Französisch",
-     "t": 133.91,
+     "t": 135.055,
      "end": 135.61,
      "w": 335,
      "matched": true,
      "line": 2
     }
    ],
-   "lineCount": 3
+   "lineCount": 3,
+   "delayed": 1.145
   },
   {
    "i": 40,
    "type": "text",
    "layout": "text",
-   "start": 136.41,
-   "end": 138.49,
+   "start": 136.455,
+   "end": 138.805,
    "transition": "whip",
-   "tStart": 136.41,
-   "tEnd": 136.76,
-   "contentStart": 136.62,
+   "tStart": 136.455,
+   "tEnd": 136.805,
+   "contentStart": 136.665,
    "melo": "off",
    "args": {
     "type": "text",
@@ -2312,7 +2334,7 @@
    "tokens": [
     {
      "text": "Ich",
-     "t": 136.62,
+     "t": 136.785,
      "end": 136.51,
      "w": 337,
      "matched": true,
@@ -2320,7 +2342,7 @@
     },
     {
      "text": "habe",
-     "t": 136.62,
+     "t": 137.025,
      "end": 136.73,
      "w": 338,
      "matched": true,
@@ -2328,7 +2350,7 @@
     },
     {
      "text": "25",
-     "t": 136.68,
+     "t": 137.265,
      "end": 137.31,
      "w": 339,
      "matched": true,
@@ -2336,7 +2358,7 @@
     },
     {
      "text": "Jahre.",
-     "t": 137.26,
+     "t": 137.505,
      "end": 137.975,
      "w": 340,
      "matched": true,
@@ -2344,18 +2366,19 @@
     }
    ],
    "lineCount": 1,
-   "strikeT": 137.96
+   "strikeT": 138.205,
+   "delayed": 0.045
   },
   {
    "i": 41,
    "type": "scene",
    "layout": "scene",
-   "start": 138.49,
+   "start": 138.805,
    "end": 142.865,
    "transition": "cut",
-   "tStart": 138.49,
-   "tEnd": 138.49,
-   "contentStart": 138.49,
+   "tStart": 138.805,
+   "tEnd": 138.805,
+   "contentStart": 138.805,
    "melo": "in-scene:center",
    "args": {
     "type": "scene",
@@ -2381,7 +2404,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "living-room"
+   "set": "living-room",
+   "delayed": 0.315
   },
   {
    "i": 42,
@@ -2459,7 +2483,7 @@
    "type": "text",
    "layout": "text",
    "start": 150.38,
-   "end": 152.315,
+   "end": 152.93,
    "transition": "cut",
    "tStart": 150.38,
    "tEnd": 150.38,
@@ -2538,12 +2562,12 @@
    "i": 45,
    "type": "text",
    "layout": "text",
-   "start": 152.315,
+   "start": 152.93,
    "end": 155.4,
    "transition": "cut",
-   "tStart": 152.315,
-   "tEnd": 152.315,
-   "contentStart": 152.315,
+   "tStart": 152.93,
+   "tEnd": 152.93,
+   "contentStart": 152.93,
    "melo": "side-right",
    "args": {
     "type": "text",
@@ -2570,7 +2594,7 @@
    "tokens": [
     {
      "text": "Wie",
-     "t": 152.435,
+     "t": 153.05,
      "end": 154.09,
      "w": 380,
      "matched": true,
@@ -2578,7 +2602,7 @@
     },
     {
      "text": "alt",
-     "t": 152.675,
+     "t": 153.29,
      "end": 154.35,
      "w": 381,
      "matched": true,
@@ -2586,7 +2610,7 @@
     },
     {
      "text": "bist",
-     "t": 152.915,
+     "t": 153.53,
      "end": 154.55,
      "w": 382,
      "matched": true,
@@ -2594,14 +2618,15 @@
     },
     {
      "text": "du?",
-     "t": 153.155,
+     "t": 153.77,
      "end": 154.795,
      "w": 383,
      "matched": true,
      "line": 0
     }
    ],
-   "lineCount": 1
+   "lineCount": 1,
+   "delayed": 0.615
   },
   {
    "i": 46,
@@ -2655,7 +2680,8 @@
      "start": 156.745,
      "end": 157.895,
      "w0": 387,
-     "w1": 391
+     "w1": 391,
+     "maxDur": 4.48
     },
     {
      "t": 158.34,
@@ -2665,7 +2691,8 @@
      "start": 158.34,
      "end": 159.78,
      "w0": 392,
-     "w1": 396
+     "w1": 396,
+     "maxDur": 2.885
     }
    ],
    "props": [
@@ -2695,7 +2722,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 162.025,
-   "end": 164.26,
+   "end": 164.825,
    "transition": "zoom",
    "tStart": 162.025,
    "tEnd": 162.475,
@@ -2729,12 +2756,12 @@
    "i": 48,
    "type": "scene",
    "layout": "scene",
-   "start": 164.26,
-   "end": 166.21,
+   "start": 164.825,
+   "end": 166.825,
    "transition": "cut",
-   "tStart": 164.26,
-   "tEnd": 164.26,
-   "contentStart": 164.26,
+   "tStart": 164.825,
+   "tEnd": 164.825,
+   "contentStart": 164.825,
    "melo": "in-scene:center",
    "args": {
     "type": "scene",
@@ -2767,18 +2794,19 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "winter-room"
+   "set": "winter-room",
+   "delayed": 0.565
   },
   {
    "i": 49,
    "type": "quiz",
    "layout": "board",
-   "start": 166.21,
+   "start": 166.825,
    "end": 179.31,
    "transition": "cut",
-   "tStart": 166.21,
-   "tEnd": 166.21,
-   "contentStart": 166.21,
+   "tStart": 166.825,
+   "tEnd": 166.825,
+   "contentStart": 166.825,
    "melo": "off",
    "args": {
     "type": "quiz",
@@ -2792,7 +2820,8 @@
    "fx": [],
    "pins": [],
    "isShot": true,
-   "cams": []
+   "cams": [],
+   "delayed": 0.615
   },
   {
    "i": 50,
@@ -2988,7 +3017,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 189.665,
-   "end": 190.835,
+   "end": 192.465,
    "transition": "zoom",
    "tStart": 189.665,
    "tEnd": 190.11499999999998,
@@ -3016,12 +3045,12 @@
    "i": 55,
    "type": "scene",
    "layout": "scene",
-   "start": 190.835,
+   "start": 192.465,
    "end": 194.985,
    "transition": "cut",
-   "tStart": 190.835,
-   "tEnd": 190.835,
-   "contentStart": 190.835,
+   "tStart": 192.465,
+   "tEnd": 192.465,
+   "contentStart": 192.465,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -3058,12 +3087,13 @@
      "start": 193.535,
      "end": 194.43,
      "w0": 463,
-     "w1": 466
+     "w1": 466,
+     "maxDur": 0.65
     }
    ],
    "props": [
     {
-     "t": 190.835,
+     "t": 192.465,
      "id": "clock17",
      "name": "clock-17",
      "at": "back",
@@ -3071,7 +3101,7 @@
      "scale": 1
     },
     {
-     "t": 192.32,
+     "t": 192.585,
      "id": "bag",
      "name": "backpack",
      "at": "right",
@@ -3090,14 +3120,15 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "office-plain"
+   "set": "office-plain",
+   "delayed": 1.63
   },
   {
    "i": 56,
    "type": "text",
    "layout": "text",
    "start": 194.985,
-   "end": 196.51,
+   "end": 197.885,
    "transition": "whip",
    "tStart": 194.985,
    "tEnd": 195.335,
@@ -3161,12 +3192,12 @@
    "i": 57,
    "type": "scene",
    "layout": "scene",
-   "start": 196.51,
+   "start": 197.885,
    "end": 199.94,
    "transition": "cut",
-   "tStart": 196.51,
-   "tEnd": 196.51,
-   "contentStart": 196.51,
+   "tStart": 197.885,
+   "tEnd": 197.885,
+   "contentStart": 197.885,
    "melo": "in-scene:center",
    "args": {
     "type": "scene",
@@ -3198,7 +3229,8 @@
      "focus": "melo"
     }
    ],
-   "set": "living-room"
+   "set": "living-room",
+   "delayed": 1.375
   },
   {
    "i": 58,
@@ -3263,7 +3295,8 @@
      "start": 207.735,
      "end": 209.055,
      "w0": 495,
-     "w1": 500
+     "w1": 500,
+     "maxDur": 3.395
     },
     {
      "t": 209.455,
@@ -3273,7 +3306,8 @@
      "start": 209.455,
      "end": 211.395,
      "w0": 501,
-     "w1": 508
+     "w1": 508,
+     "maxDur": 1.675
     }
    ],
    "props": [
@@ -3459,7 +3493,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 220.285,
-   "end": 221.71,
+   "end": 223.085,
    "transition": "zoom",
    "tStart": 220.285,
    "tEnd": 220.73499999999999,
@@ -3487,12 +3521,12 @@
    "i": 64,
    "type": "scene",
    "layout": "scene",
-   "start": 221.71,
-   "end": 223.61,
+   "start": 223.085,
+   "end": 225.085,
    "transition": "cut",
-   "tStart": 221.71,
-   "tEnd": 221.71,
-   "contentStart": 221.71,
+   "tStart": 223.085,
+   "tEnd": 223.085,
+   "contentStart": 223.085,
    "melo": "in-scene:center",
    "args": {
     "type": "scene",
@@ -3506,7 +3540,7 @@
    "says": [],
    "props": [
     {
-     "t": 221.71,
+     "t": 223.085,
      "id": "phone5",
      "name": "phone",
      "at": "center",
@@ -3518,18 +3552,19 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "cinema-front"
+   "set": "cinema-front",
+   "delayed": 1.375
   },
   {
    "i": 65,
    "type": "melo",
    "layout": "melo",
-   "start": 223.61,
+   "start": 225.085,
    "end": 226.775,
    "transition": "cut",
-   "tStart": 223.61,
-   "tEnd": 223.61,
-   "contentStart": 223.61,
+   "tStart": 225.085,
+   "tEnd": 225.085,
+   "contentStart": 225.085,
    "melo": "medium",
    "args": {
     "type": "melo",
@@ -3545,7 +3580,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": null
+   "set": null,
+   "delayed": 1.475
   },
   {
    "i": 66,
@@ -3593,7 +3629,8 @@
      "start": 230.2,
      "end": 230.41,
      "w0": 565,
-     "w1": 565
+     "w1": 565,
+     "maxDur": 0.835
     }
    ],
    "props": [],
@@ -3797,7 +3834,8 @@
      "start": 241.535,
      "end": 243.22,
      "w0": 594,
-     "w1": 600
+     "w1": 600,
+     "maxDur": 5.04
     }
    ],
    "props": [
@@ -3828,7 +3866,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 247.375,
-   "end": 248.385,
+   "end": 250.175,
    "transition": "zoom",
    "tStart": 247.375,
    "tEnd": 247.825,
@@ -3856,12 +3894,12 @@
    "i": 72,
    "type": "scene",
    "layout": "scene",
-   "start": 248.385,
+   "start": 250.175,
    "end": 253.14,
    "transition": "cut",
-   "tStart": 248.385,
-   "tEnd": 248.385,
-   "contentStart": 248.385,
+   "tStart": 250.175,
+   "tEnd": 250.175,
+   "contentStart": 250.175,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -3896,7 +3934,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "football-park"
+   "set": "football-park",
+   "delayed": 1.79
   },
   {
    "i": 73,
@@ -4195,7 +4234,8 @@
      "start": 277.785,
      "end": 279.815,
      "w0": 697,
-     "w1": 703
+     "w1": 703,
+     "maxDur": 1.795
     }
    ],
    "props": [
@@ -4361,7 +4401,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 292.105,
-   "end": 293.055,
+   "end": 294.905,
    "transition": "zoom",
    "tStart": 292.105,
    "tEnd": 292.555,
@@ -4389,12 +4429,12 @@
    "i": 84,
    "type": "scene",
    "layout": "scene",
-   "start": 293.055,
+   "start": 294.905,
    "end": 297.055,
    "transition": "cut",
-   "tStart": 293.055,
-   "tEnd": 293.055,
-   "contentStart": 293.055,
+   "tStart": 294.905,
+   "tEnd": 294.905,
+   "contentStart": 294.905,
    "melo": "in-scene:table-right",
    "args": {
     "type": "scene",
@@ -4414,7 +4454,7 @@
    ],
    "castCues": [
     {
-     "t": 294.444,
+     "t": 294.905,
      "id": "kellner",
      "expr": null,
      "pose": "talk",
@@ -4439,7 +4479,8 @@
      "start": 295.835,
      "end": 296.49,
      "w0": 742,
-     "w1": 745
+     "w1": 745,
+     "maxDur": 0.42
     }
    ],
    "props": [],
@@ -4447,14 +4488,15 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "biergarten"
+   "set": "biergarten",
+   "delayed": 1.85
   },
   {
    "i": 85,
    "type": "text",
    "layout": "text",
    "start": 297.055,
-   "end": 299.194,
+   "end": 299.255,
    "transition": "cut",
    "tStart": 297.055,
    "tEnd": 297.055,
@@ -4508,12 +4550,12 @@
    "i": 86,
    "type": "scene",
    "layout": "scene",
-   "start": 299.194,
+   "start": 299.255,
    "end": 303.305,
    "transition": "cut",
-   "tStart": 299.194,
-   "tEnd": 299.194,
-   "contentStart": 299.194,
+   "tStart": 299.255,
+   "tEnd": 299.255,
+   "contentStart": 299.255,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -4541,7 +4583,8 @@
      "start": 301.425,
      "end": 302.835,
      "w0": 759,
-     "w1": 762
+     "w1": 762,
+     "maxDur": 1.08
     }
    ],
    "props": [
@@ -4565,7 +4608,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "supermarket-checkout"
+   "set": "supermarket-checkout",
+   "delayed": 0.061
   },
   {
    "i": 87,
@@ -4640,7 +4684,8 @@
      "start": 311.875,
      "end": 312.575,
      "w0": 786,
-     "w1": 788
+     "w1": 788,
+     "maxDur": 3.485
     },
     {
      "t": 314.66,
@@ -4650,7 +4695,8 @@
      "start": 314.66,
      "end": 315.74,
      "w0": 794,
-     "w1": 798
+     "w1": 798,
+     "maxDur": 0.7
     }
    ],
    "props": [
@@ -4831,7 +4877,8 @@
      "start": 323.725,
      "end": 324.965,
      "w0": 816,
-     "w1": 820
+     "w1": 820,
+     "maxDur": 1.895
     }
    ],
    "props": [
@@ -4862,7 +4909,7 @@
    "type": "text",
    "layout": "text",
    "start": 326.42,
-   "end": 328.57,
+   "end": 328.77,
    "transition": "whip",
    "tStart": 326.42,
    "tEnd": 326.77000000000004,
@@ -4925,12 +4972,12 @@
    "i": 94,
    "type": "scene",
    "layout": "scene",
-   "start": 328.57,
+   "start": 328.77,
    "end": 331.975,
    "transition": "cut",
-   "tStart": 328.57,
-   "tEnd": 328.57,
-   "contentStart": 328.57,
+   "tStart": 328.77,
+   "tEnd": 328.77,
+   "contentStart": 328.77,
    "melo": "in-scene:left",
    "args": {
     "type": "scene",
@@ -4971,7 +5018,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "doorstep"
+   "set": "doorstep",
+   "delayed": 0.2
   },
   {
    "i": 95,
@@ -5126,7 +5174,7 @@
    "type": "text",
    "layout": "text",
    "start": 352.6,
-   "end": 354.665,
+   "end": 355.5,
    "transition": "cut",
    "tStart": 352.6,
    "tEnd": 352.6,
@@ -5198,18 +5246,18 @@
     }
    ],
    "lineCount": 1,
-   "tickT": 354.365
+   "tickT": 354.404
   },
   {
    "i": 99,
    "type": "scene",
    "layout": "scene",
-   "start": 354.665,
-   "end": 357.115,
+   "start": 355.5,
+   "end": 357.5,
    "transition": "cut",
-   "tStart": 354.665,
-   "tEnd": 354.665,
-   "contentStart": 354.665,
+   "tStart": 355.5,
+   "tEnd": 355.5,
+   "contentStart": 355.5,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -5234,18 +5282,19 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "office-plain"
+   "set": "office-plain",
+   "delayed": 0.835
   },
   {
    "i": 100,
    "type": "text",
    "layout": "text",
-   "start": 357.115,
+   "start": 357.5,
    "end": 361.485,
    "transition": "cut",
-   "tStart": 357.115,
-   "tEnd": 357.115,
-   "contentStart": 357.115,
+   "tStart": 357.5,
+   "tEnd": 357.5,
+   "contentStart": 357.5,
    "melo": "off",
    "args": {
     "type": "text",
@@ -5274,7 +5323,7 @@
    "tokens": [
     {
      "text": "„Eine",
-     "t": 357.115,
+     "t": 357.62,
      "end": 357.274,
      "w": 880,
      "matched": true,
@@ -5282,7 +5331,7 @@
     },
     {
      "text": "Frage",
-     "t": 357.224,
+     "t": 357.86,
      "end": 357.654,
      "w": 881,
      "matched": true,
@@ -5290,7 +5339,7 @@
     },
     {
      "text": "für",
-     "t": 357.604,
+     "t": 358.1,
      "end": 357.954,
      "w": 882,
      "matched": true,
@@ -5298,7 +5347,7 @@
     },
     {
      "text": "dich“",
-     "t": 357.904,
+     "t": 358.34,
      "end": 358.274,
      "w": 883,
      "matched": true,
@@ -5306,7 +5355,7 @@
     },
     {
      "text": "immer",
-     "t": 358.195,
+     "t": 358.58,
      "end": 359.214,
      "w": 887,
      "matched": true,
@@ -5314,7 +5363,7 @@
     },
     {
      "text": "öfter",
-     "t": 358.435,
+     "t": 358.82,
      "end": 359.715,
      "w": 888,
      "matched": true,
@@ -5322,14 +5371,15 @@
     },
     {
      "text": "…",
-     "t": 358.675,
+     "t": 359.06,
      "end": 359.644,
      "w": null,
      "matched": false,
      "line": 1
     }
    ],
-   "lineCount": 2
+   "lineCount": 2,
+   "delayed": 0.385
   },
   {
    "i": 101,
@@ -5368,7 +5418,8 @@
      "start": 363.325,
      "end": 365.375,
      "w0": 899,
-     "w1": 906
+     "w1": 906,
+     "maxDur": 1.785
     }
    ],
    "props": [],
@@ -5523,7 +5574,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 375.93,
-   "end": 377.715,
+   "end": 378.73,
    "transition": "zoom",
    "tStart": 375.93,
    "tEnd": 376.38,
@@ -5551,12 +5602,12 @@
    "i": 106,
    "type": "scene",
    "layout": "scene",
-   "start": 377.715,
-   "end": 380.215,
+   "start": 378.73,
+   "end": 380.73,
    "transition": "cut",
-   "tStart": 377.715,
-   "tEnd": 377.715,
-   "contentStart": 377.715,
+   "tStart": 378.73,
+   "tEnd": 378.73,
+   "contentStart": 378.73,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -5584,7 +5635,8 @@
      "start": 378.915,
      "end": 379.83,
      "w0": 940,
-     "w1": 942
+     "w1": 942,
+     "maxDur": 1.015
     }
    ],
    "props": [],
@@ -5592,18 +5644,19 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "kneipe"
+   "set": "kneipe",
+   "delayed": 1.015
   },
   {
    "i": 107,
    "type": "text",
    "layout": "text",
-   "start": 380.215,
+   "start": 380.73,
    "end": 383.665,
    "transition": "cut",
-   "tStart": 380.215,
-   "tEnd": 380.215,
-   "contentStart": 380.215,
+   "tStart": 380.73,
+   "tEnd": 380.73,
+   "contentStart": 380.73,
    "melo": "off",
    "args": {
     "type": "text",
@@ -5632,7 +5685,7 @@
    "tokens": [
     {
      "text": "Kursbuch",
-     "t": 380.335,
+     "t": 380.85,
      "end": 382.154,
      "w": 948,
      "matched": true,
@@ -5640,7 +5693,7 @@
     },
     {
      "text": "Lektion",
-     "t": 380.575,
+     "t": 381.09,
      "end": 382.814,
      "w": 949,
      "matched": true,
@@ -5648,14 +5701,15 @@
     },
     {
      "text": "2",
-     "t": 380.815,
+     "t": 381.33,
      "end": 382.584,
      "w": null,
      "matched": false,
      "line": 1
     }
    ],
-   "lineCount": 2
+   "lineCount": 2,
+   "delayed": 0.515
   },
   {
    "i": 108,
@@ -5703,7 +5757,8 @@
      "start": 383.665,
      "end": 385.485,
      "w0": 951,
-     "w1": 955
+     "w1": 955,
+     "maxDur": 1.665
     }
    ],
    "props": [],
@@ -5725,7 +5780,7 @@
    "type": "text",
    "layout": "text",
    "start": 386.13,
-   "end": 388.085,
+   "end": 388.33,
    "transition": "whip",
    "tStart": 386.13,
    "tEnd": 386.48,
@@ -5765,12 +5820,12 @@
    "i": 110,
    "type": "scene",
    "layout": "scene",
-   "start": 388.085,
+   "start": 388.33,
    "end": 390.575,
    "transition": "cut",
-   "tStart": 388.085,
-   "tEnd": 388.085,
-   "contentStart": 388.085,
+   "tStart": 388.33,
+   "tEnd": 388.33,
+   "contentStart": 388.33,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -5811,14 +5866,15 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "kneipe"
+   "set": "kneipe",
+   "delayed": 0.245
   },
   {
    "i": 111,
    "type": "list",
    "layout": "list",
    "start": 390.575,
-   "end": 394.04,
+   "end": 394.525,
    "transition": "cut",
    "tStart": 390.575,
    "tEnd": 390.575,
@@ -5844,12 +5900,12 @@
    "i": 112,
    "type": "map",
    "layout": "map",
-   "start": 394.04,
+   "start": 394.525,
    "end": 396.945,
    "transition": "cut",
-   "tStart": 394.04,
-   "tEnd": 394.04,
-   "contentStart": 394.04,
+   "tStart": 394.525,
+   "tEnd": 394.525,
+   "contentStart": 394.525,
    "melo": "off",
    "args": {
     "type": "map",
@@ -5864,7 +5920,7 @@
    "fx": [],
    "pins": [
     {
-     "t": 394.174,
+     "t": 394.525,
      "id": "p8a",
      "at": "bayern",
      "text": "Passt."
@@ -5877,7 +5933,8 @@
     }
    ],
    "isShot": true,
-   "cams": []
+   "cams": [],
+   "delayed": 0.485
   },
   {
    "i": 113,
@@ -5922,7 +5979,8 @@
      "start": 398.47,
      "end": 398.92,
      "w0": 987,
-     "w1": 987
+     "w1": 987,
+     "maxDur": 0.3
     }
    ],
    "props": [],
@@ -6073,7 +6131,7 @@
    "type": "text",
    "layout": "text",
    "start": 411.295,
-   "end": 412.635,
+   "end": 413.295,
    "transition": "cut",
    "tStart": 411.295,
    "tEnd": 411.295,
@@ -6127,12 +6185,12 @@
    "i": 118,
    "type": "scene",
    "layout": "scene",
-   "start": 412.635,
+   "start": 413.295,
    "end": 420.515,
    "transition": "cut",
-   "tStart": 412.635,
-   "tEnd": 412.635,
-   "contentStart": 412.635,
+   "tStart": 413.295,
+   "tEnd": 413.295,
+   "contentStart": 413.295,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -6160,7 +6218,8 @@
      "start": 415.535,
      "end": 416.45,
      "w0": 1024,
-     "w1": 1027
+     "w1": 1027,
+     "maxDur": 4.18
     },
     {
      "t": 417.52,
@@ -6170,7 +6229,8 @@
      "start": 417.52,
      "end": 419.07,
      "w0": 1030,
-     "w1": 1033
+     "w1": 1033,
+     "maxDur": 2.195
     }
    ],
    "props": [],
@@ -6185,7 +6245,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "office-plain"
+   "set": "office-plain",
+   "delayed": 0.66
   },
   {
    "i": 119,
@@ -6223,7 +6284,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 424,
-   "end": 425.295,
+   "end": 426.8,
    "transition": "zoom",
    "tStart": 424,
    "tEnd": 424.45,
@@ -6251,12 +6312,12 @@
    "i": 121,
    "type": "scene",
    "layout": "scene",
-   "start": 425.295,
+   "start": 426.8,
    "end": 429.49,
    "transition": "cut",
-   "tStart": 425.295,
-   "tEnd": 425.295,
-   "contentStart": 425.295,
+   "tStart": 426.8,
+   "tEnd": 426.8,
+   "contentStart": 426.8,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -6299,12 +6360,13 @@
      "start": 428.41,
      "end": 429.16,
      "w0": 1063,
-     "w1": 1064
+     "w1": 1064,
+     "maxDur": 0.3
     }
    ],
    "props": [
     {
-     "t": 425.514,
+     "t": 426.8,
      "id": "mugs3",
      "name": "beer-mugs",
      "at": "center",
@@ -6316,14 +6378,15 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "kneipe"
+   "set": "kneipe",
+   "delayed": 1.505
   },
   {
    "i": 122,
    "type": "text",
    "layout": "text",
    "start": 429.49,
-   "end": 431.09,
+   "end": 431.69,
    "transition": "whip",
    "tStart": 429.49,
    "tEnd": 429.84000000000003,
@@ -6370,12 +6433,12 @@
    "i": 123,
    "type": "scene",
    "layout": "scene",
-   "start": 431.09,
+   "start": 431.69,
    "end": 434.215,
    "transition": "cut",
-   "tStart": 431.09,
-   "tEnd": 431.09,
-   "contentStart": 431.09,
+   "tStart": 431.69,
+   "tEnd": 431.69,
+   "contentStart": 431.69,
    "melo": "in-scene:candidate",
    "args": {
     "type": "scene",
@@ -6403,7 +6466,8 @@
      "start": 432.724,
      "end": 434.224,
      "w0": null,
-     "w1": null
+     "w1": null,
+     "maxDur": 0.691
     }
    ],
    "props": [],
@@ -6411,7 +6475,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "job-interview"
+   "set": "job-interview",
+   "delayed": 0.6
   },
   {
    "i": 124,
@@ -6445,7 +6510,7 @@
    "type": "text",
    "layout": "text",
    "start": 439.605,
-   "end": 441.365,
+   "end": 441.605,
    "transition": "cut",
    "tStart": 439.605,
    "tEnd": 439.605,
@@ -6498,12 +6563,12 @@
    "i": 126,
    "type": "map",
    "layout": "map",
-   "start": 441.365,
+   "start": 441.605,
    "end": 449,
    "transition": "cut",
-   "tStart": 441.365,
-   "tEnd": 441.365,
-   "contentStart": 441.365,
+   "tStart": 441.605,
+   "tEnd": 441.605,
+   "contentStart": 441.605,
    "melo": "off",
    "args": {
     "type": "map",
@@ -6518,7 +6583,7 @@
    "fx": [],
    "pins": [
     {
-     "t": 441.464,
+     "t": 441.605,
      "id": "p9a",
      "at": "bayern",
      "text": "Servus"
@@ -6549,7 +6614,8 @@
     }
    ],
    "isShot": true,
-   "cams": []
+   "cams": [],
+   "delayed": 0.24
   },
   {
    "i": 127,
@@ -6614,7 +6680,8 @@
      "start": 455.645,
      "end": 456.77,
      "w0": 1130,
-     "w1": 1133
+     "w1": 1133,
+     "maxDur": 0.84
     }
    ],
    "props": [
@@ -6638,7 +6705,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 457.285,
-   "end": 459.14,
+   "end": 460.085,
    "transition": "zoom",
    "tStart": 457.285,
    "tEnd": 457.735,
@@ -6666,12 +6733,12 @@
    "i": 130,
    "type": "board",
    "layout": "board",
-   "start": 459.14,
+   "start": 460.085,
    "end": 462.17,
    "transition": "cut",
-   "tStart": 459.14,
-   "tEnd": 459.14,
-   "contentStart": 459.14,
+   "tStart": 460.085,
+   "tEnd": 460.085,
+   "contentStart": 460.085,
    "melo": "side-left",
    "args": {
     "type": "melo",
@@ -6685,7 +6752,7 @@
    "says": [],
    "props": [
     {
-     "t": 459.834,
+     "t": 460.085,
      "id": "trap",
      "name": "mousetrap",
      "at": "right",
@@ -6703,7 +6770,8 @@
    ],
    "pins": [],
    "isShot": true,
-   "cams": []
+   "cams": [],
+   "delayed": 0.945
   },
   {
    "i": 131,
@@ -6778,7 +6846,8 @@
      "start": 466.99,
      "end": 468.25,
      "w0": 1156,
-     "w1": 1161
+     "w1": 1161,
+     "maxDur": 2.255
     },
     {
      "t": 468.565,
@@ -6788,7 +6857,8 @@
      "start": 468.565,
      "end": 469.615,
      "w0": 1162,
-     "w1": 1164
+     "w1": 1164,
+     "maxDur": 0.68
     }
    ],
    "props": [
@@ -6899,7 +6969,8 @@
      "start": 474.855,
      "end": 476.305,
      "w0": 1176,
-     "w1": 1179
+     "w1": 1179,
+     "maxDur": 3.32
     },
     {
      "t": 477.195,
@@ -6909,7 +6980,8 @@
      "start": 477.195,
      "end": 478.58,
      "w0": 1181,
-     "w1": 1185
+     "w1": 1185,
+     "maxDur": 0.98
     }
    ],
    "props": [
@@ -6972,7 +7044,8 @@
      "start": 480.42,
      "end": 481.655,
      "w0": 1192,
-     "w1": 1195
+     "w1": 1195,
+     "maxDur": 2.69
     }
    ],
    "props": [],
@@ -7098,7 +7171,8 @@
      "start": 489.744,
      "end": 491.244,
      "w0": null,
-     "w1": null
+     "w1": null,
+     "maxDur": 1.361
     }
    ],
    "props": [
@@ -7186,7 +7260,7 @@
    "type": "list",
    "layout": "list",
    "start": 497.07,
-   "end": 501.365,
+   "end": 501.72,
    "transition": "cut",
    "tStart": 497.07,
    "tEnd": 497.07,
@@ -7212,12 +7286,12 @@
    "i": 141,
    "type": "scene",
    "layout": "scene",
-   "start": 501.365,
+   "start": 501.72,
    "end": 504.095,
    "transition": "cut",
-   "tStart": 501.365,
-   "tEnd": 501.365,
-   "contentStart": 501.365,
+   "tStart": 501.72,
+   "tEnd": 501.72,
+   "contentStart": 501.72,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -7260,7 +7334,8 @@
      "start": 501.914,
      "end": 502.814,
      "w0": null,
-     "w1": null
+     "w1": null,
+     "maxDur": 1.381
     }
    ],
    "props": [],
@@ -7268,7 +7343,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "university"
+   "set": "university",
+   "delayed": 0.355
   },
   {
    "i": 142,
@@ -7610,7 +7686,7 @@
    "type": "text",
    "layout": "text",
    "start": 534.195,
-   "end": 536.215,
+   "end": 537.445,
    "transition": "cut",
    "tStart": 534.195,
    "tEnd": 534.195,
@@ -7665,12 +7741,12 @@
    "i": 150,
    "type": "scene",
    "layout": "scene",
-   "start": 536.215,
-   "end": 539.355,
+   "start": 537.445,
+   "end": 539.445,
    "transition": "whip",
-   "tStart": 536.215,
-   "tEnd": 536.565,
-   "contentStart": 536.4250000000001,
+   "tStart": 537.445,
+   "tEnd": 537.795,
+   "contentStart": 537.655,
    "melo": "in-scene:podium-left",
    "args": {
     "type": "scene",
@@ -7703,18 +7779,19 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "quiz-show"
+   "set": "quiz-show",
+   "delayed": 1.23
   },
   {
    "i": 151,
    "type": "quiz",
    "layout": "board",
-   "start": 539.355,
+   "start": 539.445,
    "end": 553.695,
    "transition": "cut",
-   "tStart": 539.355,
-   "tEnd": 539.355,
-   "contentStart": 539.355,
+   "tStart": 539.445,
+   "tEnd": 539.445,
+   "contentStart": 539.445,
    "melo": "corner-right",
    "args": {
     "type": "quiz",
@@ -7735,7 +7812,8 @@
    ],
    "pins": [],
    "isShot": true,
-   "cams": []
+   "cams": [],
+   "delayed": 0.09
   },
   {
    "i": 152,
@@ -7908,7 +7986,7 @@
    "type": "chapter",
    "layout": "chapter",
    "start": 566.095,
-   "end": 568.205,
+   "end": 568.895,
    "transition": "zoom",
    "tStart": 566.095,
    "tEnd": 566.5450000000001,
@@ -7936,12 +8014,12 @@
    "i": 157,
    "type": "scene",
    "layout": "scene",
-   "start": 568.205,
+   "start": 568.895,
    "end": 572.205,
    "transition": "cut",
-   "tStart": 568.205,
-   "tEnd": 568.205,
-   "contentStart": 568.205,
+   "tStart": 568.895,
+   "tEnd": 568.895,
+   "contentStart": 568.895,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -7988,7 +8066,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "exam-room"
+   "set": "exam-room",
+   "delayed": 0.69
   },
   {
    "i": 158,
@@ -8027,7 +8106,8 @@
      "start": 574.85,
      "end": 575.655,
      "w0": 1409,
-     "w1": 1412
+     "w1": 1412,
+     "maxDur": 0.57
     }
    ],
    "props": [
@@ -8051,7 +8131,7 @@
    "type": "text",
    "layout": "text",
    "start": 576.22,
-   "end": 577.845,
+   "end": 578.22,
    "transition": "cut",
    "tStart": 576.22,
    "tEnd": 576.22,
@@ -8095,12 +8175,12 @@
    "i": 160,
    "type": "scene",
    "layout": "scene",
-   "start": 577.845,
-   "end": 579.905,
+   "start": 578.22,
+   "end": 580.22,
    "transition": "cut",
-   "tStart": 577.845,
-   "tEnd": 577.845,
-   "contentStart": 577.845,
+   "tStart": 578.22,
+   "tEnd": 578.22,
+   "contentStart": 578.22,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -8128,7 +8208,8 @@
      "start": 578.8,
      "end": 579.36,
      "w0": 1420,
-     "w1": 1420
+     "w1": 1420,
+     "maxDur": 0.62
     }
    ],
    "props": [],
@@ -8136,18 +8217,19 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "wg-kitchen"
+   "set": "wg-kitchen",
+   "delayed": 0.375
   },
   {
    "i": 161,
    "type": "scene",
    "layout": "scene",
-   "start": 579.905,
+   "start": 580.22,
    "end": 583.155,
    "transition": "cut",
-   "tStart": 579.905,
-   "tEnd": 579.905,
-   "contentStart": 579.905,
+   "tStart": 580.22,
+   "tEnd": 580.22,
+   "contentStart": 580.22,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -8190,7 +8272,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "wg-kitchen"
+   "set": "wg-kitchen",
+   "delayed": 0.315
   },
   {
    "i": 162,
@@ -8307,7 +8390,8 @@
      "start": 590.555,
      "end": 592.205,
      "w0": 1447,
-     "w1": 1450
+     "w1": 1450,
+     "maxDur": 1.395
     }
    ],
    "props": [],
@@ -8380,7 +8464,8 @@
      "start": 598.59,
      "end": 599.425,
      "w0": 1465,
-     "w1": 1468
+     "w1": 1468,
+     "maxDur": 3.25
     },
     {
      "t": 599.875,
@@ -8390,7 +8475,8 @@
      "start": 599.875,
      "end": 600.15,
      "w0": 1469,
-     "w1": 1469
+     "w1": 1469,
+     "maxDur": 1.965
     }
    ],
    "props": [
@@ -8525,7 +8611,8 @@
      "start": 608.14,
      "end": 609.495,
      "w0": 1488,
-     "w1": 1493
+     "w1": 1493,
+     "maxDur": 2.46
     },
     {
      "t": 609.955,
@@ -8535,7 +8622,8 @@
      "start": 609.955,
      "end": 610.965,
      "w0": 1494,
-     "w1": 1497
+     "w1": 1497,
+     "maxDur": 0.645
     }
    ],
    "props": [],
@@ -8840,7 +8928,8 @@
      "start": 649.615,
      "end": 650.425,
      "w0": 1580,
-     "w1": 1582
+     "w1": 1582,
+     "maxDur": 0.345
     }
    ],
    "props": [],
@@ -8887,7 +8976,8 @@
      "start": 651.86,
      "end": 652.735,
      "w0": 1585,
-     "w1": 1587
+     "w1": 1587,
+     "maxDur": 1.84
     },
     {
      "t": 653.69,
@@ -8897,7 +8987,8 @@
      "start": 653.69,
      "end": 654.065,
      "w0": 1589,
-     "w1": 1589
+     "w1": 1589,
+     "maxDur": 0.3
     }
    ],
    "props": [],
@@ -9077,7 +9168,7 @@
    "type": "board",
    "layout": "board",
    "start": 668.795,
-   "end": 670.775,
+   "end": 670.795,
    "transition": "ink",
    "tStart": 668.795,
    "tEnd": 669.395,
@@ -9104,12 +9195,12 @@
    "i": 183,
    "type": "text",
    "layout": "text",
-   "start": 670.775,
+   "start": 670.795,
    "end": 675.745,
    "transition": "cut",
-   "tStart": 670.775,
-   "tEnd": 670.775,
-   "contentStart": 670.775,
+   "tStart": 670.795,
+   "tEnd": 670.795,
+   "contentStart": 670.795,
    "melo": "corner-right",
    "args": {
     "type": "text",
@@ -9145,7 +9236,7 @@
    "tokens": [
     {
      "text": "Welchen",
-     "t": 670.895,
+     "t": 670.915,
      "end": 672.77,
      "w": 1632,
      "matched": true,
@@ -9153,7 +9244,7 @@
     },
     {
      "text": "Satz",
-     "t": 671.135,
+     "t": 671.155,
      "end": 672.795,
      "w": null,
      "matched": false,
@@ -9161,7 +9252,7 @@
     },
     {
      "text": "hast",
-     "t": 671.375,
+     "t": 671.395,
      "end": 674.17,
      "w": 1637,
      "matched": true,
@@ -9169,7 +9260,7 @@
     },
     {
      "text": "du",
-     "t": 671.615,
+     "t": 671.635,
      "end": 674.31,
      "w": 1638,
      "matched": true,
@@ -9177,7 +9268,7 @@
     },
     {
      "text": "schon",
-     "t": 671.855,
+     "t": 671.875,
      "end": 674.79,
      "w": 1640,
      "matched": true,
@@ -9185,14 +9276,15 @@
     },
     {
      "text": "gesagt?",
-     "t": 672.095,
+     "t": 672.115,
      "end": 675.04,
      "w": null,
      "matched": false,
      "line": 0
     }
    ],
-   "lineCount": 1
+   "lineCount": 1,
+   "delayed": 0.02
   },
   {
    "i": 184,
@@ -9474,14 +9566,14 @@
    },
    "appear": 22.865,
    "cueT": 22.505,
-   "erase": 23.97,
+   "erase": 24.505,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "Das sagt kein Deutscher!",
-   "writeDur": 1.45,
+   "writeDur": 0.84,
    "eraseBy": "ink",
-   "eraseEnd": 23.97
+   "eraseEnd": 24.505
   },
   {
    "id": "n0a",
@@ -9535,14 +9627,14 @@
     "id": "n0c",
     "text": "Frag nicht."
    },
-   "appear": 28.425,
+   "appear": 28.35,
    "cueT": 28.425,
    "erase": 29.5,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "Frag nicht.",
-   "writeDur": 0.8,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 29.5
   },
@@ -9570,8 +9662,8 @@
     },
     {
      "text": "Und wann?",
-     "t": 47.51,
-     "dur": 0.7
+     "t": 47.1,
+     "dur": 0.35
     }
    ],
    "stagger": null,
@@ -9633,14 +9725,14 @@
     "id": "n1d",
     "text": "mir = Dativ"
    },
-   "appear": 68.09,
+   "appear": 67.9,
    "cueT": 68.09,
    "erase": 69.05,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "mir = Dativ",
-   "writeDur": 0.8,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 69.05
   },
@@ -9656,7 +9748,7 @@
    },
    "appear": 72.025,
    "cueT": 72.025,
-   "erase": 77.00999999999999,
+   "erase": 77.01,
    "strike": null,
    "tick": null,
    "highlight": null,
@@ -9674,7 +9766,7 @@
     {
      "text": "langweilig.",
      "t": 75.205,
-     "dur": 0.8
+     "dur": 0.655
     }
    ],
    "stagger": null,
@@ -9715,14 +9807,14 @@
     "id": "n2b",
     "text": "blau = betrunken"
    },
-   "appear": 106.55,
+   "appear": 106.49,
    "cueT": 106.55,
    "erase": 107.64,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "blau = betrunken",
-   "writeDur": 1.05,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 107.64
   },
@@ -9736,14 +9828,14 @@
     "id": "n3k",
     "text": "25 Jahre"
    },
-   "appear": 143.87,
+   "appear": 143.73,
    "cueT": 143.87,
    "erase": 144.88,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "25 Jahre",
-   "writeDur": 0.65,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 144.88
   },
@@ -9759,7 +9851,7 @@
     "answer": "2",
     "seconds": "5"
    },
-   "appear": 166.21,
+   "appear": 166.825,
    "cueT": 166.21,
    "erase": 179.31,
    "strike": null,
@@ -9889,14 +9981,14 @@
     "id": "r4b",
     "text": "zu Hause"
    },
-   "appear": 206.665,
+   "appear": 206.585,
    "cueT": 206.665,
    "erase": 207.735,
    "strike": null,
-   "tick": 207.465,
+   "tick": 207.035,
    "highlight": null,
    "text": "zu Hause",
-   "writeDur": 0.65,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 207.735
   },
@@ -9911,16 +10003,16 @@
     "who": "right",
     "text": "Ich warte für dich vorm Kino!"
    },
-   "appear": 221.71,
+   "appear": 223.085,
    "cueT": 221.71,
-   "erase": 223.61,
+   "erase": 225.085,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "Ich warte für dich vorm Kino!",
-   "writeDur": 1.7,
+   "writeDur": 1.2,
    "eraseBy": "ink",
-   "eraseEnd": 223.61
+   "eraseEnd": 225.085
   },
   {
    "id": "n5a",
@@ -9939,7 +10031,7 @@
    "tick": null,
    "highlight": null,
    "text": "für ihn = an seiner Stelle",
-   "writeDur": 1.55,
+   "writeDur": 0.59,
    "eraseBy": "ink",
    "eraseEnd": 226.775
   },
@@ -9960,7 +10052,7 @@
    "tick": null,
    "highlight": null,
    "text": "warten auf + Akkusativ",
-   "writeDur": 1.35,
+   "writeDur": 1.305,
    "eraseBy": "ink",
    "eraseEnd": 238.14
   },
@@ -9974,10 +10066,10 @@
     "id": "w6",
     "text": "Wann ich ein Kind war, …"
    },
-   "appear": 249.965,
+   "appear": 250.175,
    "cueT": 249.965,
-   "erase": 253.48999999999998,
-   "strike": 252.015,
+   "erase": 253.49,
+   "strike": 252.225,
    "tick": null,
    "highlight": null,
    "text": "Wann ich ein Kind war, …",
@@ -10063,9 +10155,9 @@
    "erase": 263.21,
    "strike": null,
    "tick": null,
-   "highlight": 263.16,
+   "highlight": 262.51,
    "text": "Ich weiß nicht, wann er kommt.",
-   "writeDur": 1.75,
+   "writeDur": 1.1,
    "eraseBy": "ink",
    "eraseEnd": 263.21
   },
@@ -10168,7 +10260,7 @@
    "tick": null,
    "highlight": null,
    "text": "clock",
-   "writeDur": 1.1,
+   "writeDur": 0.391,
    "eraseBy": "ink",
    "eraseEnd": 277.785
   },
@@ -10266,7 +10358,7 @@
     {
      "text": "Für mich ein Bier, bitte.",
      "t": 308.38,
-     "dur": 1.5
+     "dur": 0.68
     }
    ],
    "stagger": null,
@@ -10293,7 +10385,7 @@
    "tick": null,
    "highlight": null,
    "text": "Stammgast",
-   "writeDur": 0.7,
+   "writeDur": 0.441,
    "eraseBy": "ink",
    "eraseEnd": 318.635
   },
@@ -10335,7 +10427,7 @@
    "tick": null,
    "highlight": null,
    "text": "1× Arzt, bitte!",
-   "writeDur": 1,
+   "writeDur": 0.355,
    "eraseBy": "ink",
    "eraseEnd": 331.975
   },
@@ -10356,7 +10448,7 @@
    "tick": null,
    "highlight": null,
    "text": "Präpositionen",
-   "writeDur": 0.9,
+   "writeDur": 0.541,
    "eraseBy": "ink",
    "eraseEnd": 338.025
   },
@@ -10420,14 +10512,14 @@
    },
    "appear": 355.83,
    "cueT": 355.83,
-   "erase": 357.115,
+   "erase": 357.5,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "an → Person",
    "writeDur": 0.8,
    "eraseBy": "ink",
-   "eraseEnd": 357.115
+   "eraseEnd": 357.5
   },
   {
    "id": "n9w",
@@ -10462,7 +10554,7 @@
    },
    "appear": 390.575,
    "cueT": 390.575,
-   "erase": 394.04,
+   "erase": 394.525,
    "strike": null,
    "tick": null,
    "highlight": null,
@@ -10474,8 +10566,8 @@
     },
     {
      "text": "Passt.",
-     "t": 396.08,
-     "dur": 0.55
+     "t": 393.375,
+     "dur": 0.35
     },
     {
      "text": "Läuft.",
@@ -10493,7 +10585,7 @@
    "text": "",
    "writeDur": 0,
    "eraseBy": "ink",
-   "eraseEnd": 394.04
+   "eraseEnd": 394.525
   },
   {
    "id": "n8m",
@@ -10571,8 +10663,8 @@
     },
     {
      "text": "Ciao!",
-     "t": 438.93,
-     "dur": 0.5
+     "t": 438.455,
+     "dur": 0.35
     }
    ],
    "stagger": null,
@@ -10612,7 +10704,7 @@
     {
      "text": "den Kundenservice",
      "t": 452.244,
-     "dur": 1.1
+     "dur": 0.886
     }
    ],
    "stagger": null,
@@ -10638,9 +10730,9 @@
    "erase": 462.17,
    "strike": null,
    "tick": null,
-   "highlight": 461.865,
+   "highlight": 461.47,
    "text": "Ich bin fertig.",
-   "writeDur": 1,
+   "writeDur": 0.605,
    "eraseBy": "ink",
    "eraseEnd": 462.17
   },
@@ -10691,12 +10783,12 @@
    },
    "appear": 482.804,
    "cueT": 482.804,
-   "erase": 484.26000000000005,
+   "erase": 484.26,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "kein Kompliment!",
-   "writeDur": 1.05,
+   "writeDur": 0.306,
    "eraseBy": "ink",
    "eraseEnd": 484.26
   },
@@ -10712,7 +10804,7 @@
    },
    "appear": 497.07,
    "cueT": 497.07,
-   "erase": 501.365,
+   "erase": 501.72,
    "strike": null,
    "tick": null,
    "highlight": null,
@@ -10730,7 +10822,7 @@
     {
      "text": "auf YouTube",
      "t": 500.325,
-     "dur": 0.8
+     "dur": 0.595
     }
    ],
    "stagger": null,
@@ -10738,7 +10830,7 @@
    "text": "",
    "writeDur": 0,
    "eraseBy": "ink",
-   "eraseEnd": 501.365
+   "eraseEnd": 501.72
   },
   {
    "id": "l11",
@@ -10770,7 +10862,7 @@
     {
      "text": "Das leuchtet mir ein.",
      "t": 515.8,
-     "dur": 1.3
+     "dur": 0.54
     }
    ],
    "stagger": null,
@@ -10839,9 +10931,9 @@
    "erase": 534.195,
    "strike": null,
    "tick": null,
-   "highlight": 534.285,
+   "highlight": 533.495,
    "text": "Liebe Chefin, das ergibt Sinn.",
-   "writeDur": 1.75,
+   "writeDur": 0.96,
    "eraseBy": "ink",
    "eraseEnd": 534.195
   },
@@ -10855,16 +10947,16 @@
     "id": "n12q",
     "text": "Letzte Kernfrage!"
    },
-   "appear": 536.634,
+   "appear": 537.655,
    "cueT": 536.634,
-   "erase": 539.355,
+   "erase": 539.445,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "Letzte Kernfrage!",
-   "writeDur": 1.1,
+   "writeDur": 0.99,
    "eraseBy": "ink",
-   "eraseEnd": 539.355
+   "eraseEnd": 539.445
   },
   {
    "id": "q3",
@@ -10878,7 +10970,7 @@
     "answer": "2",
     "seconds": "5"
    },
-   "appear": 539.355,
+   "appear": 539.445,
    "cueT": 539.355,
    "erase": 553.695,
    "strike": null,
@@ -10987,14 +11079,14 @@
     "id": "r12",
     "text": "Doch!"
    },
-   "appear": 597.71,
+   "appear": 597.44,
    "cueT": 597.71,
    "erase": 598.59,
    "strike": null,
-   "tick": 598.36,
+   "tick": 597.89,
    "highlight": null,
    "text": "Doch!",
-   "writeDur": 0.5,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 598.59
   },
@@ -11049,7 +11141,7 @@
     {
      "text": "ein bisschen rechthaberisch",
      "t": 617.87,
-     "dur": 1.6
+     "dur": 0.47
     }
    ],
    "stagger": null,
@@ -11215,7 +11307,7 @@
     {
      "text": "Mach's gut!",
      "t": 656.575,
-     "dur": 0.8
+     "dur": 0.24
     }
    ],
    "stagger": null,
@@ -11237,7 +11329,7 @@
    },
    "appear": 657.615,
    "cueT": 657.615,
-   "erase": 661.9250000000001,
+   "erase": 661.925,
    "strike": null,
    "tick": null,
    "highlight": null,
@@ -11250,7 +11342,7 @@
     {
      "text": "total erschöpft",
      "t": 660.44,
-     "dur": 1
+     "dur": 0.335
     }
    ],
    "stagger": null,
@@ -11270,14 +11362,14 @@
     "id": "r13d",
     "text": "Doch!"
    },
-   "appear": 667.935,
+   "appear": 667.645,
    "cueT": 667.935,
    "erase": 669.395,
    "strike": null,
-   "tick": 668.585,
+   "tick": 668.095,
    "highlight": null,
    "text": "Doch!",
-   "writeDur": 0.5,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 669.395
   },
@@ -11301,7 +11393,7 @@
     {
      "text": "Deutsch mit Kern",
      "t": 684.29,
-     "dur": 1.05
+     "dur": 0.665
     }
    ],
    "stagger": null,
@@ -11328,7 +11420,7 @@
    "tick": null,
    "highlight": null,
    "text": "Deutsch mit Melo",
-   "writeDur": 1.05
+   "writeDur": 0.512
   }
  ],
  "camera": [
@@ -11350,7 +11442,7 @@
    "auto": "scene"
   },
   {
-   "t": 166.51,
+   "t": 167.125,
    "shot": "board",
    "focus": null,
    "auto": "quiz"
@@ -11402,7 +11494,7 @@
    "focus": null
   },
   {
-   "t": 459.14,
+   "t": 460.085,
    "shot": "wide",
    "focus": null
   },
@@ -11412,7 +11504,7 @@
    "focus": null
   },
   {
-   "t": 539.655,
+   "t": 539.745,
    "shot": "board",
    "focus": null,
    "auto": "quiz"
@@ -12430,7 +12522,8 @@
    "start": 5.75,
    "end": 6.355,
    "w0": 10,
-   "w1": 11
+   "w1": 11,
+   "maxDur": 2.64
   },
   {
    "t": 7.785,
@@ -12440,7 +12533,8 @@
    "start": 7.785,
    "end": 8.66,
    "w0": 15,
-   "w1": 17
+   "w1": 17,
+   "maxDur": 0.605
   },
   {
    "t": 38.45,
@@ -12450,17 +12544,19 @@
    "start": 38.45,
    "end": 39.65,
    "w0": null,
-   "w1": null
+   "w1": null,
+   "maxDur": 1.2
   },
   {
-   "t": 55.955,
+   "t": 57.95,
    "who": "melo",
    "text": "Ich bin heiß.",
    "id": null,
    "start": 55.955,
    "end": 56.61,
    "w0": 141,
-   "w1": 143
+   "w1": 143,
+   "maxDur": 1.2
   },
   {
    "t": 80.76,
@@ -12470,7 +12566,8 @@
    "start": 80.76,
    "end": 82.56,
    "w0": null,
-   "w1": null
+   "w1": null,
+   "maxDur": 1.365
   },
   {
    "t": 95.81,
@@ -12480,7 +12577,8 @@
    "start": 95.81,
    "end": 96.48,
    "w0": 232,
-   "w1": 234
+   "w1": 234,
+   "maxDur": 0.3
   },
   {
    "t": 97.9,
@@ -12490,7 +12588,8 @@
    "start": 97.9,
    "end": 99.315,
    "w0": 238,
-   "w1": 242
+   "w1": 242,
+   "maxDur": 1.125
   },
   {
    "t": 111.4,
@@ -12500,7 +12599,8 @@
    "start": 111.4,
    "end": 112.48,
    "w0": 272,
-   "w1": 274
+   "w1": 274,
+   "maxDur": 2.925
   },
   {
    "t": 113.72,
@@ -12510,7 +12610,8 @@
    "start": 113.72,
    "end": 114.625,
    "w0": 277,
-   "w1": 280
+   "w1": 280,
+   "maxDur": 0.605
   },
   {
    "t": 125.275,
@@ -12520,7 +12621,8 @@
    "start": 125.275,
    "end": 126.515,
    "w0": 309,
-   "w1": 312
+   "w1": 312,
+   "maxDur": 0.775
   },
   {
    "t": 156.745,
@@ -12530,7 +12632,8 @@
    "start": 156.745,
    "end": 157.895,
    "w0": 387,
-   "w1": 391
+   "w1": 391,
+   "maxDur": 4.48
   },
   {
    "t": 158.34,
@@ -12540,7 +12643,8 @@
    "start": 158.34,
    "end": 159.78,
    "w0": 392,
-   "w1": 396
+   "w1": 396,
+   "maxDur": 2.885
   },
   {
    "t": 193.535,
@@ -12550,7 +12654,8 @@
    "start": 193.535,
    "end": 194.43,
    "w0": 463,
-   "w1": 466
+   "w1": 466,
+   "maxDur": 0.65
   },
   {
    "t": 207.735,
@@ -12560,7 +12665,8 @@
    "start": 207.735,
    "end": 209.055,
    "w0": 495,
-   "w1": 500
+   "w1": 500,
+   "maxDur": 3.395
   },
   {
    "t": 209.455,
@@ -12570,7 +12676,8 @@
    "start": 209.455,
    "end": 211.395,
    "w0": 501,
-   "w1": 508
+   "w1": 508,
+   "maxDur": 1.675
   },
   {
    "t": 228.325,
@@ -12580,7 +12687,8 @@
    "start": 230.2,
    "end": 230.41,
    "w0": 565,
-   "w1": 565
+   "w1": 565,
+   "maxDur": 0.835
   },
   {
    "t": 241.535,
@@ -12590,7 +12698,8 @@
    "start": 241.535,
    "end": 243.22,
    "w0": 594,
-   "w1": 600
+   "w1": 600,
+   "maxDur": 5.04
   },
   {
    "t": 277.785,
@@ -12600,7 +12709,8 @@
    "start": 277.785,
    "end": 279.815,
    "w0": 697,
-   "w1": 703
+   "w1": 703,
+   "maxDur": 1.795
   },
   {
    "t": 295.835,
@@ -12610,7 +12720,8 @@
    "start": 295.835,
    "end": 296.49,
    "w0": 742,
-   "w1": 745
+   "w1": 745,
+   "maxDur": 0.42
   },
   {
    "t": 301.425,
@@ -12620,7 +12731,8 @@
    "start": 301.425,
    "end": 302.835,
    "w0": 759,
-   "w1": 762
+   "w1": 762,
+   "maxDur": 1.08
   },
   {
    "t": 311.875,
@@ -12630,7 +12742,8 @@
    "start": 311.875,
    "end": 312.575,
    "w0": 786,
-   "w1": 788
+   "w1": 788,
+   "maxDur": 3.485
   },
   {
    "t": 314.66,
@@ -12640,7 +12753,8 @@
    "start": 314.66,
    "end": 315.74,
    "w0": 794,
-   "w1": 798
+   "w1": 798,
+   "maxDur": 0.7
   },
   {
    "t": 323.725,
@@ -12650,7 +12764,8 @@
    "start": 323.725,
    "end": 324.965,
    "w0": 816,
-   "w1": 820
+   "w1": 820,
+   "maxDur": 1.895
   },
   {
    "t": 363.325,
@@ -12660,7 +12775,8 @@
    "start": 363.325,
    "end": 365.375,
    "w0": 899,
-   "w1": 906
+   "w1": 906,
+   "maxDur": 1.785
   },
   {
    "t": 378.915,
@@ -12670,7 +12786,8 @@
    "start": 378.915,
    "end": 379.83,
    "w0": 940,
-   "w1": 942
+   "w1": 942,
+   "maxDur": 1.015
   },
   {
    "t": 383.665,
@@ -12680,7 +12797,8 @@
    "start": 383.665,
    "end": 385.485,
    "w0": 951,
-   "w1": 955
+   "w1": 955,
+   "maxDur": 1.665
   },
   {
    "t": 398.47,
@@ -12690,7 +12808,8 @@
    "start": 398.47,
    "end": 398.92,
    "w0": 987,
-   "w1": 987
+   "w1": 987,
+   "maxDur": 0.3
   },
   {
    "t": 415.535,
@@ -12700,7 +12819,8 @@
    "start": 415.535,
    "end": 416.45,
    "w0": 1024,
-   "w1": 1027
+   "w1": 1027,
+   "maxDur": 4.18
   },
   {
    "t": 417.52,
@@ -12710,7 +12830,8 @@
    "start": 417.52,
    "end": 419.07,
    "w0": 1030,
-   "w1": 1033
+   "w1": 1033,
+   "maxDur": 2.195
   },
   {
    "t": 428.41,
@@ -12720,7 +12841,8 @@
    "start": 428.41,
    "end": 429.16,
    "w0": 1063,
-   "w1": 1064
+   "w1": 1064,
+   "maxDur": 0.3
   },
   {
    "t": 432.724,
@@ -12730,7 +12852,8 @@
    "start": 432.724,
    "end": 434.224,
    "w0": null,
-   "w1": null
+   "w1": null,
+   "maxDur": 0.691
   },
   {
    "t": 455.645,
@@ -12740,7 +12863,8 @@
    "start": 455.645,
    "end": 456.77,
    "w0": 1130,
-   "w1": 1133
+   "w1": 1133,
+   "maxDur": 0.84
   },
   {
    "t": 466.99,
@@ -12750,7 +12874,8 @@
    "start": 466.99,
    "end": 468.25,
    "w0": 1156,
-   "w1": 1161
+   "w1": 1161,
+   "maxDur": 2.255
   },
   {
    "t": 468.565,
@@ -12760,7 +12885,8 @@
    "start": 468.565,
    "end": 469.615,
    "w0": 1162,
-   "w1": 1164
+   "w1": 1164,
+   "maxDur": 0.68
   },
   {
    "t": 474.855,
@@ -12770,7 +12896,8 @@
    "start": 474.855,
    "end": 476.305,
    "w0": 1176,
-   "w1": 1179
+   "w1": 1179,
+   "maxDur": 3.32
   },
   {
    "t": 477.195,
@@ -12780,7 +12907,8 @@
    "start": 477.195,
    "end": 478.58,
    "w0": 1181,
-   "w1": 1185
+   "w1": 1185,
+   "maxDur": 0.98
   },
   {
    "t": 480.42,
@@ -12790,7 +12918,8 @@
    "start": 480.42,
    "end": 481.655,
    "w0": 1192,
-   "w1": 1195
+   "w1": 1195,
+   "maxDur": 2.69
   },
   {
    "t": 489.744,
@@ -12800,7 +12929,8 @@
    "start": 489.744,
    "end": 491.244,
    "w0": null,
-   "w1": null
+   "w1": null,
+   "maxDur": 1.361
   },
   {
    "t": 501.914,
@@ -12810,7 +12940,8 @@
    "start": 501.914,
    "end": 502.814,
    "w0": null,
-   "w1": null
+   "w1": null,
+   "maxDur": 1.381
   },
   {
    "t": 574.85,
@@ -12820,7 +12951,8 @@
    "start": 574.85,
    "end": 575.655,
    "w0": 1409,
-   "w1": 1412
+   "w1": 1412,
+   "maxDur": 0.57
   },
   {
    "t": 578.8,
@@ -12830,7 +12962,8 @@
    "start": 578.8,
    "end": 579.36,
    "w0": 1420,
-   "w1": 1420
+   "w1": 1420,
+   "maxDur": 0.62
   },
   {
    "t": 590.555,
@@ -12840,7 +12973,8 @@
    "start": 590.555,
    "end": 592.205,
    "w0": 1447,
-   "w1": 1450
+   "w1": 1450,
+   "maxDur": 1.395
   },
   {
    "t": 598.59,
@@ -12850,7 +12984,8 @@
    "start": 598.59,
    "end": 599.425,
    "w0": 1465,
-   "w1": 1468
+   "w1": 1468,
+   "maxDur": 3.25
   },
   {
    "t": 599.875,
@@ -12860,7 +12995,8 @@
    "start": 599.875,
    "end": 600.15,
    "w0": 1469,
-   "w1": 1469
+   "w1": 1469,
+   "maxDur": 1.965
   },
   {
    "t": 608.14,
@@ -12870,7 +13006,8 @@
    "start": 608.14,
    "end": 609.495,
    "w0": 1488,
-   "w1": 1493
+   "w1": 1493,
+   "maxDur": 2.46
   },
   {
    "t": 609.955,
@@ -12880,7 +13017,8 @@
    "start": 609.955,
    "end": 610.965,
    "w0": 1494,
-   "w1": 1497
+   "w1": 1497,
+   "maxDur": 0.645
   },
   {
    "t": 649.615,
@@ -12890,7 +13028,8 @@
    "start": 649.615,
    "end": 650.425,
    "w0": 1580,
-   "w1": 1582
+   "w1": 1582,
+   "maxDur": 0.345
   },
   {
    "t": 651.86,
@@ -12900,7 +13039,8 @@
    "start": 651.86,
    "end": 652.735,
    "w0": 1585,
-   "w1": 1587
+   "w1": 1587,
+   "maxDur": 1.84
   },
   {
    "t": 653.69,
@@ -12910,7 +13050,8 @@
    "start": 653.69,
    "end": 654.065,
    "w0": 1589,
-   "w1": 1589
+   "w1": 1589,
+   "maxDur": 0.3
   }
  ],
  "rigWords": [
@@ -22601,6 +22742,14 @@
   "cast": [
    "cast.js"
   ]
+ },
+ "readability": {
+  "extended": 33,
+  "merged": 0,
+  "shots": 190,
+  "min": 1.535,
+  "avg": 3.651,
+  "handwritingFixed": 30
  },
  "cues": [
   {

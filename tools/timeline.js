@@ -275,6 +275,97 @@ function compile(ep, opts = {}) {
     }
   };
 
+  // ── readability rules (global): minimum shot lengths, text fully visible before the cut ──
+  // A shot that would start too early is DELAYED (narration keeps running over the held shot) and its
+  // early elements snap to its new start; a shot that cannot fit before its own next anchor is merged away
+  // (text cards give way to scenes).
+  function wordsOn(sc) {
+    const n = x => String(x || '').split(/[\s|]+/).filter(w => /[\p{L}\p{N}]/u.test(w)).length;
+    if (sc.type === 'text') return (sc.tokens ? sc.tokens.length : n(sc.args.text)) + n(sc.args.sub);
+    if (sc.type === 'split') return n(sc.args.left) + n(sc.args.right);
+    if (sc.type === 'list') return n(sc.args.title) + elements.filter(e => e.scene === sc.i).reduce((k, e) => k + (e.items ? e.items.reduce((q, it) => q + n(it.text), 0) : n(e.text)), 0);
+    return 0;
+  }
+  function minDur(sc) {
+    if (!sc.isShot) return 0;
+    switch (sc.type) {
+      case 'chapter': return 2.8;
+      case 'text': case 'split': case 'list': return Math.max(2.0, 0.35 * wordsOn(sc) + 0.8);
+      case 'scene': case 'board': case 'map': return 2.0;
+      case 'melo': return 1.5;
+      default: return 0;
+    }
+  }
+  // earliest moment the shot's own text is complete (kinetic words / split sides) → must stay ≥1.0–1.6 s
+  function readyAt(sc) {
+    const c0 = sc.contentStart != null ? sc.contentStart : sc.tStart;
+    if (sc.type === 'chapter') return c0 + 0.5 + 1.6;
+    if (sc.type === 'text' && sc.tokens && sc.tokens.length) {
+      const last = Math.min(...[sc.tokens[sc.tokens.length - 1].t, c0 + 0.12 + 0.24 * (sc.tokens.length - 1)]);
+      return last + 0.3 + 1.0 + (sc.args.sub ? 0.3 : 0);
+    }
+    if (sc.type === 'split') return Math.min(sc.rightT || c0 + 2, c0 + 1.2) + 0.4 + 1.2;
+    return c0;
+  }
+  function shiftShot(sc, nt) {
+    const d = nt - sc.tStart; if (d <= 0) return;
+    const old = sc.tStart, inDur = sc.tEnd - sc.tStart;
+    sc.tStart = r3(nt); sc.start = sc.tStart; sc.tEnd = r3(nt + inDur); sc.contentStart = r3(Math.max(sc.contentStart, nt + inDur * 0.6));
+    const snap = (t, i) => r3(Math.max(t, sc.contentStart + (i || 0) * 0.12));
+    if (sc.tokens) sc.tokens.forEach((k, i) => { if (k.t < sc.contentStart + 0.12 + i * 0.24) k.t = r3(sc.contentStart + 0.12 + i * 0.24); });
+    if (sc.leftT != null) sc.leftT = snap(sc.leftT); if (sc.rightT != null) sc.rightT = r3(Math.max(sc.rightT, sc.leftT + 0.8));
+    if (sc.strikeT != null) sc.strikeT = snap(sc.strikeT); if (sc.tickT != null) sc.tickT = snap(sc.tickT);
+    ['castCues', 'says', 'props', 'fx', 'pins', 'cams'].forEach(k => (sc[k] || []).forEach((x, i) => { if (x.t < sc.contentStart) x.t = snap(x.t, k === 'props' ? i : 0); }));
+    for (const e of elements) if (e.scene === sc.i) {
+      if (e.appear < sc.contentStart) { const dd = sc.contentStart - e.appear; e.appear = r3(sc.contentStart); ['strike', 'tick', 'highlight'].forEach(k => { if (e[k] != null) e[k] = r3(e[k] + dd); }); }
+      if (e.items) e.items.forEach(it => { if (it.t != null && it.t < e.appear) it.t = e.appear; });
+    }
+    for (const k of camera) if (k.t >= old - 0.05 && k.t < nt) k.t = r3(nt);
+    sc.delayed = r3((sc.delayed || 0) + d);
+  }
+  function enforceReadability() {
+    const order = scenes.filter(x => !x.dropped);
+    let extended = 0, merged = 0;
+    const prio = sc => sc.type === 'chapter' ? 4 : sc.type === 'scene' ? 3 : sc.type === 'board' || sc.type === 'quiz' || sc.type === 'map' ? 2 : sc.type === 'melo' ? 1.5 : 1;
+    const droppable = sc => sc.type !== 'chapter' && sc.type !== 'quiz' && !elements.some(e => e.scene === sc.i && e.type === 'quiz');
+    // delay order[k] to t; if it then gets too short, cascade into the following shots (max 3 deep)
+    function cascade(k, t, depth) {
+      const sc = order[k]; if (!sc || sc.tStart >= t - 1e-3) return true;
+      if (!sc.isShot) return false;
+      const after = order[k + 1], limit = (after ? after.tStart : duration) - minDur(sc);
+      if (t <= limit) { shiftShot(sc, t); return true; }
+      if (depth < 3 && after && after.isShot && cascade(k + 1, t + minDur(sc), depth + 1)) { shiftShot(sc, t); return true; }
+      return false;
+    }
+    for (let i = 0; i + 1 < order.length; i++) {
+      const cur = order[i], nxt = order[i + 1];
+      if (!cur.isShot || !nxt.isShot) continue;
+      const need = Math.max(cur.tStart + minDur(cur), readyAt(cur));
+      if (nxt.tStart >= need - 1e-3) continue;
+      if (cascade(i + 1, need, 0)) { extended++; continue; }
+      // relaxed: at least 2 s (or the text just readable)
+      const relaxed = Math.max(cur.tStart + Math.min(minDur(cur), 2.0), cur.type === 'text' ? readyAt(cur) - 0.5 : 0);
+      if (relaxed <= nxt.tStart + 1e-3) continue;
+      if (cascade(i + 1, relaxed, 0)) { extended++; continue; }
+      if (prio(nxt) <= prio(cur) && droppable(nxt)) { nxt.dropped = true; merged++; order.splice(i + 1, 1); i--; continue; }
+      if (droppable(cur) && i > 0) { cur.dropped = true; merged++; order.splice(i, 1); i = Math.max(-1, i - 2); continue; }
+    }
+    // ends + elements of dropped shots, erase times follow the (new) cut
+    const live2 = scenes.filter(x => !x.dropped);
+    live2.forEach((sc, k) => { sc.end = k + 1 < live2.length ? live2[k + 1].tStart : duration; });
+    for (const sc of scenes) if (sc.dropped) { const nx = live2.find(x => x.tStart >= sc.tStart) || live2[live2.length - 1]; sc.tStart = sc.start = sc.tEnd = sc.contentStart = nx.tStart; sc.end = nx.tStart; }
+    for (const e of elements) {
+      const sc = scenes[e.scene];
+      if (sc.dropped) { e.dropped = true; continue; }
+      if (e.eraseBy === 'scene' || e.eraseBy === 'ink') {
+        const k = live2.indexOf(sc), nx = live2[k + 1];
+        if (nx) e.erase = r3(e.eraseBy === 'scene' ? nx.tStart : nx.tEnd);
+      }
+    }
+    const lens = live2.map(x => x.end - x.tStart);
+    return { extended, merged, shots: live2.length, min: r3(Math.min(...lens)), avg: r3(lens.reduce((a, b) => a + b, 0) / lens.length) };
+  }
+
   for (const c of live) {
     const a = c.args;
     switch (c.cue) {
@@ -438,6 +529,7 @@ function compile(ep, opts = {}) {
   }
   if (!scenes.length) newScene({ t: 0, args: { layout: 'board' } });
   scene.end = duration;
+  const readability = enforceReadability();
   // on-screen words matched too late (after their shot ends) → simple stagger from the shot start
   for (const sc of scenes) {
     if (!sc.tokens || !sc.tokens.length) continue;
@@ -474,6 +566,32 @@ function compile(ep, opts = {}) {
     }
     if (el.erase != null) el.eraseEnd = r3(el.erase + (el.eraseBy === 'scene' ? ERASE_DUR : el.eraseBy === 'ink' ? 0 : ELEM_ERASE_DUR));
   }
+
+  // ── handwriting must finish ≥0.8 s before the cut (write speed adapts; late cues move earlier) ──
+  let hwFixed = 0;
+  const shotEndOf = e => { const sc = scenes[e.scene]; return Math.min(sc.end != null ? sc.end : duration, e.erase != null ? e.erase : 1e9); };
+  for (const e of elements) {
+    if (e.dropped) continue;
+    const end = shotEndOf(e), lim = end - 0.8, sc = scenes[e.scene], c0 = sc.contentStart != null ? sc.contentStart : sc.tStart;
+    if (e.writeDur && e.appear + e.writeDur > lim) {
+      hwFixed++;
+      if (lim - e.appear >= 0.3) e.writeDur = r3(lim - e.appear);
+      else { e.appear = r3(Math.max(c0, lim - 0.35)); e.writeDur = r3(Math.max(0.2, lim - e.appear)); }
+    }
+    if (e.items) e.items.forEach(it => {
+      if (it.t == null) return;
+      if (it.t > lim - 0.2) { it.t = r3(Math.max(c0, lim - 0.35)); hwFixed++; }
+      if (it.t + it.dur > lim) it.dur = r3(Math.max(0.2, lim - it.t));
+    });
+    ['strike', 'tick', 'highlight'].forEach(k => { if (e[k] != null && e[k] > end - 0.7) { e[k] = r3(Math.max(e.appear + (e.writeDur || 0), end - 0.7)); hwFixed++; } });
+    if (e.erase != null) e.eraseEnd = r3(e.erase + (e.eraseBy === 'scene' ? ERASE_DUR : e.eraseBy === 'ink' ? 0 : ELEM_ERASE_DUR));
+  }
+  for (const sc of scenes) {
+    const end = sc.end != null ? sc.end : duration;
+    (sc.says || []).forEach(q => { q.maxDur = r3(Math.max(0.3, end - 0.8 - q.t)); });
+  }
+  readability.handwritingFixed = hwFixed;
+  if (scenes.some(x => x.isShot)) console.log(`  timeline: readability – ${readability.extended} shots delayed, ${readability.merged} merged; ${readability.shots} shots, min ${readability.min.toFixed(2)} s, avg ${readability.avg.toFixed(2)} s; ${hwFixed} write-ons sped up/moved`);
 
   // camera: scene default shot when the scene has no camera cue at its start
   for (const sc of scenes) {
@@ -554,7 +672,7 @@ function compile(ep, opts = {}) {
     version: 1, episode: path.basename(path.resolve(ep)), fps: 30, width: 1920, height: 1080,
     duration: r3(duration), partial: !!(AL.duration && duration < AL.duration - 0.5) || dropped > 0,
     audio: audio ? path.relative(ep, audio) : null, alignment: path.relative(ep, alPath), dev: !!AL.dev,
-    scenes, elements, camera, chapters, melo, quotes, rigWords, assets,
+    scenes, elements, camera, chapters, melo, quotes, rigWords, assets, readability,
     cues: live.map(c => ({ cue: c.cue, args: c.args, word: c.word, t: c.t })),
     words: words.filter(w => w.start <= duration),
     sentences: (AL.sentences || []).filter(s => s.start <= duration),
