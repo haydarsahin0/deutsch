@@ -110,7 +110,7 @@
     var c = mk((x1 - x0) * BS, (y1 - y0) * BS), g = c.getContext('2d');
     g.setTransform(BS, 0, 0, BS, -x0 * BS, -y0 * BS);
     g.font = font; g.textBaseline = 'alphabetic';
-    g.shadowColor = 'rgba(240,236,220,0.22)'; g.shadowBlur = 5 * BS;
+    if (!E.inkMode) { g.shadowColor = 'rgba(240,236,220,0.22)'; g.shadowBlur = 5 * BS; }
     lines.forEach(function (l, li) {
       if (runs && runs[li]) {
         var x = l.x;
@@ -687,11 +687,30 @@
   }
 
   // ───────────────────────── board content ─────────────────────────
-  function drawBoard(ctx, t, cam, opts) {
-    var sl = GEO.slate, BS = E.BS, cc = E.cc, g = E.cg;
+  function drawBoard(ctx, t, cam, surf) {
+    // surf (optional): an ink surface of a non-board shot {rect, cc, cg, BS, scene, ink:true}
+    var ink = !!surf, sl = surf ? surf.rect : GEO.slate, BS = surf ? surf.BS : E.BS, cc = surf ? surf.cc : E.cc, g = surf ? surf.cg : E.cg;
     g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cc.width, cc.height);
     g.setTransform(BS, 0, 0, BS, -sl.x * BS, -sl.y * BS);
-    var vis = E.els.filter(function (e) { return e.parts && e.appear <= t && (e.eraseEnd == null || t < e.eraseEnd) && e.layout !== 'title'; });
+    var vis = E.els.filter(function (e) {
+      if (!(e.parts && e.appear <= t && (e.eraseEnd == null || t < e.eraseEnd) && e.layout !== 'title')) return false;
+      return ink ? e.scene === surf.scene.i : isBoardScene(E.scenes[e.scene]);
+    });
+    if (ink && !vis.length) return;
+    if (ink && surf.panel) {
+      // paper card behind the ink writing (grows with the content)
+      var u = boxUnion(vis.map(function (e) { return e.box; }));
+      if (u) {
+        var a0 = Math.min.apply(0, vis.map(function (e) { return e.appear; })), pp = easeOutBack((t - a0) / 0.35);
+        ctx.save(); var pcx = u.x + u.w / 2, pcy = u.y + u.h / 2; ctx.translate(pcx, pcy); ctx.rotate(-0.012); ctx.scale(lerp(0.85, 1, pp), lerp(0.85, 1, pp)); ctx.globalAlpha = sat((t - a0) / 0.15);
+        var pw2 = u.w + 90, ph2 = u.h + 60;
+        ctx.fillStyle = 'rgba(0,0,0,.28)'; ctx.fillRect(-pw2 / 2 + 9, -ph2 / 2 + 11, pw2, ph2);
+        ctx.fillStyle = '#f1e8d0'; ctx.fillRect(-pw2 / 2, -ph2 / 2, pw2, ph2);
+        ctx.strokeStyle = INK; ctx.lineWidth = 4; ctx.strokeRect(-pw2 / 2, -ph2 / 2, pw2, ph2);
+        ctx.fillStyle = 'rgba(214,160,60,.85)'; ctx.save(); ctx.rotate(-0.06); ctx.fillRect(-60, -ph2 / 2 - 14, 120, 30); ctx.restore();
+        ctx.restore();
+      }
+    }
     var erasing = vis.filter(function (e) { return e.erase != null && t >= e.erase && e.eraseBy !== 'ink'; });
     var normal = vis.filter(function (e) { return erasing.indexOf(e) < 0; });
     var tip = null, tipT = -1;
@@ -709,7 +728,7 @@
       });
     }
     // residue haze from finished erases
-    E.erases.forEach(function (er) {
+    if (!ink) E.erases.forEach(function (er) {
       if (t < er.t1 || t > er.t1 + 3) return;
       g.save(); g.globalAlpha = 0.07 * (1 - (t - er.t1) / 3); g.strokeStyle = '#d8dccf'; g.lineWidth = er.w; g.lineCap = 'round'; g.lineJoin = 'round';
       pathOf(g, er.pts); g.stroke(); g.restore();
@@ -717,7 +736,7 @@
     drawSet(erasing, false);
     // erase masks
     var sponge = null;
-    E.erases.forEach(function (er) {
+    if (!ink) E.erases.forEach(function (er) {
       if (t < er.t0 || t >= er.t1) return;
       var p = ease((t - er.t0) / (er.t1 - er.t0)), pr = prefix(er.pts, p);
       g.save(); g.globalCompositeOperation = 'destination-out'; g.lineWidth = er.w; g.lineCap = 'round'; g.lineJoin = 'round';
@@ -730,11 +749,11 @@
     // chalk grain (boils at 8 fps)
     var bi = Math.floor(t * 8) % 4;
     g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'destination-out';
-    g.globalAlpha = 0.62; g.fillStyle = E.grainPat;
+    g.globalAlpha = ink ? 0.22 : 0.62; g.fillStyle = E.grainPat;
     g.translate((bi * 97) % 256, (bi * 61) % 256); g.fillRect(-256, -256, cc.width + 512, cc.height + 512);
     g.restore();
     drawSet(normal.concat(erasing), true);
-    var dof = E.dof || 0;
+    var dof = ink ? 0 : (E.dof || 0);
     if (dof > 0.01) {
       var sm = E.ccSmall, sg = E.ccSmallCtx;
       sg.clearRect(0, 0, sm.width, sm.height); sg.drawImage(cc, 0, 0, sm.width, sm.height);
@@ -760,7 +779,17 @@
       ctx.drawImage(E.sponge, -sw / 2 - 10, -sh / 2 - 10, sw + 20, sh + 20);
       ctx.restore();
     }
-    if (tip) drawChalkStick(ctx, tip, t);
+    if (tip) { if (ink) drawPencil(ctx, tip, t); else drawChalkStick(ctx, tip, t); }
+  }
+  function drawPencil(ctx, tip, t) {
+    ctx.save(); ctx.translate(tip[0], tip[1]); ctx.rotate(-0.95 + 0.05 * Math.sin(t * 21));
+    ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(14, 4, 110, 16);
+    ctx.fillStyle = '#e9c99a'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(22, -8); ctx.lineTo(22, 8); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#17130f'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(7, -2.6); ctx.lineTo(7, 2.6); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#e2b13b'; ctx.fillRect(22, -8, 76, 16); ctx.fillStyle = '#a97b23'; ctx.fillRect(22, 3, 76, 5);
+    ctx.fillStyle = '#a8a594'; ctx.fillRect(98, -8, 9, 16); ctx.fillStyle = '#d9877b'; ctx.fillRect(107, -8, 13, 16);
+    ctx.strokeStyle = INK; ctx.lineWidth = 2.4; ctx.strokeRect(22, -8, 98, 16);
+    ctx.restore();
   }
   function drawChalkStick(ctx, tip, t) {
     ctx.save(); ctx.translate(tip[0], tip[1]); ctx.rotate(-0.62 + 0.06 * Math.sin(t * 23));

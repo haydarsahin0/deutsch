@@ -11,7 +11,11 @@ const { execFileSync } = require('child_process');
 const Script = require('../engine/lib/script.js');
 
 const KNOWN = new Set(['scene', 'camera', 'melo', 'draw', 'next', 'strike', 'highlight', 'tick', 'erase', 'quiz',
-  'reveal', 'voice', 'pause', 'sfx']);
+  'reveal', 'voice', 'pause', 'sfx', 'shot', 'cast', 'say', 'prop', 'fx', 'pin']);
+const SHOT_TYPES = new Set(['scene', 'text', 'split', 'board', 'list', 'map', 'chapter', 'melo', 'quiz']);
+const MELO_MODES = /^(off|corner-left|corner-right|side-left|side-right|in-scene(:[\w-]+)?|walk-in(-left|-right)?|peek(-left|-right)?|medium)$/;
+const IN_DUR = { cut: 0, ink: 0.6, whip: 0.35, slide: 0.45, zoom: 0.45, flash: 0.12 };
+const FX = new Set(['shake', 'flash', 'zoom-punch', 'sweat', 'steam', 'hearts', 'question-marks', 'sparkle', 'record-scratch']);
 const DRAW_TYPES = new Set(['title', 'wrong', 'right', 'word', 'sentence', 'note', 'bubble', 'list', 'icon']);
 const LAYOUTS = new Set(['board', 'melo', 'split', 'title']);
 const SHOTS = new Set(['wide', 'melo', 'board', 'close']);
@@ -122,6 +126,7 @@ function compile(ep, opts = {}) {
     else throw new Error('no alignment found (build/alignment.json). Run tools/align.py first.');
   }
   const AL = JSON.parse(fs.readFileSync(alPath, 'utf8'));
+  const scriptPath = opts.script || arg('script') || path.join(ep, 'script.md');
   const words = (AL.words || []).map((w, i) => ({ i: w.i != null ? w.i : i, text: w.text, start: +w.start, end: +w.end }));
   let audio = AL.source && fs.existsSync(AL.source) ? AL.source : (AL.audio && fs.existsSync(path.join(ep, AL.audio)) ? path.join(ep, AL.audio) : findAudio(ep));
   if (AL.source && !fs.existsSync(AL.source) && fs.existsSync(path.join(ep, AL.source))) audio = path.join(ep, AL.source);
@@ -133,14 +138,28 @@ function compile(ep, opts = {}) {
 
   // script sections → chapters (cue order in script = cue order in alignment)
   let sections = [];
-  const scriptPath = path.join(ep, 'script.md');
   let scriptCues = [];
   if (fs.existsSync(scriptPath)) {
     const P = Script.parse(fs.readFileSync(scriptPath, 'utf8'));
     sections = P.sections; scriptCues = P.cues;
   }
 
-  const cues = (AL.cues || []).map((c, k) => ({ ...c, args: c.args || {}, k })).filter(c => isFinite(c.t));
+  let alCues = AL.cues || [];
+  // re-cue: the spoken words never change, so cue times can be recomputed from script.md word indices
+  // (the visual director can edit cues without re-running the aligner)
+  if (fs.existsSync(scriptPath) && opts.recue !== false && !process.argv.includes('--no-recue')) {
+    const P = Script.parse(fs.readFileSync(scriptPath, 'utf8'));
+    const same = P.words.length >= words.length && words.every((w, i) => Script.norm(w.text) === Script.norm(P.words[i].text));
+    if (same) {
+      const full = P.words.length === words.length;
+      alCues = P.cues.filter(c => c.word < words.length || (full && c.word === words.length)).map(c => {
+        const w = words[c.word];
+        const prevEnd = c.word > 0 ? words[c.word - 1].end : 0;
+        return { cue: c.cue, args: c.args, word: c.word, t: w ? w.start : words[words.length - 1].end, prev_end: prevEnd };
+      });
+    } else warn('script.md words differ from alignment words – using alignment cues (re-run tools/align.py)');
+  }
+  const cues = alCues.map((c, k) => ({ ...c, args: c.args || {}, k })).filter(c => isFinite(c.t));
   // stable sort by time (keep script order for equal times)
   cues.sort((a, b) => a.t - b.t || a.k - b.k);
   const dropped = cues.filter(c => c.t > duration).length;
@@ -153,15 +172,39 @@ function compile(ep, opts = {}) {
   const byId = new Map();
   let scene = null, autoId = 0, lastDrawStart = -1;
 
-  function newScene(c) {
-    const layout = LAYOUTS.has(c.args.layout) ? c.args.layout : (warn(`unknown layout "${c.args.layout}" → board`), 'board');
+  function newScene(c, spec) {
+    spec = spec || {};
+    const layout = spec.layout || (LAYOUTS.has(c.args.layout) ? c.args.layout : (warn(`unknown layout "${c.args.layout}" → board`), 'board'));
     const prev = scene;
     const t = c.t;
-    const sc = { i: scenes.length, layout, start: t, end: null, transition: 'cut', tStart: t, tEnd: t, contentStart: t };
+    const sc = { i: scenes.length, type: spec.type || (layout === 'title' ? 'title' : 'board'), layout, start: t, end: null, transition: 'cut', tStart: t, tEnd: t, contentStart: t,
+      melo: spec.melo || (layout === 'title' ? 'title' : 'legacy-' + layout), args: spec.args || c.args, word: c.word,
+      cast: [], castCues: [], says: [], props: [], fx: [], pins: [] };
+    if (spec.type) {
+      // v2 shot: explicit transition (default cut); board → board with chalk on it still gets the eraser
+      sc.isShot = true;
+      let tin = String(c.args.in || 'cut');
+      if (!(tin in IN_DUR)) { warn(`shot: unknown transition in=${tin} → cut`); tin = 'cut'; }
+      const prevAlive = prev ? elements.filter(e => e.scene === prev.i && (e.erase == null || e.erase > t)) : [];
+      if (prev && prev.type === 'board' && sc.type === 'board' && prevAlive.length && !c.args.in) tin = 'erase';
+      sc.transition = tin;
+      if (prev) {
+        prev.end = t;
+        if (tin === 'erase') { sc.tStart = Math.max(prev.start + 0.3, t - ERASE_LEAD); sc.tEnd = sc.tStart + ERASE_DUR; sc.contentStart = sc.tEnd - 0.1; }
+        else { sc.tStart = t; sc.tEnd = t + IN_DUR[tin]; sc.contentStart = t + IN_DUR[tin] * 0.6; }
+        for (const e of prevAlive) {
+          if (tin === 'erase') { if (e.erase == null || e.erase > sc.tStart) { e.erase = sc.tStart; e.eraseBy = 'scene'; } }
+          else if (e.erase == null || e.erase > sc.tEnd) { e.erase = sc.tEnd; e.eraseBy = 'ink'; }
+        }
+      }
+      sc.start = sc.tStart;
+      scenes.push(sc); scene = sc; lastDrawStart = -1;
+      return sc;
+    }
     if (prev) {
       prev.end = t;
       const prevAlive = elements.filter(e => e.scene === prev.i && (e.erase == null || e.erase > t - ERASE_LEAD));
-      if (prev.layout === 'title' || layout === 'title') {
+      if (prev.layout === 'title' || layout === 'title' || prev.isShot) {
         sc.transition = 'ink'; sc.tStart = Math.max(prev.start + 0.2, t - INK_DUR * 0.5); sc.tEnd = sc.tStart + INK_DUR;
         sc.contentStart = sc.tStart + INK_DUR * 0.6;
       } else if (prevAlive.length) {
@@ -190,6 +233,28 @@ function compile(ep, opts = {}) {
     return el;
   }
 
+  const quotes = [];
+  // time each token of an on-screen text to where it is spoken (within the next ~60 words), else stagger
+  function timeTokens(text, c, minT) {
+    const toks = String(text).split(/\s+/).filter(Boolean);
+    const out = [];
+    let wi = Math.max(0, (c.word || 0) - 2), prevT = minT;
+    for (const tok of toks) {
+      const n = Script.norm(tok);
+      let found = null;
+      if (n) for (let j = wi; j < Math.min(words.length, wi + 60); j++) if (Script.norm(words[j].text) === n) { found = j; break; }
+      if (found != null && words[found].start + 0.05 >= minT - 1.5) {
+        const t = Math.max(words[found].start - 0.05, prevT);
+        out.push({ text: tok, t: r3(t), end: r3(words[found].end), w: found, matched: true });
+        wi = found + 1; prevT = t;
+      } else {
+        const t = prevT + (out.length ? 0.18 : 0);
+        out.push({ text: tok, t: r3(t), end: r3(t + 0.3), w: null, matched: false });
+        prevT = t;
+      }
+    }
+    return out;
+  }
   const listMatch = (el, c) => { // stagger=auto: time each list item to where its words are spoken
     const items = el.items;
     let wi = Math.max(0, c.word || 0);
@@ -213,6 +278,60 @@ function compile(ep, opts = {}) {
     const a = c.args;
     switch (c.cue) {
       case 'scene': newScene(c); break;
+      case 'shot': {
+        let type = a.type;
+        if (!SHOT_TYPES.has(type)) { warn(`unknown shot type "${type}" → scene`); type = 'scene'; }
+        let mm = a.melo || (type === 'melo' ? 'medium' : type === 'board' ? 'side-left' : type === 'chapter' ? 'off' : 'off');
+        if (!MELO_MODES.test(mm)) { warn(`shot: unknown melo mode "${mm}" → off`); mm = 'off'; }
+        const sc = newScene(c, { type, layout: type === 'board' || type === 'quiz' ? 'board' : type, melo: mm, args: a });
+        if (type === 'scene' || type === 'melo') {
+          sc.set = a.set || (type === 'melo' ? null : 'paper');
+          sc.cast = String(a.cast || '').split(',').map(x => x.trim()).filter(Boolean).map(x => {
+            const [id, slot, expr, pose] = x.split(':').map(y => y && y.trim());
+            return { id, slot: slot || 'center', expr: expr || 'neutral', pose: pose || 'idle' };
+          });
+        }
+        if (type === 'text') sc.tokens = timeTokens(String(a.text || ''), c, sc.contentStart);
+        if (type === 'split') {
+          sc.leftT = r3(sc.contentStart + 0.1);
+          const rt = timeTokens(String(a.right || ''), c, sc.contentStart + 0.8);
+          sc.rightT = r3(Math.max(sc.leftT + 0.8, rt.length && rt[0].matched ? rt[0].t - 0.1 : sc.leftT + 2.2));
+        }
+        if (type === 'chapter') { sc.num = a.num != null ? a.num : null; sc.title = a.title || ''; }
+        break;
+      }
+      case 'cast': {
+        if (!scene) break;
+        scene.castCues.push({ t: r3(c.t), id: a.id, expr: a.expr || null, pose: a.pose || null, talk: a.talk || null, flip: a.flip || null });
+        if (!scene.cast.some(m => m.id === a.id)) warn(`cast: "${a.id}" is not in the current shot's cast`);
+        break;
+      }
+      case 'say': {
+        if (!scene) break;
+        const toks = timeTokens(String(a.text || ''), c, c.t);
+        const m = toks.filter(x => x.matched);
+        const q = { t: r3(c.t), who: a.who || 'melo', text: String(a.text || ''), id: a.id || null,
+          start: m.length ? m[0].t : r3(c.t), end: m.length ? m[m.length - 1].end : r3(c.t + 0.3 * toks.length),
+          w0: m.length ? m[0].w : null, w1: m.length ? m[m.length - 1].w : null };
+        scene.says.push(q); quotes.push(q);
+        break;
+      }
+      case 'prop': {
+        if (!scene) break;
+        scene.props.push({ t: r3(c.t), id: a.id || 'prop' + (++autoId), name: a.name || 'question', at: a.at || 'center', anim: a.anim || 'pop', scale: parseFloat(a.scale) || 1 });
+        break;
+      }
+      case 'fx': {
+        if (!scene) break;
+        if (!FX.has(a.name)) warn(`fx: unknown effect "${a.name}"`);
+        scene.fx.push({ t: r3(c.t), name: a.name, who: a.who || null, dur: parseFloat(a.dur) || null });
+        break;
+      }
+      case 'pin': {
+        if (!scene) break;
+        scene.pins.push({ t: r3(c.t), id: a.id || 'pin' + (++autoId), at: a.at || '', text: a.text || a.at || '' });
+        break;
+      }
       case 'camera': {
         const shot = SHOTS.has(a.shot) ? a.shot : (a.focus ? 'close' : (warn(`unknown camera shot "${a.shot}" → wide`), 'wide'));
         camera.push({ t: r3(c.t), shot, focus: a.focus || null });
@@ -325,11 +444,12 @@ function compile(ep, opts = {}) {
 
   // camera: scene default shot when the scene has no camera cue at its start
   for (const sc of scenes) {
+    if (sc.isShot && sc.type !== 'board' && sc.type !== 'quiz') continue;
     const has = camera.some(k => Math.abs(k.t - (sc.i === 0 ? 0 : sc.tStart)) < 0.05 || (k.t >= sc.tStart - 0.05 && k.t <= sc.tStart + 0.6));
-    if (!has) camera.push({ t: r3(sc.tStart), shot: DEFAULT_SHOT[sc.layout], focus: null, auto: 'scene' });
+    if (!has) camera.push({ t: r3(sc.tStart), shot: sc.type === 'quiz' ? 'close' : (DEFAULT_SHOT[sc.layout] || 'board'), focus: null, auto: 'scene' });
   }
   camera.sort((a, b) => a.t - b.t);
-  if (!camera.length || camera[0].t > 0) camera.unshift({ t: 0, shot: DEFAULT_SHOT[scenes[0].layout], focus: null, auto: 'start' });
+  if (!camera.length || camera[0].t > 0) camera.unshift({ t: 0, shot: DEFAULT_SHOT[scenes[0].layout] || 'board', focus: null, auto: 'start' });
   // never static for long: insert a reframe at a sentence start after ~8 s of the same shot
   const sentStarts = (AL.sentences || []).map(s => s.start).filter(isFinite);
   const VAR = { board: ['wide', 'close'], wide: ['board', 'melo'], melo: ['wide', 'board'], close: ['board'] };
@@ -341,7 +461,7 @@ function compile(ep, opts = {}) {
       const cand = sentStarts.find(s => s > t + 7.5 && s < nextT - 3);
       if (cand == null) break;
       const sc = [...scenes].reverse().find(s => s.start <= cand) || scenes[0];
-      if (sc.layout === 'title') break;
+      if (sc.layout === 'title' || (sc.isShot && sc.type !== 'board')) break;
       const opts2 = VAR[k.shot] || ['wide'];
       let shot = opts2[(n + i) % opts2.length];
       const vis = elements.filter(e => e.scene === sc.i && e.appear <= cand && (e.erase == null || e.erase > cand + 2));
@@ -391,11 +511,17 @@ function compile(ep, opts = {}) {
   if (fs.existsSync(envPath)) envelope = JSON.parse(fs.readFileSync(envPath, 'utf8'));
   else warn('no envelope.json – rig gets no lip-sync loudness');
 
+  // Melo keeps his mouth shut while another character "speaks" a quote: the rig gets those words removed
+  const silent = new Set();
+  for (const q of quotes) if (q.who !== 'melo' && q.w0 != null) for (let w = q.w0; w <= q.w1; w++) silent.add(w);
+  const rigWords = words.filter(w => !silent.has(w.i));
+  const listJs = d => { try { return fs.readdirSync(path.join(__dirname, '..', d)).filter(f => /\.js$/.test(f)).sort(); } catch (e) { return []; } };
+  const assets = { sets: listJs('engine/sets').filter(f => f !== 'sets.js'), cast: listJs('engine/cast') };
   const TL = {
     version: 1, episode: path.basename(path.resolve(ep)), fps: 30, width: 1920, height: 1080,
     duration: r3(duration), partial: !!(AL.duration && duration < AL.duration - 0.5) || dropped > 0,
     audio: audio ? path.relative(ep, audio) : null, alignment: path.relative(ep, alPath), dev: !!AL.dev,
-    scenes, elements, camera, chapters, melo,
+    scenes, elements, camera, chapters, melo, quotes, rigWords, assets,
     cues: live.map(c => ({ cue: c.cue, args: c.args, word: c.word, t: c.t })),
     words: words.filter(w => w.start <= duration),
     sentences: (AL.sentences || []).filter(s => s.start <= duration),
