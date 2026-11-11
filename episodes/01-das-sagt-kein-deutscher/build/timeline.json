@@ -1003,7 +1003,7 @@
    "type": "text",
    "layout": "text",
    "start": 53.4,
-   "end": 55.95,
+   "end": 56.4,
    "transition": "cut",
    "tStart": 53.4,
    "tEnd": 53.4,
@@ -1059,12 +1059,12 @@
    "i": 18,
    "type": "text",
    "layout": "text",
-   "start": 55.95,
-   "end": 57.95,
+   "start": 56.4,
+   "end": 58.4,
    "transition": "cut",
-   "tStart": 55.95,
-   "tEnd": 55.95,
-   "contentStart": 55.95,
+   "tStart": 56.4,
+   "tEnd": 56.4,
+   "contentStart": 56.4,
    "melo": "off",
    "args": {
     "type": "text",
@@ -1079,7 +1079,7 @@
    "props": [],
    "fx": [
     {
-     "t": 55.95,
+     "t": 56.4,
      "name": "question-marks",
      "who": null,
      "dur": null
@@ -1091,7 +1091,7 @@
    "tokens": [
     {
      "text": "Und",
-     "t": 56.07,
+     "t": 56.52,
      "end": 54.31,
      "w": null,
      "matched": false,
@@ -1099,7 +1099,7 @@
     },
     {
      "text": "die",
-     "t": 56.31,
+     "t": 56.76,
      "end": 54.96,
      "w": 139,
      "matched": true,
@@ -1107,7 +1107,7 @@
     },
     {
      "text": "Bedeutung?",
-     "t": 56.55,
+     "t": 57,
      "end": 55.51,
      "w": 140,
      "matched": true,
@@ -1115,18 +1115,18 @@
     }
    ],
    "lineCount": 1,
-   "delayed": 1.94
+   "delayed": 2.39
   },
   {
    "i": 19,
    "type": "scene",
    "layout": "scene",
-   "start": 57.95,
-   "end": 59.95,
+   "start": 58.4,
+   "end": 60.4,
    "transition": "cut",
-   "tStart": 57.95,
-   "tEnd": 57.95,
-   "contentStart": 57.95,
+   "tStart": 58.4,
+   "tEnd": 58.4,
+   "contentStart": 58.4,
    "melo": "in-scene:center",
    "args": {
     "type": "scene",
@@ -1147,7 +1147,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 57.95,
+     "t": 58.4,
      "who": "melo",
      "text": "Ich bin heiß.",
      "id": null,
@@ -1160,7 +1160,7 @@
    ],
    "props": [
     {
-     "t": 57.95,
+     "t": 58.4,
      "id": "shades",
      "name": "sunglasses",
      "at": "center",
@@ -1170,7 +1170,7 @@
    ],
    "fx": [
     {
-     "t": 57.95,
+     "t": 58.4,
      "name": "hearts",
      "who": null,
      "dur": null
@@ -1180,18 +1180,18 @@
    "isShot": true,
    "cams": [],
    "set": "street-day",
-   "delayed": 1.995
+   "delayed": 2.445
   },
   {
    "i": 20,
    "type": "scene",
    "layout": "scene",
-   "start": 59.95,
+   "start": 60.4,
    "end": 64.35,
    "transition": "cut",
-   "tStart": 59.95,
-   "tEnd": 59.95,
-   "contentStart": 59.95,
+   "tStart": 60.4,
+   "tEnd": 60.4,
+   "contentStart": 60.4,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -1222,7 +1222,7 @@
    "says": [],
    "props": [
     {
-     "t": 59.95,
+     "t": 60.4,
      "id": "ball",
      "name": "football",
      "at": "center",
@@ -1254,7 +1254,7 @@
     }
    ],
    "set": "football-park",
-   "delayed": 1.055
+   "delayed": 1.505
   },
   {
    "i": 21,
@@ -1368,7 +1368,7 @@
    "type": "text",
    "layout": "text",
    "start": 76.66,
-   "end": 79.475,
+   "end": 79.57,
    "transition": "whip",
    "tStart": 76.66,
    "tEnd": 77.00999999999999,
@@ -1423,12 +1423,12 @@
    "i": 25,
    "type": "scene",
    "layout": "scene",
-   "start": 79.475,
+   "start": 79.57,
    "end": 82.925,
    "transition": "cut",
-   "tStart": 79.475,
-   "tEnd": 79.475,
-   "contentStart": 79.475,
+   "tStart": 79.57,
+   "tEnd": 79.57,
+   "contentStart": 79.57,
    "melo": "corner-left",
    "args": {
     "type": "scene",
@@ -1454,7 +1454,7 @@
    ],
    "castCues": [
     {
-     "t": 79.475,
+     "t": 79.57,
      "id": "kumpel",
      "expr": null,
      "pose": "talk",
@@ -1497,7 +1497,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "living-room"
+   "set": "living-room",
+   "delayed": 0.095
   },
   {
    "i": 26,
@@ -2309,7 +2310,7 @@
    "type": "text",
    "layout": "text",
    "start": 136.455,
-   "end": 138.805,
+   "end": 139.605,
    "transition": "whip",
    "tStart": 136.455,
    "tEnd": 136.805,
@@ -2373,12 +2374,12 @@
    "i": 41,
    "type": "scene",
    "layout": "scene",
-   "start": 138.805,
+   "start": 139.605,
    "end": 142.865,
    "transition": "cut",
-   "tStart": 138.805,
-   "tEnd": 138.805,
-   "contentStart": 138.805,
+   "tStart": 139.605,
+   "tEnd": 139.605,
+   "contentStart": 139.605,
    "melo": "in-scene:center",
    "args": {
     "type": "scene",
@@ -2405,7 +2406,7 @@
    "isShot": true,
    "cams": [],
    "set": "living-room",
-   "delayed": 0.315
+   "delayed": 1.115
   },
   {
    "i": 42,
@@ -2483,7 +2484,7 @@
    "type": "text",
    "layout": "text",
    "start": 150.38,
-   "end": 152.93,
+   "end": 153.56,
    "transition": "cut",
    "tStart": 150.38,
    "tEnd": 150.38,
@@ -2562,12 +2563,12 @@
    "i": 45,
    "type": "text",
    "layout": "text",
-   "start": 152.93,
-   "end": 155.4,
+   "start": 153.56,
+   "end": 155.76,
    "transition": "cut",
-   "tStart": 152.93,
-   "tEnd": 152.93,
-   "contentStart": 152.93,
+   "tStart": 153.56,
+   "tEnd": 153.56,
+   "contentStart": 153.56,
    "melo": "side-right",
    "args": {
     "type": "text",
@@ -2594,7 +2595,7 @@
    "tokens": [
     {
      "text": "Wie",
-     "t": 153.05,
+     "t": 153.68,
      "end": 154.09,
      "w": 380,
      "matched": true,
@@ -2602,7 +2603,7 @@
     },
     {
      "text": "alt",
-     "t": 153.29,
+     "t": 153.92,
      "end": 154.35,
      "w": 381,
      "matched": true,
@@ -2610,7 +2611,7 @@
     },
     {
      "text": "bist",
-     "t": 153.53,
+     "t": 154.16,
      "end": 154.55,
      "w": 382,
      "matched": true,
@@ -2618,7 +2619,7 @@
     },
     {
      "text": "du?",
-     "t": 153.77,
+     "t": 154.4,
      "end": 154.795,
      "w": 383,
      "matched": true,
@@ -2626,18 +2627,18 @@
     }
    ],
    "lineCount": 1,
-   "delayed": 0.615
+   "delayed": 1.245
   },
   {
    "i": 46,
    "type": "scene",
    "layout": "scene",
-   "start": 155.4,
+   "start": 155.76,
    "end": 162.025,
    "transition": "cut",
-   "tStart": 155.4,
-   "tEnd": 155.4,
-   "contentStart": 155.4,
+   "tStart": 155.76,
+   "tEnd": 155.76,
+   "contentStart": 155.76,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -2715,7 +2716,8 @@
      "focus": "oma"
     }
    ],
-   "set": "living-room"
+   "set": "living-room",
+   "delayed": 0.36
   },
   {
    "i": 47,
@@ -4788,7 +4790,7 @@
    "type": "text",
    "layout": "text",
    "start": 321.105,
-   "end": 323.725,
+   "end": 323.805,
    "transition": "cut",
    "tStart": 321.105,
    "tEnd": 321.105,
@@ -4844,12 +4846,12 @@
    "i": 92,
    "type": "scene",
    "layout": "scene",
-   "start": 323.725,
+   "start": 323.805,
    "end": 326.42,
    "transition": "cut",
-   "tStart": 323.725,
-   "tEnd": 323.725,
-   "contentStart": 323.725,
+   "tStart": 323.805,
+   "tEnd": 323.805,
+   "contentStart": 323.805,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -4870,7 +4872,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 323.725,
+     "t": 323.805,
      "who": "kellner",
      "text": "Kann ich ein Bier bekommen?",
      "id": null,
@@ -4878,7 +4880,7 @@
      "end": 324.965,
      "w0": 816,
      "w1": 820,
-     "maxDur": 1.815
+     "maxDur": 1.735
     }
    ],
    "props": [
@@ -4902,14 +4904,15 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "biergarten"
+   "set": "biergarten",
+   "delayed": 0.08
   },
   {
    "i": 93,
    "type": "text",
    "layout": "text",
    "start": 326.42,
-   "end": 328.77,
+   "end": 329.57,
    "transition": "whip",
    "tStart": 326.42,
    "tEnd": 326.77000000000004,
@@ -4972,12 +4975,12 @@
    "i": 94,
    "type": "scene",
    "layout": "scene",
-   "start": 328.77,
+   "start": 329.57,
    "end": 331.975,
    "transition": "cut",
-   "tStart": 328.77,
-   "tEnd": 328.77,
-   "contentStart": 328.77,
+   "tStart": 329.57,
+   "tEnd": 329.57,
+   "contentStart": 329.57,
    "melo": "in-scene:left",
    "args": {
     "type": "scene",
@@ -5019,14 +5022,14 @@
    "isShot": true,
    "cams": [],
    "set": "doorstep",
-   "delayed": 0.2
+   "delayed": 1
   },
   {
    "i": 95,
    "type": "text",
    "layout": "text",
    "start": 331.975,
-   "end": 334.42,
+   "end": 334.915,
    "transition": "cut",
    "tStart": 331.975,
    "tEnd": 331.975,
@@ -5097,12 +5100,12 @@
    "i": 96,
    "type": "scene",
    "layout": "scene",
-   "start": 334.42,
+   "start": 334.915,
    "end": 338.025,
    "transition": "whip",
-   "tStart": 334.42,
-   "tEnd": 334.77000000000004,
-   "contentStart": 334.63,
+   "tStart": 334.915,
+   "tEnd": 335.265,
+   "contentStart": 335.125,
    "melo": "in-scene:podium-left",
    "args": {
     "type": "scene",
@@ -5135,7 +5138,8 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "quiz-show"
+   "set": "quiz-show",
+   "delayed": 0.495
   },
   {
    "i": 97,
@@ -5174,7 +5178,7 @@
    "type": "text",
    "layout": "text",
    "start": 352.6,
-   "end": 355.5,
+   "end": 356.004,
    "transition": "cut",
    "tStart": 352.6,
    "tEnd": 352.6,
@@ -5252,12 +5256,12 @@
    "i": 99,
    "type": "scene",
    "layout": "scene",
-   "start": 355.5,
-   "end": 357.5,
+   "start": 356.004,
+   "end": 358.004,
    "transition": "cut",
-   "tStart": 355.5,
-   "tEnd": 355.5,
-   "contentStart": 355.5,
+   "tStart": 356.004,
+   "tEnd": 356.004,
+   "contentStart": 356.004,
    "melo": "in-scene:right",
    "args": {
     "type": "scene",
@@ -5283,18 +5287,18 @@
    "isShot": true,
    "cams": [],
    "set": "office-plain",
-   "delayed": 0.835
+   "delayed": 1.339
   },
   {
    "i": 100,
    "type": "text",
    "layout": "text",
-   "start": 357.5,
+   "start": 358.004,
    "end": 361.485,
    "transition": "cut",
-   "tStart": 357.5,
-   "tEnd": 357.5,
-   "contentStart": 357.5,
+   "tStart": 358.004,
+   "tEnd": 358.004,
+   "contentStart": 358.004,
    "melo": "off",
    "args": {
     "type": "text",
@@ -5323,7 +5327,7 @@
    "tokens": [
     {
      "text": "„Eine",
-     "t": 357.62,
+     "t": 358.124,
      "end": 357.274,
      "w": 880,
      "matched": true,
@@ -5331,7 +5335,7 @@
     },
     {
      "text": "Frage",
-     "t": 357.86,
+     "t": 358.364,
      "end": 357.654,
      "w": 881,
      "matched": true,
@@ -5339,7 +5343,7 @@
     },
     {
      "text": "für",
-     "t": 358.1,
+     "t": 358.604,
      "end": 357.954,
      "w": 882,
      "matched": true,
@@ -5347,7 +5351,7 @@
     },
     {
      "text": "dich“",
-     "t": 358.34,
+     "t": 358.844,
      "end": 358.274,
      "w": 883,
      "matched": true,
@@ -5355,7 +5359,7 @@
     },
     {
      "text": "immer",
-     "t": 358.58,
+     "t": 359.084,
      "end": 359.214,
      "w": 887,
      "matched": true,
@@ -5363,7 +5367,7 @@
     },
     {
      "text": "öfter",
-     "t": 358.82,
+     "t": 359.324,
      "end": 359.715,
      "w": 888,
      "matched": true,
@@ -5371,7 +5375,7 @@
     },
     {
      "text": "…",
-     "t": 359.06,
+     "t": 359.564,
      "end": 359.644,
      "w": null,
      "matched": false,
@@ -5379,7 +5383,7 @@
     }
    ],
    "lineCount": 2,
-   "delayed": 0.385
+   "delayed": 0.889
   },
   {
    "i": 101,
@@ -5780,7 +5784,7 @@
    "type": "text",
    "layout": "text",
    "start": 386.13,
-   "end": 388.33,
+   "end": 388.74,
    "transition": "whip",
    "tStart": 386.13,
    "tEnd": 386.48,
@@ -5820,12 +5824,12 @@
    "i": 110,
    "type": "scene",
    "layout": "scene",
-   "start": 388.33,
-   "end": 390.575,
+   "start": 388.74,
+   "end": 390.74,
    "transition": "cut",
-   "tStart": 388.33,
-   "tEnd": 388.33,
-   "contentStart": 388.33,
+   "tStart": 388.74,
+   "tEnd": 388.74,
+   "contentStart": 388.74,
    "melo": "off",
    "args": {
     "type": "scene",
@@ -5867,18 +5871,18 @@
    "isShot": true,
    "cams": [],
    "set": "kneipe",
-   "delayed": 0.245
+   "delayed": 0.655
   },
   {
    "i": 111,
    "type": "list",
    "layout": "list",
-   "start": 390.575,
-   "end": 394.525,
+   "start": 390.74,
+   "end": 394.69,
    "transition": "cut",
-   "tStart": 390.575,
-   "tEnd": 390.575,
-   "contentStart": 390.575,
+   "tStart": 390.74,
+   "tEnd": 390.74,
+   "contentStart": 390.74,
    "melo": "side-right",
    "args": {
     "type": "list",
@@ -5894,18 +5898,19 @@
    "fx": [],
    "pins": [],
    "isShot": true,
-   "cams": []
+   "cams": [],
+   "delayed": 0.165
   },
   {
    "i": 112,
    "type": "map",
    "layout": "map",
-   "start": 394.525,
+   "start": 394.69,
    "end": 396.945,
    "transition": "cut",
-   "tStart": 394.525,
-   "tEnd": 394.525,
-   "contentStart": 394.525,
+   "tStart": 394.69,
+   "tEnd": 394.69,
+   "contentStart": 394.69,
    "melo": "off",
    "args": {
     "type": "map",
@@ -5920,7 +5925,7 @@
    "fx": [],
    "pins": [
     {
-     "t": 394.525,
+     "t": 394.69,
      "id": "p8a",
      "at": "bayern",
      "text": "Passt."
@@ -5934,7 +5939,7 @@
    ],
    "isShot": true,
    "cams": [],
-   "delayed": 0.485
+   "delayed": 0.65
   },
   {
    "i": 113,
@@ -10510,16 +10515,16 @@
     "id": "n9a",
     "text": "an → Person"
    },
-   "appear": 355.83,
+   "appear": 356.004,
    "cueT": 355.83,
-   "erase": 357.5,
+   "erase": 358.004,
    "strike": null,
    "tick": null,
    "highlight": null,
    "text": "an → Person",
    "writeDur": 0.8,
    "eraseBy": "ink",
-   "eraseEnd": 357.5
+   "eraseEnd": 358.004
   },
   {
    "id": "n9w",
@@ -10552,9 +10557,9 @@
     "id": "l8",
     "items": "Gut, und dir?|Passt.|Läuft.|Geht so."
    },
-   "appear": 390.575,
+   "appear": 390.74,
    "cueT": 390.575,
-   "erase": 394.525,
+   "erase": 394.69,
    "strike": null,
    "tick": null,
    "highlight": null,
@@ -10566,7 +10571,7 @@
     },
     {
      "text": "Passt.",
-     "t": 393.375,
+     "t": 393.54,
      "dur": 0.35
     },
     {
@@ -10585,7 +10590,7 @@
    "text": "",
    "writeDur": 0,
    "eraseBy": "ink",
-   "eraseEnd": 394.525
+   "eraseEnd": 394.69
   },
   {
    "id": "n8m",
@@ -12548,7 +12553,7 @@
    "maxDur": 1.12
   },
   {
-   "t": 57.95,
+   "t": 58.4,
    "who": "melo",
    "text": "Ich bin heiß.",
    "id": null,
@@ -12757,7 +12762,7 @@
    "maxDur": 1.1
   },
   {
-   "t": 323.725,
+   "t": 323.805,
    "who": "kellner",
    "text": "Kann ich ein Bier bekommen?",
    "id": null,
@@ -12765,7 +12770,7 @@
    "end": 324.965,
    "w0": 816,
    "w1": 820,
-   "maxDur": 1.815
+   "maxDur": 1.735
   },
   {
    "t": 362.96,
@@ -22744,7 +22749,7 @@
   ]
  },
  "readability": {
-  "extended": 33,
+  "extended": 36,
   "merged": 0,
   "shots": 190,
   "min": 1.535,

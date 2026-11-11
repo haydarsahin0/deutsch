@@ -302,7 +302,7 @@ function compile(ep, opts = {}) {
     if (sc.type === 'chapter') return c0 + 0.5 + 1.6;
     if (sc.type === 'text' && sc.tokens && sc.tokens.length) {
       const last = Math.min(...[sc.tokens[sc.tokens.length - 1].t, c0 + 0.12 + 0.24 * (sc.tokens.length - 1)]);
-      return last + 0.3 + 1.0 + (sc.args.sub ? 0.3 : 0);
+      return last + 0.3 + 1.0 + (sc.args.sub ? 0.3 : 0) + (sc.args.style === 'wrong' || sc.args.style === 'right' ? 0.8 : 0);
     }
     if (sc.type === 'split') return Math.min(sc.rightT || c0 + 2, c0 + 1.2) + 0.4 + 1.2;
     return c0;
@@ -538,8 +538,8 @@ function compile(ep, opts = {}) {
     // never an empty frame: words pop in at least on a brisk cadence from the shot start, earlier if spoken earlier
     sc.tokens.forEach((k, i) => { k.t = r3(Math.min(k.t, sc.contentStart + 0.12 + i * 0.24)); });
     const last = sc.tokens[sc.tokens.length - 1].t;
-    if (sc.args.style === 'wrong' && sc.args.strike !== 'manual') sc.strikeT = r3(Math.min(last + 0.7, end - 0.3));
-    if (sc.args.style === 'right') sc.tickT = r3(Math.min(last + 0.5, end - 0.3));
+    if (sc.args.style === 'wrong' && sc.args.strike !== 'manual') sc.strikeT = r3(Math.max(last + 0.3, Math.min(last + 0.7, end - 1.0)));
+    if (sc.args.style === 'right') sc.tickT = r3(Math.max(last + 0.3, Math.min(last + 0.5, end - 1.0)));
   }
   scenes[0].start = 0; scenes[0].tStart = 0; scenes[0].tEnd = 0; scenes[0].transition = 'cut';
 
