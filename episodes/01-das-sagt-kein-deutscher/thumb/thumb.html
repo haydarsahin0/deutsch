@@ -16,6 +16,7 @@
 </style>
 <script src="../../../brand/concepts/b/melo-b.js"></script>
 <script src="../../../brand/channel/scene-ink.js"></script>
+<script src="../../../engine/cast/cast.js"></script>
 </head>
 <body>
 <svg id="stage" width="1280" height="720" viewBox="0 0 1280 720"></svg>
@@ -245,11 +246,79 @@
     s += badge(574, 18, 'B1–C1', YEL, INK, 34, 0);
   }
 
+  if (V === 'e') {
+    // C3: split wrong/right + waving German flag + rim-lit Melo + ink stamps
+    s += '<rect width="1280" height="720" fill="#0b1810"/>';
+    var SEAM = 'M0 0H710L570 720H0Z';
+    s += '<path d="' + SEAM + '" fill="#560e0b"/>';
+    s += bg([{ x: 240, y: 300, r: 560, c: '#e5302a', o: 0.6 }], 'none').replace('<rect width="1280" height="720" fill="none"/>', '');
+    defs += '<radialGradient id="glg" cx="1040" cy="300" r="560" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34c25a" stop-opacity=".55"/><stop offset=".45" stop-color="#34c25a" stop-opacity=".25"/><stop offset="1" stop-color="#34c25a" stop-opacity="0"/></radialGradient>';
+    defs += '<clipPath id="rightHalf"><path d="M710 0H1280V720H570Z"/></clipPath>';
+    s += '<rect width="1280" height="720" fill="url(#glg)" clip-path="url(#rightHalf)"/>';
+    // waving flag (Schwarz-Rot-Gold), big & diagonal, blended into both halves
+    var FW = 1700, FH = 1000, lam = 620, A = 34, cols = ['#000000', '#DD0000', '#FFCE00'];
+    function yb(k, x) { return k * FH / 3 + A * Math.sin(2 * Math.PI * x / lam + 0.6) + 10 * Math.sin(2 * Math.PI * x / 230 + k); }
+    var fl = '';
+    for (var k = 0; k < 3; k++) {
+      var top = [], bot = [];
+      for (var x = 0; x <= FW; x += 20) { top.push([x, yb(k, x)]); bot.push([x, yb(k + 1, x)]); }
+      fl += '<path d="' + U.polyD(top.concat(bot.reverse()), true) + '" fill="' + cols[k] + '"/>';
+    }
+    // fold shading: light/dark stripes following the wave
+    var st = '';
+    for (var i = 0; i <= 40; i++) { var xx = i / 40, v = Math.cos(2 * Math.PI * xx * FW / lam + 0.6); st += '<stop offset="' + xx.toFixed(3) + '" stop-color="' + (v > 0 ? '#fff' : '#000') + '" stop-opacity="' + (Math.abs(v) * 0.42).toFixed(2) + '"/>'; }
+    defs += '<linearGradient id="fold" x1="0" y1="0" x2="' + FW + '" y2="0" gradientUnits="userSpaceOnUse">' + st + '</linearGradient>';
+    var outline = [];
+    for (var x = 0; x <= FW; x += 20) outline.push([x, yb(0, x)]);
+    for (var x = FW; x >= 0; x -= 20) outline.push([x, yb(3, x)]);
+    defs += '<clipPath id="flagc"><path d="' + U.polyD(outline, true) + '"/></clipPath>';
+    fl += '<rect x="0" y="-80" width="' + FW + '" height="' + (FH + 160) + '" fill="url(#fold)" clip-path="url(#flagc)"/>';
+    fl += '<g clip-path="url(#flagc)">' + S.hatch(S.rect(0, -60, FW, FH + 120, 200, 0), { ang: 60, gap: 14, w: 1.6, op: 0.35 }) + '</g>';
+    s += '<g transform="translate(-180 -190) rotate(-13 850 500)" opacity=".3" style="mix-blend-mode:hard-light">' + fl + '</g>';
+    s += S.line([[712, -10], [640, 360], [568, 730]], { w: 13, ta: 0, tb: 0, min: 1 }, '#000');
+    s += rays(640, 392, 24, '#000', 0.10);
+    // warm glow behind the head
+    defs += '<radialGradient id="halo" cx="640" cy="392" r="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".75"/><stop offset=".5" stop-color="#ffb347" stop-opacity=".3"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>';
+    s += '<rect width="1280" height="720" fill="url(#halo)"/>';
+    // Melo: bigger, smug side-eye at the ✓, pointing arm reaching across the split
+    var pt = JSON.parse(JSON.stringify(MeloB._POSES.point));
+    pt.b = { sh: [13, -272], el: [70, -292], wr: [128, -334], hand: { g: 'point', ang: -24, flip: 0 } };
+    var mm = MeloB.svg({ seed: 11, view: 'full', poseParams: pt, expression: 'smirk', look: [0.35, 0.05], headTilt: -4 });
+    var hh = 400, u = 196 / hh, hx = 640, hy = 392;
+    var vb = [-hx * u, -388 - hy * u, 1280 * u, 720 * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    mm = mm.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="1280" height="720" preserveAspectRatio="none"');
+    s += '<g filter="url(#glowSh)">' + mm + '</g><g filter="url(#rim)">' + mm + '</g><g filter="url(#sil)">' + mm + '</g>' + mm;
+    // shocked Kollegin peeking up from the bottom edge on the ✗ side
+    var kf = Cast.render('kollegin', { expr: 'shocked', pose: 'idle', t: 0, seed: 3, scale: 0.95, flip: false });
+    var hc = kf.anchors.headCenter;
+    var kg = '<g transform="translate(' + (372 - hc[0]) + ' ' + (640 - hc[1]) + ') rotate(8 ' + hc[0] + ' ' + hc[1] + ')">' + kf.svg + '</g>';
+    s += '<g filter="url(#sil)">' + kg + '</g>' + kg;
+    // headline: thicker outline + soft drop shadow
+    var O = { sw: 0.1, soft: 1 };
+    s += word('ICH BIN', 30, 158, 330, 150, '#ffffff', Object.assign({ rot: -3 }, O)).svg;
+    s += word('HEIẞ', 36, 330, 300, 190, '#ffffff', Object.assign({ rot: -3 }, O)).svg;
+    s += word('MIR IST', 1250, 158, 330, 150, '#ffffff', Object.assign({ anchor: 'end', rot: 3 }, O)).svg;
+    s += word('HEIẞ', 1246, 330, 300, 190, YEL, Object.assign({ anchor: 'end', rot: 3 }, O)).svg;
+    // ink stamps
+    function stamp(cx, cy, rot, color, mark) {
+      var g = '<g transform="translate(' + cx + ' ' + cy + ') rotate(' + rot + ')">';
+      g += '<circle r="100" fill="#000" filter="url(#soft)"/>';
+      g += S.shape(S.ellipse(0, 0, 98, 98, 60, 0.02), '#f6eed9', { w: 7, extra: 3 });
+      g += '<g filter="url(#distress)">' + S.shape(S.ellipse(0, 0, 80, 80, 60, 0.03), 'none', { w: 11, extra: 3, color: color }).replace('fill="none"', 'fill="none"') + mark + '</g>';
+      return g + '</g>';
+    }
+    s += '<g transform="translate(186 452) scale(.8)">' + stamp(0, 0, -9, RED, stampX(0, 0, 44, RED)) + '</g>';
+    s += '<g transform="translate(1090 452) scale(.8)">' + stamp(0, 0, 8, '#1d9640', check(4, 6, 46, '#1d9640')) + '</g>';
+    // tiny red FALSCH! stamp tucked onto the wrong line
+    s += '<g filter="url(#distress)">' + badge(282, 470, 'FALSCH!', '#f6eed9', RED, 34, -11).replace(/fill="#17130f"/g, 'fill="' + RED + '"') + '</g>';
+    s += badge(574, 18, 'B1–C1', YEL, INK, 34, 0);
+  }
+
   // grain + vignette
   defs += '<radialGradient id="vig" cx="640" cy="360" r="820" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>';
   s += '<rect width="1280" height="720" fill="url(#vig)"/>';
   s += '<rect width="1280" height="720" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
-  if (/g/.test(H.slice(1))) s += '<rect x="1140" y="670" width="140" height="50" fill="#f0f" opacity=".5"/>';
+  if (/g/.test(H.slice(1))) s += V === 'e' ? '<rect x="998" y="590" width="282" height="130" fill="#f0f" opacity=".5"/>' : '<rect x="1140" y="670" width="140" height="50" fill="#f0f" opacity=".5"/>';
   document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
 })();
 </script>
