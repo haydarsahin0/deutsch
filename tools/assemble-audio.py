@@ -164,9 +164,14 @@ def main():
     # 2. transcribe + align (times in the joined timeline)
     parts = A.parts_from_manifest(ep, script, manifest, args.model, args.retranscribe)
     xrts = [(p["transcript"]["duration"], p["transcript"]["elapsed"]) for p in parts]
-    al = A.align_episode(ep, script, parts, audio=joined, sr=SR, duration=len(joined) / SR,
+    # word times stay unrefined here; the energy refinement runs ONCE, on the final voice.wav
+    # (same as tools/align.py), so both tools give identical results
+    al = A.align_episode(ep, script, parts, audio=None, duration=len(joined) / SR,
                          clip_fn=A.clip_fn_from_manifest(ep, manifest), model=args.model)
     n_cov = len(al["words"])
+    # a refined copy (on the joined audio) only decides where the pause silences go
+    ref = [{"s": w["start"], "e": w["end"]} for w in al["words"]]
+    A.refine_times(ref, joined, SR)
 
     # 3. long pauses
     insertions = []
@@ -181,8 +186,8 @@ def main():
         w = c["word"]
         if ps < args.min_pause or w == 0 or w - 1 >= n_cov:
             continue
-        prev_end = al["words"][w - 1]["end"]
-        nxt = al["words"][w]["start"] if w < n_cov else len(joined) / SR
+        prev_end = ref[w - 1]["e"]
+        nxt = ref[w]["s"] if w < n_cov else len(joined) / SR
         gap = nxt - prev_end
         need = ps - gap
         if w >= n_cov and al["partial"]:
@@ -228,7 +233,7 @@ def main():
     af = f"highpass=f=50:poles=2,volume={gain:.2f}dB"
     limited = tp + gain > -1.0
     if limited:
-        af += ",alimiter=limit=0.89:attack=3:release=60:level=false"
+        af += ",alimiter=limit=0.84:attack=3:release=60:level=false"
     manifest["loudness"] = {"input_lufs": li, "input_true_peak": tp, "gain_db": round(gain, 2),
                             "limiter": limited, "target_lufs": args.lufs}
     log(f"loudness {li:.1f} LUFS (TP {tp:.1f}) → gain {gain:+.2f} dB{' + limiter' if limited else ''}")

@@ -30,24 +30,24 @@
  "insertions": [
   {
    "at": 172.88,
-   "dur": 4.135,
+   "dur": 4.1,
    "pause_s": 5.0,
    "word": 425,
-   "gap_before": 0.865
+   "gap_before": 0.9
   },
   {
    "at": 342.69,
-   "dur": 4.01,
+   "dur": 3.98,
    "pause_s": 5.0,
    "word": 865,
-   "gap_before": 0.99
+   "gap_before": 1.02
   },
   {
    "at": 540.325,
-   "dur": 4.455,
+   "dur": 4.415,
    "pause_s": 5.0,
    "word": 1361,
-   "gap_before": 0.545
+   "gap_before": 0.585
   }
  ],
  "loudness": {
@@ -57,6 +57,6 @@
   "limiter": true,
   "target_lufs": -16.0
  },
- "voice_sha1": "18058f551d734cc378ff7fce595465e3596d7f3e",
- "duration": 693.842
+ "voice_sha1": "41b87883e301569e1f140ec072618b6c50f9a7a4",
+ "duration": 693.737
 }

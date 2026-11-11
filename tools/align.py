@@ -144,6 +144,11 @@ CONJ = set("und aber oder denn sondern dass weil wenn als ob obwohl damit bevor 
            "auf zu bei nach von".split())
 
 
+DANGLING = CONJ | set("ein eine einen einem einer eines des im am zum zur ins ans vom beim an in um "
+                     "über unter vor durch gegen ohne ich du er sie es wir ihr mein meine dein deine "
+                     "sein seine nicht so sehr ganz noch schon auch nur".split())
+
+
 def parse_cue(inner):
     m = re.match(r"([\w-]+)\s*(.*)$", inner, re.S)
     if not m:
@@ -617,7 +622,104 @@ def refine_times(wt, audio, sr):
         if abs(ns - s) > 0.005 or abs(ne - e) > 0.005:
             moved += 1
         w["s"], w["e"] = ns, ne
+    moved += snap_pauses(wt, audio, sr)
     return moved, thr
+
+
+PAUSE_GATE_DB = 24.0   # frames this far below the loud-speech level (p95) count as non-speech
+PAUSE_MIN = 0.11       # shorter dips are stop closures inside words, not pauses
+PAUSE_REACH = 0.35     # max distance between whisper's boundary and the pause
+
+
+def snap_pauses(wt, audio, sr):
+    """Whisper often puts a boundary next to (not on) a short pause, or lets a word swallow a
+    breath. Find real pauses (breaths count as pauses: they are > 24 dB below speech) and move
+    the nearest word boundary onto them: previous word ends where the pause starts, next word
+    starts where speech resumes. Processes boundaries in order so shifts cascade."""
+    db, hop = frame_db(audio, sr, win=0.020, hop=0.005)
+    gate = np.percentile(db, 95) - PAUSE_GATE_DB
+    sp = db > gate
+    # runs of non-speech
+    edges = np.diff(np.concatenate([[1], sp.astype(np.int8), [1]]))
+    starts = np.where(edges == -1)[0]
+    ends = np.where(edges == 1)[0]
+    runs = [(a * hop, b * hop) for a, b in zip(starts, ends) if (b - a) * hop >= PAUSE_MIN]
+    if not runs:
+        return 0
+    rs = np.array([r[0] for r in runs])
+    moved = 0
+
+    def cands(t0, t1):
+        k0 = max(0, int(np.searchsorted(rs, t0 - 3.0)))
+        out = []
+        for k in range(k0, len(runs)):
+            a, b = runs[k]
+            if a > t1:
+                break
+            if b >= t0:
+                out.append((a, b))
+        return out
+
+    n = len(wt)
+    # first word start / last word end
+    if n:
+        for a, b in cands(wt[0]["s"] - 0.01, wt[0]["s"] + 0.01):
+            if a <= wt[0]["s"] < b and b < wt[0]["e"] - 0.06:
+                wt[0]["s"] = b
+                moved += 1
+        for a, b in cands(wt[-1]["e"] - 0.01, wt[-1]["e"] + 0.01):
+            if a < wt[-1]["e"] <= b and a > wt[-1]["s"] + 0.06:
+                wt[-1]["e"] = a
+                moved += 1
+    for k in range(n - 1):
+        A_, B_ = wt[k], wt[k + 1]
+        lo, hi = A_["s"] + 0.06, B_["e"] - 0.06
+        if hi <= lo:
+            continue
+        b0 = (A_["e"] + B_["s"]) / 2
+        best = None
+        for a, b in cands(lo, hi):
+            a2, b2 = max(a, lo), min(b, hi)
+            if b2 - a2 < PAUSE_MIN * 0.6:
+                continue
+            gap_overlap = min(b, B_["s"]) - max(a, A_["e"])
+            dist = 0.0 if gap_overlap > 0 else min(abs(a2 - b0), abs(b2 - b0), abs((a2 + b2) / 2 - b0))
+            if dist > PAUSE_REACH:
+                continue
+            key = (dist, -(b2 - a2))
+            if best is None or key < best[0]:
+                best = (key, a2, b2)
+        if best is None:
+            gap = B_["s"] - A_["e"]
+            if 0.0 < gap <= 0.6:
+                # a gap with no real pause in it is speech: close it at its quietest frame
+                f0, f1 = int(A_["e"] / hop), int(B_["s"] / hop)
+                if f1 > f0 and f1 <= len(db):
+                    t = (f0 + int(np.argmin(db[f0:f1]))) * hop
+                    A_["e"], B_["s"] = t, t
+                    moved += 1
+            continue
+        _, a2, b2 = best
+        # never stretch a word over the pause; only shrink/shift into it
+        ne, ns = a2, b2
+        if abs(ne - A_["e"]) > 0.005 or abs(ns - B_["s"]) > 0.005:
+            moved += 1
+        A_["e"], B_["s"] = ne, ns
+        if B_["e"] < B_["s"] + 0.03:
+            B_["e"] = B_["s"] + 0.03
+    # a pause >= 0.2 s INSIDE a word means whisper glued a non-word sound (laugh, chuckle,
+    # breath) to it: cut the word at the pause, keep the larger speech side
+    for w in wt:
+        for a, b in cands(w["s"] + 0.03, w["e"] - 0.03):
+            if b - a < 0.2 or a <= w["s"] + 0.03 or b >= w["e"] - 0.03:
+                continue
+            if (a - w["s"]) >= (w["e"] - b):
+                w["e"] = a
+            else:
+                w["s"] = b
+            moved += 1
+            break
+    return moved
 
 
 # --------------------------------------------------------------- full alignment
@@ -837,9 +939,11 @@ def break_lines(tokens):
         if SENT_END_RE.search(tokens[k - 1]):
             cost -= 22
         elif CLAUSE_END_RE.search(tokens[k - 1]):
-            cost -= 10
+            cost -= 12
         elif strip_punct(tokens[k]).lower() in CONJ:
             cost -= 5
+        if strip_punct(tokens[k - 1]).lower() in DANGLING and not CLAUSE_END_RE.search(tokens[k - 1]):
+            cost += 9  # never end a line on an article/preposition/conjunction
         if len(l1) > len(l2) + 6:
             cost += 2  # slight preference for a longer bottom line
         if best is None or cost < best:
@@ -992,8 +1096,8 @@ def report(al, subs=None):
     log(f"covered {st['covered_words']}/{st['script_words']} script words"
         f"{' (PARTIAL)' if al['partial'] else ''}; duration {al['duration']:.1f}s")
     log(f"match rate {st['match_rate'] * 100:.1f}%  (matched {st['matched']}, substituted "
-        f"{st['substituted']}, interpolated {st['interpolated']}); refine moved "
-        f"{st['refine']['moved_words']} boundaries, gate {st['refine']['gate_db']} dB")
+        f"{st['substituted']}, interpolated {st['interpolated']}); energy refine moved "
+        f"{st['refine'].get('moved_words_final', st['refine']['moved_words'])} boundaries")
     for d in st["deviations"]:
         log(f"  deviation  #{d['i']} @{d['t']:.2f}s  script „{d['script']}“  heard „{d['heard']}“ ({d['sim']})")
     for d in st["unmatched_script_words"]:
@@ -1003,6 +1107,8 @@ def report(al, subs=None):
     for pc in st.get("pause_checks", []):
         log(f"  pause s={pc['pause_s']:g} @{pc['prev_end']:.2f}s: silence {pc['silence']:.2f}s, next cue "
             f"{pc['first_cue_t']:.2f}s  {'OK' if pc['ok'] else 'FAIL'}")
+    for x in al.get("nonword_sounds", []):
+        log(f"  non-word sound @{x['start']:.2f}-{x['end']:.2f}s after word #{x['after_word']}")
     log(f"cues: {len(al['cues'])} kept, {st['cues_dropped']} dropped; "
         f"sentences {len(al['sentences'])}; subtitles {len(subs) if subs else 0}")
 
@@ -1061,7 +1167,28 @@ def refine_alignment(al, audio, sr):
     recompute_derived(al)
     al["stats"]["refine"]["moved_words_final"] = moved
     al["stats"]["refine"]["gate_db_final"] = round(float(thr), 1)
+    al["nonword_sounds"] = find_nonword_sounds(al, audio, sr)
     return moved
+
+
+def find_nonword_sounds(al, audio, sr, min_dur=0.12):
+    """Loud stretches not covered by any word (chuckles/laughs from [audio tags], sighs).
+    The mouth stays closed there by the lip-sync rule; the rig may show an expression."""
+    db, hop = frame_db(audio, sr, win=0.020, hop=0.005)
+    sp = db > np.percentile(db, 95) - PAUSE_GATE_DB
+    cov = np.zeros(len(sp), bool)
+    for w in al["words"]:
+        cov[int(w["start"] / hop):int(w["end"] / hop) + 1] = True
+    u = sp & ~cov
+    e = np.diff(np.concatenate([[0], u.astype(np.int8), [0]]))
+    out = []
+    starts = [w["start"] for w in al["words"]]
+    for a, b in zip(np.where(e == 1)[0], np.where(e == -1)[0]):
+        if (b - a) * hop >= min_dur:
+            t0 = a * hop
+            i = int(np.searchsorted(starts, t0)) - 1
+            out.append({"start": round(t0, 3), "end": round(b * hop, 3), "after_word": max(i, -1)})
+    return out
 
 
 def check_pauses(al, script, min_pause=2.0, tol=0.3):

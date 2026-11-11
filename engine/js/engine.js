@@ -185,8 +185,8 @@
 
   // ───────────────────────── layouts ─────────────────────────
   var LAYOUT = {
-    board: { melo: { x: 455, y: 1046, s: 1.52 }, ca: { x0: 650, y0: 178, x1: 1836, y1: 790 } },
-    split: { melo: { x: 400, y: 1120, s: 1.86 }, ca: { x0: 720, y0: 178, x1: 1836, y1: 790 } },
+    board: { melo: { x: 455, y: 1046, s: 1.52 }, ca: { x0: 630, y0: 168, x1: 1840, y1: 794 } },
+    split: { melo: { x: 400, y: 1120, s: 1.86 }, ca: { x0: 690, y0: 168, x1: 1840, y1: 794 } },
     melo: { melo: { x: 600, y: 1205, s: 2.36 }, ca: { x0: 1030, y0: 178, x1: 1836, y1: 790 } },
     title: { melo: { x: 1500, y: 1250, s: 2.7 }, ca: { x0: 650, y0: 178, x1: 1836, y1: 790 } }
   };
@@ -196,12 +196,14 @@
     var a = el.args || {}, T0 = el.appear, id = el.id, sd = hashStr(id);
     var maxW = (CA.x1 - CA.x0) * 0.94;
     function txt(type) {
-      var fs = { wrong: 82, right: 82, sentence: 68, title: 108, note: 58 }[type] * k, fam = type === 'note' || type === 'title' ? NOTE : HAND;
+      var k0 = k; if (type === 'wrong' || type === 'right' || type === 'title') k = Math.min(1, k * 1.22);
+      var fs = { wrong: 118, right: 118, sentence: 98, title: 126, note: 76 }[type] * k, fam = type === 'note' || type === 'title' ? NOTE : HAND;
       var font = '700 ' + fs + 'px ' + fam, lh = fs * (fam === NOTE ? 1.0 : 1.18);
-      var mw = type === 'note' ? Math.min(maxW, 560 * k) : maxW - (type === 'right' ? 90 * k : 0);
+      var mw = type === 'note' ? Math.min(maxW * 0.6, 640 * k) : maxW - (type === 'right' ? 120 * k : 0);
       var strs = wrap(el.text, font, mw);
       var lw = Math.max.apply(0, strs.map(function (s) { return measure(s, font); }));
-      return { font: font, fs: fs, lh: lh, strs: strs, lw: lw };
+      var kUsed = k; k = k0;
+      return { font: font, fs: fs, lh: lh, strs: strs, lw: lw, k: kUsed };
     }
     var t = el.type;
     if (t === 'wrong' || t === 'right' || t === 'sentence' || t === 'note' || t === 'title') {
@@ -258,7 +260,7 @@
       } };
     }
     if (t === 'bubble') {
-      var fsb = 56 * k, fontb = '700 ' + fsb + 'px ' + HAND, lhb = fsb * 1.16, padX = 30 * k, padY = 20 * k, tail = 34 * k;
+      var fsb = 74 * k, fontb = '700 ' + fsb + 'px ' + HAND, lhb = fsb * 1.16, padX = 30 * k, padY = 20 * k, tail = 34 * k;
       var sb = wrap(el.text, fontb, maxW * 0.66), lwb = Math.max.apply(0, sb.map(function (s) { return measure(s, fontb); }));
       var bw = lwb + 2 * padX, bh = sb.length * lhb + 2 * padY + fsb * 0.15;
       return { w: bw, h: bh + tail + 8 * k, side: a.who === 'right' ? 'right' : 'left', build: function (x, y) {
@@ -273,7 +275,7 @@
       } };
     }
     if (t === 'list') {
-      var fsl = 64 * k, fontl = '700 ' + fsl + 'px ' + HAND, lhl = fsl * 1.2, ind = 46 * k, gapl = 10 * k;
+      var fsl = 90 * k, fontl = '700 ' + fsl + 'px ' + HAND, lhl = fsl * 1.2, ind = 46 * k, gapl = 10 * k;
       var availH = (CA.y1 - CA.y0) - 150 * k;
       var nIt = (el.items || []).length, cols = 1;
       var oneH = nIt * (lhl + gapl);
@@ -298,7 +300,7 @@
       } };
     }
     if (t === 'icon') {
-      var S = 210 * k;
+      var S = 270 * k;
       return { w: S, h: S, icon: true, build: function (x, y) {
         var ic = MeloIcons.get(a.name || el.text), sc = S / 100, parts = [], tot = 0;
         var strokes = ic.strokes.map(function (s) { var p = s.pts.map(function (q) { return [x + q[0] * sc, y + q[1] * sc]; }); var L = polyLen(p); tot += L; return { p: p, L: L, s: s }; });
@@ -334,7 +336,7 @@
           ctx.fillText(art.toUpperCase(), 0, -ch / 2 + 42 * k);
           ctx.fillStyle = INK; ctx.font = '900 ' + (66 * k) + 'px Fraunces'; ctx.fillText(word, 0, 26 * k);
           if (plural) { ctx.font = '700 ' + (38 * k) + 'px Caveat'; ctx.fillStyle = '#5a4a3a'; ctx.fillText(plural, 0, 80 * k); }
-          ctx.fillStyle = acol; ctx.beginPath(); ctx.arc(0, -ch / 2 + 6 * k, 10 * k, 0, 7); ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.stroke();
+          ctx.fillStyle = acol; ctx.beginPath(); ctx.arc(-cw / 2 + 26 * k, -ch / 2 + 18 * k, 10 * k, 0, 7); ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.stroke();
           ctx.restore(); return null;
         } };
         return { parts: [part], box: { x: x, y: y, w: cw, h: ch } };
@@ -360,26 +362,26 @@
     var cw = CA.x1 - CA.x0, chh = CA.y1 - CA.y0;
     return { w: cw, h: chh, build: function (x, y) {
       var parts = [], R = 92;
-      var ringX = x + cw - R - 40, ringY = y + chh * 0.56;
+      R = 128; var ringX = x + cw - R - 30, ringY = y + chh * 0.6;
       // header tag
       parts.push({ kind: 'custom', paper: true, noTip: true, t0: T0, t1: T0 + 0.4, draw: function (ctx, t) {
         if (t < T0) return null;
-        paperTag(ctx, x + 150, y + 30, 270, 66, -4, MUSTARD, 'KERNFRAGE', '700 40px Oswald', INK, (t - T0) / 0.35); return null;
+        paperTag(ctx, x + 175, y + 38, 320, 78, -4, MUSTARD, 'KERNFRAGE', '700 48px Oswald', INK, (t - T0) / 0.35); return null;
       } });
-      var fq = 54, fontq = '700 ' + fq + 'px ' + HAND, qs = wrap(el.q, fontq, cw - 2 * R - 140);
-      var ql = textLines(qs, fontq, x + 10, y + 140, fq * 1.15);
+      var fq = 80, fontq = '700 ' + fq + 'px ' + HAND, qs = wrap(el.q, fontq, cw - 40);
+      var ql = textLines(qs, fontq, x + 10, y + 165, fq * 1.12);
       var t = T0 + 0.35, dq = Math.min(2.2, 0.25 + el.q.length * 0.045);
       parts.push(TextPart(ql, fontq, CHALK.w, t, dq)); t += dq + 0.2;
-      var oy = ql[ql.length - 1].y + 100, fo = 54, fonto = '700 ' + fo + 'px ' + HAND, rows = [];
+      var oy = ql[ql.length - 1].y + 130, fo = 80, fonto = '700 ' + fo + 'px ' + HAND, rows = [];
       el.options.forEach(function (o, i) {
-        var cy = oy + i * 98, cx = x + 46;
-        var circle = []; for (var q = 0; q <= 30; q++) { var a = -1.7 + q / 30 * 6.5; circle.push([cx + 30 * Math.cos(a), cy - 18 + 30 * Math.sin(a)]); }
+        var cy = oy + i * 118, cx = x + 52;
+        var circle = []; for (var q = 0; q <= 30; q++) { var a = -1.7 + q / 30 * 6.5; circle.push([cx + 40 * Math.cos(a), cy - 26 + 40 * Math.sin(a)]); }
         parts.push(StrokePart(circle, 4.5, CHALK.y, t, 0.3, sd + i * 3));
-        var lt = textLines(['ABC'[i] || String(i + 1)], '700 40px Oswald', cx - 12, cy - 4, 40);
-        parts.push(TextPart(lt, '700 40px Oswald', CHALK.y, t + 0.15, 0.15));
-        var ot = textLines([o], fonto, cx + 56, cy, fo);
+        var lt = textLines(['ABC'[i] || String(i + 1)], '700 52px Oswald', cx - 15, cy - 7, 52);
+        parts.push(TextPart(lt, '700 52px Oswald', CHALK.y, t + 0.15, 0.15));
+        var ot = textLines([o], fonto, cx + 72, cy, fo);
         parts.push(TextPart(ot, fonto, CHALK.w, t + 0.25, Math.min(1.2, 0.2 + o.length * 0.05)));
-        rows.push({ x: cx - 40, y: cy - 58, w: 70 + 56 + ot[0].w + 20, h: 84, cy: cy, tx: cx + 56, tw: ot[0].w });
+        rows.push({ x: cx - 50, y: cy - 80, w: 90 + 72 + ot[0].w + 20, h: 110, cy: cy, tx: cx + 72, tw: ot[0].w });
         t += 0.6 + Math.min(1.2, o.length * 0.05);
       });
       // countdown ring
@@ -399,10 +401,10 @@
           if (rem > 0.002) chalkStroke(ctx, pts, 11, rem < 0.3 ? CHALK.r : CHALK.y, 1);
           var n = tt < cs ? Math.round(el.seconds) : Math.max(1, Math.ceil((ce - tt) - 1e-6));
           var frac = tt < cs ? 0 : ((ce - tt) % 1), pop = tt < cs ? 1 : 1 + 0.25 * Math.pow(sat((frac - 0.75) / 0.25), 2);
-          ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = '400 ' + Math.round(110 * pop) + 'px Anton';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = '400 ' + Math.round(150 * pop) + 'px Anton';
           ctx.fillStyle = rem < 0.3 ? CHALK.r : CHALK.w; ctx.fillText(tt >= ce ? '0' : String(n), ringX, ringY + 6);
         } else {
-          ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = '700 120px Caveat'; ctx.fillStyle = CHALK.g;
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = '700 170px Caveat'; ctx.fillStyle = CHALK.g;
           ctx.globalAlpha = sat((tt - el.reveal) / 0.3); ctx.fillText('!', ringX, ringY + 6);
           chalkStroke(ctx, (function () { var p = []; for (var q = 0; q <= 60; q++) { var a = q / 60 * Math.PI * 2; p.push([ringX + R * Math.cos(a), ringY + R * Math.sin(a)]); } return p; })(), 9, CHALK.g, sat((tt - el.reveal) / 0.3));
         }
@@ -412,7 +414,7 @@
       if (el.reveal != null) {
         var rr = rows[el.answer];
         if (rr) {
-          var ell = []; for (var q = 0; q <= 40; q++) { var a = -2.6 + q / 40 * 6.9; ell.push([rr.tx + rr.tw / 2 - 20 + (rr.tw / 2 + 120) * Math.cos(a), rr.cy - 18 + 52 * Math.sin(a)]); }
+          var ell = []; for (var q = 0; q <= 40; q++) { var a = -2.6 + q / 40 * 6.9; ell.push([rr.tx + rr.tw / 2 - 30 + (rr.tw / 2 + 140) * Math.cos(a), rr.cy - 26 + 66 * Math.sin(a)]); }
           parts.push(StrokePart(ell, 6.5, CHALK.y, el.reveal + 0.05, 0.5, sd + 77));
           var tx = rr.tx + rr.tw + 70, ty = rr.cy;
           parts.push(StrokePart([[tx, ty - 22], [tx + 16, ty], [tx + 52, ty - 56]], 9, CHALK.g, el.reveal + 0.5, 0.3, sd + 78));
@@ -433,6 +435,8 @@
   // auto layout per scene: first fit with time-aware occupancy, shrink until everything fits
   function layoutScene(sc, els) {
     var L = LAYOUT[sc.layout] || LAYOUT.board, CA = L.ca, best = null;
+    // icons are placed last (they then move next to the element they illustrate)
+    els = els.filter(function (e) { return e.type !== 'icon'; }).concat(els.filter(function (e) { return e.type === 'icon'; }));
     var scales = [1, 0.92, 0.85, 0.78, 0.72, 0.66, 0.6, 0.55];
     for (var si = 0; si < scales.length; si++) {
       var k = scales[si], placed = [], ok = true, prevMain = null;
@@ -454,7 +458,7 @@
           var cands = [[CA.x1 - b.w, CA.y0], [CA.x1 - b.w, CA.y0 + 200 * k], [CA.x0, CA.y0]];
           for (var c = 0; c < cands.length && !pos; c++) if (!conflicts(cands[c][0], cands[c][1], b.w, b.h)) pos = cands[c];
         } else if (el.type === 'note' && prevMain) {
-          var nx = prevMain.x + prevMain.w + 70 * k, ny = prevMain.y + Math.max(0, (prevMain.h - b.h) / 2);
+          var nx = prevMain.x + prevMain.w + 120 * k, ny = prevMain.y + Math.max(0, (prevMain.h - b.h) / 2);
           if (!conflicts(nx, ny, b.w, b.h)) pos = [nx, ny];
           if (!pos) for (var yy = prevMain.y + prevMain.h + gap; yy + b.h <= CA.y1; yy += 8) if (!conflicts(CA.x0 + 120 * k, yy, b.w, b.h)) { pos = [CA.x0 + 120 * k, yy]; break; }
         } else if (el.type === 'title') {
@@ -462,12 +466,15 @@
         }
         if (!pos) {
           var x0 = el.type === 'bubble' && b.side === 'right' ? CA.x1 - b.w - 10 * k : CA.x0 + (el.type === 'bubble' ? 10 * k : 0);
-          // continue below the newest element still on the board, else first free slot from the top
-          var cursor = CA.y0;
-          for (var q = placed.length - 1; q >= 0; q--) { var pq = placed[q]; if (pq.to > from && pq.el.type !== 'icon') { cursor = pq.y + pq.h + gap; break; } }
+          var half = (CA.x1 - CA.x0) / 2, xR = CA.x0 + half + 24 * k, twoCol = el.type !== 'bubble' && b.w <= half - 24 * k;
+          // continue below the newest element still on the board (same column), else first free slot
+          var cursor = CA.y0, curX = x0;
+          for (var q = placed.length - 1; q >= 0; q--) { var pq = placed[q]; if (pq.to > from && pq.el.type !== 'icon' && pq.el.type !== 'note') { cursor = pq.y + pq.h + gap; if (twoCol && pq.x >= xR - 1) curX = xR; break; } }
           if (el.type === 'bubble' && b.side === 'right' && prevMain && prevMain.el.type === 'bubble' && prevMain.b.side !== 'right') cursor = prevMain.y + prevMain.h * 0.55;
-          for (var y = cursor; y + b.h <= CA.y1 + 0.5; y += 8) if (!conflicts(x0, y, b.w, b.h)) { pos = [x0, y]; break; }
-          if (!pos) for (y = CA.y0; y + b.h <= CA.y1 + 0.5; y += 8) if (!conflicts(x0, y, b.w, b.h)) { pos = [x0, y]; break; }
+          var tries = [[curX, cursor], [x0, CA.y0]];
+          if (twoCol) tries.push([xR, CA.y0]);
+          for (var tr = 0; tr < tries.length && !pos; tr++)
+            for (var y = tries[tr][1]; y + b.h <= CA.y1 + 0.5; y += 8) if (!conflicts(tries[tr][0], y, b.w, b.h)) { pos = [tries[tr][0], y]; break; }
         }
         if (!pos) { ok = false; pos = [CA.x0, Math.max(CA.y0, CA.y1 - b.h)]; }
         var rec = { el: el, b: b, x: pos[0], y: pos[1], w: b.w, h: b.h, from: from, to: to };
@@ -479,10 +486,33 @@
       if (ok) break;
     }
     if (best && best.k < 1) console.warn('layout: scene', sc.i, 'shrunk to', best.k);
+    var P = best.placed, kq = best.k;
+    function freeAt(rec, x, y) {
+      if (x < CA.x0 || x + rec.w > CA.x1 || y < CA.y0 || y + rec.h > CA.y1) return false;
+      for (var j = 0; j < P.length; j++) { var o = P[j]; if (o === rec || o.to <= rec.from || o.from >= rec.to) continue; if (x < o.x + o.w + 16 && x + rec.w + 16 > o.x && y < o.y + o.h + 16 && y + rec.h + 16 > o.y) return false; }
+      return true;
+    }
+    // icons sit right next to the element they illustrate (the next text element)
+    P.forEach(function (rec, i) {
+      if (rec.el.type !== 'icon') return;
+      var tgt = P.filter(function (o) { return o.el.type !== 'icon' && o.el.type !== 'note' && o.from >= rec.from - 0.01 && o.from < rec.to; }).sort(function (a, b) { return a.from - b.from; })[0];
+      if (!tgt) return;
+      for (var cx = tgt.x + tgt.w + 40 * kq; cx + rec.w <= CA.x1; cx += 30) {
+        var ys = [tgt.y + tgt.h / 2 - rec.h / 2, tgt.y - 10, tgt.y + tgt.h - rec.h];
+        for (var c = 0; c < ys.length; c++) { var yy = Math.max(CA.y0, ys[c]); if (freeAt(rec, cx, yy)) { rec.x = cx; rec.y = yy; return; } }
+      }
+    });
+    // centre the whole block horizontally (if it does not fill the width)
+    if (P.length && P[0].el.type !== 'quiz') {
+      var bx0 = 1e9, bx1 = -1e9;
+      P.forEach(function (o) { bx0 = Math.min(bx0, o.x); bx1 = Math.max(bx1, o.x + o.w); });
+      var dx = Math.max(0, ((CA.x1 - CA.x0) - (bx1 - bx0)) / 2 * 0.8);
+      P.forEach(function (o) { o.x += dx; });
+    }
     // vertical balance: push a sparse board a bit down
     var bottom = 0, top = 1e9;
     best.placed.forEach(function (p) { bottom = Math.max(bottom, p.y + p.h); top = Math.min(top, p.y); });
-    var dy = best.placed.length && best.placed[0].el.type !== 'quiz' ? Math.max(0, (CA.y1 - bottom) * 0.3) : 0;
+    var dy = best.placed.length && best.placed[0].el.type !== 'quiz' ? Math.max(0, (CA.y1 - bottom) * 0.42) : 0;
     best.placed.forEach(function (p) {
       var r = p.b.build(p.x, p.y + dy);
       p.el.parts = r.parts; p.el.box = r.box; p.el.k = best.k;
@@ -570,7 +600,7 @@
         var vb = boxUnion(visibleBoxes(sc, t)) || { x: CA.x0, y: CA.y0 + 120, w: 520, h: 200 };
         var hx0 = M.x - 120 * M.s, hy0 = M.y + (head - 110) * M.s;
         var x0 = Math.min(vb.x - 60, hx0), x1 = Math.max(vb.x + vb.w + 70, x0 + 1150);
-        var y0 = Math.min(vb.y - 60, hy0), y1 = Math.max(vb.y + vb.h + 50, y0 + 1150 * 9 / 16 * 0.84);
+        var y0 = Math.min(vb.y - 60, hy0, GEO.board.y - 50), y1 = Math.max(vb.y + vb.h + 50, y0 + 1150 * 9 / 16 * 0.84);
         if (sc.layout === 'melo') { x0 = Math.max(x0, CA.x0 - 260); }
         return fitFrame({ x: x0, y: y0, w: x1 - x0, h: y1 - y0 }, true);
       }
@@ -578,10 +608,22 @@
         var el = k.focus && E.byId[k.focus];
         var b = el && el.box ? el.box : boxUnion(visibleBoxes(sc, t));
         if (!b) return shotFrame({ shot: 'board' }, t);
+        if (el && el.type === 'quiz') return fitFrame({ x: b.x - 60, y: b.y - 50, w: b.w + 100, h: b.h + 70 }, false);
         var f = fitFrame({ x: b.x - 90, y: b.y - 70, w: b.w + 180, h: b.h + 140 }, true);
         f.w = Math.max(f.w, 1250); return f;
       }
-      default: return { cx: 960, cy: 540, w: 1920 };
+      default: {
+        // wide: Melo (head to knees) + everything on the board, never wider than the set
+        if (sc.layout === 'melo') return { cx: 960, cy: 540, w: 1920 };
+        var vbw = boxUnion(visibleBoxes(sc, t));
+        var wx0 = M.x - 150 * M.s, wy0 = M.y + (head - 120) * M.s, wx1 = M.x + 150 * M.s, wy1 = M.y - 175 * M.s;
+        if (vbw) { wx0 = Math.min(wx0, vbw.x - 70); wy0 = Math.min(wy0, vbw.y - 70); wx1 = Math.max(wx1, vbw.x + vbw.w + 70); wy1 = Math.max(wy1, vbw.y + vbw.h + 60); }
+        else wx1 = Math.max(wx1, CA.x0 + 600);
+        wy0 = Math.min(wy0, GEO.board.y - 60);
+        var fw = fitFrame({ x: wx0, y: wy0, w: wx1 - wx0, h: wy1 - wy0 }, true);
+        fw.w = clamp(fw.w, 1250, 1920);
+        return fw;
+      }
     }
   }
   function clampFrame(f) {
@@ -601,11 +643,15 @@
   }
   // depth of field: 1 while the camera holds a Melo close-up (background chalk + set go soft)
   function dofAt(t) {
+    if (E.quizzes && E.quizzes.some(function (q) { return t >= q.appear && t <= (q.reveal || q.countdownEnd || q.appear) + 3; })) return 0;
     var K = E.cam, i = -1;
     for (var j = 0; j < K.length; j++) if (K[j].t <= t) i = j;
     if (i < 0) return K[0].shot === 'melo' ? 1 : 0;
     var cur = K[i].shot === 'melo' ? 1 : 0, prev = i > 0 && K[i - 1].shot === 'melo' ? 1 : 0;
-    return lerp(prev, cur, ease((t - K[i].t) / CAM_DUR));
+    var d = lerp(prev, cur, ease((t - K[i].t) / CAM_DUR));
+    // focus pull onto the board while the sponge wipes it
+    (E.erases || []).forEach(function (er) { var f = Math.min(smooth((t - er.t0 + 0.45) / 0.4), smooth((er.t1 + 0.6 - t) / 0.4)); d *= 1 - f; });
+    return d;
   }
   function camera(t) {
     var f = camRaw(t), K = E.cam, i = 0;
@@ -624,21 +670,18 @@
   var BB = { x0: -215, y0: -560, x1: 215, y1: 40 };
   async function drawMelo(ctx, t, M, cam, opts) {
     opts = opts || {};
-    var fr = E.rig.render(t, { boardSide: 'right', board: !opts.title });
-    var g = fr.svg;
     // visible part only (camera frame → character coords)
     var fh = cam.w * 9 / 16, fx0 = cam.cx - cam.w / 2, fy0 = cam.cy - fh / 2;
     var vx0 = Math.max(BB.x0, (fx0 - M.x) / M.s), vx1 = Math.min(BB.x1, (fx0 + cam.w - M.x) / M.s);
     var vy0 = Math.max(BB.y0, (fy0 - M.y) / M.s), vy1 = Math.min(BB.y1, (fy0 + fh - M.y) / M.s);
-    if (vx1 <= vx0 || vy1 <= vy0) return fr;
+    if (vx1 <= vx0 || vy1 <= vy0) return null;
+    var fr = E.rig.render(t, { boardSide: 'right', board: !opts.title, visible: [vx0, vy0, vx1, vy1] });
+    var g = fr.svg;
     var zoom = 1920 / cam.w * E.scale, ps = M.s * zoom;
     var pw = Math.ceil((vx1 - vx0) * ps), ph = Math.ceil((vy1 - vy0) * ps);
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + pw + '" height="' + ph + '" viewBox="' + vx0.toFixed(2) + ' ' + vy0.toFixed(2) + ' ' + (pw / ps).toFixed(2) + ' ' + (ph / ps).toFixed(2) + '">' + g + '</svg>';
     var img = await svgImage(svg);
     // contact shadow
-    if (!opts.title && M.y < 1180) {
-      ctx.save(); ctx.fillStyle = 'rgba(40,25,10,.22)'; ctx.beginPath(); ctx.ellipse(M.x + 8 * M.s, M.y + 6 * M.s, 70 * M.s, 9 * M.s, 0, 0, 7); ctx.fill(); ctx.restore();
-    }
     ctx.drawImage(img, M.x + vx0 * M.s, M.y + vy0 * M.s, pw / ps * M.s, ph / ps * M.s);
     return fr;
   }
@@ -711,7 +754,7 @@
       }
       ctx.restore();
       // sponge
-      var sw = 150, sh = 54, ang = Math.sin(sponge.p * 40) * 0.12 - 0.05;
+      var sw = 200, sh = 72, ang = Math.sin(sponge.p * 40) * 0.12 - 0.05;
       ctx.save(); ctx.translate(sponge.x, sponge.y); ctx.rotate(ang);
       ctx.fillStyle = 'rgba(0,0,0,.28)'; ctx.fillRect(-sw / 2 + 8, -sh / 2 + 10, sw, sh);
       ctx.drawImage(E.sponge, -sw / 2 - 10, -sh / 2 - 10, sw + 20, sh + 20);
@@ -734,7 +777,7 @@
     if (!ch || ch.kind !== 'item') return;
     var sc = sceneAt(t); if (sc.layout === 'title') return;
     var p = (t - ch.t) / 0.4;
-    paperTag(ctx, GEO.board.x + 120, GEO.board.y + 2, 150, 56, -5, MUSTARD, 'NR. ' + ch.num, '400 38px Anton', INK, p);
+    paperTag(ctx, GEO.board.x + 120, GEO.board.y - 6, 150, 56, -5, MUSTARD, 'NR. ' + ch.num, '400 38px Anton', INK, p);
   }
 
   // ───────────────────────── title card ─────────────────────────
@@ -844,13 +887,13 @@
     var subs = E.tl.subs || [], s = null;
     for (var i = 0; i < subs.length; i++) if (subs[i].start <= t && t < subs[i].end) { s = subs[i]; break; }
     if (!s) return;
-    var words = E.tl.words, fs = 44, font = '500 ' + fs + 'px Oswald', lh = fs * 1.28, sp = measure(' ', font);
+    var words = E.tl.words, fs = 60, font = '500 ' + fs + 'px Oswald', lh = fs * 1.22, sp = measure(' ', font);
     var a = sat(Math.min((t - s.start) / 0.12, (s.end - t) / 0.12));
     var widths = s.lines.map(function (line) { return line.reduce(function (acc, tok) { return acc + measure(tok.text, font); }, 0) + sp * (line.length - 1); });
-    var maxW = Math.max.apply(0, widths), padX = 26, padY = 12;
-    var boxH = s.lines.length * lh + padY * 2, y0 = 1080 - 44 - boxH;
+    var maxW = Math.max.apply(0, widths), padX = 30, padY = 12;
+    var boxH = s.lines.length * lh + padY * 2, y0 = 1080 - 34 - boxH;
     ctx.save(); ctx.globalAlpha = a;
-    ctx.fillStyle = 'rgba(20,14,10,.74)';
+    ctx.fillStyle = 'rgba(16,11,8,.88)';
     var bx = 960 - maxW / 2 - padX, bw = maxW + 2 * padX, r = 14;
     ctx.beginPath(); ctx.moveTo(bx + r, y0); ctx.arcTo(bx + bw, y0, bx + bw, y0 + boxH, r); ctx.arcTo(bx + bw, y0 + boxH, bx, y0 + boxH, r); ctx.arcTo(bx, y0 + boxH, bx, y0, r); ctx.arcTo(bx, y0, bx + bw, y0, r); ctx.fill();
     ctx.font = font; ctx.textBaseline = 'alphabetic';
@@ -863,7 +906,7 @@
         lastState = state;
         ctx.fillStyle = state > 0 ? '#f6eedb' : 'rgba(246,238,219,.55)';
         ctx.fillText(tok.text, x, y);
-        if (w && state === 1.5) { ctx.fillStyle = MUSTARD; ctx.fillRect(x, y + 7, tw, 4); }
+        if (w && state === 1.5) { ctx.fillStyle = MUSTARD; ctx.fillRect(x, y + 9, tw, 5); }
         x += tw + sp;
       });
     });
@@ -959,6 +1002,7 @@
     // scenes, elements, layout
     E.scenes = tl.scenes; E.els = tl.elements.slice(); E.byId = {}; E.els.forEach(function (e) { E.byId[e.id] = e; });
     E.chapters = tl.chapters || [];
+    E.quizzes = E.els.filter(function (e) { return e.type === 'quiz'; });
     E.scenes.forEach(function (sc) { if (sc.layout !== 'title') layoutScene(sc, E.els.filter(function (e) { return e.scene === sc.i; })); });
     // erase ops
     E.erases = [];

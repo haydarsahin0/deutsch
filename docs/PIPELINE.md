@@ -74,6 +74,8 @@ The narration is generated with ElevenLabs v3 from `tts-elevenlabs/teil-N.txt` (
 ```
 Also writes `out/subtitles.de.srt|vtt` (max 2 lines × 42 chars, 1–7 s each, split at sentence/clause boundaries).
 
+Additive fields (backward compatible, details in `tools/ALIGN.md`): `partial`, `covered_until_word`; words also carry `raw` (display form with punctuation), `match`, `line`, `para_end`; cues carry `at` (`start`|`end`), `line`, `prev_end`; sentences carry `words:[first,last]`; `sections` (`## headings` with time); `subtitles` `[{start,end,lines,words:[first,last]}]` (the same chunking as the SRT, for burn-in); `nonword_sounds` (chuckles/laughs outside words); `inserted_pauses`; `stats` (match rate, deviations, pause self-check). Unquoted numeric cue args are numbers (`s=5` → `5`). When voice.wav and `build/voice-manifest.json` match, `align.py` reuses the cached per-part transcripts (fast re-align after a script edit).
+
 ## Lip sync envelope
 `tools/envelope.js episodes/<ep>` → `build/envelope.json` `{fps:30, rms:[...] }` one normalised value per video frame.
 

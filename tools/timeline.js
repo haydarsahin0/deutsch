@@ -358,6 +358,15 @@ function compile(ep, opts = {}) {
   }
   camera.push(...autos);
   camera.sort((a, b) => a.t - b.t);
+  // quiz: the board (question, options, countdown ring) stays in view from question to reveal
+  for (const q of elements.filter(e => e.type === 'quiz')) {
+    const end = (q.reveal != null ? q.reveal : q.countdownEnd) + 0.5;
+    for (let i = camera.length - 1; i >= 0; i--) if (camera[i].auto && camera[i].t > q.appear - 0.5 && camera[i].t < end + 3) camera.splice(i, 1);
+    for (const k of camera) if (k.t >= q.appear + 0.3 && k.t < end && k.shot === 'melo') { k.shot = 'board'; k.quiz = q.id; }
+    camera.push({ t: r3(q.appear + 0.3), shot: 'board', focus: null, auto: 'quiz' });
+    if (q.countdown != null) camera.push({ t: r3(q.countdown - 0.3), shot: 'close', focus: q.id, auto: 'quiz-countdown' });
+  }
+  camera.sort((a, b) => a.t - b.t);
 
   // chapters from '## N – …' / '## Kernfrage N' headings
   const chapters = [];
