@@ -935,6 +935,525 @@
     }
   };
 
+
+  // —— kellner: banana head, tall and slightly bent; white shirt, black vest, bow tie, long bistro apron ——
+  CH.kellner = {
+    name: 'Kellner', who: 'waiter', fruit: 'banana',
+    S: 1, legK: 1.14, torsoK: 1.08, wK: 0.95, armK: 1.06, neck: 7, limbK: 0.95, handK: 1, bend: [8, 3], headTilt: 4,
+    col: { limb: '#d6b13c', skin: '#e3bf42', outfit: '#24211e', accent: '#f0eadb' },
+    defaults: { expr: 'tired', pose: 'idle', prop: 'notepad' },
+    head: {
+      sil: closed([[12, -150], [26, -142], [40, -112], [48, -66], [50, -16], [48, 34], [40, 74], [22, 98], [0, 104], [-22, 98], [-38, 76], [-45, 36], [-44, -14], [-38, -62], [-26, -104], [-8, -136]]),
+      c: [2, 4], bottom: 102, top: -176,
+      col: { base: '#e5c343', shade: '#b48e2a', light: '#f7e08a', dark: '#4e3a0c' },
+      tex: function (c) {
+        var s = '', tk = c.tex;
+        // facet ridges following the bend
+        [[-14, 0.6], [20, 0.45]].forEach(function (r) {
+          var pts = []; for (var y = -128; y <= 92; y += 8) { var u = (y + 128) / 220; pts.push([r[0] * Math.sin(u * Math.PI) + 10 * (1 - u) * (1 - u), y]); }
+          s += stroke(c.ink, pts, { w: 1.3, ta: 0.3, tb: 0.3, min: 0.2, jit: 0.3 }, '#7a5a14');
+          s += '<path d="' + polyD(pts.map(function (p) { return [p[0] - 2.2, p[1]]; }), false) + '" stroke="#f7e08a" stroke-width="1.4" fill="none" opacity="' + r[1] + '"/>';
+        });
+        // sugar spots
+        var sp = '';
+        for (var i = 0; i < 22; i++) { var x = (tk.r() * 2 - 1) * 40, y = -120 + tk.r() * 200; if (!c.inside(x, y)) continue; var rr = 1 + tk.r() * 2.2; sp += '<ellipse cx="' + f1(x) + '" cy="' + f1(y) + '" rx="' + f1(rr) + '" ry="' + f1(rr * 0.7) + '" fill="#5e3e12" opacity="0.7"/>'; }
+        s += sp;
+        // green tinge near the stem
+        s += '<ellipse cx="14" cy="-128" rx="22" ry="22" fill="#9aa83a" opacity="0.35"/>';
+        return s;
+      },
+      front: function (c) {
+        var ink = c.ink, st = [[10, -146], [14, -158], [20, -170], [24, -174]];
+        var s = tube(ink, catmull(st, 4, false), function (u) { return lerp(6.5, 5, u); }, c.SH, { ink: 1.5, extra: 1.4, fill: '#6b5a2a', hatch: false });
+        s += shape(ink, ellipse(24.5, -175, 5.2, 3.2, 14, -40), '#2a1f12', c.SH, { w: 1, extra: 0.8 });
+        return s;
+      }
+    },
+    face: { c: [2, 16], s: 1.16, eyeX: 21, eyeW: 22, lid: -1.4, browW: 5, browLen: 22, nose: 'long', mouthW: 0.82, chin: 1, halo: '#f7e08a', moustache: { w: 3.6 }, bag: 1, mouthY: 33 },
+    outfit: {
+      sleeve: { type: 'long', col: '#efe8d6', r0: 7.8, r1: 6.6, len: 0.82, cuff: '#e2d9c2' },
+      legs: { type: 'pants', col: '#24211e', r0: 8, r1: 6.8 }, shoes: { col: '#1a1715', laces: false },
+      lower: function (c) { // long bistro apron
+        var hy = c.hip[1] - 6, bot = c.sit ? c.knee[1] + 8 : lerp(c.knee[1], c.ank[1], 0.62);
+        var ap = catmull([[c.hip[0] - 19 * c.k, hy], [c.hip[0] + 19 * c.k, hy], [c.hip[0] + 22 * c.k, bot - 2], [c.hip[0], bot + 1.5], [c.hip[0] - 22 * c.k, bot - 2]], 4, true);
+        var s = shape(c.ink, ap, '#f1ebdc', c.SH, { w: 1.5, extra: 2.2 });
+        s += stroke(c.ink, [[c.hip[0] + 6 * c.side, hy + 12], [c.hip[0] + 8 * c.side, bot - 6]], { w: 0.9, ta: 0.3, tb: 0.3 }, '#b9ae94');
+        s += stroke(c.ink, [[c.hip[0] - 10 * c.side, hy + 30], [c.hip[0] - 11 * c.side, bot - 10]], { w: 0.8, ta: 0.3, tb: 0.3 }, '#b9ae94');
+        s += stroke(c.ink, [[c.hip[0] - 20 * c.k, hy + 1], [c.hip[0] + 20 * c.k, hy + 1]], { w: 2.2, ta: 0.05, tb: 0.05, min: 0.8 }, '#d8cfb8');
+        return s;
+      },
+      top: function (c) {
+        var shirt = garment(c, { neck: 7, chest: 14.5, waist: 13, hem: 15, hemY: -2 }, '#efe8d6');
+        var vest = garment(c, { neck: 9, chest: 15.5, waist: 13.5, hem: 15.5, hemY: 4, neckDip: 4 }, '#24211e');
+        var n0 = vest.n0, s = shirt.svg + shirt.outline + vest.svg;
+        s += vNeck(c, n0, n0[1] + 42, 7.5, '#efe8d6');
+        s += vest.outline;
+        s += buttons(c, cxAt(c.tp, n0[1] + 50), [n0[1] + 50, n0[1] + 62, n0[1] + 74], 1.5, '#9a8f78');
+        s += stroke(c.ink, [[cxAt(c.tp, vest.yW) + 4, vest.yW - 4], [cxAt(c.tp, vest.yW) + 11, vest.yW - 5]], { w: 1.2, ta: 0.1, tb: 0.1 }, '#9a8f78');
+        s += bowtie(c, [n0[0], n0[1] + 6], '#1a1715', 0.9);
+        return s;
+      }
+    }
+  };
+
+  // —— kumpel: kiwi with the top cut off (green flesh, black seeds), rust hoodie, jeans, sneakers ——
+  (function () {
+    var rx = 78, ry = 94, cutK = 0.46, yc = -cutK * ry, rxT = rx * Math.sqrt(1 - cutK * cutK), kk = 0.3, ryT = rxT * kk;
+    var a0 = Math.PI + Math.asin(cutK), a1 = -Math.asin(cutK), sph = [], top = [];
+    for (var i = 0; i <= 56; i++) { var a = lerp(a0, a1, i / 56); sph.push([rx * Math.cos(a) * (1 - 0.06 * Math.max(0, Math.sin(a))), ry * Math.sin(a)]); }
+    for (i = 1; i < 32; i++) { var b = lerp(0, -Math.PI, i / 32); top.push([rxT * Math.cos(b), yc + ryT * Math.sin(b)]); }
+    function ell(r, dy) { var p = []; for (var i = 0; i < 64; i++) { var a = i / 64 * Math.PI * 2; p.push([r * Math.cos(a), yc + (dy || 0) + r * kk * Math.sin(a)]); } return p; }
+    CH.kumpel = {
+      name: 'Kumpel', who: 'buddy', fruit: 'kiwi (cut top)',
+      S: 1, legK: 1, torsoK: 1, wK: 1.14, armK: 1, neck: 6, limbK: 1.05, handK: 1.05,
+      col: { limb: '#8a6a44', skin: '#8a6a44', outfit: '#b85c38', accent: '#7aa83a' },
+      defaults: { expr: 'happy', pose: 'idle', prop: 'beer' },
+      head: {
+        sil: sph.concat(top), c: [0, 6], bottom: 92, top: yc - ryT - 4,
+        col: { base: '#8f6e48', shade: '#5f4528', light: '#bf9d72', dark: '#2a1c0c' },
+        tex: function (c) { // fuzz texture: short hair dashes
+          var tk = c.tex, lt = '', dk = '';
+          for (var i = 0; i < 420; i++) {
+            var x = (tk.r() * 2 - 1) * rx, y = yc + tk.r() * (ry - yc);
+            if (!c.inside(x, y) || y < yc + ryT * 0.6) continue;
+            var a = Math.atan2(y - 10, x) + (tk.r() - 0.5) * 0.8, l = 2 + tk.r() * 2.5, p = [[x, y], [x + Math.cos(a) * l, y + Math.sin(a) * l]];
+            var d = tk.brush(p, { w: 0.9, ta: 0.2, tb: 0.6, min: 0.2 });
+            if (c.lum(x, y) > 0.3) lt += d; else dk += d;
+          }
+          return '<path d="' + lt + '" fill="#c9a77a" opacity="0.7"/><path d="' + dk + '" fill="#2a1c0c" opacity="0.55"/>';
+        },
+        front: function (c) {
+          var ink = c.ink, tk = c.tex, s = '', i;
+          // fuzz along the outline
+          var fz = '';
+          for (i = 2; i < sph.length - 2; i += 1) {
+            var p = sph[i], nrm = [p[0] / rx, p[1] / ry], nl = Math.hypot(nrm[0], nrm[1]) || 1; nrm = [nrm[0] / nl, nrm[1] / nl];
+            for (var j = 0; j < 2; j++) {
+              var t0 = (tk.r() - 0.5) * 3, base = add(add(p, nrm, -1.5), [-nrm[1], nrm[0]], t0), tipp = add(add(base, nrm, 3 + tk.r() * 3.5), [-nrm[1], nrm[0]], (tk.r() - 0.5) * 3);
+              fz += ink.brush([base, tipp], { w: 1.1, ta: 0.1, tb: 0.8, min: 0.15 });
+            }
+          }
+          s += '<path d="' + fz + '" fill="' + INK + '"/>';
+          // the cut: skin rim, green flesh, rays, cream core, ring of seeds
+          s += '<path d="' + polyD(ell(rxT), true) + '" fill="#4e3a22"/>';
+          s += '<path d="' + polyD(ell(rxT - 3), true) + '" fill="#7cae3a"/>';
+          s += '<path d="' + polyD(ell(rxT - 9, -0.6), true) + '" fill="#93c24a" opacity="0.8"/>';
+          var rays = '';
+          for (i = 0; i < 40; i++) { var a = i / 40 * Math.PI * 2 + tk.r() * 0.05, r0 = rxT * 0.24, r1 = rxT * (0.7 + tk.r() * 0.18); rays += tk.brush([[r0 * Math.cos(a), yc + r0 * kk * Math.sin(a)], [r1 * Math.cos(a), yc + r1 * kk * Math.sin(a)]], { w: 1.1, ta: 0.3, tb: 0.6, min: 0.1 }); }
+          s += '<path d="' + rays + '" fill="#e2eeb0" opacity="0.6"/>';
+          s += '<path d="' + polyD(ell(rxT * 0.24, -0.3), true) + '" fill="#ebe7bd"/>';
+          var sd = '';
+          for (i = 0; i < 26; i++) {
+            var sa = i / 26 * Math.PI * 2 + (tk.r() - 0.5) * 0.15, sr = rxT * (0.36 + tk.r() * 0.1), cx = sr * Math.cos(sa), cy = yc + sr * kk * Math.sin(sa);
+            var ca = Math.cos(sa), sn = Math.sin(sa), pts = [];
+            for (var q = 0; q < 10; q++) { var t = q / 10 * Math.PI * 2, u = Math.cos(t) * 3.4, v = Math.sin(t) * 1.6 * (0.6 + 0.4 * (1 + Math.cos(t)) / 2); pts.push([cx + u * ca - v * sn, cy + (u * sn + v * ca) * kk * 1.4]); }
+            sd += polyD(pts, true);
+          }
+          s += '<path d="' + sd + '" fill="' + INK + '"/>';
+          var dk = '';
+          for (i = 0; i < 200; i++) { var fx = (tk.r() * 2 - 1) * rxT, fy = yc + (tk.r() * 2 - 1) * rxT * kk; if ((fx * fx) / (rxT * rxT) + ((fy - yc) * (fy - yc)) / (rxT * rxT * kk * kk) > 0.85) continue; if (tk.r() < clamp((fx * c.D / rxT) * 0.6 + ((fy - yc) / (rxT * kk)) * 0.5, 0, 1) * 0.7) dk += dot(fx, fy); }
+          s += dots(dk, '#4f7a24', 1.5, 0.8);
+          s += ringEl(ink, ell(rxT), [0.35 * c.D, 0.94], { w: 1.6, extra: 2.6 });
+          s += stroke(ink, ell(rxT - 3).slice(2, 30), { w: 1.2, ta: 0.2, tb: 0.2, min: 0.2 });
+          return s;
+        }
+      },
+      face: { c: [2, 30], s: 1.42, eyeX: 26, browW: 8.6, browLen: 27, nose: 'bulb', noseCol: 'rgba(40,20,5,.25)', mouthW: 1.05, chin: 1, stubble: 1, stubbleCol: 'rgba(23,19,15,.5)', halo: '#bf9d72', lid: 0.3 },
+      outfit: {
+        sleeve: { type: 'long', col: '#b85c38', r0: 9.6, r1: 8, len: 0.86, cuff: '#9e4a2c' },
+        legs: { type: 'pants', col: '#4d6178', r0: 9, r1: 8, crease: '#7f93a8' }, shoes: { col: '#efe8d8', sole: '#d8d0bf', lace: '#8a8070', stripe: '#c0392b' },
+        lower: function (c) { // jeans seat block
+          var y0 = c.hip[1] - 12, pts = catmull([[c.hip[0] - 18 * c.k, y0], [c.hip[0] + 18 * c.k, y0], [c.hip[0] + 15 * c.k, y0 + 22], [c.hip[0], y0 + 26], [c.hip[0] - 15 * c.k, y0 + 22]], 4, true);
+          return shape(c.ink, pts, '#4d6178', c.SH, { w: 1.4, extra: 2 }) + stroke(c.ink, [[c.hip[0], y0 + 6], [c.hip[0] + 1, y0 + 24]], { w: 0.9, ta: 0.2, tb: 0.2 }, '#c9a24a');
+        },
+        top: function (c) {
+          var ink = c.ink, n0 = c.tp[0];
+          // hood (behind the head)
+          var hood = catmull([[n0[0] - 26 * c.k, n0[1] + 6], [n0[0] - 30 * c.k, n0[1] - 10], [n0[0] - 14, n0[1] - 22], [n0[0] + 14, n0[1] - 22], [n0[0] + 30 * c.k, n0[1] - 10], [n0[0] + 26 * c.k, n0[1] + 6]], 5, true);
+          c.behindHead = shape(ink, hood, '#9e4a2c', c.SH, { w: 1.5, extra: 2 });
+          var g = garment(c, { neck: 10, chest: 17.5, waist: 17, hem: 18, hemY: 10, shoulder: 2, round: 1 }, '#b85c38');
+          var s = g.svg;
+          // kangaroo pocket
+          var py = g.yW + 4, pc = g.cW;
+          s += shape(ink, catmull([[pc - 13, py], [pc + 13, py], [pc + 16, py + 18], [pc - 16, py + 18]], 2, true), '#ad5434', c.SH, { w: 1.1, extra: 1 });
+          // rib hem
+          s += stroke(ink, [[g.cH - g.wh + 1, g.yH - 7], [g.cH + g.wh - 1, g.yH - 7]], { w: 1, ta: 0.1, tb: 0.1 });
+          s += g.outline;
+          // hood rim around the neck + drawstrings
+          s += stroke(ink, catmull([[n0[0] - 12, n0[1] - 1], [n0[0], n0[1] + 8], [n0[0] + 12, n0[1] - 1]], 4, false), { w: 3.2, ta: 0.1, tb: 0.1, min: 0.6 }, '#7e3a22');
+          s += stroke(ink, [[n0[0] - 5, n0[1] + 6], [n0[0] - 6, n0[1] + 30]], { w: 1.6, ta: 0.05, tb: 0.3 }, '#efe8d8') + stroke(ink, [[n0[0] + 5, n0[1] + 6], [n0[0] + 7, n0[1] + 26]], { w: 1.6, ta: 0.05, tb: 0.3 }, '#efe8d8');
+          return s;
+        }
+      }
+    };
+  })();
+
+  // —— mitbewohnerin: strawberry, oversized mustard tee, slouch socks, slippers ——
+  CH.mitbewohnerin = {
+    name: 'Mitbewohnerin', who: 'flatmate', fruit: 'strawberry',
+    S: 0.97, legK: 0.98, torsoK: 1, wK: 0.95, armK: 1, neck: 7, limbK: 0.95, handK: 0.97,
+    col: { limb: '#c4473c', skin: '#c7342e', outfit: '#e0a93b', accent: '#5f8c3c' },
+    defaults: { expr: 'tired', pose: 'idle', prop: 'phone' },
+    head: {
+      k: 0.92,
+      sil: closed([[0, -86], [30, -94], [62, -86], [82, -60], [88, -20], [80, 20], [62, 58], [38, 86], [14, 101], [0, 104], [-14, 101], [-38, 86], [-62, 58], [-80, 20], [-88, -20], [-82, -60], [-62, -86], [-30, -94]]),
+      c: [0, -6], bottom: 102, top: -122,
+      col: { base: '#cc3a31', shade: '#8f2320', light: '#ee7a66', dark: '#3a0c0a' },
+      hatch: 0.85,
+      tex: function (c) { // achenes in dimples, staggered rows, foreshortened toward the rim
+        var s = '', pits = '', seeds = '';
+        for (var row = 0; row < 14; row++) {
+          var y = -80 + row * 13.5;
+          for (var col = -8; col <= 8; col++) {
+            var x = col * 13 + (row % 2) * 6.5;
+            if (!c.inside(x, y)) continue;
+            var qq = c.q(x, y); if (qq > 0.93) continue;
+            var f = Math.sqrt(1 - qq * qq), ax = 2.2 * (0.45 + 0.55 * f), ay = 3.2;
+            pits += polyD(ellipse(x + 0.6, y + 1.2, ax + 1.1, ay + 1, 10), true);
+            seeds += polyD([[x, y - ay], [x + ax, y + 0.4], [x, y + ay * 0.9], [x - ax, y + 0.4]], true);
+          }
+        }
+        s += '<path d="' + pits + '" fill="#7a1b18" opacity="0.6"/><path d="' + seeds + '" fill="#efd27a"/>';
+        return s;
+      },
+      gloss: function (c) { return stroke(c.ink, catmull([[-62 * c.D, -30], [-52 * c.D, -56], [-34 * c.D, -72]], 4, false), { w: 4.5, ta: 0.4, tb: 0.4, min: 0.2 }, '#f7c9bb'); },
+      front: function (c) { // calyx = messy bangs, stem with a hair tie
+        var ink = c.ink, s = '', sep = [[-78, -66, -150], [-52, -90, -125], [-20, -100, -100], [14, -102, -80], [46, -94, -58], [74, -70, -35], [-4, -86, 92], [34, -82, 70], [-40, -80, 112]];
+        var stem = catmull([[2, -92], [4, -112], [10, -126]], 4, false);
+        s += tube(ink, stem, function (u) { return lerp(4.6, 3.6, u); }, c.SH, { ink: 1.4, extra: 1.2, fill: '#5f8c3c', hatch: false });
+        sep.forEach(function (q, i) {
+          var base = [q[0] * 0.28, -88 + Math.abs(q[0]) * 0.05], tip = [q[0], q[1] + (i > 5 ? 26 : 0)], mid = [(base[0] + tip[0]) / 2, (base[1] + tip[1]) / 2 - 6], nn = [-(tip[1] - base[1]), tip[0] - base[0]], nl = Math.hypot(nn[0], nn[1]) || 1;
+          nn = [nn[0] / nl * 7, nn[1] / nl * 7];
+          var leaf = catmull([base, add(mid, nn), tip, add(mid, nn, -1)], 4, true);
+          s += shape(ink, leaf, i % 2 ? '#4f7a32' : '#6c9a42', c.SH, { w: 1.3, extra: 1.5 });
+          s += stroke(ink, [base, mid, tip], { w: 0.8, ta: 0.2, tb: 0.6 });
+        });
+        s += shape(ink, ellipse(6, -112, 7.5, 3.6, 16), '#e0a93b', c.SH, { w: 1.1, extra: 1 }); // hair tie on the stem
+        return s;
+      }
+    },
+    face: { c: [2, 8], s: 1.36, eyeX: 26, eyeW: 25, lash: 1, browW: 5.2, browLen: 24, nose: 'button', mouthW: 0.95, bag: 1, halo: '#ee7a66' },
+    outfit: {
+      sleeve: { type: 'short', col: '#e0a93b', r0: 9.5, r1: 10.5, len: 0.48, light: 'rgba(255,255,255,.4)' },
+      legs: { type: 'bare', socks: '#9a9890', sockLen: 0.72 }, shoes: { slipper: 1, col: '#c9b8d6', sole: '#8a7a96' },
+      top: function (c) {
+        var g = garment(c, { neck: 9, chest: 19, waist: 19, hem: 21, hemY: 30, shoulder: 3, round: 3 }, '#e0a93b');
+        var s = g.svg, ink = c.ink, p = [g.cC + 1, g.yC + 18];
+        // print: a tiny pizza slice doodle
+        s += shape(ink, [[p[0] - 8, p[1] - 6], [p[0] + 8, p[1] - 6], [p[0], p[1] + 10]], '#f3dc8e', c.SH, { w: 1.1, extra: 0.8 });
+        s += stroke(ink, [[p[0] - 8.5, p[1] - 6.5], [p[0] + 8.5, p[1] - 6.5]], { w: 2.4, ta: 0.1, tb: 0.1 }, '#b07d22');
+        s += '<circle cx="' + f1(p[0] - 2) + '" cy="' + f1(p[1] - 1) + '" r="1.7" fill="#c0392b"/><circle cx="' + f1(p[0] + 2.5) + '" cy="' + f1(p[1] + 3) + '" r="1.5" fill="#c0392b"/>';
+        // big folds
+        s += stroke(ink, [[g.cW - 12, g.yW + 8], [g.cW - 6, g.yH - 4]], { w: 1, ta: 0.3, tb: 0.4 }) + stroke(ink, [[g.cW + 10 * c.side, g.yW + 2], [g.cW + 14 * c.side, g.yH - 8]], { w: 1, ta: 0.3, tb: 0.4 });
+        s += g.outline + stroke(ink, catmull([[g.n0[0] - 9, g.n0[1] + 1.5], [g.n0[0], g.n0[1] + 7], [g.n0[0] + 9, g.n0[1] + 1.5]], 4, false), { w: 2, ta: 0.2, tb: 0.2 });
+        return s;
+      }
+    }
+  };
+
+  // —— kind: cherry, child (≈ 60 % height), backwards-ish cap with the stem poking out, striped tee, shorts ——
+  CH.kind = {
+    name: 'Kind', who: 'small child', fruit: 'cherry',
+    S: 0.6, legK: 0.95, torsoK: 0.92, wK: 1.1, armK: 1, neck: 6, limbK: 0.85, handK: 0.78,
+    col: { limb: '#a83440', skin: '#9e1f2c', outfit: '#2f5d8a', accent: '#efe6cc' },
+    defaults: { expr: 'happy', pose: 'idle', prop: 'glass' },
+    head: {
+      sil: closed([[0, -56], [18, -70], [44, -68], [64, -48], [72, -12], [66, 26], [46, 56], [20, 69], [0, 70], [-20, 69], [-46, 56], [-66, 26], [-72, -12], [-64, -48], [-44, -68], [-18, -70]]),
+      c: [0, 0], bottom: 69, top: -130,
+      col: { base: '#a3202e', shade: '#6a1420', light: '#d4525c', dark: '#24040a' },
+      gloss: function (c) {
+        var D = c.D;
+        return '<path d="' + polyD(catmull([[-50 * D, -30], [-42 * D, -50], [-24 * D, -58], [-30 * D, -44], [-44 * D, -28]], 4, true), true) + '" fill="#f4c2c6" opacity="0.85"/>' +
+          '<ellipse cx="' + (-54 * D) + '" cy="-12" rx="3" ry="5" fill="#f4c2c6" opacity="0.7"/>';
+      },
+      front: function (c) { // cap with bill + stem poking out of the button
+        var ink = c.ink, D = 1, s = '';
+        var stem = catmull([[4, -62], [8, -90], [20, -112], [34, -124]], 5, false);
+        s += tube(ink, stem, function (u) { return lerp(3, 2.2, u); }, c.SH, { ink: 1.3, extra: 1, fill: '#5f7a32', hatch: false });
+        s += shape(ink, catmull([[30, -122], [44, -134], [62, -132], [54, -120], [40, -116]], 4, true), '#6f9a45', c.SH, { w: 1.3, extra: 1.4 });
+        var crown = catmull([[-64, -36], [-62, -60], [-40, -80], [0, -88], [40, -80], [62, -60], [64, -36], [30, -44], [-30, -44]], 5, true);
+        var bill = catmull([[30, -42], [66, -44], [100, -36], [98, -28], [62, -30], [28, -34]], 4, true);
+        s += shape(ink, bill, '#24476b', c.SH, { w: 1.5, extra: 2 });
+        s += shape(ink, crown, '#2f5d8a', c.SH, { w: 1.6, extra: 2.4 });
+        s += stroke(ink, catmull([[0, -86], [-4, -64], [-2, -44]], 4, false), { w: 1, ta: 0.2, tb: 0.2 }) + stroke(ink, catmull([[-30, -80], [-40, -60], [-44, -42]], 4, false), { w: 1, ta: 0.2, tb: 0.2 });
+        s += stroke(ink, catmull([[-62, -46], [0, -52], [62, -46]], 4, false), { w: 4, ta: 0.05, tb: 0.05, min: 0.8 }, '#efe6cc');
+        s += shape(ink, ellipse(2, -88, 6, 3, 12), '#c0392b', c.SH, { w: 1, extra: 0.6 });
+        var h = ''; for (var x = 14; x < 58; x += 4) h += ink.brush([[x, -78 + (x - 14) * 0.5], [x + 3, -50]], { w: 0.8, ta: 0.1, tb: 0.5 });
+        s += '<path d="' + h + '" fill="' + INK + '" opacity="0.7"/>';
+        return s;
+      }
+    },
+    face: { c: [2, 14], s: 1.2, eyeX: 25, eyeW: 23, round: 1, pupil: 1.35, glint: 1, browW: 4.4, browLen: 20, browGap: -1, nose: 'button', mouthW: 0.9, gap: 1, blush: 1, blushCol: '#e0606a', halo: '#d4525c', mouthY: 31 },
+    outfit: {
+      sleeve: { type: 'short', col: '#efe6cc', r0: 7.4, r1: 7.8, len: 0.42 },
+      legs: { type: 'shorts', col: '#b39a68', len: 0.5, socks: '#efe6cc', sockLen: 0.82 }, shoes: { col: '#c0392b', sole: '#efe6cc', lace: '#efe6cc', k: 1.25 },
+      top: function (c) {
+        var g = garment(c, { neck: 7, chest: 15, waist: 15, hem: 16, hemY: 8, shoulder: 1.5 }, '#efe6cc');
+        var cl = clipDef(c, 'tee', g.poly), s = g.svg;
+        s += '<g clip-path="' + cl + '">' + stripes(g.n0[1] + 6, g.yH + 4, g.cH - 40, g.cH + 40, 9, '#2f5d8a') + '</g>';
+        s += flankHatch(c, g, g.n0[1] + 8, g.yH - 3, 5);
+        s += g.outline + stroke(c.ink, catmull([[g.n0[0] - 7, g.n0[1] + 1.5], [g.n0[0], g.n0[1] + 5.5], [g.n0[0] + 7, g.n0[1] + 1.5]], 4, false), { w: 2, ta: 0.2, tb: 0.2 });
+        return s;
+      }
+    }
+  };
+
+  // —— chefin: pineapple (crown = hairdo), navy blazer with lapels, trousers, heels ——
+  (function () {
+    var rx = 70, ry = 90, AL = 0.019, STEP = 0.42;
+    function hw(y) { return rx * Math.sqrt(Math.max(0, 1 - (y / ry) * (y / ry))); }
+    var LEAVES = [ // [base x, angle (deg, -90 = up), length, width, colour, front]
+      [-14, -150, 70, 13, '#3f6329', 0], [16, -32, 74, 13, '#3f6329', 0], [-6, -120, 92, 15, '#4f7a32', 0], [8, -66, 96, 15, '#4f7a32', 0],
+      [0, -96, 120, 17, '#5f8c3c', 0], [-20, -135, 66, 13, '#6c9a42', 1], [22, -52, 70, 13, '#6c9a42', 1], [-4, -104, 84, 14, '#7aa84a', 1], [8, -84, 78, 14, '#6c9a42', 1]
+    ];
+    function leaf(c, L) {
+      var b = [L[0], -ry + 8], a = rad(L[1] + 4 * Math.sin(L[0])), tip = [b[0] + Math.cos(a) * L[2], b[1] + Math.sin(a) * L[2]];
+      var bend = L[1] < -96 ? -1 : 1, mid = [(b[0] + tip[0]) / 2 + bend * L[2] * 0.08, (b[1] + tip[1]) / 2 + L[2] * 0.06];
+      var nn = [-(tip[1] - b[1]), tip[0] - b[0]], nl = Math.hypot(nn[0], nn[1]); nn = [nn[0] / nl, nn[1] / nl];
+      var pts = catmull([add(b, nn, L[3] / 2), add(mid, nn, L[3] * 0.4), tip, add(mid, nn, -L[3] * 0.4), add(b, nn, -L[3] / 2)], 5, true);
+      var s = shape(c.ink, pts, L[4], c.SH, { w: 1.3, extra: 1.6 });
+      s += stroke(c.ink, catmull([b, mid, tip], 4, false), { w: 0.9, ta: 0.1, tb: 0.7 }, 'rgba(23,19,15,.6)');
+      // small serrations
+      var sr = ''; for (var u = 0.25; u < 0.9; u += 0.18) { var q = catmull([b, mid, tip], 4, false)[Math.floor(u * 8)]; var e = add(q, nn, L[3] * 0.42 * (1 - u)); sr += c.ink.brush([e, add(e, nn, 2.6)], { w: 0.8, ta: 0.1, tb: 0.6 }); }
+      return s + '<path d="' + sr + '" fill="' + INK + '" opacity="0.7"/>';
+    }
+    CH.chefin = {
+      name: 'Chefin', who: 'boss', fruit: 'pineapple',
+      S: 1.02, legK: 1.02, torsoK: 1, wK: 1.08, armK: 1, neck: 7, limbK: 0.95, handK: 0.97,
+      col: { limb: '#c08a34', skin: '#d49a3a', outfit: '#2e3d5c', accent: '#f1ead8' },
+      defaults: { expr: 'skeptical', pose: 'arms-crossed', prop: 'clipboard' },
+      head: {
+        k: 0.92,
+        sil: closed((function () { var p = []; for (var i = 0; i < 28; i++) { var a = i / 28 * Math.PI * 2; p.push([rx * Math.cos(a), ry * Math.sin(a) * (Math.sin(a) > 0 ? 1 : 0.96)]); } return p; })(), 3),
+        c: [0, 0], bottom: 89, top: -200,
+        col: { base: '#d49a3a', shade: '#9a6424', light: '#f0c868', dark: '#2e1c06' },
+        hatch: 0.8,
+        back: function (c) { var s = ''; LEAVES.forEach(function (L) { if (!L[5]) s += leaf(c, L); }); return s; },
+        tex: function (c) { // diamond lattice of fruitlets
+          var d1 = '', d2 = '', eyes = '', hl = '';
+          for (var k = -9; k <= 9; k++) {
+            [1, -1].forEach(function (sg) {
+              var pts = [];
+              for (var y = -ry; y <= ry; y += 5) { var th = k * STEP + sg * y * AL; if (Math.abs(th) > Math.PI / 2) { if (pts.length > 1) { (sg > 0 ? (d1 += c.ink.brush(pts, { w: 1.3, ta: 0.1, tb: 0.1, min: 0.3 })) : (d2 += c.ink.brush(pts, { w: 1.3, ta: 0.1, tb: 0.1, min: 0.3 }))); } pts = []; continue; } pts.push([hw(y) * Math.sin(th), y]); }
+              if (pts.length > 1) { if (sg > 0) d1 += c.ink.brush(pts, { w: 1.3, ta: 0.1, tb: 0.1, min: 0.3 }); else d2 += c.ink.brush(pts, { w: 1.3, ta: 0.1, tb: 0.1, min: 0.3 }); }
+            });
+          }
+          for (var i = -10; i <= 10; i++) for (var j = -10; j <= 10; j++) {
+            var y2 = (j - i) * STEP / (2 * AL), th2 = (i + j) * STEP / 2;
+            if (Math.abs(y2) > ry * 0.94 || Math.abs(th2) > 1.35) continue;
+            var x2 = hw(y2) * Math.sin(th2), yy = y2 + STEP / (2 * AL) * 0.5, xx = hw(yy) * Math.sin(th2);
+            if (!c.inside(xx, yy)) continue;
+            var f = Math.cos(th2);
+            eyes += 'M' + f1(xx - 3 * f) + ' ' + f1(yy + 1.5) + 'L' + f1(xx) + ' ' + f1(yy - 3) + 'L' + f1(xx + 3 * f) + ' ' + f1(yy + 1.5);
+            hl += dot(xx - 2 * f, yy - 6);
+          }
+          return '<path d="' + d1 + d2 + '" fill="#6b4316" opacity="0.75"/><path d="' + eyes + '" stroke="' + INK + '" stroke-width="1.3" fill="none" stroke-linejoin="round" opacity="0.85"/>' + dots(hl, '#f7dc8c', 2.2, 0.8);
+        },
+        front: function (c) { var s = ''; LEAVES.forEach(function (L) { if (L[5]) s += leaf(c, L); }); return s; }
+      },
+      face: { c: [2, 16], s: 1.28, eyeX: 24, lash: 1, lid: -0.5, browW: 5.4, browLen: 24, nose: 'pointy', mouthW: 0.9, lip: '#8a1f2a', halo: '#f0c868' },
+      outfit: {
+        sleeve: { type: 'long', col: '#2e3d5c', r0: 8.4, r1: 7, len: 0.86, cuff: '#f1ead8' },
+        legs: { type: 'pants', col: '#2e3d5c', r0: 8, r1: 6.6, crease: '#4c5d80' }, shoes: { col: '#17130f', heel: 1 },
+        lower: function (c) {
+          var y0 = c.hip[1] - 12, pts = catmull([[c.hip[0] - 17 * c.k, y0], [c.hip[0] + 17 * c.k, y0], [c.hip[0] + 14 * c.k, y0 + 22], [c.hip[0], y0 + 26], [c.hip[0] - 14 * c.k, y0 + 22]], 4, true);
+          return shape(c.ink, pts, '#2e3d5c', c.SH, { w: 1.4, extra: 2 });
+        },
+        top: function (c) {
+          var ink = c.ink, g = garment(c, { neck: 9, chest: 16, waist: 13.5, hem: 17, hemY: 16, shoulder: 3.5, round: 1 }, '#2e3d5c');
+          var s = g.svg, n0 = g.n0;
+          s += vNeck(c, n0, n0[1] + 40, 8, '#f1ead8');
+          s += g.outline + lapels(c, n0, n0[1] + 44, '#3a4b6e', 9);
+          s += buttons(c, cxAt(c.tp, g.yW) + 2, [g.yW + 4], 2, '#c9a24a');
+          s += stroke(ink, [[g.cW - 15, g.yW + 16], [g.cW - 5, g.yW + 16]], { w: 1.1, ta: 0.1, tb: 0.1 }, '#4c5d80') + stroke(ink, [[g.cW + 5, g.yW + 16], [g.cW + 15, g.yW + 16]], { w: 1.1, ta: 0.1, tb: 0.1 }, '#4c5d80');
+          s += shape(ink, ellipse(g.cC - 14 * c.k, g.yC + 2, 3.2, 3.2, 10), '#d6a03c', c.SH, { w: 1, extra: 0.6 }); // brooch
+          return s;
+        }
+      }
+    };
+  })();
+
+  // —— oma: plum with a little bun, round glasses on a chain, sage cardigan, tweed skirt ——
+  CH.oma = {
+    name: 'Oma', who: 'grandma', fruit: 'plum',
+    S: 0.88, legK: 0.94, torsoK: 0.95, wK: 1.1, armK: 1, neck: 3, limbK: 0.95, handK: 0.95, bend: [4, 2], headTilt: 3,
+    col: { limb: '#7a4a7a', skin: '#6e3a6e', outfit: '#8a9a74', accent: '#c9b8d6' },
+    defaults: { expr: 'happy', pose: 'idle', prop: 'plate' },
+    head: {
+      k: 0.94,
+      sil: closed([[0, -88], [30, -86], [58, -66], [74, -30], [76, 10], [66, 48], [44, 76], [16, 90], [-14, 90], [-44, 76], [-66, 46], [-74, 8], [-70, -32], [-54, -66], [-28, -86]]),
+      c: [0, 0], bottom: 89, top: -126,
+      col: { base: '#74407a', shade: '#4a2048', light: '#b49ac4', dark: '#1e0a1e' },
+      tex: function (c) { // dusty bloom + suture seam
+        var tk = c.tex, b = '';
+        for (var i = 0; i < 900; i++) { var x = (tk.r() * 2 - 1) * 76, y = -88 + tk.r() * 176; if (!c.inside(x, y)) continue; if (c.lum(x, y) > 0.2 && tk.r() < 0.6) b += dot(x, y); }
+        var s = dots(b, '#b9b3cc', 2.4, 0.45);
+        var seam = catmull([[-6, -86], [-22, -60], [-30, -20], [-26, 30], [-14, 74]], 5, false).map(function (p) { return [p[0] * c.D, p[1]]; });
+        s += stroke(c.ink, seam, { w: 1.6, ta: 0.3, tb: 0.5, min: 0.2 }, '#2e0f2e') + '<path d="' + polyD(seam.map(function (p) { return [p[0] - 2.5 * c.D, p[1]]; }), false) + '" stroke="#a585b5" stroke-width="1.4" fill="none" opacity="0.6"/>';
+        return s;
+      },
+      front: function (c) { // bun + hairpin
+        var ink = c.ink, s = '';
+        s += tube(ink, [[2, -84], [3, -96]], 4, c.SH, { ink: 1.3, extra: 1, fill: '#5a3a24', hatch: false });
+        var bun = ellipse(4, -110, 17, 14, 30);
+        s += shape(ink, bun, '#5e2e5c', c.SH, { w: 1.5, extra: 2 });
+        s += stroke(ink, catmull([[-8, -112], [0, -120], [12, -116], [10, -106], [0, -104]], 5, false), { w: 1.1, ta: 0.2, tb: 0.4 }, '#2e0f2e');
+        s += stroke(ink, [[-14, -100], [22, -122]], { w: 2, ta: 0.05, tb: 0.05, min: 0.8 }, '#c9a24a');
+        return s;
+      }
+    },
+    face: { c: [2, 14], s: 1.32, eyeX: 25, eyeW: 21, browW: 4.2, browLen: 22, browCol: '#d9d2c4', nose: 'bulb', noseCol: 'rgba(200,120,150,.35)', mouthW: 0.85, halo: '#b49ac4', lines: 1, crease: 1, blush: 1, blushCol: '#e08aa0', glasses: { r: 16, col: '#3a2a1a', chain: 1 } },
+    outfit: {
+      sleeve: { type: 'long', col: '#8a9a74', r0: 8.8, r1: 7.6, len: 0.86, cuff: '#7a8a64' },
+      legs: { type: 'bare' }, shoes: { col: '#6b4a2a', heel: 0, laces: false },
+      lower: function (c) {
+        var p = skirtPoly(c, c.hip[1] - 10, lerp(c.knee[1], c.ank[1], 0.4), 17 * c.k, 22 * c.k, c.sit);
+        var s = shape(c.ink, p, '#7a6a58', c.SH, { w: 1.6, extra: 2.4 });
+        var cl = clipDef(c, 'tweed', p);
+        s += '<g clip-path="' + cl + '">' + gridPattern(c.hip[0] - 40, c.hip[1] - 12, c.hip[0] + 40, c.ank[1], 5, '#5a4a3a', 0.8, 0.5) + '</g>';
+        return s;
+      },
+      top: function (c) {
+        var ink = c.ink, g = garment(c, { neck: 8, chest: 16.5, waist: 16, hem: 18, hemY: 8, shoulder: 1 }, '#8a9a74');
+        var s = g.svg, n0 = g.n0;
+        s += vNeck(c, n0, n0[1] + 30, 8, '#c9b8d6');
+        var rib = ''; for (var x = g.cH - g.wh + 2; x < g.cH + g.wh - 1; x += 2.6) rib += 'M' + f1(x) + ' ' + f1(g.yH - 6) + 'v6';
+        s += '<path d="' + rib + '" stroke="' + INK + '" stroke-width="0.7" opacity="0.6"/>';
+        s += buttons(c, cxAt(c.tp, n0[1] + 36) + 1, [n0[1] + 36, n0[1] + 50, n0[1] + 64, n0[1] + 78], 1.8, '#e9e2cf');
+        s += g.outline + collarWings(c, n0, '#f1ead8', 8, 11);
+        // tissue peeking out of the sleeve pocket: small handkerchief in the chest pocket
+        s += shape(ink, [[g.cC + 6 * c.side, g.yC + 2], [g.cC + 13 * c.side, g.yC + 2], [g.cC + 12 * c.side, g.yC + 10], [g.cC + 7 * c.side, g.yC + 10]], '#7a8a64', c.SH, { w: 1, extra: 0.8 });
+        s += shape(ink, [[g.cC + 7 * c.side, g.yC + 2], [g.cC + 9 * c.side, g.yC - 4], [g.cC + 12 * c.side, g.yC + 2]], '#e08aa0', c.SH, { w: 0.9, extra: 0.6 });
+        return s;
+      }
+    }
+  };
+
+  // —— arzt: coconut, fibre tuft, head mirror, white coat, stethoscope, blue shirt + tie ——
+  CH.arzt = {
+    name: 'Arzt', who: 'doctor', fruit: 'coconut',
+    S: 1.02, legK: 1.02, torsoK: 1.02, wK: 1.06, armK: 1, neck: 7, limbK: 1, handK: 1,
+    col: { limb: '#7a5636', skin: '#6e4c30', outfit: '#f2ecdc', accent: '#8fb0c8' },
+    defaults: { expr: 'tired', pose: 'idle', prop: 'clipboard' },
+    head: {
+      k: 0.92,
+      sil: closed([[0, -90], [36, -86], [66, -62], [82, -22], [82, 20], [70, 56], [44, 82], [14, 92], [-16, 92], [-46, 80], [-70, 54], [-82, 18], [-80, -24], [-64, -62], [-34, -86]]),
+      c: [0, 0], bottom: 91, top: -128,
+      col: { base: '#73502f', shade: '#4a3020', light: '#a88058', dark: '#1a0f06' },
+      tex: function (c) { // fibres along the meridians
+        var tk = c.tex, lt = '', dk = '';
+        for (var i = 0; i < 260; i++) {
+          var th = (tk.r() * 2 - 1) * 1.5, y = -86 + tk.r() * 170, len = 8 + tk.r() * 16, pts = [];
+          for (var u = 0; u <= 1.001; u += 0.25) { var yy = y + u * len, h = 82 * Math.sqrt(Math.max(0, 1 - (yy / 92) * (yy / 92))); pts.push([h * Math.sin(th + u * 0.05), yy]); }
+          var d = tk.brush(pts, { w: 0.9 + tk.r() * 0.8, ta: 0.3, tb: 0.5, min: 0.1, jit: 0.4 });
+          if (tk.r() < 0.55) lt += d; else dk += d;
+        }
+        return '<path d="' + lt + '" fill="#b58c5e" opacity="0.6"/><path d="' + dk + '" fill="#2a180a" opacity="0.5"/>';
+      },
+      front: function (c) { // fibre tuft on top
+        var ink = c.ink, tk = c.tex, d = '', d2 = '';
+        for (var i = 0; i < 46; i++) {
+          var x = (tk.r() * 2 - 1) * 34, y = -80 - Math.cos(x / 34 * 1.4) * 8, a = -90 + x * 0.9 + (tk.r() - 0.5) * 40, l = 18 + tk.r() * 26;
+          var p = catmull([[x, y], [x + Math.cos(rad(a)) * l * 0.5, y + Math.sin(rad(a)) * l * 0.5], [x + Math.cos(rad(a + (x > 0 ? 25 : -25))) * l, y + Math.sin(rad(a + (x > 0 ? 25 : -25))) * l]], 3, false);
+          var dd = ink.brush(p, { w: 2 + tk.r() * 1.6, ta: 0.1, tb: 0.8, min: 0.1, jit: 0.4 });
+          if (i % 3) d += dd; else d2 += dd;
+        }
+        return '<path d="' + d + '" fill="#4a3020"/><path d="' + d2 + '" fill="#a88058"/>';
+      }
+    },
+    face: { c: [2, 20], s: 1.36, eyeX: 26, browW: 9, browLen: 27, browCol: '#d8d0c0', nose: 'long', mouthW: 0.95, chin: 1, bag: 1, halo: '#a88058', headMirror: 1 },
+    outfit: {
+      sleeve: { type: 'long', col: '#f2ecdc', r0: 9, r1: 7.6, len: 0.86 },
+      legs: { type: 'pants', col: '#5a5f66', r0: 8.4, r1: 7.2, crease: '#7c828a' }, shoes: { col: '#17130f', laces: false },
+      lower: function (c) { // coat skirt (open), drawn over the trousers
+        var y0 = c.hip[1] - 14, y1 = c.sit ? c.knee[1] + 4 : lerp(c.hip[1], c.knee[1], 0.92), cx = c.hip[0], s = '';
+        [-1, 1].forEach(function (sd) {
+          var p = catmull([[cx + sd * 2, y0], [cx + sd * 19 * c.k, y0], [cx + sd * 24 * c.k, y1], [cx + sd * 4, y1 + 1.5]], 3, true);
+          s += shape(c.ink, p, '#f2ecdc', c.SH, { w: 1.5, extra: 2.2 });
+        });
+        return s;
+      },
+      top: function (c) {
+        var ink = c.ink, g = garment(c, { neck: 9, chest: 16, waist: 15, hem: 17, hemY: 6, shoulder: 1.5 }, '#f2ecdc');
+        var s = g.svg, n0 = g.n0, yV = g.yW + 4;
+        // shirt + tie in the open front
+        s += shape(ink, [[n0[0] - 9, n0[1] + 1], [n0[0] + 9, n0[1] + 1], [cxAt(c.tp, yV) + 6, yV], [cxAt(c.tp, g.yH) + 6, g.yH], [cxAt(c.tp, g.yH) - 6, g.yH], [cxAt(c.tp, yV) - 6, yV]], '#9db8cf', c.SH, { w: 1.1, extra: 0.8 });
+        s += shape(ink, [[n0[0] - 3, n0[1] + 6], [n0[0] + 3, n0[1] + 6], [n0[0] + 4.5, n0[1] + 40], [n0[0], n0[1] + 46], [n0[0] - 4.5, n0[1] + 40]], '#8e2a2a', c.SH, { w: 1, extra: 0.8 });
+        s += g.outline + lapels(c, n0, yV, '#e8e0cc', 10);
+        // breast pocket with pens
+        var px = g.cC + 10 * c.side;
+        s += stroke(ink, [[px - 6, g.yC + 6], [px + 6, g.yC + 6]], { w: 1.1, ta: 0.1, tb: 0.1 });
+        s += '<path d="M' + f1(px - 3) + ' ' + f1(g.yC + 6) + 'v-8M' + f1(px + 1.5) + ' ' + f1(g.yC + 6) + 'v-6" stroke="#2f5d8a" stroke-width="2.2"/>';
+        // stethoscope around the neck
+        var st = catmull([[n0[0] - 14, n0[1] - 2], [n0[0] - 16, n0[1] + 20], [n0[0] - 10, n0[1] + 40], [n0[0] - 6, n0[1] + 52]], 5, false);
+        var st2 = catmull([[n0[0] + 14, n0[1] - 2], [n0[0] + 16, n0[1] + 22], [n0[0] + 12, n0[1] + 34]], 5, false);
+        s += stroke(ink, st, { w: 3.4, ta: 0.02, tb: 0.02, min: 0.9, jit: 0.05 }, '#2b2a28') + stroke(ink, st2, { w: 3.4, ta: 0.02, tb: 0.02, min: 0.9, jit: 0.05 }, '#2b2a28');
+        s += shape(ink, ellipse(n0[0] - 6, n0[1] + 57, 6, 6, 16), '#c9cdd0', c.SH, { w: 1.3, extra: 1.2 }) + '<circle cx="' + f1(n0[0] - 6) + '" cy="' + f1(n0[1] + 57) + '" r="2.4" fill="#8a9196"/>';
+        return s;
+      }
+    }
+  };
+
+  // —— moderator: orange, slick leaf quiff, shiny purple suit, red bow tie, microphone ——
+  CH.moderator = {
+    name: 'Moderator', who: 'game-show host', fruit: 'orange',
+    S: 1, legK: 1, torsoK: 1, wK: 1.12, armK: 1, neck: 7, limbK: 1, handK: 1,
+    col: { limb: '#d9742a', skin: '#e07a24', outfit: '#5b3a8c', accent: '#c0392b' },
+    defaults: { expr: 'happy', pose: 'hold', prop: 'mic' },
+    head: {
+      k: 0.9,
+      sil: closed([[0, -84], [34, -80], [64, -60], [82, -26], [84, 12], [74, 48], [50, 76], [18, 88], [-16, 88], [-50, 76], [-74, 48], [-84, 12], [-82, -26], [-64, -60], [-34, -80]]),
+      c: [0, 2], bottom: 87, top: -116,
+      col: { base: '#e3802a', shade: '#a8531a', light: '#f8b56a', dark: '#3a1a06' },
+      stipple: 0.55,
+      tex: function (c) { // pores
+        var tk = c.tex, d = '', l = '';
+        for (var i = 0; i < 1300; i++) { var x = (tk.r() * 2 - 1) * 84, y = -84 + tk.r() * 172; if (!c.inside(x, y) || c.q(x, y) > 0.95) continue; if (tk.r() < 0.5) d += 'M' + f1(x) + ' ' + f1(y) + 'a1 1 0 1 0 0.1 0'; else l += dot(x, y); }
+        return '<path d="' + d + '" fill="none" stroke="#a8531a" stroke-width="0.9" opacity="0.7"/>' + dots(l, '#fbd09a', 1.4, 0.6);
+      },
+      gloss: function (c) {
+        var D = c.D;
+        return '<path d="' + polyD(catmull([[-56 * D, -26], [-50 * D, -48], [-30 * D, -62], [-36 * D, -46], [-48 * D, -24]], 4, true), true) + '" fill="#fff4dc" opacity="0.9"/><circle cx="' + (-60 * D) + '" cy="-6" r="3.2" fill="#fff4dc" opacity="0.8"/>';
+      },
+      front: function (c) { // navel star + slick leaf quiff
+        var ink = c.ink, s = '', st = '';
+        for (var i = 0; i < 6; i++) { var a = i / 6 * Math.PI * 2; st += ink.brush([[2, -80], [2 + Math.cos(a) * 9, -80 + Math.sin(a) * 4]], { w: 2, ta: 0.1, tb: 0.6 }); }
+        s += '<path d="' + st + '" fill="#4f7a32"/>';
+        var lf = catmull([[0, -82], [-10, -104], [10, -128], [46, -134], [72, -118], [44, -112], [20, -98]], 5, true);
+        s += shape(ink, lf, '#4f7a32', c.SH, { w: 1.5, extra: 1.8 });
+        s += stroke(ink, catmull([[2, -86], [14, -114], [58, -124]], 4, false), { w: 1.1, ta: 0.2, tb: 0.6 });
+        s += stroke(ink, catmull([[10, -116], [30, -126], [56, -126]], 4, false), { w: 2.2, ta: 0.3, tb: 0.5 }, '#9cc46a');
+        return s;
+      }
+    },
+    face: { c: [2, 18], s: 1.4, eyeX: 27, browW: 6.6, browLen: 27, browGap: 3, nose: 'hook', mouthW: 1.1, chin: 1, glint: 1, grin: 1, halo: '#f8b56a', crease: 1 },
+    outfit: {
+      sleeve: { type: 'long', col: '#5b3a8c', r0: 8.8, r1: 7.4, len: 0.86, cuff: '#f1ead8', shine: '#c9b2ec' },
+      legs: { type: 'pants', col: '#5b3a8c', r0: 8.4, r1: 7.2, crease: '#8a6ab8' }, shoes: { col: '#17130f', laces: false, sole: '#2a2622' },
+      lower: function (c) {
+        var y0 = c.hip[1] - 12, pts = catmull([[c.hip[0] - 18 * c.k, y0], [c.hip[0] + 18 * c.k, y0], [c.hip[0] + 15 * c.k, y0 + 22], [c.hip[0], y0 + 26], [c.hip[0] - 15 * c.k, y0 + 22]], 4, true);
+        return shape(c.ink, pts, '#5b3a8c', c.SH, { w: 1.4, extra: 2 });
+      },
+      top: function (c) {
+        var ink = c.ink, g = garment(c, { neck: 9, chest: 17, waist: 14.5, hem: 17.5, hemY: 14, shoulder: 3 }, '#5b3a8c');
+        var s = g.svg, n0 = g.n0, yV = g.yW + 2;
+        s += vNeck(c, n0, yV, 8.5, '#f1ead8');
+        // shine streaks (satin)
+        s += stroke(ink, [[g.cC - 12 * c.side, g.yC - 2], [g.cW - 10 * c.side, g.yW + 14]], { w: 2.6, ta: 0.3, tb: 0.4, min: 0.2 }, '#c9b2ec');
+        s += stroke(ink, [[g.cC - 7 * c.side, g.yC + 4], [g.cW - 6 * c.side, g.yW - 4]], { w: 1.2, ta: 0.3, tb: 0.4 }, '#efe2ff');
+        s += g.outline + lapels(c, n0, yV + 2, '#2a1a40', 9.5);
+        s += stroke(ink, [[n0[0] - 7, n0[1] + 10], [n0[0] - 2, yV - 6]], { w: 1.2, ta: 0.3, tb: 0.3 }, '#8a6ab8');
+        s += bowtie(c, [n0[0], n0[1] + 6], '#c0392b', 1);
+        s += buttons(c, cxAt(c.tp, yV + 8), [yV + 8], 2, '#d6a03c');
+        // pocket square + sparkle
+        var px = g.cC + 11 * c.side;
+        s += shape(ink, [[px - 5, g.yC + 3], [px - 2, g.yC - 4], [px + 1, g.yC + 1], [px + 4, g.yC - 4], [px + 6, g.yC + 3]], '#c0392b', c.SH, { w: 0.9, extra: 0.6 });
+        s += '<path d="M' + f1(g.cC - 12 * c.side) + ' ' + f1(g.yW - 10) + 'm0 -5v10m-5 -5h10" stroke="#fff" stroke-width="1.4" opacity="0.9"/>';
+        return s;
+      }
+    }
+  };
+
   // ───────────────────────────── character setup ─────────────────────────────
   function charOf(id) { var ch = CH[id]; if (!ch) throw new Error('Cast: unknown character "' + id + '"'); return ch; }
   function poseOf(name) { return POSES[name] || POSES[POSE_ALIAS[name]] || POSES.idle; }

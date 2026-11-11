@@ -24,9 +24,10 @@
       }
       s += S.lines(lf, { w: 2.2, ta: 0.1, tb: 0.6, min: 0.3 }, '#24391a', ' opacity=".55"');
       // white blossom candles
-      for (k = 0; k < 3; k++) {
+      for (k = 0; k < 2; k++) {
         var wx = bx + (r() - 0.5) * br * 1.3, wy = by + (r() - 0.7) * br * 0.6;
-        s += S.shape(U.catmull([[wx, wy - 22], [wx + 8, wy], [wx, wy + 6], [wx - 8, wy]], 3, true), '#f4efe0', { w: 1.4, extra: 1.2 });
+        for (var q = 0; q < 4; q++) s += S.circ(wx + (q % 2 ? 2 : -2), wy - q * 8, 7 - q * 1.4, q === 1 ? '#f3e2d6' : '#f6f1e2', { w: 1.2, extra: 0.8, n: 12 });
+        s += S.dot(wx - 1, wy - 6, 1.6, '#d65a5a');
       }
     }
     return s;
@@ -140,11 +141,11 @@
     fg += S.box(T.x0, T.y1, T.x1 - T.x0, 22, P.wood, { w: 3, extra: 3.4, hatch: 'b', hk: 0.4 });
     // tableware (on the table top, y ≈ T.y0..T.y1)
     // beer mats
-    [[520, 794], [760, 790], [1070, 792], [1290, 796]].forEach(function (m) { fg += S.shape(S.ellipse(m[0], m[1], 34, 9, 24), '#f4efe0', { w: 1.6, extra: 1.2 }); });
-    fg += mass(S, 520, 796, 120) + mass(S, 760, 792, 116) + mass(S, 1070, 794, 118, '#d9962f') + mass(S, 1290, 798, 120);
+    [[520, 794], [760, 790], [1070, 792], [1290, 796]].forEach(function (m) { fg += S.shape(S.ellipse(m[0], m[1], 30, 8, 24), '#f4efe0', { w: 1.6, extra: 1.2 }); });
+    fg += mass(S, 520, 796, 84) + mass(S, 760, 792, 82) + mass(S, 1070, 794, 84, '#d9962f') + mass(S, 1290, 798, 84);
     // pretzels on a plate + radish + obatzda
     fg += S.shape(S.ellipse(900, 792, 80, 18, 32), '#f6f0e0', { w: 2, extra: 2.2 });
-    fg += pretzel(S, 900, 768, 46);
+    fg += pretzel(S, 900, 776, 36);
     fg += S.shape(S.ellipse(1180, 798, 50, 12, 24), '#f6f0e0', { w: 1.8, extra: 1.8 });
     fg += S.shape(U.catmull([[1150, 794], [1160, 772], [1190, 768], [1210, 790]], 4, false), '#e9a14a', { w: 1.8, extra: 1.8 });   // Obatzda
     var radi = U.catmull([[620, 800], [600, 780], [612, 756], [640, 760], [648, 786]], 4, true);

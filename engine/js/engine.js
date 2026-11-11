@@ -1277,7 +1277,7 @@
     });
   }
   function darken(hex) { var n = parseInt(hex.slice(1), 16), r = (n >> 16) * 0.62, g = ((n >> 8) & 255) * 0.62, b = (n & 255) * 0.62; return 'rgb(' + (r | 0) + ',' + (g | 0) + ',' + (b | 0) + ')'; }
-  var SCREEN_AT = { center: [960, 800], left: [210, 330], right: [1710, 330], top: [960, 150], back: [960, 160], 'top-left': [210, 200], 'top-right': [1710, 200], 'bottom-left': [210, 760], 'bottom-right': [1710, 760] };
+  var SCREEN_AT = { center: [960, 150], left: [210, 330], right: [1710, 330], top: [960, 150], back: [960, 160], 'top-left': [210, 200], 'top-right': [1710, 200], 'bottom-left': [210, 760], 'bottom-right': [1710, 760] };
   function propPos(sc, at) {
     if (sc.type === 'scene') {
       var S = slotsOf(sc);
@@ -1354,7 +1354,7 @@
       var D = f.dur || 0.9;
       if (f.name === 'record-scratch' && a >= 0 && a < D) {
         ctx.save(); ctx.globalCompositeOperation = 'saturation'; ctx.fillStyle = '#808080'; ctx.globalAlpha = 0.75 * sat(a / 0.08) * sat((D - a) / 0.15); ctx.fillRect(0, 0, 1920, 1080); ctx.restore();
-        ctx.save(); ctx.globalAlpha = sat(a / 0.06) * sat((D - a) / 0.15); ctx.translate(1700, 190); ctx.rotate(-a * 6);
+        ctx.save(); ctx.globalAlpha = sat(a / 0.06) * sat((D - a) / 0.15); ctx.translate(1730, 720); ctx.rotate(-a * 6);
         ctx.fillStyle = '#17130f'; ctx.beginPath(); ctx.arc(0, 0, 110, 0, 7); ctx.fill();
         ctx.strokeStyle = 'rgba(243,234,211,.25)'; ctx.lineWidth = 2; for (var rr = 40; rr < 105; rr += 9) { ctx.beginPath(); ctx.arc(0, 0, rr, 0, 7); ctx.stroke(); }
         ctx.fillStyle = '#c43d33'; ctx.beginPath(); ctx.arc(0, 0, 34, 0, 7); ctx.fill(); ctx.fillStyle = '#f3ead3'; ctx.beginPath(); ctx.arc(0, 0, 5, 0, 7); ctx.fill();
@@ -1445,12 +1445,16 @@
     else if (dark) darkBg(ctx, t); else paperBg(ctx, style === 'stack' ? '#efe0b4' : '#ece2c8', t);
     var fam = 'Fraunces', stack = style === 'stack' || (sc.lineCount || 1) > 1;
     var sideProps = (sc.props || []).some(function (p) { return /left|right/.test(p.at); });
-    var L = fitWords(toks, stack, sideProps ? 1220 : 1500, sc.args.sub ? 520 : 640, fam, stack ? 5 : 3);
-    var lh = L.fs * 1.08, top = 540 - (L.lines.length * lh) / 2 - (a.sub ? 70 : 20) + L.fs * 0.8;
+    var topProp = (sc.props || []).some(function (p) { return !/left|right|^\d/.test(p.at); });
+    // keep clear of a corner/side Melo: narrower text, shifted away from him
+    var om = overlayMelo(sc), cx0 = 960, maxW = sideProps ? 1100 : 1500;
+    if (om) { maxW = Math.min(maxW, 1260); cx0 = om.x < 960 ? 1060 : 860; }
+    var L = fitWords(toks, stack, maxW, (sc.args.sub ? 520 : 640) - (topProp ? 90 : 0), fam, stack ? 5 : 3);
+    var lh = L.fs * 1.08, top = 540 - (L.lines.length * lh) / 2 - (a.sub ? 70 : 20) + L.fs * 0.8 + (topProp ? 60 : 0);
     var colMain = dark ? CREAM : INK, colAcc = dark ? MUSTARD : (style === 'wrong' ? RED : style === 'right' ? '#3f7d2f' : '#b5402f');
     var lastT = toks.length ? toks[toks.length - 1].t : sc.tStart, ends = [];
     L.lines.forEach(function (line, li) {
-      var lw = line.reduce(function (s, b) { return s + b.w; }, 0) + L.sp * (line.length - 1), x = 960 - lw / 2, y = top + li * lh;
+      var lw = line.reduce(function (s, b) { return s + b.w; }, 0) + L.sp * (line.length - 1), x = cx0 - lw / 2, y = top + li * lh;
       line.forEach(function (o, wi) {
         var p = (t - o.tk.t) / 0.26;
         var col = stack ? (li % 2 ? colAcc : colMain) : (li === L.lines.length - 1 && L.lines.length > 1 && !dark ? colMain : (li === L.lines.length - 1 && dark ? MUSTARD : colMain));
@@ -1466,7 +1470,7 @@
         }
         x += o.w + L.sp;
       });
-      ends.push({ x0: 960 - lw / 2, x1: 960 + lw / 2, y: y });
+      ends.push({ x0: cx0 - lw / 2, x1: cx0 + lw / 2, y: y });
     });
     var strikeT = sc.strikeT, tickT = sc.tickT;
     if (strikeT != null && t >= strikeT) ends.forEach(function (e, i) {
@@ -1487,7 +1491,7 @@
     if (a.sub) {
       var ps = sat((t - lastT - 0.25) / 0.3), ys = top + (L.lines.length - 1) * lh + L.fs * 0.55 + 70;
       ctx.save(); ctx.globalAlpha = ps; ctx.font = '700 76px Caveat'; ctx.textAlign = 'center'; ctx.fillStyle = dark ? CREAM : (style === 'wrong' ? RED : style === 'right' ? '#3f7d2f' : '#5a4a3a');
-      ctx.translate(960, ys); ctx.rotate(-0.025); ctx.fillText(a.sub, 0, 0); ctx.restore();
+      ctx.translate(cx0, ys); ctx.rotate(-0.025); ctx.fillText(a.sub, 0, 0); ctx.restore();
     }
     return cam;
   }
@@ -1540,8 +1544,8 @@
     darkBg(ctx, t);
     var t0 = sc.contentStart || sc.tStart;
     if (a.num != null && a.num !== '') {
-      drawSlam(ctx, 'NR.', 150, 470, '400 150px Anton', CREAM, (t - t0) / 0.25, 'left');
-      drawSlam(ctx, String(a.num), 150, 860, '400 440px Anton', MUSTARD, (t - t0 - 0.15) / 0.3, 'left');
+      drawSlam(ctx, 'NR.', 150, 470, '400 150px Anton', CREAM, (t - t0 + 0.1) / 0.25, 'left');
+      drawSlam(ctx, String(a.num), 150, 860, '400 440px Anton', MUSTARD, (t - t0 + 0.05) / 0.3, 'left');
       var tl = String(a.title || ''), fs = 120, font;
       for (; fs > 56; fs -= 4) { font = '900 ' + fs + 'px Fraunces'; var ls = wrap(tl, font, 1000); if (ls.length <= 2 && ls.every(function (l) { return measure(l, font) <= 1000; })) break; }
       font = '900 ' + fs + 'px Fraunces';

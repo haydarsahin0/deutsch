@@ -8,7 +8,7 @@
   var K = root.SetKitB || require('./kit-b.js');
   var P = K.P, U = K.U;
   var YH = 780, WALL = '#2c3442', WALL_D = '#1f2531', SCREEN = '#cfe4ef', GLOW = '#9fd0ff';
-  var MON = { x: 300, y: 430, w: 520, h: 320 };
+  var MON = { x: 300, y: 450, w: 520, h: 320 };
 
   function room(S) {
     var s = '';
@@ -103,7 +103,7 @@
   }
 
   function desk(S) {
-    var s = '', x0 = 220, x1 = 1520, top = 830;
+    var s = '', x0 = 220, x1 = 1520, top = 868;
     // monitor (stands on the desk)
     var x = MON.x, y = MON.y, w = MON.w, h = MON.h;
     s += S.glow(x + w / 2, y + h / 2, 560, 420, GLOW, 0.22);
@@ -191,7 +191,7 @@
             var f = 0.035 + 0.025 * Math.max(0, Math.sin((t || 0) * 23) * Math.sin((t || 0) * 7.3));
             return '<rect x="' + (MON.x + 18) + '" y="' + (MON.y + 18) + '" width="' + (MON.w - 36) + '" height="' + (MON.h - 36) + '" fill="#ffffff" opacity="' + f.toFixed(3) + '"/>';
           },
-          steam: function (t, o, S) { return S.steam(1252, 830 - 70, 70, t, 0.35); }
+          steam: function (t, o, S) { return S.steam(1252, 868 - 70, 70, t, 0.35); }
         }
       };
     }

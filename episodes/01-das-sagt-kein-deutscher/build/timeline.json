@@ -22571,7 +22571,9 @@
  ],
  "assets": {
   "sets": [
+   "after-work-desk.js",
    "bakery.js",
+   "biergarten.js",
    "cellar.js",
    "cinema-front.js",
    "dinner-table.js",
