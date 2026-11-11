@@ -655,6 +655,8 @@ def assemble_alignment(ep, script, wt, n_cov, extras, part_info, duration=None,
         t = wt[k]
         words.append({"i": k, "text": w["text"], "start": round(t["s"], 3), "end": round(t["e"], 3),
                       "raw": w["raw"], "match": t["kind"], "line": w["line"]})
+        if w["para_end"]:
+            words[-1]["para_end"] = True
     if duration is None:
         duration = words[-1]["end"] + 0.5 if words else 0.0
     partial = n_cov < N
@@ -715,7 +717,7 @@ def assemble_alignment(ep, script, wt, n_cov, extras, part_info, duration=None,
 MAX_LINE = 42
 MAX_DUR = 7.0
 MIN_DUR = 1.0
-HARD_GAP = 0.7
+HARD_GAP = 0.6
 
 
 def _join(tokens):
@@ -733,8 +735,10 @@ def break_lines(tokens):
         if len(l1) > MAX_LINE or len(l2) > MAX_LINE:
             continue
         cost = abs(len(l1) - len(l2))
-        if SENT_END_RE.search(tokens[k - 1]) or CLAUSE_END_RE.search(tokens[k - 1]):
-            cost -= 12
+        if SENT_END_RE.search(tokens[k - 1]):
+            cost -= 22
+        elif CLAUSE_END_RE.search(tokens[k - 1]):
+            cost -= 10
         elif strip_punct(tokens[k]).lower() in CONJ:
             cost -= 5
         if len(l1) > len(l2) + 6:
@@ -749,11 +753,12 @@ def make_subtitles(al):
     n = len(words)
     if not n:
         return []
-    # hard runs
+    # hard runs: never across a paragraph end, a [[pause]] / [[scene]] cue or a real pause
+    brk = {c["word"] for c in al.get("cues", []) if c["cue"] in ("pause", "scene") and c.get("at") == "start"}
     runs, cur = [], [0]
     for k in range(1, n):
         gap = words[k]["start"] - words[k - 1]["end"]
-        if gap >= HARD_GAP:
+        if gap >= HARD_GAP or words[k - 1].get("para_end") or k in brk:
             runs.append(cur)
             cur = []
         cur.append(k)
@@ -797,7 +802,7 @@ def make_subtitles(al):
                 if cps > 20:
                     c += (cps - 20) * 0.25
                 inner_sent = sum(1 for x in range(i, j - 1) if SENT_END_RE.search(words[x]["raw"]))
-                c += 0.8 * inner_sent
+                c += 1.2 * inner_sent
                 tot = best[i][0] + c
                 if cand is None or tot < cand[0]:
                     cand = (tot, i)
@@ -814,6 +819,30 @@ def make_subtitles(al):
             segs.append((i, j))
             j = i
         blocks += reversed(segs)
+    # merge blocks that would be too short (< MIN_DUR) with a neighbour when the text fits
+    def bdur(i, j):
+        return words[j - 1]["end"] - words[i]["start"]
+
+    def fits(i, j):
+        return bdur(i, j) <= MAX_DUR and break_lines([words[x]["raw"] for x in range(i, j)]) is not None
+
+    k = 0
+    while k < len(blocks):
+        i, j = blocks[k]
+        nxt_s = words[blocks[k + 1][0]]["start"] if k + 1 < len(blocks) else 1e9
+        avail = min(words[j - 1]["end"] + 0.25, nxt_s - 0.04) - words[i]["start"]
+        if avail < MIN_DUR:
+            cands = []
+            if k > 0 and fits(blocks[k - 1][0], j):
+                cands.append((bdur(blocks[k - 1][0], j), k - 1))
+            if k + 1 < len(blocks) and fits(i, blocks[k + 1][1]):
+                cands.append((bdur(i, blocks[k + 1][1]), k))
+            if cands:
+                _, m = min(cands)
+                blocks[m:m + 2] = [(blocks[m][0], blocks[m + 1][1])]
+                k = max(0, m - 1)
+                continue
+        k += 1
     subs = []
     for bi, (i, j) in enumerate(blocks):
         toks = [words[x]["raw"] for x in range(i, j)]

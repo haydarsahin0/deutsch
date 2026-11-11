@@ -1,0 +1,15 @@
+# Python deps for tools/align.py and tools/assemble-audio.py (Python 3.13, CPU only).
+# pip install -r tools/requirements.txt   (+ ffmpeg ≥ 6 on PATH)
+faster-whisper==1.2.1
+ctranslate2==4.9.0
+numpy==2.5.3
+rapidfuzz==3.14.6
+huggingface_hub==2.4.0
+tokenizers==0.23.3
+onnxruntime==1.29.0   # silero VAD inside faster-whisper
+av==19.0.2            # pulled in by faster-whisper; NOT used for decoding (PyAV 19 breaks
+                      # faster_whisper.decode_audio) – align.py decodes with ffmpeg itself
+# Whisper model (downloaded on first run to ~/.cache/huggingface):
+#   mobiuslabsgmbh/faster-whisper-large-v3-turbo  (alias "large-v3-turbo", default)
+# Network: huggingface.co plus its file CDNs (us.aws.cdn.hf.co, cas-server.xethub.hf.co,
+#   cas-bridge.xethub.hf.co) must be reachable for the first download.

@@ -62,7 +62,7 @@ async function setup(browser, data) {
     const st = document.getElementById('st'), dbg = document.getElementById('dbg');
     window.draw = (t) => {
       const t0 = performance.now();
-      const fr = rig.render(t, { boardSide });
+      const fr = rig.render(t, { boardSide, rough: window.ROUGH });
       const t1 = performance.now();
       let html = '';
       if (layout === 'split' || layout === 'full') {
@@ -82,6 +82,8 @@ async function setup(browser, data) {
       return t1 - t0;
     };
   }, { data, W, H, layout, boardSide });
+  if (opt('--rough', null) != null) await page.evaluate(r => { window.ROUGH = r; }, +opt('--rough', 1));
+  if (flag('--blank')) await page.evaluate(() => { window.draw = () => 0; });
   return page;
 }
 

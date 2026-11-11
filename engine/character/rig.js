@@ -558,13 +558,13 @@
     // boil: re-seed the displacement every N frames (cheap: only the filter changes)
     var block = Math.floor(t * rig.fps / T.boilEvery + 1e-6), hb = hash(block * 977 + seed);
     var rough = hint.rough == null ? 1 : hint.rough;
-    defs += P.filter(id + '-rough', hb % 97, (hb >>> 8) % 89 + 3, rough, 'x="-12%" y="-8%" width="124%" height="116%"');
+    if (rough > 0) defs += P.filter(id + '-rough', hb % 97, (hb >>> 8) % 89 + 3, rough, 'x="-12%" y="-8%" width="124%" height="116%"');
 
     var body = '<g class="mb-body"' + (mirror ? ' transform="scale(-1 1)"' : '') + '>' + shadow + legs + neck + torsoG + '</g>';
     var arms = '<g class="mb-arms"' + (mirror ? ' transform="scale(-1 1)"' : '') + '>' + armA + armB + '</g>';
     var swayT = 'rotate(' + S.sway.toFixed(2) + ')';
     var svg = '<g class="melo-rig" data-expr="' + S.exprName + '" data-pose="' + S.poseName + '"><defs>' + defs + '</defs>' +
-      '<g filter="url(#' + id + '-rough)"><g transform="' + swayT + '">' + body + headG + arms + '</g></g></g>';
+      '<g' + (rough > 0 ? ' filter="url(#' + id + '-rough)"' : '') + '><g transform="' + swayT + '">' + body + headG + arms + '</g></g></g>';
 
     return { svg: svg, anchors: anchors(S, P2, hx, hy, tilt, mirror), state: publicState(S) };
   }

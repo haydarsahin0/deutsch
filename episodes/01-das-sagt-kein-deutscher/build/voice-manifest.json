@@ -1,0 +1,32 @@
+{
+ "parts": [
+  {
+   "file": "audio/teil-1.mp3",
+   "sha1": "19abd225658502622be110225a0ac629bd467fa8",
+   "source_duration": 267.964,
+   "trim_start": 0.0,
+   "trim_end": 267.9641,
+   "offset": 0.0
+  }
+ ],
+ "gap": 0.35,
+ "sample_rate": 48000,
+ "insertions": [
+  {
+   "at": 172.88,
+   "dur": 4.135,
+   "pause_s": 5.0,
+   "word": 425,
+   "gap_before": 0.865
+  }
+ ],
+ "loudness": {
+  "input_lufs": -20.6,
+  "input_true_peak": -1.84,
+  "gain_db": 4.6,
+  "limiter": true,
+  "target_lufs": -16.0
+ },
+ "voice_sha1": "926dcc500756b44469545ebe3c277bef66676991",
+ "duration": 272.099
+}
