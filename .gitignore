@@ -11,3 +11,7 @@ episodes/*/out/*.mp4
 engine/dev/stills/
 shorts/*/build/
 shorts/*/out/*.mp4
+
+# shorts: engine renders, overlay frames, final mp4
+shorts/*/build/
+shorts/*/out/*.mp4
