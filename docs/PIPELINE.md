@@ -40,7 +40,7 @@ Stell dir vor: Juli, 35 Grad. [[draw type=wrong id=w1 text="Ich bin heiß."]] Un
 |---|---|
 | `[[scene layout=board\|melo\|split\|title]]` | new scene; board content of previous scene is erased (eraser wipe) |
 | `[[camera shot=wide\|melo\|board\|close focus=<id>]]` | camera move (eased, ~0.8 s) |
-| `[[melo expr=<deadpan\|smirk\|talking\|surprised\|unimpressed\|annoyed\|laughing> pose=<idle\|finger\|point\|explain\|crossed\|chin\|shrug>` (`finger` = raised index finger, the concept-sheet hero stance)` look=<board\|viewer\|left\|right>]]` | character state (any subset) |
+| `[[melo expr=<deadpan\|smirk\|talking\|surprised\|unimpressed\|annoyed\|laughing> pose=<idle\|finger\|point\|explain\|crossed\|chin\|shrug> look=<board\|viewer\|left\|right>]]` | character state (any subset); `finger` = raised index finger (concept-sheet hero stance) |
 | `[[draw type=title text="..."]]` | big handwritten heading on the board |
 | `[[draw type=wrong id=.. text="..."]]` | sentence written, then crossed out in red (strike follows ~0.6 s later unless `strike=manual`) |
 | `[[draw type=right id=.. text="..."]]` | correct version, green tick |
