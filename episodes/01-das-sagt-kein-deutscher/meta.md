@@ -19,11 +19,11 @@ Bildidee: Melo (Ausdruck „unimpressed“, eine Braue oben) zeigt auf die Tafel
 
 ## Beschreibung
 ```
-Klingst du auf Deutsch noch wie ein Lehrbuch? Diese 12 Sätze verraten dich sofort als Deutschlerner – und hier lernst du, was Muttersprachler wirklich sagen. Typische Fehler auf B1, B2 und C1, einfach und mit Humor erklärt.
+Das sagt kein Deutscher! Klingst du auf Deutsch noch wie ein Lehrbuch? Diese 12 Sätze verraten dich sofort als Deutschlerner – und hier lernst du, was Muttersprachler wirklich sagen. Typische Fehler auf B1, B2 und C1, einfach und mit Humor erklärt.
 
-Von „Ich bin heiß“ über „Ich warte für dich“ bis „Das macht Sinn“: Mit klaren Erklärungen, echten Beispielsätzen aus dem Alltag, drei Kernfragen zum Mitraten und vielen Tipps, wie du natürlich Deutsch sprichst – im Alltag, im Job und in der Prüfung (Goethe-Zertifikat, telc, TestDaF, DSH).
+Von „Ich bin heiß“ über „Ich warte für dich“ bis „Das macht Sinn“: Du lernst, typische Fehler im Deutschen zu vermeiden und natürlich Deutsch sprechen zu können – mit echten Beispielsätzen aus dem Alltagsdeutsch, viel Umgangssprache und drei Kernfragen zum Mitraten. Ideal für Deutsch für Fortgeschrittene und zur Vorbereitung auf Goethe-Zertifikat B2, telc B1, TestDaF und DSH.
 
-Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier gibt's jede Woche Deutsch mit Kern: Deutsch lernen nur auf Deutsch, für Niveau B1 bis C1.
+Ich bin Melo, und das ist Deutsch mit Melo: der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Jede Woche Deutsch lernen nur auf Deutsch, Niveau B1 bis C1 – damit du Deutsch wie ein Muttersprachler sprichst.
 
 👉 Welchen Satz hast du schon mal gesagt? Schreib es in die Kommentare!
 
@@ -34,7 +34,7 @@ Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier
 1:29 2 · „Ich bin voll“ → „Ich bin satt“
 2:11 3 · „Ich habe 25 Jahre“ → „Ich bin 25“
 2:42 Kernfrage 1
-3:09 4 · „zu Hause“ oder „nach Hause“?
+3:09 4 · „nach Hause“ oder „zu Hause“?
 3:40 5 · „Ich warte für dich“ → „auf dich“
 4:07 6 · wann, wenn oder als?
 4:52 7 · „Ich will ein Bier“ → „Ich hätte gern …“ (bekommen ≠ become)
@@ -48,7 +48,7 @@ Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier
 10:21 Der Kern der Sache – alles in einer Minute
 11:08 Hausaufgabe & Tschüss
 
-📚 Das lernst du in diesem Video
+📚 Das lernst du in diesem Video (Deutsch B1, Deutsch B2, Deutsch C1)
 • Mir ist heiß / kalt / langweilig (Dativ statt „ich bin“)
 • satt statt voll
 • Alter auf Deutsch: Ich bin 25
@@ -64,14 +64,16 @@ Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier
 
 🔔 Abonnieren für mehr: Deutsch lernen, typische Fehler, Redewendungen und Grammatik – erklärt wie von einem Freund.
 
+🌍 Learn German: common German mistakes explained (B1–C1) · Almanca öğrenenler için: Almancada en sık yapılan 12 hata
+
 #DeutschLernen #TypischeFehler #DeutschMitMelo
 ```
 
 
-## Tags (24, 488/500 Zeichen nach YouTube-Zählung)
-Reihenfolge = Priorität: exakter Titel-Suchbegriff → große Suchbegriffe → Niveau → Long-Tail-Themen → Prüfungen → Englisch/Türkisch → Marke.
+## Tags (26, 484/500 Zeichen nach YouTube-Zählung)
+Jeder Tag kommt wörtlich im Titel oder in der Beschreibung vor (geprüft). Reihenfolge = Priorität.
 ```
-Das sagt kein Deutscher, Deutsch lernen, typische Fehler Deutsch, Deutsch Fehler vermeiden, Deutsch lernen B1, Deutsch lernen B2, Deutsch C1, Deutsch sprechen lernen, Deutsch wie ein Muttersprachler, natürlich Deutsch sprechen, deutsche Umgangssprache, Alltagsdeutsch, Deutsch für Fortgeschrittene, Mir ist heiß, als wenn wann, nach Hause zu Hause, Doch Deutsch, Das ergibt Sinn, Goethe Zertifikat B2, telc B1, learn German, German mistakes, Almanca, Deutsch mit Melo
+Das sagt kein Deutscher, Deutsch lernen, typische Fehler, typische Fehler im Deutschen, natürlich Deutsch sprechen, Deutsch wie ein Muttersprachler, Deutschlerner, Deutsch B1, Deutsch B2, Deutsch C1, Deutsch für Fortgeschrittene, Alltagsdeutsch, Umgangssprache, Ich bin heiß, Mir ist heiß, als wenn wann, nach Hause oder zu Hause, Ja oder Doch, Das macht Sinn, Das ergibt Sinn, Goethe-Zertifikat B2, telc B1, learn German, German mistakes, Almanca, Deutsch mit Melo
 ```
 
 ## Angepinnter Kommentar
