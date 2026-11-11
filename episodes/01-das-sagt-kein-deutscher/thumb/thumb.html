@@ -123,38 +123,41 @@
     s += bg([{ x: 960, y: 330, r: 640, c: '#ff7a1a', o: 0.95 }, { x: 220, y: 600, r: 520, c: '#1f4bd1', o: 0.35 }], '#0a1026');
     s += rays(960, 330, 22, '#000', 0.13);
     // Melo, huge, right, side-eye at the card, raised "nope" finger
-    s += melo({ view: 'full', pose: 'finger', expression: 'unimpressed', look: [-1, 0.25], headTilt: -6, pencil: true }, 950, 300, 370);
+    var nope = JSON.parse(JSON.stringify(MeloB._POSES.finger));
+    nope.b = { sh: [14, -270], el: [66, -248], wr: [98, -318], hand: { g: 'point', ang: -78, flip: 0 } };
+    s += melo({ view: 'full', poseParams: nope, expression: 'unimpressed', look: [-1, 0.25], headTilt: -6, pencil: true }, 990, 345, 440);
     // headline, stacked & tilted
-    var t1 = word('DAS SAGT', 48, 178, 560, 190, '#ffffff', { rot: -4 });
-    var t2 = word('KEINER!', 40, 370, 610, 260, YEL, { rot: -4 });
+    var t1 = word('DAS SAGT', 46, 222, 540, 190, '#ffffff', { rot: -4 });
+    var t2 = word('KEINER!', 38, 420, 600, 260, YEL, { rot: -4 });
     s += t1.svg + t2.svg;
     // paper card with the crossed-out sentence
-    var inner = '<text x="40" y="128" font-family="Caveat" font-weight="700" font-size="112" fill="' + INK + '">„Ich bin heiß.“</text>' +
-      brushLine([[22, 92], [200, 86], [400, 80], [560, 70]], 20, RED);
-    s += card(70, 430, 590, 190, -3, '#f4ecd8', inner);
-    s += stampX(640, 455, 62, RED);
+    var cw = measure('„Ich bin heiß.“', '700 112px Caveat') + 70;
+    var inner = '<text x="36" y="122" font-family="Caveat" font-weight="700" font-size="112" fill="' + INK + '">„Ich bin heiß.“</text>' +
+      brushLine([[22, 96], [cw * 0.5, 90], [cw - 20, 84]], 15, RED);
+    s += card(56, 480, cw, 165, -3, '#f4ecd8', inner);
+    s += stampX(56 + cw - 30, 640, 52, RED);
   }
 
   if (V === 'b') {
     // near-black with electric blue glow; Melo left, bubble right
     s += bg([{ x: 330, y: 330, r: 620, c: '#2f6bff', o: 0.95 }, { x: 1100, y: 120, r: 520, c: '#ff7a1a', o: 0.35 }], '#070b1c');
     s += rays(330, 330, 22, '#000', 0.14);
-    s += melo({ view: 'full', pose: 'shrug', expression: 'surprised', look: [1, -0.1], headTilt: 6 }, 320, 300, 370);
-    var w1 = word('VOLL', 1236, 168, 380, 210, '#ffffff', { anchor: 'end', rot: -4 });
-    var w2 = word('PEINLICH!', 1240, 330, 640, 220, YEL, { anchor: 'end', rot: -4 });
+    s += melo({ view: 'full', pose: 'shrug', expression: 'surprised', look: [1, -0.1], headTilt: 6 }, 315, 350, 430);
+    var w1 = word('VOLL', 1236, 215, 380, 210, '#ffffff', { anchor: 'end', rot: -4 });
+    var w2 = word('PEINLICH!', 1240, 385, 640, 220, YEL, { anchor: 'end', rot: -4 });
     s += w1.svg + w2.svg;
     // speech bubble „Ich bin voll.“ (tail from off-screen bottom-left speaker → toward Melo side)
-    var bx = 640, by = 410, bw = 560, bh = 190;
+    var bx = 650, by = 430, bw = 580, bh = 170;
     var bub = S.rect(bx, by, bw, bh, 26, 2.4);
     var tail = [[bx + 90, by + bh - 4], [bx + 30, by + bh + 70], [bx + 170, by + bh - 4]];
     s += '<g filter="url(#soft)"><rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="40"/></g>';
     var rr = 40, bpath = 'M' + (bx + rr) + ' ' + by + 'H' + (bx + bw - rr) + 'Q' + (bx + bw) + ' ' + by + ' ' + (bx + bw) + ' ' + (by + rr) + 'V' + (by + bh - rr) + 'Q' + (bx + bw) + ' ' + (by + bh) + ' ' + (bx + bw - rr) + ' ' + (by + bh) +
       'H' + tail[2][0] + 'L' + tail[1][0] + ' ' + tail[1][1] + 'L' + tail[0][0] + ' ' + (by + bh) + 'H' + (bx + rr) + 'Q' + bx + ' ' + (by + bh) + ' ' + bx + ' ' + (by + bh - rr) + 'V' + (by + rr) + 'Q' + bx + ' ' + by + ' ' + (bx + rr) + ' ' + by + 'Z';
     s += '<path d="' + bpath + '" fill="#fbf6ea" stroke="#000" stroke-width="9" stroke-linejoin="round"/>';
-    s += '<text x="' + (bx + 40) + '" y="' + (by + 132) + '" font-family="Caveat" font-weight="700" font-size="118" fill="' + INK + '">„Ich bin voll.“</text>';
-    var vx = bx + 40 + measure('„Ich bin ', '700 118px Caveat'), vw = measure('voll', '700 118px Caveat');
-    s += loop(vx + vw / 2, by + 98, vw / 2 + 30, 62, 11, RED, -6);
-    s += arrow([[1210, 690], [1180, 640], [1120, 600]], 11, RED);
+    s += '<text x="' + (bx + 50) + '" y="' + (by + 116) + '" font-family="Caveat" font-weight="700" font-size="108" fill="' + INK + '">„Ich bin voll.“</text>';
+    var vx = bx + 50 + measure('„Ich bin ', '700 108px Caveat'), vw = measure('voll', '700 108px Caveat');
+    s += loop(vx + vw / 2, by + 84, vw / 2 + 20, 58, 11, RED, -6);
+    s += arrow([[930, 712], [990, 690], [1040, 660], [1062, 618]], 13, RED);
     s += badge(40, 34, 'B1–C1', YEL, INK, 46, -3);
   }
 
@@ -166,14 +169,14 @@
     s += '<g>' + bg([{ x: 1030, y: 300, r: 520, c: '#2fae4e', o: 0.5 }], 'none').replace('<rect width="1280" height="720" fill="none"/>', '') + '</g>';
     s += '<path d="M0 0H700L580 720H0Z" fill="#e5302a" opacity=".18"/>';
     s += S.line([[702, -10], [640, 360], [578, 730]], { w: 12, ta: 0, tb: 0, min: 1 }, '#000');
-    s += melo({ view: 'full', pose: 'point', expression: 'smirk', look: [1, -0.2], headTilt: 4 }, 640, 330, 340);
-    var l1 = word('ICH BIN', 36, 150, 400, 170, '#ffffff', { rot: -3 });
-    var l2 = word('HEISS', 36, 330, 400, 200, '#ffffff', { rot: -3 });
-    var r1 = word('MIR IST', 1244, 150, 400, 170, '#ffffff', { anchor: 'end', rot: 3 });
-    var r2 = word('HEISS', 1244, 330, 400, 200, YEL, { anchor: 'end', rot: 3 });
+    s += melo({ view: 'full', pose: 'point', expression: 'smirk', look: [1, -0.2], headTilt: 4 }, 640, 372, 410);
+    var l1 = word('ICH BIN', 34, 190, 400, 170, '#ffffff', { rot: -3 });
+    var l2 = word('HEISS', 34, 375, 400, 200, '#ffffff', { rot: -3 });
+    var r1 = word('MIR IST', 1246, 190, 400, 170, '#ffffff', { anchor: 'end', rot: 3 });
+    var r2 = word('HEISS', 1246, 375, 400, 200, YEL, { anchor: 'end', rot: 3 });
     s += l1.svg + l2.svg + r1.svg + r2.svg;
-    s += '<circle cx="210" cy="520" r="96" fill="#fbf6ea" stroke="#000" stroke-width="9"/>' + stampX(210, 520, 54, RED);
-    s += '<circle cx="1060" cy="510" r="96" fill="#fbf6ea" stroke="#000" stroke-width="9"/>' + check(1066, 516, 56, '#1f9a3e');
+    s += '<circle cx="200" cy="555" r="92" fill="#fbf6ea" stroke="#000" stroke-width="9"/>' + stampX(200, 555, 50, RED);
+    s += '<circle cx="1050" cy="555" r="92" fill="#fbf6ea" stroke="#000" stroke-width="9"/>' + check(1056, 561, 52, '#1f9a3e');
   }
 
   // grain + vignette
