@@ -198,15 +198,13 @@
       s += S.shape(S.poly([[ex, ey], [ex + 16, ey - 12], [ex + 22, ey + 2]], 8, 0.4), P.mustard, { w: 1.4, extra: 1 });
     });
     // oche line on the floor is out of view; a little lamp above the board
-    s += S.pendant(cx, 44, 120, 90, '#2f4d26', { light: false });
-    s += S.glow(cx, 230, 220, 190, P.glow, 0.25);
     return s;
   }
 
   function lamps(S) {
     var s = '';
-    [[760, 150], [1170, 136]].forEach(function (l) {
-      s += S.glow(l[0], l[1] + 160, 330, 260, P.glow, 0.35);
+    [[760, 150], [1170, 136], [1586, 120]].forEach(function (l) {
+      s += S.glow(l[0], l[1] + 200, 380, 330, P.glow, 0.3);
       s += S.pendant(l[0], 40, l[1], 118, '#2f5a30', { light: false });
     });
     return s;
@@ -249,7 +247,7 @@
     s += S.shape(bw.concat([[300, 834]]), P.cream, { w: 2.4, extra: 2.6 });
     s += S.hatch(bw.concat([[300, 834]]), { ang: 80, gap: 6, w: 1, op: 0.4, cond: function (X) { return X > 250; } });
     // tap tower on the right
-    var tx = 1650;
+    var tx = 1815;
     s += S.fillOnly(S.rect(tx - 120, CT + 6, 240, 24, 20, 0.6), 'rgba(23,19,15,.4)');
     s += S.box(tx - 110, CT - 6, 220, 22, '#9a9d96', { w: 2.4, extra: 2.4, step: 40 });
     var col = S.rrect(tx - 30, 676, 60, CT - 676, 12);
@@ -273,15 +271,15 @@
       'bar-left': K.slot(620, 1010, 1.12, { face: 1, behind: 'counter' }),
       'bar-right': K.slot(1310, 1010, 1.12, { face: -1, behind: 'counter' }),
       left: K.slot(520, 1010, 1.12, { behind: 'counter' }), center: K.slot(965, 1012, 1.12, { behind: 'counter' }), right: K.slot(1400, 1010, 1.12, { behind: 'counter' }),
-      back: K.slot(560, 790, 0.7, { face: 1 }),          // standing at the Stammtisch, in the room
-      dart: K.slot(1440, 792, 0.72, { face: 1 })          // throwing darts
+      back: K.slot(330, 792, 0.7, { face: 1 }),          // standing at the Stammtisch, in the room
+      dart: K.slot(1560, 794, 0.72, { face: 1 })          // throwing darts
     },
     build: function () {
       return {
         bg: function (S) {
-          var s = room(S) + butzenWindow(S) + middleWall(S) + stammtisch(S) + dart(S) + lamps(S);
+          var s = room(S) + butzenWindow(S) + middleWall(S) + stammtisch(S) + dart(S);
           s += '<rect x="0" y="0" width="1920" height="1080" fill="' + S.radial([[0.35, '#1a1008', 0], [1, '#140c06', 0.62]], { cx: '50%', cy: '42%', r: '72%' }) + '"/>';
-          return s;
+          return s + lamps(S);
         },
         fg: function (S) { return counter(S); }
       };
