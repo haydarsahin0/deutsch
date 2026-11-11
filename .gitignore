@@ -1,2 +1,8 @@
 node_modules/
 *.log
+# render intermediates
+**/frames/
+**/chunks/
+*.part.mp4
+episodes/*/build/cache/
+__pycache__/

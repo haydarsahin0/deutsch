@@ -14,10 +14,20 @@
  *   look:       [dx,dy] pupil override (-1..1)
  *   headTilt:   degrees, added to the pose/expression tilt
  *   rough:      ink roughness multiplier (0 = off)
+ *   exprParams: full expression object (same shape as MeloB._EXPR[name]) – overrides `expression`
+ *               (used by the animation rig to blend expressions numerically)
+ *   poseParams: full pose object (same shape as MeloB._POSES[name]) – overrides `pose`
+ *               (hand.g may also be a finger-spec object {f:[[ang,len,curl]×4], t:[ang,len,curl]})
  *   width/height: optional svg size attributes, id: optional prefix
  * }
  * Coordinates: feet anchor at (0,0), +y down. Head centre ≈ (0,-352).
  * Every part is its own <g class="mb-…"> so it can be animated later.
+ *
+ * Animation hooks (engine/character/rig.js), all additive / backward compatible:
+ *   MeloB.parts.*  – the individual part builders (skull, cut, face, shadow, legs, neck, torso, arm, filter),
+ *                    so static layers can be cached and only the face/arms rebuilt per frame.
+ *   expression mouth extras: round 0..1 (o/u), wide -1..1, teeth 0/1/2, lipIn 0..1 (f/v), tongue 0/1
+ *   brow extra: lift (px, applied after the dy clamp)
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -341,9 +351,9 @@
     var tex = new Ink(seed * 31 + 5); // texture rng independent of expression (stable skin)
     var id = (opts.id || 'mb') + (++UID);
     var exprName = opts.expression || 'smirk';
-    var ex = JSON.parse(JSON.stringify(EXPR[exprName] || EXPR.smirk));
+    var ex = JSON.parse(JSON.stringify(opts.exprParams || EXPR[exprName] || EXPR.smirk));
     var view = opts.view || 'full';
-    var pose = POSES[opts.pose || 'idle'] || POSES.idle;
+    var pose = opts.poseParams || POSES[opts.pose || 'idle'] || POSES.idle;
     var defs = '', body = '';
 
     // ——— head (local coords, centre 0,0) ———
@@ -357,19 +367,37 @@
 
     var vb = opts.viewBox || (view === 'head' ? '-106 -112 212 212' : view === 'bust' ? '-150 -505 300 360' : '-180 -512 360 534');
     var rough = opts.rough == null ? 1 : opts.rough;
-    defs += '<filter id="' + id + '-rough" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">' +
-      '<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="' + (seed % 97) + '" result="n1"/>' +
-      '<feDisplacementMap in="SourceGraphic" in2="n1" scale="' + f1(2.6 * rough) + '" xChannelSelector="R" yChannelSelector="G" result="d1"/>' +
-      '<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="' + (seed % 89 + 3) + '" result="n2"/>' +
-      '<feDisplacementMap in="d1" in2="n2" scale="' + f1(1.1 * rough) + '" xChannelSelector="R" yChannelSelector="G"/>' +
-      '</filter>';
+    defs += roughFilter(id + '-rough', seed % 97, seed % 89 + 3, rough);
     var size = (opts.width ? ' width="' + opts.width + '"' : '') + (opts.height ? ' height="' + opts.height + '"' : '');
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + vb + '"' + size + ' class="melo-b" data-expression="' + exprName + '">' +
       '<defs>' + defs + '</defs><g filter="url(#' + id + '-rough)">' + body + '</g></svg>';
   }
 
+  function roughFilter(fid, s1, s2, rough, region) {
+    region = region || 'x="-10%" y="-10%" width="120%" height="120%"';
+    return '<filter id="' + fid + '" ' + region + ' color-interpolation-filters="sRGB">' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="' + s1 + '" result="n1"/>' +
+      '<feDisplacementMap in="SourceGraphic" in2="n1" scale="' + f1(2.6 * rough) + '" xChannelSelector="R" yChannelSelector="G" result="d1"/>' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="' + s2 + '" result="n2"/>' +
+      '<feDisplacementMap in="d1" in2="n2" scale="' + f1(1.1 * rough) + '" xChannelSelector="R" yChannelSelector="G"/>' +
+      '</filter>';
+  }
+
   // ───────────────────────────── head ─────────────────────────────
   function buildHead(ink, tex, ex, opts, id, addDef) {
+    var s = buildSkull(ink, tex, id, addDef);
+    var cut = buildCut(ink, tex, opts, id, addDef);
+    var face = buildFace(ink, ex, opts, id, addDef);
+    return '<g class="mb-head-inner">' + s + cut + face + '</g>';
+  }
+
+  function headGeom() {
+    var rx = HEAD.rx, ry = HEAD.ry, cutK = HEAD.cut;
+    var yc = -cutK * ry, rxT = rx * Math.sqrt(1 - cutK * cutK), k = 0.32, ryT = rxT * k;
+    return { rx: rx, ry: ry, cutK: cutK, yc: yc, rxT: rxT, k: k, ryT: ryT };
+  }
+
+  function buildSkull(ink, tex, id, addDef) {
     var rx = HEAD.rx, ry = HEAD.ry, cutK = HEAD.cut;
     var yc = -cutK * ry, rxT = rx * Math.sqrt(1 - cutK * cutK), k = 0.32, ryT = rxT * k;
     var L = [-0.5, -0.56, 0.66], ll = Math.hypot(L[0], L[1], L[2]); L = L.map(function (v) { return v / ll; });
@@ -430,7 +458,11 @@
     s += '<g clip-path="url(#' + id + '-skin)">' + tx + '</g>';
     s += ink.ringEl(sph.concat(top), { w: 2.4, extra: 4.6, jit: 0.35 });
     s += '</g>';
+    return s;
+  }
 
+  function buildCut(ink, tex, opts, id, addDef) {
+    var G = headGeom(), yc = G.yc, rxT = G.rxT, k = G.k, i;
     // ——— the cut: rind ring, pith, flesh, seeds = the "haircut" ———
     var cut = '<g class="mb-cut">';
     function ell(r, dy) { var p = []; for (var i = 0; i < 72; i++) { var a = i / 72 * Math.PI * 2; p.push([r * Math.cos(a), yc + (dy || 0) + r * k * Math.sin(a)]); } return p; }
@@ -478,10 +510,7 @@
     cut += ink.stroke(back, { w: 0.9, ta: 0.3, tb: 0.3, min: 0.1 });
     if (opts.pencil) cut += pencil(ink, rxT * 0.42, yc - 4);
     cut += '</g>';
-
-    // ——— face ———
-    var face = buildFace(ink, ex, opts, id, addDef);
-    return '<g class="mb-head-inner">' + s + cut + face + '</g>';
+    return cut;
   }
 
   function seedShape(r, cx, cy, ang, len, wid, k, hlOut) {
@@ -563,7 +592,7 @@
   function brow(ink, cx, cy, p, side) {
     var len = p.len || 26, pts = cubic([-len * 0.42, 0], [-len * 0.15, -(p.arch || 0) * 1.3], [len * 0.25, -(p.arch || 0) * 1.3], [len * 0.58, 1.5], 14);
     pts = xf(pts, 0, 0, -(p.ang || 0), 1, 1);
-    var dy = Math.max(p.dy || 0, -6.5);
+    var dy = Math.max(p.dy || 0, -6.5) - (p.lift || 0);
     pts = pts.map(function (q) { return [cx + q[0] * side, cy + dy + q[1]]; });
     if (side < 0) pts.reverse(); // keep inner end first? draw left→right
     var innerFirst = side > 0;
@@ -620,10 +649,15 @@
   }
 
   function mouth(ink, x, y, m, open, id, addDef) {
-    var l = [x + m.l[0] + open * 2, y + m.l[1]], r = [x + m.r[0] - open * 2, y + m.r[1]];
+    // animation extras (all default 0): round = o/u lips (corners in, taller), wide = spread (e/i) or narrow (<0),
+    // lipIn = f/v (lower lip tucked under the upper teeth)
+    var rnd = m.round || 0, wide = m.wide || 0, lipIn = m.lipIn || 0;
+    var hw0 = (m.r[0] - m.l[0]) / 2, pull = hw0 * (0.36 * rnd * Math.min(1, open * 4) - 0.12 * wide);
+    var l = [x + m.l[0] + open * 2 + pull, y + m.l[1] + rnd * open * 2], r = [x + m.r[0] - open * 2 - pull, y + m.r[1] + rnd * open * 2];
     function ctrl(t, off) { return [lerp(l[0], r[0], t), lerp(l[1], r[1], t) + off]; }
-    var H = 20 * open;
-    var U = cubic(l, ctrl(1 / 3, m.u[0] - open * 1.5), ctrl(2 / 3, m.u[1] - open * 1.5), r, 18);
+    var H = 20 * open * (1 + 0.35 * rnd) * (1 - 0.55 * lipIn);
+    var lift = open * 1.5 + rnd * open * 4;
+    var U = cubic(l, ctrl(1 / 3, m.u[0] - lift), ctrl(2 / 3, m.u[1] - lift), r, 18);
     var D = cubic(r, ctrl(2 / 3, m.d[1] + H), ctrl(1 / 3, m.d[0] + H), l, 18);
     var s = '';
     if (open > 0.06) {
@@ -636,7 +670,7 @@
         s += '<ellipse cx="' + f1(bm[0] + 2) + '" cy="' + f1(bm[1] + 1) + '" rx="' + f1(Math.abs(r[0] - l[0]) * 0.32) + '" ry="' + f1(4 + 4 * open) + '" fill="' + C.tongue + '"/>';
       }
       if (m.teeth) {
-        var th = m.teeth === 2 ? 30 : 3.4;
+        var th = m.teeth === 2 ? 30 : 3.4 + lipIn * 3;
         var T = U.map(function (q) { return [q[0], q[1] + th]; }).reverse();
         s += '<path d="' + polyD(U.concat(T), true) + '" fill="' + C.teeth + '"/>';
         if (m.teeth === 2) s += '<path d="M' + f1(l[0] - 2) + ' ' + f1((l[1] + r[1]) / 2 + 2.2) + 'L' + f1(r[0] + 2) + ' ' + f1((l[1] + r[1]) / 2 + 1.4) + '" stroke="' + C.ink + '" stroke-width="1.1"/>';
@@ -664,6 +698,33 @@
   // ───────────────────────────── body ─────────────────────────────
   function buildBody(ink, pose, ex, opts, head) {
     var s = '';
+    s += shadow(ink);
+    // legs
+    s += '<g class="mb-legs">' + leg(ink, pose.la) + leg(ink, pose.lb) + '</g>';
+    // torso + neck
+    var tee = opts.outfit !== 'none';
+    var top = pose.torso[0];
+    var hx = top[0] + (pose.headOff ? pose.headOff[0] : 0), hy = HEAD_Y;
+    s += neck(ink, top, hx, HEAD_Y + HEAD.ry - 6);
+    s += torso(ink, pose, tee);
+    var tilt = (pose.tilt || 0) + (ex.tilt || 0) + (opts.headTilt || 0);
+    var headG = '<g class="mb-head" transform="translate(' + f1(hx) + ' ' + hy + ') rotate(' + f1(tilt) + ' 0 ' + HEAD.ry + ')">' + head + '</g>';
+    var armA = arm(ink, pose.a, 'a', tee), armB = arm(ink, pose.b, 'b', tee);
+    s += headG + armA + armB;
+    return s;
+  }
+  function neck(ink, top, hx, hy) {
+    return '<g class="mb-neck">' + ink.tube([[top[0], top[1] + 6], [hx, hy]], 4.6, { ink: 1.6, extra: 1.5, hatch: false }) + '</g>';
+  }
+  function torso(ink, pose, tee) {
+    var tp = catmull(pose.torso, 8, false);
+    return '<g class="mb-torso">' + (tee ? shirt(ink, pose, tp) : ink.tube(tp, function (t) { return lerp(7.6, 6.2, t); }, { ink: 1.7, extra: 2 })) + '</g>';
+  }
+  function legs(ink, pose) {
+    return '<g class="mb-legs">' + leg(ink, pose.la) + leg(ink, pose.lb) + '</g>';
+  }
+  function shadow(ink) {
+    var s = '';
     // ground shadow (hatched)
     var gs = '';
     for (var i = 0; i < 9; i++) {
@@ -673,18 +734,6 @@
       gs += ink.brush([[x0, yy], [x1, yy + 0.5]], { w: 1.2, ta: 0.2, tb: 0.2 });
     }
     s += '<g class="mb-shadow"><path d="' + gs + '" fill="' + C.ink + '" opacity="0.55"/></g>';
-    // legs
-    s += '<g class="mb-legs">' + leg(ink, pose.la) + leg(ink, pose.lb) + '</g>';
-    // torso + neck
-    var tp = catmull(pose.torso, 8, false), tee = opts.outfit !== 'none';
-    var top = pose.torso[0];
-    var hx = top[0] + (pose.headOff ? pose.headOff[0] : 0), hy = HEAD_Y;
-    s += '<g class="mb-neck">' + ink.tube([[top[0], top[1] + 6], [hx, HEAD_Y + HEAD.ry - 6]], 4.6, { ink: 1.6, extra: 1.5, hatch: false }) + '</g>';
-    s += '<g class="mb-torso">' + (tee ? shirt(ink, pose, tp) : ink.tube(tp, function (t) { return lerp(7.6, 6.2, t); }, { ink: 1.7, extra: 2 })) + '</g>';
-    var tilt = (pose.tilt || 0) + (ex.tilt || 0) + (opts.headTilt || 0);
-    var headG = '<g class="mb-head" transform="translate(' + f1(hx) + ' ' + hy + ') rotate(' + f1(tilt) + ' 0 ' + HEAD.ry + ')">' + head + '</g>';
-    var armA = arm(ink, pose.a, 'a', tee), armB = arm(ink, pose.b, 'b', tee);
-    s += headG + armA + armB;
     return s;
   }
 
@@ -762,7 +811,7 @@
   }
 
   function hand(ink, g, flip) {
-    var H = HANDS[g] || HANDS.relaxed, s = '';
+    var H = (g && typeof g === 'object') ? g : (HANDS[g] || HANDS.relaxed), s = '';
     var bases = [[17, -6.2], [19, -2], [18.4, 2.4], [16.4, 6.2]];
     var shade = flip ? [0.2, -0.98] : [0.2, 0.98];
     for (var i = 3; i >= 0; i--) {
@@ -780,6 +829,17 @@
   }
 
   // _Ink/_util: the same ink primitives, exposed so scene art (banner, thumbnails) can share the line quality
-  return { svg: svg, EXPRESSIONS: Object.keys(EXPR), POSES: Object.keys(POSES), PALETTE: C, _EXPR: EXPR, _POSES: POSES,
+  // part builders for the animation rig. Each takes its own Ink so parts can be cached independently.
+  var parts = {
+    HEAD: HEAD, HEAD_Y: HEAD_Y, HANDS: HANDS,
+    skull: function (ink, tex, id, addDef) { return buildSkull(ink, tex, id, addDef); },
+    cut: function (ink, tex, opts, id, addDef) { return buildCut(ink, tex, opts || {}, id, addDef); },
+    face: function (ink, ex, opts, id, addDef) { return buildFace(ink, ex, opts || {}, id, addDef); },
+    shadow: shadow, legs: legs, neck: neck, torso: torso,
+    arm: function (ink, A, cls, tee) { return arm(ink, A, cls, tee !== false); },
+    filter: roughFilter
+  };
+
+  return { svg: svg, parts: parts, EXPRESSIONS: Object.keys(EXPR), POSES: Object.keys(POSES), PALETTE: C, _EXPR: EXPR, _POSES: POSES, _HANDS: HANDS,
     _Ink: Ink, _util: { rng: rng, noiseFn: noiseFn, catmull: catmull, cubic: cubic, polyD: polyD, normals: normals, xf: xf, f1: f1 } };
 });
