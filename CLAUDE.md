@@ -10,6 +10,11 @@ German lessons (B1–C1) as 10–15 min horizontal YouTube videos, 100 % code-dr
 - Don't re-read big files (`engine/js/*.js`, `melo-b.js`, `cast.js`); grep for what you need.
 - Git: `tools/autosave.sh 300` (run in background) commits + pushes every 5 min; don't spend turns on commits.
 
+## Publishing schedule (owner's plan, from 2026-11-12)
+- 4-day cycle: **day 1 = long video, days 2–4 = one Short per day, always at 17:05 (Europe/Berlin)**; next long video on day 5.
+- So every long episode needs **3 Shorts** (the 3 strongest moments; `tools/make-short.py`, layout `fit: full`, single-line subtitles).
+- Episode N+1 must be fully rendered (+ thumbnail, meta, 3 Shorts) before its publish day → start its script right after episode N is published.
+
 ## Episode workflow
 1. **Script** (one writer pass + one German check): `episodes/NN-slug/script.md` (spoken German + `[[cues]]`), then `node tools/sprechtext.js episodes/NN-slug` → `tts-elevenlabs/teil-*.txt` (owner pastes into ElevenLabs v3, voice "Ben – Effortless and Casual") + `meta.md` (YouTube title/description/tags).
 2. **Voice**: owner uploads `audio/teil-1.mp3 …` → `python3 tools/assemble-audio.py episodes/NN-slug` (joins parts, inserts quiz silences, aligns with faster-whisper, writes subtitles). Seconds-fast re-align after cue edits: `python3 tools/align.py episodes/NN-slug`.
