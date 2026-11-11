@@ -4,6 +4,7 @@ German lessons (B1–C1) as 10–15 min horizontal YouTube videos, 100 % code-dr
 
 ## Cost rules (the owner's usage limit is tight)
 - The tools are built. A new episode should NOT need new engine work — reuse the 24 sets (`engine/sets/`), 10 cast (`engine/cast/cast.js`), Melo rig (`engine/character/rig.js`).
+- Model choice (owner's rule): **Opus 5.5** for the important, quality-defining work — script writing, German review, visual direction, engine/animation/illustration changes, final visual QA. **Sonnet 5.5** for medium routine work (applying a clear list of small fixes, SEO metadata, validation scripts). **Haiku 5.5** for trivial mechanical tasks (file housekeeping, format checks, renaming, simple greps/reports).
 - Prefer running scripts over agents. Spawn at most 1–2 agents at a time, never for things a script does.
 - Image checks: one low-res contact sheet (ffmpeg `tile`), not many full-size stills.
 - Don't re-read big files (`engine/js/*.js`, `melo-b.js`, `cast.js`); grep for what you need.

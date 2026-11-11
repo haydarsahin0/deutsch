@@ -104,20 +104,19 @@
     ctx.stroke(); ctx.restore();
   }
   // bake text lines into a chalk bitmap. lines: [{text, x, y}] world coords; colorFn(lineIndex, charIndex) optional runs
+  // each line is baked into its OWN bitmap → revealing line N can never leak pieces of line N+1
   function bakeText(lines, font, color, runs) {
-    var BS = E.BS, x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, fs = parseFloat(font.match(/(\d+(\.\d+)?)px/)[1]);
-    lines.forEach(function (l) { x0 = Math.min(x0, l.x - fs * 0.3); x1 = Math.max(x1, l.x + l.w + fs * 0.4); y0 = Math.min(y0, l.y - fs * 1.15); y1 = Math.max(y1, l.y + fs * 0.5); });
-    var c = mk((x1 - x0) * BS, (y1 - y0) * BS), g = c.getContext('2d');
-    g.setTransform(BS, 0, 0, BS, -x0 * BS, -y0 * BS);
-    g.font = font; g.textBaseline = 'alphabetic';
-    if (!E.inkMode) { g.shadowColor = 'rgba(240,236,220,0.22)'; g.shadowBlur = 5 * BS; }
-    lines.forEach(function (l, li) {
-      if (runs && runs[li]) {
-        var x = l.x;
-        runs[li].forEach(function (r) { g.fillStyle = r.color; g.fillText(r.text, x, l.y); x += measure(r.text, font); });
-      } else { g.fillStyle = color; g.fillText(l.text, l.x, l.y); }
+    var BS = E.BS, fs = parseFloat(font.match(/(\d+(\.\d+)?)px/)[1]);
+    return lines.map(function (l, li) {
+      var x0 = l.x - fs * 0.35, x1 = l.x + l.w + fs * 0.45, y0 = l.y - fs * 1.2, y1 = l.y + fs * 0.55;
+      var c = mk((x1 - x0) * BS, (y1 - y0) * BS), g = c.getContext('2d');
+      g.setTransform(BS, 0, 0, BS, -x0 * BS, -y0 * BS);
+      g.font = font; g.textBaseline = 'alphabetic';
+      if (!E.inkMode) { g.shadowColor = 'rgba(240,236,220,0.22)'; g.shadowBlur = 5 * BS; }
+      if (runs && runs[li]) { var x = l.x; runs[li].forEach(function (r) { g.fillStyle = r.color; g.fillText(r.text, x, l.y); x += measure(r.text, font); }); }
+      else { g.fillStyle = color; g.fillText(l.text, l.x, l.y); }
+      return { c: c, x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
     });
-    return { c: c, x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
   }
   function textLines(strs, font, x, yBase, lh, align, boxW) {
     return strs.map(function (s, i) {
@@ -135,26 +134,19 @@
   function drawText(ctx, p, t, bmp) {
     bmp = bmp || p.bmp;
     if (t < p.t0) return null;
-    var prog = sat((t - p.t0) / (p.t1 - p.t0)), chars = prog * p.n, tip = null;
-    if (prog >= 1) { ctx.drawImage(bmp.c, bmp.x, bmp.y, bmp.w, bmp.h); return null; }
-    ctx.save(); ctx.beginPath();
-    var acc = 0;
+    var prog = sat((t - p.t0) / (p.t1 - p.t0)), chars = prog * p.n, tip = null, acc = 0;
     for (var i = 0; i < p.lines.length; i++) {
-      var l = p.lines[i], top = l.y - p.fs * 1.15, hh = p.fs * 1.65;
-      if (chars >= acc + l.text.length) { ctx.rect(l.x - p.fs * 0.3, top, l.w + p.fs * 0.7, hh); }
-      else {
-        var k = chars - acc, ki = Math.floor(k), f = k - ki;
-        var xr = l.x + lerp(l.cum[ki], l.cum[Math.min(ki + 1, l.text.length)], f), sl = p.fs * 0.16;
-        ctx.moveTo(l.x - p.fs * 0.3, top); ctx.lineTo(xr + sl, top); ctx.lineTo(xr - sl, top + hh); ctx.lineTo(l.x - p.fs * 0.3, top + hh); ctx.closePath();
-        // pen bobs along the letter
-        tip = [xr, l.y - p.fs * (0.25 + 0.3 * Math.abs(Math.sin(f * Math.PI * 2.0)))];
-        break;
-      }
-      acc += l.text.length;
+      var l = p.lines[i], B = bmp[i];
+      if (prog >= 1 || chars >= acc + l.text.length) { ctx.drawImage(B.c, B.x, B.y, B.w, B.h); acc += l.text.length; continue; }
+      // current line: slanted per-glyph wipe on this line's own bitmap; later lines are not drawn at all
+      var k = chars - acc, ki = Math.floor(k), f = k - ki;
+      var xr = l.x + lerp(l.cum[ki], l.cum[Math.min(ki + 1, l.text.length)], f), sl = p.fs * 0.16;
+      ctx.save(); ctx.beginPath();
+      ctx.moveTo(B.x, B.y); ctx.lineTo(xr + sl, B.y); ctx.lineTo(xr - sl, B.y + B.h); ctx.lineTo(B.x, B.y + B.h); ctx.closePath();
+      ctx.clip(); ctx.drawImage(B.c, B.x, B.y, B.w, B.h); ctx.restore();
+      tip = [xr, l.y - p.fs * (0.25 + 0.3 * Math.abs(Math.sin(f * Math.PI * 2.0)))];
+      break;
     }
-    ctx.clip();
-    ctx.drawImage(bmp.c, bmp.x, bmp.y, bmp.w, bmp.h);
-    ctx.restore();
     return tip;
   }
   function StrokePart(pts, w, color, t0, dur, seed, opts) {
@@ -381,7 +373,7 @@
         parts.push(TextPart(lt, '700 52px Oswald', CHALK.y, t + 0.15, 0.15));
         var ot = textLines([o], fonto, cx + 72, cy, fo);
         parts.push(TextPart(ot, fonto, CHALK.w, t + 0.25, Math.min(1.2, 0.2 + o.length * 0.05)));
-        rows.push({ x: cx - 50, y: cy - 80, w: 90 + 72 + ot[0].w + 20, h: 110, cy: cy, tx: cx + 72, tw: ot[0].w });
+        rows.push({ x: cx - 50, y: cy - 80, w: 90 + 72 + ot[0].w + 20, h: 110, cy: cy, tx: cx + 72, tw: ot[0].w, written: t + 0.25 + Math.min(1.2, 0.2 + o.length * 0.05) });
         t += 0.6 + Math.min(1.2, o.length * 0.05);
       });
       // countdown ring
@@ -399,7 +391,8 @@
           var pts = [], a0 = -Math.PI / 2;
           for (var q = 0; q <= 60; q++) { var a = a0 + rem * Math.PI * 2 * q / 60; pts.push([ringX + R * Math.cos(a), ringY + R * Math.sin(a)]); }
           if (rem > 0.002) chalkStroke(ctx, pts, 11, rem < 0.3 ? CHALK.r : CHALK.y, 1);
-          var n = tt < cs ? Math.round(el.seconds) : Math.max(1, Math.ceil((ce - tt) - 1e-6));
+          if (tt < cs) { ctx.restore(); return null; }   // ring outline only, no number before the countdown
+          var n = Math.max(1, Math.ceil((ce - tt) - 1e-6));
           var frac = tt < cs ? 0 : ((ce - tt) % 1), pop = tt < cs ? 1 : 1 + 0.25 * Math.pow(sat((frac - 0.75) / 0.25), 2);
           ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = '400 ' + Math.round(150 * pop) + 'px Anton';
           ctx.fillStyle = rem < 0.3 ? CHALK.r : CHALK.w; ctx.fillText(tt >= ce ? '0' : String(n), ringX, ringY + 6);
@@ -414,8 +407,8 @@
       if (el.optHi && el.optHi.length) parts.unshift({ kind: 'custom', noTip: true, t0: el.optHi[0].t, t1: el.optHi[0].t + 0.3, draw: function (ctx, tt) {
         var cur = null; el.optHi.forEach(function (h) { if (h.t <= tt) cur = h; });
         if (!cur || (el.reveal != null && tt >= el.reveal) || (el.countdown != null && tt >= el.countdown)) return null;
-        var ro = rows[cur.i]; if (!ro) return null;
-        var a = sat((tt - cur.t) / 0.25);
+        var ro = rows[cur.i]; if (!ro || tt < ro.written) return null;   // never before the option text exists
+        var a = sat((tt - Math.max(cur.t, ro.written)) / 0.25);
         ctx.save(); ctx.globalAlpha = 0.3; ctx.fillStyle = '#f4d061'; ctx.fillRect(ro.x, ro.y + 12, (ro.w + 40) * ease(a), ro.h - 16); ctx.restore();
         return null;
       } });
