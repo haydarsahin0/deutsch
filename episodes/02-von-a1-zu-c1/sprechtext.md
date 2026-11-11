@@ -2,8 +2,8 @@
 title: "Von A1 zu C1 – 7 Abkürzungen, die dir kein Kurs verrät"
 episode: 2
 source: script.md (generiert mit tools/sprechtext.js – nicht von Hand bearbeiten)
-words: 1629
-estimated_duration: "12:51 min (bei 130 Wörtern/Min. + 19 s Pausen)"
+words: 1635
+estimated_duration: "12:54 min (bei 130 Wörtern/Min. + 19 s Pausen)"
 ---
 
 # Sprechtext: Von A1 zu C1 – 7 Abkürzungen, die dir kein Kurs verrät
@@ -12,7 +12,7 @@ estimated_duration: "12:51 min (bei 130 Wörtern/Min. + 19 s Pausen)"
 
 - Tempo: ruhig und klar, ca. 130 Wörter pro Minute. Viele Zuschauer sind B1 – lieber eine Pause zu viel.
 - Haltung: der Kumpel, der dir ehrlich sagt, wie es wirklich geht. Trocken, entspannt, nie Lehrer-Ton, nie Motivations-Guru.
-- Sami und Ana sind zwei Figuren (Sami = der Lerner, der seit Jahren auf B1 festhängt; Ana = die Kollegin, die schnell C1 geschafft hat). Über Sami freundlich-mitleidig, nie spöttisch.
+- Melos Kumpel (hängt seit Jahren auf B1 fest) und seine Kollegin (hat schnell C1 geschafft): über den Kumpel freundlich-mitleidig, nie spöttisch.
 - Live-Kommentar (Nr. 3): komplett übertrieben wie ein Fußball-Kommentator, laut, atemlos – danach sofort wieder ruhig.
 - Umgangssprache (Nr. 4) genau so sprechen, wie sie geschrieben ist: „Hamwa“ (HAM-wa, wie ein Wort), „Haste“, „Weißte“, „Isses“, „Ich hab ’n Problem“ (’n = nur ein kurzes n). Die Lehrbuch-Formen danach deutlich und etwas langsamer.
 - Die B2- und C1-Sätze (Nr. 7) langsam und klar, mit kleiner Pause zwischen den Sätzen. „zumal“ wird zu-MAL betont, „allerdings“ AL-ler-dings, „immerhin“ im-mer-HIN, „ohnehin“ oh-ne-HIN; „Gehste“ wie GEH-ste.
@@ -27,11 +27,11 @@ estimated_duration: "12:51 min (bei 130 Wörtern/Min. + 19 s Pausen)"
 
 ## Hook
 
-Das ist Sami. Sami lebt seit fünf Jahren in Deutschland. Drei Sprachkurse, ein dickes Grammatikbuch, viertausend Karteikarten in der App. Sein Niveau: B1. Seit vier Jahren. (Pause)
+Das ist mein Kumpel. Er lebt seit fünf Jahren in Deutschland. Drei Sprachkurse, ein dickes Grammatikbuch, viertausend Karteikarten in der App. Sein Niveau: B1. Seit vier Jahren. (Pause)
 
-Und das ist Ana. Ana ist vor zwei Jahren gekommen. Gleicher Job, gleiches Büro. Letzte Woche hat sie ihr C1-Zertifikat bekommen. (Pause)
+Und das ist seine Kollegin. Sie ist vor zwei Jahren gekommen. Gleicher Job, gleiches Büro. Letzte Woche hat sie ihr C1-Zertifikat bekommen. (Pause)
 
-Hat Ana mehr gelernt? Nein. Sie hat anders gelernt. Und heute zeige ich dir, was genau sie anders macht: sieben Abkürzungen. Bei Nummer sieben geht es um Wörter, die so klein sind, dass du sie wahrscheinlich gar nicht bemerkst. Aber genau sie trennen B2 von C1.
+Hat sie mehr gelernt? Nein. Sie hat anders gelernt. Und heute zeige ich dir, was genau sie anders macht: sieben Abkürzungen. Bei Nummer sieben geht es um Wörter, die so klein sind, dass du sie wahrscheinlich gar nicht bemerkst. Aber genau sie trennen B2 von C1.
 
 ## Intro
 
@@ -43,7 +43,7 @@ Und ganz ehrlich: C1 in drei Monaten gibt es nicht. Wer dir das verspricht, will
 
 Erst mal die Karte. Der Weg zu C1 ist keine Treppe mit gleich hohen Stufen. Von A1 bis B1 geht es schnell, weil dir jedes neue Wort sofort hilft.
 
-Dann kommt B1. Du kommst im Alltag klar, alle verstehen dich – und genau da hören die meisten auf, besser zu werden. Das ist das B1-Plateau. Hier sitzt Sami. Seit vier Jahren. (Pause)
+Dann kommt B1. Du kommst im Alltag klar, alle verstehen dich – und genau da hören die meisten auf, besser zu werden. Das ist das B1-Plateau. Hier sitzt mein Kumpel. Seit vier Jahren. (Pause)
 
 Die sieben Abkürzungen bringen dich schneller hin – und vor allem über dieses Plateau hinaus.
 
@@ -131,9 +131,9 @@ Zwanzig Sekunden, zehn Minuten Arbeit – das bringt mehr als eine Stunde Netfli
 
 Nummer fünf: Schau weniger – aber öfter dasselbe.
 
-Sami schaut jeden Abend eine neue Folge einer Serie. Er versteht ungefähr die Hälfte. Jeden Abend. Seit vier Jahren.
+Mein Kumpel schaut jeden Abend eine neue Folge einer Serie. Er versteht ungefähr die Hälfte. Jeden Abend. Seit vier Jahren.
 
-Ana macht es anders: Sie schaut eine Folge fünfmal. Einmal mit deutschen Untertiteln. Einmal ohne. Dann Szene für Szene: anhalten, nachsprechen. Beim fünften Mal versteht sie fast alles – und spricht die Sätze mit.
+Seine Kollegin macht es anders: Sie schaut eine Folge fünfmal. Einmal mit deutschen Untertiteln. Einmal ohne. Dann Szene für Szene: anhalten, nachsprechen. Beim fünften Mal versteht sie fast alles – und spricht die Sätze mit.
 
 Warum? Beim ersten Mal kämpft dein Gehirn mit der Geschichte. Ab dem dritten Mal kennst du die Geschichte – und hast endlich Platz für die Sprache. Und die Sätze, die du fünfmal gehört hast? Die klaust du. Siehe Nummer zwei.
 
@@ -207,7 +207,7 @@ Vier: Trainier dein Ohr mit Diktaten. Fünf: Eine Folge fünfmal statt fünf Fol
 
 Und sieben: Lern die kleinen Wörter, die Sätze verbinden.
 
-Ana hatte kein Talent-Gen. Sie hat nur keine Zeit verschwendet.
+Die Kollegin hatte kein Talent-Gen. Sie hat nur keine Zeit verschwendet.
 
 ## Outro
 

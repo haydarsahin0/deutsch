@@ -10,7 +10,7 @@
 3. Warum du auf B1 festhängst – und wie du C1 schaffst
 
 ## Thumbnail-Text (≤ 4 Wörter)
-- **SEIT JAHREN B1?** (Hauptvariante: Sami sitzt müde auf einer Bank mit Schild „B1“, Melo daneben zeigt auf einen Pfeil nach oben zu „C1“)
+- **SEIT JAHREN B1?** (Hauptvariante: Melos Kumpel (Kiwi) sitzt müde auf einer Bank mit Schild „B1“, Melo daneben zeigt auf einen Pfeil nach oben zu „C1“)
 - **B1 → C1 SCHNELLER**
 - **7 ABKÜRZUNGEN**
 - **KEIN NETFLIX-TIPP!**
@@ -19,7 +19,7 @@
 ```
 Von A1 zu C1 – aber schneller: 7 Abkürzungen zum Deutsch lernen, die dir kein Sprachkurs verrät. Kein „Schau Netflix“, kein „Hab keine Angst vor Fehlern“ – sondern Methoden, mit denen du keine Zeit mehr verschwendest und endlich über das B1-Plateau hinauskommst.
 
-Sami lebt seit fünf Jahren in Deutschland und hängt seit vier Jahren auf B1 fest. Seine Kollegin Ana hat in zwei Jahren C1 geschafft. Sie hat nicht mehr gelernt – sondern anders. Du lernst die Lücken-Liste, warum du ganze Sätze klauen solltest, den Live-Kommentar zum Sprechen üben ohne Partner, Hörverstehen mit Umgangssprache („Hamwa noch Milch?“), die 5-mal-Methode für Serien, wie du deine typischen Fehler findest – und die kleinen Wörter, die B2 von C1 trennen: zwar … aber, zumal, allerdings, immerhin, ohnehin. Deutsch lernen Tipps für Deutsch für Fortgeschrittene – ideal zur Vorbereitung auf Goethe-Zertifikat B2, Goethe-Zertifikat C1, telc und TestDaF.
+Melos Kumpel lebt seit fünf Jahren in Deutschland und hängt seit vier Jahren auf B1 fest. Seine Kollegin hat in zwei Jahren C1 geschafft. Sie hat nicht mehr gelernt – sondern anders. Du lernst die Lücken-Liste, warum du ganze Sätze klauen solltest, den Live-Kommentar zum Sprechen üben ohne Partner, Hörverstehen mit Umgangssprache („Hamwa noch Milch?“), die 5-mal-Methode für Serien, wie du deine typischen Fehler findest – und die kleinen Wörter, die B2 von C1 trennen: zwar … aber, zumal, allerdings, immerhin, ohnehin. Deutsch lernen Tipps für Deutsch für Fortgeschrittene – ideal zur Vorbereitung auf Goethe-Zertifikat B2, Goethe-Zertifikat C1, telc und TestDaF.
 
 Ich bin Melo, und das ist Deutsch mit Melo: Deutsch lernen nur auf Deutsch, Niveau B1 bis C1 – erklärt wie von einem Freund.
 
