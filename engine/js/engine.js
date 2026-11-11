@@ -1151,7 +1151,7 @@
       '<ellipse cx="-30" cy="-395" rx="9" ry="12" fill="#f3ead3"/><ellipse cx="30" cy="-395" rx="9" ry="12" fill="#f3ead3"/>' +
       '<ellipse cx="0" cy="-340" rx="18" ry="' + mouthH.toFixed(1) + '" fill="#35110e"/>' +
       '<text x="0" y="-480" text-anchor="middle" font-family="sans-serif" font-size="34" fill="#17130f">' + id + '</text></g>';
-    return { svg: g, anchors: { headCenter: [0, -385], mouth: [0, -340], bbox: [-120, -520, 240, 550] } };
+    return { placeholder: true, svg: g, anchors: { headCenter: [0, -385], mouth: [0, -340], bbox: [-120, -520, 240, 550] } };
   }
   async function drawFigure(ctx, svgG, bb, pos, cam) {
     // pos {x,y,s,flip}; rasterise only the visible part of the figure's bbox
@@ -1172,16 +1172,22 @@
     var st = castState(sc, m, t), sl = slotPos(sc, m.slot), talk = talkLevel(m.id, t, sc), r;
     if (sl.seated && (!m.pose || m.pose === 'idle') && !(sc.castCues || []).some(function (c) { return c.id === m.id && c.pose && c.t <= t; })) st.pose = 'sit';
     var have = root.Cast && Cast.list && Cast.list().indexOf(m.id) >= 0;
-    // eyes toward Melo (or the screen centre)
-    var tgt = E.heads.melo || [960, 400], lk = [clamp((tgt[0] - sl.x) / 500, -1, 1) * (st.flip ? -1 : 1), 0.1];
-    try { r = have ? Cast.render(m.id, { expr: st.expr, pose: st.pose, talk: talk, t: t, seed: 3, flip: false, scale: 1, look: lk, from: st.from, w: st.from ? st.w : undefined, id: 'c' + m.id }) : null; } catch (e) { if (!E.warned['ce' + m.id]) { E.warned['ce' + m.id] = 1; console.warn('cast ' + m.id + ': ' + e.message); } }
+    // face the slot's direction (or Melo / the screen centre); eyes toward Melo
+    var tgt = E.heads.melo || [960, 400];
+    var faceLeft = (sc.castCues || []).some(function (c) { return c.id === m.id && c.flip != null && c.t <= t; }) ? st.flip : sl.face === -1 ? true : sl.face === 1 ? false : tgt[0] < sl.x - 40;
+    var lk = [clamp(Math.abs(tgt[0] - sl.x) / 500, 0, 1), 0.08];
+    var feetY = sl.seated && sl.seatY && st.pose === 'sit' ? sl.seatY + 112 * (sl.scale || 1) : sl.y;
+    try { r = have ? Cast.render(m.id, { expr: st.expr, pose: st.pose, talk: talk, t: t, seed: 3, flip: faceLeft, scale: 1, look: lk, from: st.from, w: st.from ? st.w : undefined, id: 'c' + m.id }) : null; } catch (e) { if (!E.warned['ce' + m.id]) { E.warned['ce' + m.id] = 1; console.warn('cast ' + m.id + ': ' + e.message); } }
     if (!r) { if (!have && !E.warned['c' + m.id]) { E.warned['c' + m.id] = 1; console.warn('cast "' + m.id + '" missing → placeholder'); } r = placeholderCast(m.id, { talk: talk }); }
     var a = r.anchors || {}, bb = bboxOf(a.bbox), s = sl.scale || 1.1, fl = st.flip ? -1 : 1;
     bb = { x0: bb.x0 - 30, y0: bb.y0 - 30, x1: bb.x1 + 30, y1: bb.y1 + 20 };
-    await drawFigure(ctx, r.svg, bb, { x: sl.x, y: sl.y, s: s, flip: st.flip }, cam);
+    // the cast flips itself (anchors already flipped) → place unflipped
+    var flipSelf = have && r !== null && !r.placeholder;
+    await drawFigure(ctx, r.svg, bb, { x: sl.x, y: feetY, s: s, flip: flipSelf ? false : st.flip }, cam);
+    fl = flipSelf ? 1 : fl;
     var hc = a.headCenter || [0, -385], mo = a.mouth || [hc[0], hc[1] + 50];
-    E.heads[m.id] = [sl.x + fl * hc[0] * s, sl.y + hc[1] * s];
-    E.mouths[m.id] = [sl.x + fl * mo[0] * s, sl.y + mo[1] * s];
+    E.heads[m.id] = [sl.x + fl * hc[0] * s, feetY + hc[1] * s];
+    E.mouths[m.id] = [sl.x + fl * mo[0] * s, feetY + mo[1] * s];
     E.headR[m.id] = 95 * s;
   }
   async function drawMeloFig(ctx, t, M, cam, hint) {
