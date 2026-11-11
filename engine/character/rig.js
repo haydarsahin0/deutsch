@@ -532,7 +532,8 @@
     }
     return v;
   }
-  function rk(p) { return Math.round(p[0] * 2) / 2 + ',' + Math.round(p[1] * 2) / 2; }
+  function qp(p) { return [Math.round(p[0] * 2) / 2, Math.round(p[1] * 2) / 2]; }
+  function qLeg(L) { return { hip: qp(L.hip), kn: qp(L.kn), an: qp(L.an), foot: L.foot }; }
 
   // 2D value noise (deterministic), used for the baked ink roughness
   function vnoise(seed) {
@@ -632,8 +633,10 @@
     });
     defs += head.defs;
     var shadow = cached(rig, rk0 + 'shadow', function () { return withDisp(function () { return P.shadow(new Ink(seed + 3)); }); });
-    var legsKey = rk0 + 'legs' + rk(pose.la.kn) + rk(pose.la.an) + rk(pose.lb.kn) + rk(pose.lb.an) + rk(pose.la.hip);
-    var legs = cached(rig, legsKey, function () { return withDisp(function () { return P.legs(new Ink(seed + 5), pose); }); });
+    // cached parts are built from quantised geometry, so the output depends only on the cache key (determinism)
+    var LQ = { la: qLeg(pose.la), lb: qLeg(pose.lb) };
+    var legsKey = rk0 + 'legs' + JSON.stringify(LQ);
+    var legs = cached(rig, legsKey, function () { return withDisp(function () { return P.legs(new Ink(seed + 5), LQ); }); });
 
     // breathing: shoulders / torso
     var br = S.breath, shY = -br * 0.9;
@@ -641,7 +644,8 @@
     ['a', 'b'].forEach(function (s) { P2[s].sh[1] += shY; P2[s].el[1] += shY * 0.6; });
     // the shirt outline expects a = viewer-left shoulder
     var tp = mirror ? { torso: pose.torso, a: pose.b, b: pose.a } : pose;
-    var torsoKey = rk0 + 'torso' + tp.torso.map(rk).join('|') + rk(tp.a.sh) + rk(tp.b.sh);
+    tp = { torso: tp.torso.map(qp), a: { sh: qp(tp.a.sh) }, b: { sh: qp(tp.b.sh) } };
+    var torsoKey = rk0 + 'torso' + JSON.stringify(tp);
     var torso = cached(rig, torsoKey, function () { return withDisp(function () { return P.torso(new Ink(seed + 7), tp, true); }); });
     var torsoG = '<g transform="translate(0 ' + f1(-168) + ') scale(1 ' + (1 + br * 0.006).toFixed(4) + ') translate(0 168)">' + torso + '</g>';
 

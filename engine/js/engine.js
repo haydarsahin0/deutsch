@@ -254,7 +254,7 @@
           var ux0 = lines[0].x, ux1 = lines[0].x + lines[0].w, uy = last.y + m.fs * 0.22;
           parts.push(StrokePart(catmull([[ux0 - 10, uy + 4], [lerp(ux0, ux1, 0.35), uy - 3], [lerp(ux0, ux1, 0.7), uy + 3], [ux1 + 16, uy - 4]]), 6.5 * k, CHALK.y, T0 + dur + 0.05, 0.45, sd + 5));
         }
-        return { parts: parts, box: { x: x, y: y, w: t === 'title' ? maxW : w, h: h }, lines: lines };
+        return { parts: parts, box: { x: x, y: y, w: t === 'title' ? maxW : w, h: h }, lines: lines, fs: m.fs };
       } };
     }
     if (t === 'bubble') {
@@ -269,24 +269,32 @@
         var parts = [StrokePart(outline, 5 * k, col, T0, 0.45, sd + 1, { step: 8 }), StrokePart(tl, 5 * k, col, T0 + 0.4, 0.18, sd + 2)];
         var lines = textLines(sb, fontb, x + padX, y + padY + fsb * 0.95, lhb, 'left');
         parts.push(TextPart(lines, fontb, CHALK.w, T0 + 0.35, el.writeDur || 1));
-        return { parts: parts, box: { x: x, y: y, w: bw, h: bh + tail } };
+        return { parts: parts, box: { x: x, y: y, w: bw, h: bh + tail }, lines: lines, fs: fsb };
       } };
     }
     if (t === 'list') {
       var fsl = 64 * k, fontl = '700 ' + fsl + 'px ' + HAND, lhl = fsl * 1.2, ind = 46 * k, gapl = 10 * k;
-      var items = (el.items || []).map(function (it) { return { it: it, strs: wrap(it.text, fontl, maxW - ind) }; });
-      var lw = 0, hl = 0;
-      items.forEach(function (o) { o.strs.forEach(function (s) { lw = Math.max(lw, measure(s, fontl)); }); hl += o.strs.length * lhl + gapl; });
-      return { w: lw + ind, h: hl + fsl * 0.2, build: function (x, y) {
-        var parts = [], yy = y;
+      var availH = (CA.y1 - CA.y0) - 150 * k;
+      var nIt = (el.items || []).length, cols = 1;
+      var oneH = nIt * (lhl + gapl);
+      if (nIt > 5 && oneH > availH) cols = 2;
+      var colW = cols === 2 ? (maxW - 40 * k) / 2 : maxW;
+      var items = (el.items || []).map(function (it) { return { it: it, strs: wrap(it.text, fontl, colW - ind) }; });
+      var per = Math.ceil(items.length / cols), lw = 0, hl = 0, colH = [0, 0];
+      items.forEach(function (o, i) { var c = Math.floor(i / per); o.col = c; o.strs.forEach(function (s) { lw = Math.max(lw, measure(s, fontl)); }); colH[c] += o.strs.length * lhl + gapl; });
+      hl = Math.max(colH[0], colH[1]);
+      var bwl = cols === 2 ? maxW : lw + ind;
+      return { w: bwl, h: hl + fsl * 0.2, build: function (x, y) {
+        var parts = [], yy = [y, y];
         items.forEach(function (o, i) {
-          if (o.it.t == null) { yy += o.strs.length * lhl + gapl; return; }
-          var t0 = o.it.t, base = yy + fsl * 0.92;
-          parts.push(StrokePart([[x + 4 * k, base - fsl * 0.3], [x + 26 * k, base - fsl * 0.33]], 7 * k, CHALK.y, t0, 0.15, sd + i));
-          parts.push(TextPart(textLines(o.strs, fontl, x + ind, base, lhl), fontl, CHALK.w, t0 + 0.1, o.it.dur || 1));
-          yy += o.strs.length * lhl + gapl;
+          var c = o.col, xx = x + c * (colW + 40 * k);
+          if (o.it.t == null) { yy[c] += o.strs.length * lhl + gapl; return; }
+          var t0 = o.it.t, base = yy[c] + fsl * 0.92;
+          parts.push(StrokePart([[xx + 4 * k, base - fsl * 0.3], [xx + 26 * k, base - fsl * 0.33]], 7 * k, CHALK.y, t0, 0.15, sd + i));
+          parts.push(TextPart(textLines(o.strs, fontl, xx + ind, base, lhl), fontl, CHALK.w, t0 + 0.1, o.it.dur || 1));
+          yy[c] += o.strs.length * lhl + gapl;
         });
-        return { parts: parts, box: { x: x, y: y, w: lw + ind, h: hl } };
+        return { parts: parts, box: { x: x, y: y, w: bwl, h: hl } };
       } };
     }
     if (t === 'icon') {
@@ -454,7 +462,12 @@
         }
         if (!pos) {
           var x0 = el.type === 'bubble' && b.side === 'right' ? CA.x1 - b.w - 10 * k : CA.x0 + (el.type === 'bubble' ? 10 * k : 0);
-          for (var y = CA.y0; y + b.h <= CA.y1 + 0.5; y += 8) if (!conflicts(x0, y, b.w, b.h)) { pos = [x0, y]; break; }
+          // continue below the newest element still on the board, else first free slot from the top
+          var cursor = CA.y0;
+          for (var q = placed.length - 1; q >= 0; q--) { var pq = placed[q]; if (pq.to > from && pq.el.type !== 'icon') { cursor = pq.y + pq.h + gap; break; } }
+          if (el.type === 'bubble' && b.side === 'right' && prevMain && prevMain.el.type === 'bubble' && prevMain.b.side !== 'right') cursor = prevMain.y + prevMain.h * 0.55;
+          for (var y = cursor; y + b.h <= CA.y1 + 0.5; y += 8) if (!conflicts(x0, y, b.w, b.h)) { pos = [x0, y]; break; }
+          if (!pos) for (y = CA.y0; y + b.h <= CA.y1 + 0.5; y += 8) if (!conflicts(x0, y, b.w, b.h)) { pos = [x0, y]; break; }
         }
         if (!pos) { ok = false; pos = [CA.x0, Math.max(CA.y0, CA.y1 - b.h)]; }
         var rec = { el: el, b: b, x: pos[0], y: pos[1], w: b.w, h: b.h, from: from, to: to };
@@ -473,7 +486,20 @@
     best.placed.forEach(function (p) {
       var r = p.b.build(p.x, p.y + dy);
       p.el.parts = r.parts; p.el.box = r.box; p.el.k = best.k;
-      if (p.el.type === 'note' && p.target) {
+      var sdd = hashStr(p.el.id), kk = best.k;
+      if (p.el.strike != null && p.el.type !== 'wrong') {
+        var Ls = r.lines || [{ x: r.box.x + 10, y: r.box.y + r.box.h * 0.62, w: r.box.w - 20 }], fsS = r.fs || r.box.h * 0.5;
+        Ls.forEach(function (L, li) {
+          var ym = L.y - fsS * 0.3, ts = p.el.strike + li * 0.18;
+          r.parts.push(StrokePart([[L.x - 12 * kk, ym + 6 * kk], [L.x + L.w * 0.5, ym - 2 * kk], [L.x + L.w + 14 * kk, ym - 8 * kk]], 7.5 * kk, CHALK.r, ts, 0.3, sdd + 11 + li));
+          r.parts.push(StrokePart([[L.x + L.w + 8 * kk, ym + 6 * kk], [L.x + L.w * 0.45, ym + 10 * kk], [L.x - 4 * kk, ym + 2 * kk]], 5 * kk, CHALK.r, ts + 0.28, 0.22, sdd + 19 + li));
+        });
+      }
+      if (p.el.tick != null && p.el.type !== 'right') {
+        var bx = r.box.x + r.box.w + 18 * kk, by = r.box.y + Math.min(r.box.h, 90 * kk) * 0.8, sT = 70 * kk;
+        r.parts.push(StrokePart([[bx, by - sT * 0.38], [bx + sT * 0.24, by - sT * 0.06], [bx + sT * 0.78, by - sT * 0.92]], 8.5 * kk, CHALK.g, p.el.tick, 0.38, sdd + 3, { step: 4 }));
+      }
+      if (p.el.type === 'note' && p.target && Math.hypot((p.target.x + p.target.w) - r.box.x, (p.target.y + p.target.h / 2 + dy) - (r.box.y + r.box.h / 2)) < 420) {
         // arrow from the note to its target
         var tb = { x: p.target.x, y: p.target.y + dy, w: p.target.w, h: p.target.h }, nb = r.box, T1 = p.el.appear + (p.el.writeDur || 1);
         var a0, a1;
@@ -509,6 +535,7 @@
 
   // ───────────────────────── camera ─────────────────────────
   function sceneAt(t) {
+    if (E.sceneOverride) return E.sceneOverride;
     var sc = E.scenes[0];
     for (var i = 0; i < E.scenes.length; i++) if (E.scenes[i].tStart <= t) sc = E.scenes[i];
     return sc;
@@ -552,7 +579,7 @@
         var b = el && el.box ? el.box : boxUnion(visibleBoxes(sc, t));
         if (!b) return shotFrame({ shot: 'board' }, t);
         var f = fitFrame({ x: b.x - 90, y: b.y - 70, w: b.w + 180, h: b.h + 140 }, true);
-        f.w = Math.max(f.w, 900); return f;
+        f.w = Math.max(f.w, 1250); return f;
       }
       default: return { cx: 960, cy: 540, w: 1920 };
     }
@@ -571,6 +598,14 @@
     var p = (t - K[i].t) / CAM_DUR;
     if (p >= 1 || !K[i].start) return target;
     return mixFrame(K[i].start, target, ease(p));
+  }
+  // depth of field: 1 while the camera holds a Melo close-up (background chalk + set go soft)
+  function dofAt(t) {
+    var K = E.cam, i = -1;
+    for (var j = 0; j < K.length; j++) if (K[j].t <= t) i = j;
+    if (i < 0) return K[0].shot === 'melo' ? 1 : 0;
+    var cur = K[i].shot === 'melo' ? 1 : 0, prev = i > 0 && K[i - 1].shot === 'melo' ? 1 : 0;
+    return lerp(prev, cur, ease((t - K[i].t) / CAM_DUR));
   }
   function camera(t) {
     var f = camRaw(t), K = E.cam, i = 0;
@@ -656,7 +691,13 @@
     g.translate((bi * 97) % 256, (bi * 61) % 256); g.fillRect(-256, -256, cc.width + 512, cc.height + 512);
     g.restore();
     drawSet(normal.concat(erasing), true);
-    ctx.drawImage(cc, sl.x, sl.y, cc.width / BS, cc.height / BS);
+    var dof = E.dof || 0;
+    if (dof > 0.01) {
+      var sm = E.ccSmall, sg = E.ccSmallCtx;
+      sg.clearRect(0, 0, sm.width, sm.height); sg.drawImage(cc, 0, 0, sm.width, sm.height);
+      ctx.save(); ctx.globalAlpha = 1 - dof; ctx.drawImage(cc, sl.x, sl.y, cc.width / BS, cc.height / BS);
+      ctx.globalAlpha = dof * 0.9; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(sm, sl.x, sl.y, cc.width / BS, cc.height / BS); ctx.restore();
+    } else ctx.drawImage(cc, sl.x, sl.y, cc.width / BS, cc.height / BS);
     // chalk dust while erasing
     if (sponge) {
       var er = sponge.er, r = rng(er.seed), n = 90;
@@ -838,6 +879,8 @@
     var cam = camera(t);
     ctx.save(); camTransform(ctx, cam);
     ctx.drawImage(E.setC, 0, 0, W, H);
+    E.dof = dofAt(t);
+    if (E.dof > 0.01) { ctx.save(); ctx.globalAlpha = E.dof; ctx.drawImage(E.setBlur, 0, 0, W, H); ctx.restore(); }
     drawBoard(ctx, t, cam);
     drawChapterBadge(ctx, t);
     var M = meloPos(t);
@@ -857,7 +900,8 @@
     if (sc.transition === 'ink' && t < sc.tEnd) {
       // ink-brush wipe between title card and classroom
       var prev = E.scenes[E.scenes.indexOf(sc) - 1];
-      await renderInto(ctx, t, prev);
+      E.sceneOverride = prev;
+      try { await renderInto(ctx, t, prev); } finally { E.sceneOverride = null; }
       var b = E.buf, bg = E.bufCtx;
       await renderInto(bg, t, sc);
       var p = ease((t - sc.tStart) / (sc.tEnd - sc.tStart)), S = E.scale;
@@ -897,6 +941,7 @@
     var SS = E.scale < 1 ? 1.25 : 2;
     var setImg = await svgImage(MeloSet.svg().replace('width="1920" height="1080"', 'width="' + W * SS + '" height="' + H * SS + '"'));
     E.setC = mk(W * SS, H * SS); var sg = E.setC.getContext('2d'); sg.drawImage(setImg, 0, 0); sg.setTransform(SS, 0, 0, SS, 0, 0); MeloSet.texts(sg);
+    E.setBlur = mk(W * SS / 2, H * SS / 2); var sbg = E.setBlur.getContext('2d'); sbg.filter = 'blur(' + (3 * SS / 2) + 'px)'; sbg.drawImage(E.setC, 0, 0, W * SS / 2, H * SS / 2);
     var tb = await svgImage(MeloSet.titleSvg()); E.titleBg = mk(1920, 1080); E.titleBg.getContext('2d').drawImage(tb, 0, 0);
     var rc = mk(1400, 1400), rg = rc.getContext('2d'); rg.translate(700, 700); rg.fillStyle = '#c86a24';
     for (var ri = 0; ri < 28; ri++) { var a0 = ri / 28 * Math.PI * 2; rg.beginPath(); rg.moveTo(0, 0); rg.arc(0, 0, 700, a0, a0 + Math.PI / 28 * 0.9); rg.closePath(); rg.fill(); }
@@ -910,6 +955,7 @@
     for (i = 0; i < 70; i++) { gg.fillStyle = 'rgba(0,0,0,' + (0.15 + r() * 0.3).toFixed(2) + ')'; gg.fillRect(r() * 256, r() * 256, 6 + r() * 22, 1); }
     E.grainPat = E.ctx.createPattern(gc, 'repeat');
     var sl = GEO.slate; E.cc = mk(sl.w * E.BS, sl.h * E.BS); E.cg = E.cc.getContext('2d');
+    E.ccSmall = mk(sl.w / 5, sl.h / 5); E.ccSmallCtx = E.ccSmall.getContext('2d');
     // scenes, elements, layout
     E.scenes = tl.scenes; E.els = tl.elements.slice(); E.byId = {}; E.els.forEach(function (e) { E.byId[e.id] = e; });
     E.chapters = tl.chapters || [];
