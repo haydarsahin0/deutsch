@@ -1,0 +1,9842 @@
+{
+ "version": 1,
+ "episode": "01-das-sagt-kein-deutscher",
+ "fps": 30,
+ "width": 1920,
+ "height": 1080,
+ "duration": 267.964,
+ "partial": false,
+ "audio": "audio/teil-1.mp3",
+ "alignment": "../../engine/dev/alignment.json",
+ "dev": true,
+ "scenes": [
+  {
+   "i": 0,
+   "layout": "melo",
+   "start": 0,
+   "end": 7.78,
+   "transition": "cut",
+   "tStart": 0,
+   "tEnd": 0,
+   "contentStart": 0
+  },
+  {
+   "i": 1,
+   "layout": "board",
+   "start": 7.78,
+   "end": 22.5,
+   "transition": "move",
+   "tStart": 7.78,
+   "tEnd": 8.68,
+   "contentStart": 7.98
+  },
+  {
+   "i": 2,
+   "layout": "title",
+   "start": 22.2,
+   "end": 50.58,
+   "transition": "ink",
+   "tStart": 22.2,
+   "tEnd": 22.8,
+   "contentStart": 22.56
+  },
+  {
+   "i": 3,
+   "layout": "split",
+   "start": 50.28,
+   "end": 89.1,
+   "transition": "ink",
+   "tStart": 50.28,
+   "tEnd": 50.88,
+   "contentStart": 50.64
+  },
+  {
+   "i": 4,
+   "layout": "board",
+   "start": 88.75,
+   "end": 131.58,
+   "transition": "erase",
+   "tStart": 88.75,
+   "tEnd": 89.75,
+   "contentStart": 89.65
+  },
+  {
+   "i": 5,
+   "layout": "split",
+   "start": 131.23000000000002,
+   "end": 161.98,
+   "transition": "erase",
+   "tStart": 131.23000000000002,
+   "tEnd": 132.23000000000002,
+   "contentStart": 132.13000000000002
+  },
+  {
+   "i": 6,
+   "layout": "board",
+   "start": 161.63,
+   "end": 185.58,
+   "transition": "erase",
+   "tStart": 161.63,
+   "tEnd": 162.63,
+   "contentStart": 162.53
+  },
+  {
+   "i": 7,
+   "layout": "split",
+   "start": 185.23000000000002,
+   "end": 216.16,
+   "transition": "erase",
+   "tStart": 185.23000000000002,
+   "tEnd": 186.23000000000002,
+   "contentStart": 186.13000000000002
+  },
+  {
+   "i": 8,
+   "layout": "board",
+   "start": 215.81,
+   "end": 243.28,
+   "transition": "erase",
+   "tStart": 215.81,
+   "tEnd": 216.81,
+   "contentStart": 216.71
+  },
+  {
+   "i": 9,
+   "layout": "split",
+   "start": 242.93,
+   "end": 253.86,
+   "transition": "erase",
+   "tStart": 242.93,
+   "tEnd": 243.93,
+   "contentStart": 243.83
+  },
+  {
+   "i": 10,
+   "layout": "board",
+   "start": 253.51000000000002,
+   "end": 267.964,
+   "transition": "erase",
+   "tStart": 253.51000000000002,
+   "tEnd": 254.51000000000002,
+   "contentStart": 254.41000000000003
+  }
+ ],
+ "elements": [
+  {
+   "id": "h1",
+   "type": "wrong",
+   "scene": 1,
+   "layout": "board",
+   "args": {
+    "type": "wrong",
+    "id": "h1",
+    "text": "Ich bin heiß.",
+    "strike": "manual"
+   },
+   "appear": 7.98,
+   "cueT": 7.78,
+   "erase": 22.2,
+   "strike": 14.82,
+   "tick": null,
+   "highlight": null,
+   "text": "Ich bin heiß.",
+   "writeDur": 0.9,
+   "eraseBy": "scene",
+   "eraseEnd": 23.2
+  },
+  {
+   "id": "t1",
+   "type": "title",
+   "scene": 2,
+   "layout": "title",
+   "args": {
+    "type": "title",
+    "id": "t1",
+    "text": "Das sagt kein Deutscher!"
+   },
+   "appear": 22.56,
+   "cueT": 22.5,
+   "erase": 50.28,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "Das sagt kein Deutscher!",
+   "writeDur": 1.45,
+   "eraseBy": "scene",
+   "eraseEnd": 51.28
+  },
+  {
+   "id": "n0",
+   "type": "note",
+   "scene": 2,
+   "layout": "title",
+   "args": {
+    "type": "note",
+    "id": "n0",
+    "text": "12 Sätze · falsch oder zu steif"
+   },
+   "appear": 34.76,
+   "cueT": 34.76,
+   "erase": 50.28,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "12 Sätze · falsch oder zu steif",
+   "writeDur": 1.8,
+   "eraseBy": "scene",
+   "eraseEnd": 51.28
+  },
+  {
+   "id": "i1",
+   "type": "icon",
+   "scene": 3,
+   "layout": "split",
+   "args": {
+    "type": "icon",
+    "id": "i1",
+    "name": "sun"
+   },
+   "appear": 50.64,
+   "cueT": 50.58,
+   "erase": 88.75,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "sun",
+   "writeDur": 1.1,
+   "eraseBy": "scene",
+   "eraseEnd": 89.75
+  },
+  {
+   "id": "w1",
+   "type": "wrong",
+   "scene": 3,
+   "layout": "split",
+   "args": {
+    "type": "wrong",
+    "id": "w1",
+    "text": "Ich bin heiß."
+   },
+   "appear": 51.04,
+   "cueT": 50.58,
+   "erase": 88.75,
+   "strike": 52.54,
+   "tick": null,
+   "highlight": null,
+   "text": "Ich bin heiß.",
+   "writeDur": 0.9,
+   "eraseBy": "scene",
+   "eraseEnd": 89.75
+  },
+  {
+   "id": "r1",
+   "type": "right",
+   "scene": 3,
+   "layout": "split",
+   "args": {
+    "type": "right",
+    "id": "r1",
+    "text": "Mir ist heiß."
+   },
+   "appear": 64.44,
+   "cueT": 64.44,
+   "erase": 88.75,
+   "strike": null,
+   "tick": 65.49,
+   "highlight": null,
+   "text": "Mir ist heiß.",
+   "writeDur": 0.9,
+   "eraseBy": "scene",
+   "eraseEnd": 89.75
+  },
+  {
+   "id": "l1",
+   "type": "list",
+   "scene": 3,
+   "layout": "split",
+   "args": {
+    "type": "list",
+    "id": "l1",
+    "items": "Mir ist kalt.|Mir ist schlecht.|Mir ist langweilig.",
+    "stagger": "auto"
+   },
+   "appear": 71.98,
+   "cueT": 71.98,
+   "erase": 88.75,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "items": [
+    {
+     "text": "Mir ist kalt.",
+     "t": 72.69,
+     "dur": 0.9
+    },
+    {
+     "text": "Mir ist schlecht.",
+     "t": 73.97,
+     "dur": 1.1
+    },
+    {
+     "text": "Mir ist langweilig.",
+     "t": 75.09,
+     "dur": 1.2
+    }
+   ],
+   "stagger": "auto",
+   "nextCount": 0,
+   "text": "",
+   "writeDur": 0,
+   "eraseBy": "scene",
+   "eraseEnd": 89.75
+  },
+  {
+   "id": "n1",
+   "type": "note",
+   "scene": 3,
+   "layout": "split",
+   "args": {
+    "type": "note",
+    "id": "n1",
+    "text": "Ich bin langweilig. = Ich bin ein Langweiler."
+   },
+   "appear": 76.64,
+   "cueT": 76.64,
+   "erase": 88.75,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "Ich bin langweilig. = Ich bin ein Langweiler.",
+   "writeDur": 2.2,
+   "eraseBy": "scene",
+   "eraseEnd": 89.75
+  },
+  {
+   "id": "i2",
+   "type": "icon",
+   "scene": 4,
+   "layout": "board",
+   "args": {
+    "type": "icon",
+    "id": "i2",
+    "name": "plate"
+   },
+   "appear": 89.65,
+   "cueT": 89.1,
+   "erase": 131.23000000000002,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "plate",
+   "writeDur": 1.1,
+   "eraseBy": "scene",
+   "eraseEnd": 132.23
+  },
+  {
+   "id": "w2",
+   "type": "wrong",
+   "scene": 4,
+   "layout": "board",
+   "args": {
+    "type": "wrong",
+    "id": "w2",
+    "text": "Nein danke, ich bin voll."
+   },
+   "appear": 96.34,
+   "cueT": 96.34,
+   "erase": 131.23000000000002,
+   "strike": 98.44,
+   "tick": null,
+   "highlight": null,
+   "text": "Nein danke, ich bin voll.",
+   "writeDur": 1.5,
+   "eraseBy": "scene",
+   "eraseEnd": 132.23
+  },
+  {
+   "id": "r2",
+   "type": "right",
+   "scene": 4,
+   "layout": "board",
+   "args": {
+    "type": "right",
+    "id": "r2",
+    "text": "Ich bin satt."
+   },
+   "appear": 107.16,
+   "cueT": 107.16,
+   "erase": 131.23000000000002,
+   "strike": null,
+   "tick": 108.21,
+   "highlight": null,
+   "text": "Ich bin satt.",
+   "writeDur": 0.9,
+   "eraseBy": "scene",
+   "eraseEnd": 132.23
+  },
+  {
+   "id": "n2",
+   "type": "note",
+   "scene": 4,
+   "layout": "board",
+   "args": {
+    "type": "note",
+    "id": "n2",
+    "text": "pappsatt · Ich kann nicht mehr."
+   },
+   "appear": 109.78,
+   "cueT": 109.78,
+   "erase": 131.23000000000002,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "pappsatt · Ich kann nicht mehr.",
+   "writeDur": 1.8,
+   "eraseBy": "scene",
+   "eraseEnd": 132.23
+  },
+  {
+   "id": "s2",
+   "type": "sentence",
+   "scene": 4,
+   "layout": "board",
+   "args": {
+    "type": "sentence",
+    "id": "s2",
+    "text": "Danke, ich bin satt – war super lecker!",
+    "highlight": "satt"
+   },
+   "appear": 115.08,
+   "cueT": 115.08,
+   "erase": 131.23000000000002,
+   "strike": null,
+   "tick": null,
+   "highlight": 117.38,
+   "text": "Danke, ich bin satt – war super lecker!",
+   "writeDur": 2.2,
+   "eraseBy": "scene",
+   "eraseEnd": 132.23
+  },
+  {
+   "id": "w3",
+   "type": "wrong",
+   "scene": 5,
+   "layout": "split",
+   "args": {
+    "type": "wrong",
+    "id": "w3",
+    "text": "Ich habe 25 Jahre."
+   },
+   "appear": 132.13,
+   "cueT": 131.58,
+   "erase": 155.34,
+   "strike": 133.88,
+   "tick": null,
+   "highlight": null,
+   "text": "Ich habe 25 Jahre.",
+   "writeDur": 1.15,
+   "eraseBy": "cue",
+   "eraseEnd": 155.94
+  },
+  {
+   "id": "r3",
+   "type": "right",
+   "scene": 5,
+   "layout": "split",
+   "args": {
+    "type": "right",
+    "id": "r3",
+    "text": "Ich bin 25 (Jahre alt)."
+   },
+   "appear": 144.86,
+   "cueT": 144.86,
+   "erase": 161.63,
+   "strike": null,
+   "tick": 146.41,
+   "highlight": null,
+   "text": "Ich bin 25 (Jahre alt).",
+   "writeDur": 1.4,
+   "eraseBy": "scene",
+   "eraseEnd": 162.63
+  },
+  {
+   "id": "s3",
+   "type": "sentence",
+   "scene": 5,
+   "layout": "split",
+   "args": {
+    "type": "sentence",
+    "id": "s3",
+    "text": "Wie alt bist du?",
+    "highlight": "bist"
+   },
+   "appear": 152.32,
+   "cueT": 152.32,
+   "erase": 161.63,
+   "strike": null,
+   "tick": null,
+   "highlight": 153.47,
+   "text": "Wie alt bist du?",
+   "writeDur": 1.05,
+   "eraseBy": "scene",
+   "eraseEnd": 162.63
+  },
+  {
+   "id": "b3a",
+   "type": "bubble",
+   "scene": 5,
+   "layout": "split",
+   "args": {
+    "type": "bubble",
+    "id": "b3a",
+    "who": "left",
+    "text": "Wie alt ist deine Oma?"
+   },
+   "appear": 155.34,
+   "cueT": 155.34,
+   "erase": 161.63,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "Wie alt ist deine Oma?",
+   "writeDur": 1.35,
+   "eraseBy": "scene",
+   "eraseEnd": 162.63
+  },
+  {
+   "id": "b3b",
+   "type": "bubble",
+   "scene": 5,
+   "layout": "split",
+   "args": {
+    "type": "bubble",
+    "id": "b3b",
+    "who": "right",
+    "text": "Sie wird nächste Woche 90."
+   },
+   "appear": 158.34,
+   "cueT": 158.34,
+   "erase": 161.63,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "Sie wird nächste Woche 90.",
+   "writeDur": 1.55,
+   "eraseBy": "scene",
+   "eraseEnd": 162.63
+  },
+  {
+   "id": "q1",
+   "type": "quiz",
+   "scene": 6,
+   "layout": "board",
+   "args": {
+    "id": "q1",
+    "q": "Winter. Heizung kaputt. Was sagst du?",
+    "options": "Ich bin kalt.|Ich habe kalt.|Mir ist kalt.",
+    "answer": "2",
+    "seconds": "5"
+   },
+   "appear": 164.18,
+   "cueT": 164.18,
+   "erase": 185.23000000000002,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "Winter. Heizung kaputt. Was sagst du?",
+   "q": "Winter. Heizung kaputt. Was sagst du?",
+   "options": [
+    "Ich bin kalt.",
+    "Ich habe kalt.",
+    "Mir ist kalt."
+   ],
+   "answer": 2,
+   "seconds": 5,
+   "countdown": 172.95,
+   "reveal": 173.04,
+   "writeDur": 3.9,
+   "eraseBy": "scene",
+   "countdownEnd": 173.04,
+   "eraseEnd": 186.23
+  },
+  {
+   "id": "i4",
+   "type": "icon",
+   "scene": 7,
+   "layout": "split",
+   "args": {
+    "type": "icon",
+    "id": "i4",
+    "name": "house"
+   },
+   "appear": 186.13,
+   "cueT": 185.58,
+   "erase": 215.81,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "house",
+   "writeDur": 1.1,
+   "eraseBy": "scene",
+   "eraseEnd": 216.81
+  },
+  {
+   "id": "w4",
+   "type": "wrong",
+   "scene": 7,
+   "layout": "split",
+   "args": {
+    "type": "wrong",
+    "id": "w4",
+    "text": "Ich gehe zu Hause."
+   },
+   "appear": 189.42,
+   "cueT": 189.42,
+   "erase": 203.64,
+   "strike": 191.17,
+   "tick": null,
+   "highlight": null,
+   "text": "Ich gehe zu Hause.",
+   "writeDur": 1.15,
+   "eraseBy": "cue",
+   "eraseEnd": 204.24
+  },
+  {
+   "id": "r4a",
+   "type": "right",
+   "scene": 7,
+   "layout": "split",
+   "args": {
+    "type": "right",
+    "id": "r4a",
+    "text": "Ich gehe nach Hause."
+   },
+   "appear": 195.88,
+   "cueT": 195.88,
+   "erase": 215.81,
+   "strike": null,
+   "tick": 197.28,
+   "highlight": null,
+   "text": "Ich gehe nach Hause.",
+   "writeDur": 1.25,
+   "eraseBy": "scene",
+   "eraseEnd": 216.81
+  },
+  {
+   "id": "r4b",
+   "type": "right",
+   "scene": 7,
+   "layout": "split",
+   "args": {
+    "type": "right",
+    "id": "r4b",
+    "text": "Ich bin zu Hause."
+   },
+   "appear": 200.42,
+   "cueT": 200.42,
+   "erase": 215.81,
+   "strike": null,
+   "tick": 201.67,
+   "highlight": null,
+   "text": "Ich bin zu Hause.",
+   "writeDur": 1.1,
+   "eraseBy": "scene",
+   "eraseEnd": 216.81
+  },
+  {
+   "id": "b4",
+   "type": "bubble",
+   "scene": 7,
+   "layout": "split",
+   "args": {
+    "type": "bubble",
+    "id": "b4",
+    "who": "left",
+    "text": "Bist du heute Abend zu Hause?"
+   },
+   "appear": 203.64,
+   "cueT": 203.64,
+   "erase": 215.81,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "Bist du heute Abend zu Hause?",
+   "writeDur": 1.7,
+   "eraseBy": "scene",
+   "eraseEnd": 216.81
+  },
+  {
+   "id": "s4",
+   "type": "sentence",
+   "scene": 7,
+   "layout": "split",
+   "args": {
+    "type": "sentence",
+    "id": "s4",
+    "text": "Ich geh jetzt heim.",
+    "highlight": "heim"
+   },
+   "appear": 207.82,
+   "cueT": 207.82,
+   "erase": 215.81,
+   "strike": null,
+   "tick": null,
+   "highlight": 209.12,
+   "text": "Ich geh jetzt heim.",
+   "writeDur": 1.2,
+   "eraseBy": "scene",
+   "eraseEnd": 216.81
+  },
+  {
+   "id": "i5",
+   "type": "icon",
+   "scene": 8,
+   "layout": "board",
+   "args": {
+    "type": "icon",
+    "id": "i5",
+    "name": "clock"
+   },
+   "appear": 216.71,
+   "cueT": 216.16,
+   "erase": 242.93,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "clock",
+   "writeDur": 1.1,
+   "eraseBy": "scene",
+   "eraseEnd": 243.93
+  },
+  {
+   "id": "b5",
+   "type": "bubble",
+   "scene": 8,
+   "layout": "board",
+   "args": {
+    "type": "bubble",
+    "id": "b5",
+    "who": "left",
+    "text": "Ich warte für dich vorm Kino!"
+   },
+   "appear": 217.11,
+   "cueT": 216.16,
+   "erase": 242.93,
+   "strike": 226.02,
+   "tick": null,
+   "highlight": null,
+   "text": "Ich warte für dich vorm Kino!",
+   "writeDur": 1.7,
+   "eraseBy": "scene",
+   "eraseEnd": 243.93
+  },
+  {
+   "id": "r5",
+   "type": "right",
+   "scene": 8,
+   "layout": "board",
+   "args": {
+    "type": "right",
+    "id": "r5",
+    "text": "Ich warte auf dich."
+   },
+   "appear": 226.02,
+   "cueT": 226.02,
+   "erase": 242.93,
+   "strike": null,
+   "tick": 227.37,
+   "highlight": null,
+   "text": "Ich warte auf dich.",
+   "writeDur": 1.2,
+   "eraseBy": "scene",
+   "eraseEnd": 243.93
+  },
+  {
+   "id": "n5",
+   "type": "note",
+   "scene": 8,
+   "layout": "board",
+   "args": {
+    "type": "note",
+    "id": "n5",
+    "text": "warten auf + Akkusativ"
+   },
+   "appear": 231.94,
+   "cueT": 231.94,
+   "erase": 242.93,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "text": "warten auf + Akkusativ",
+   "writeDur": 1.35,
+   "eraseBy": "scene",
+   "eraseEnd": 243.93
+  },
+  {
+   "id": "s5",
+   "type": "sentence",
+   "scene": 8,
+   "layout": "board",
+   "args": {
+    "type": "sentence",
+    "id": "s5",
+    "text": "Ich warte für dich auf den Handwerker.",
+    "highlight": "für dich"
+   },
+   "appear": 234.1,
+   "cueT": 234.1,
+   "erase": 242.93,
+   "strike": null,
+   "tick": null,
+   "highlight": 236.35,
+   "text": "Ich warte für dich auf den Handwerker.",
+   "writeDur": 2.15,
+   "eraseBy": "scene",
+   "eraseEnd": 243.93
+  },
+  {
+   "id": "w6",
+   "type": "wrong",
+   "scene": 9,
+   "layout": "split",
+   "args": {
+    "type": "wrong",
+    "id": "w6",
+    "text": "Wann ich ein Kind war, …"
+   },
+   "appear": 245.28,
+   "cueT": 245.28,
+   "erase": 253.51000000000002,
+   "strike": 247.33,
+   "tick": null,
+   "highlight": null,
+   "text": "Wann ich ein Kind war, …",
+   "writeDur": 1.45,
+   "eraseBy": "scene",
+   "eraseEnd": 254.51
+  },
+  {
+   "id": "l6",
+   "type": "list",
+   "scene": 10,
+   "layout": "board",
+   "args": {
+    "type": "list",
+    "id": "l6",
+    "items": "wann = Frage|als = einmal, Vergangenheit|wenn = immer wieder, jetzt, später"
+   },
+   "appear": 254.41,
+   "cueT": 253.86,
+   "erase": null,
+   "strike": null,
+   "tick": null,
+   "highlight": null,
+   "items": [
+    {
+     "text": "wann = Frage",
+     "t": 254.41,
+     "dur": 0.85
+    },
+    {
+     "text": "als = einmal, Vergangenheit",
+     "t": 259.12,
+     "dur": 1.6
+    },
+    {
+     "text": "wenn = immer wieder, jetzt, später",
+     "t": null,
+     "dur": 1.95
+    }
+   ],
+   "stagger": null,
+   "nextCount": 0,
+   "text": "",
+   "writeDur": 0
+  },
+  {
+   "id": "r6",
+   "type": "right",
+   "scene": 10,
+   "layout": "board",
+   "args": {
+    "type": "right",
+    "id": "r6",
+    "text": "Als ich ein Kind war, …"
+   },
+   "appear": 264.16,
+   "cueT": 264.16,
+   "erase": null,
+   "strike": null,
+   "tick": 265.71,
+   "highlight": null,
+   "text": "Als ich ein Kind war, …",
+   "writeDur": 1.4
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 7.78,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 9.18,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 19.58,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 22.5,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 50.58,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 58.8,
+   "shot": "melo",
+   "focus": null,
+   "auto": "variety"
+  },
+  {
+   "t": 64.44,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 71.98,
+   "shot": "wide",
+   "focus": null,
+   "auto": "variety"
+  },
+  {
+   "t": 76.64,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 89.1,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 99.84,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 107.16,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 115.08,
+   "shot": "wide",
+   "focus": null,
+   "auto": "variety"
+  },
+  {
+   "t": 122.24,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 131.58,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 144.86,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 155.34,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 161.98,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 173.04,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 179.28,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 185.58,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 195.88,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 203.64,
+   "shot": "close",
+   "focus": "b4",
+   "auto": "variety"
+  },
+  {
+   "t": 207.82,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 216.16,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 226.02,
+   "shot": "close",
+   "focus": "r5",
+   "auto": "variety"
+  },
+  {
+   "t": 234.1,
+   "shot": "wide",
+   "focus": null
+  },
+  {
+   "t": 243.28,
+   "shot": "melo",
+   "focus": null
+  },
+  {
+   "t": 253.86,
+   "shot": "board",
+   "focus": null
+  },
+  {
+   "t": 264.16,
+   "shot": "wide",
+   "focus": null,
+   "auto": "variety"
+  }
+ ],
+ "chapters": [
+  {
+   "t": 0,
+   "title": "Hook",
+   "num": null,
+   "label": "Hook",
+   "kind": "section"
+  },
+  {
+   "t": 22.5,
+   "title": "Intro",
+   "num": null,
+   "label": "Intro",
+   "kind": "section"
+  },
+  {
+   "t": 50.58,
+   "title": "1 – „Ich bin heiß.“",
+   "num": 1,
+   "label": "„Ich bin heiß.“",
+   "kind": "item"
+  },
+  {
+   "t": 89.1,
+   "title": "2 – „Ich bin voll.“",
+   "num": 2,
+   "label": "„Ich bin voll.“",
+   "kind": "item"
+  },
+  {
+   "t": 131.58,
+   "title": "3 – „Ich habe 25 Jahre.“",
+   "num": 3,
+   "label": "„Ich habe 25 Jahre.“",
+   "kind": "item"
+  },
+  {
+   "t": 161.98,
+   "title": "Kernfrage 1",
+   "num": null,
+   "label": "Kernfrage 1",
+   "kind": "quiz"
+  },
+  {
+   "t": 185.58,
+   "title": "4 – „Ich gehe zu Hause.“",
+   "num": 4,
+   "label": "„Ich gehe zu Hause.“",
+   "kind": "item"
+  },
+  {
+   "t": 216.16,
+   "title": "5 – „Ich warte für dich.“",
+   "num": 5,
+   "label": "„Ich warte für dich.“",
+   "kind": "item"
+  },
+  {
+   "t": 243.28,
+   "title": "6 – „Wann ich ein Kind war …“",
+   "num": 6,
+   "label": "„Wann ich ein Kind war …“",
+   "kind": "item"
+  }
+ ],
+ "melo": [
+  {
+   "t": 0,
+   "args": {
+    "expr": "smirk",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 4.18,
+   "args": {
+    "expr": "talking",
+    "pose": "explain"
+   }
+  },
+  {
+   "t": 6.72,
+   "args": {
+    "expr": "deadpan"
+   }
+  },
+  {
+   "t": 9.18,
+   "args": {
+    "expr": "unimpressed",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 11.54,
+   "args": {
+    "expr": "smirk",
+    "pose": "finger"
+   }
+  },
+  {
+   "t": 17.34,
+   "args": {
+    "pose": "point",
+    "look": "board"
+   }
+  },
+  {
+   "t": 19.58,
+   "args": {
+    "expr": "smirk",
+    "pose": "crossed",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 22.5,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 24,
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   }
+  },
+  {
+   "t": 28.32,
+   "args": {
+    "expr": "deadpan"
+   }
+  },
+  {
+   "t": 29.5,
+   "args": {
+    "expr": "talking",
+    "pose": "finger"
+   }
+  },
+  {
+   "t": 43.7,
+   "args": {
+    "pose": "explain"
+   }
+  },
+  {
+   "t": 48.22,
+   "args": {
+    "pose": "point",
+    "look": "board"
+   }
+  },
+  {
+   "t": 50.58,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "crossed",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 55.9,
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   }
+  },
+  {
+   "t": 64.44,
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   }
+  },
+  {
+   "t": 76.64,
+   "args": {
+    "expr": "smirk",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 79.46,
+   "args": {
+    "expr": "laughing"
+   }
+  },
+  {
+   "t": 82.36,
+   "args": {
+    "expr": "smirk",
+    "pose": "crossed"
+   }
+  },
+  {
+   "t": 89.1,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 96.34,
+   "args": {
+    "expr": "deadpan"
+   }
+  },
+  {
+   "t": 99.84,
+   "args": {
+    "expr": "surprised"
+   }
+  },
+  {
+   "t": 102.94,
+   "args": {
+    "expr": "laughing"
+   }
+  },
+  {
+   "t": 107.16,
+   "args": {
+    "expr": "smirk",
+    "pose": "point",
+    "look": "board"
+   }
+  },
+  {
+   "t": 119.86,
+   "args": {
+    "expr": "smirk",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 122.24,
+   "args": {
+    "expr": "talking",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 131.58,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "crossed",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 138.36,
+   "args": {
+    "expr": "deadpan",
+    "pose": "idle"
+   }
+  },
+  {
+   "t": 144.86,
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   }
+  },
+  {
+   "t": 155.34,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 160.2,
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   }
+  },
+  {
+   "t": 161.98,
+   "args": {
+    "expr": "smirk",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 164.18,
+   "args": {
+    "expr": "talking",
+    "pose": "explain"
+   }
+  },
+  {
+   "t": 170.82,
+   "args": {
+    "expr": "deadpan",
+    "pose": "chin",
+    "look": "board"
+   }
+  },
+  {
+   "t": 173.04,
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 179.28,
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   }
+  },
+  {
+   "t": 185.58,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 190.76,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "crossed"
+   }
+  },
+  {
+   "t": 195.88,
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   }
+  },
+  {
+   "t": 207.82,
+   "args": {
+    "expr": "smirk",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 216.16,
+   "args": {
+    "expr": "deadpan",
+    "pose": "idle",
+    "look": "board"
+   }
+  },
+  {
+   "t": 219.42,
+   "args": {
+    "expr": "surprised",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 226.02,
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   }
+  },
+  {
+   "t": 234.1,
+   "args": {
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 240.7,
+   "args": {
+    "expr": "smirk"
+   }
+  },
+  {
+   "t": 243.28,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 249.02,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "shrug"
+   }
+  },
+  {
+   "t": 253.86,
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   }
+  }
+ ],
+ "cues": [
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "melo"
+   },
+   "word": 0,
+   "t": 0
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 0,
+   "t": 0
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 0,
+   "t": 0
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "casual, storytelling"
+   },
+   "word": 0,
+   "t": 0
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain"
+   },
+   "word": 6,
+   "t": 4.18
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan"
+   },
+   "word": 12,
+   "t": 6.72
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "board"
+   },
+   "word": 15,
+   "t": 7.78
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 15,
+   "t": 7.78
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "wrong",
+    "id": "h1",
+    "text": "Ich bin heiß.",
+    "strike": "manual"
+   },
+   "word": 15,
+   "t": 7.78
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 18,
+   "t": 9.18
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 18,
+   "t": 9.18
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "look": "viewer"
+   },
+   "word": 18,
+   "t": 9.18
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "deadpan"
+   },
+   "word": 18,
+   "t": 9.18
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 23,
+   "t": 11.54
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "finger"
+   },
+   "word": 23,
+   "t": 11.54
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "friendly"
+   },
+   "word": 23,
+   "t": 11.54
+  },
+  {
+   "cue": "strike",
+   "args": {
+    "id": "h1"
+   },
+   "word": 33,
+   "t": 14.82
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 39,
+   "t": 17.34
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 46,
+   "t": 19.58
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "crossed",
+    "look": "viewer"
+   },
+   "word": 46,
+   "t": 19.58
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "title"
+   },
+   "word": 54,
+   "t": 22.5
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 54,
+   "t": 22.5
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "title",
+    "id": "t1",
+    "text": "Das sagt kein Deutscher!"
+   },
+   "word": 54,
+   "t": 22.5
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   },
+   "word": 54,
+   "t": 22.5
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "cheerful"
+   },
+   "word": 54,
+   "t": 22.5
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   },
+   "word": 58,
+   "t": 24
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.8"
+   },
+   "word": 70,
+   "t": 28.32
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan"
+   },
+   "word": 70,
+   "t": 28.32
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "deadpan"
+   },
+   "word": 70,
+   "t": 28.32
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "finger"
+   },
+   "word": 72,
+   "t": 29.5
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "note",
+    "id": "n0",
+    "text": "12 Sätze · falsch oder zu steif"
+   },
+   "word": 86,
+   "t": 34.76
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "pose": "explain"
+   },
+   "word": 112,
+   "t": 43.7
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 124,
+   "t": 48.22
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "split"
+   },
+   "word": 128,
+   "t": 50.58
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 128,
+   "t": 50.58
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "icon",
+    "id": "i1",
+    "name": "sun"
+   },
+   "word": 128,
+   "t": 50.58
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "wrong",
+    "id": "w1",
+    "text": "Ich bin heiß."
+   },
+   "word": 128,
+   "t": 50.58
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "crossed",
+    "look": "viewer"
+   },
+   "word": 128,
+   "t": 50.58
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   },
+   "word": 141,
+   "t": 55.9
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.5"
+   },
+   "word": 148,
+   "t": 58.8
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 160,
+   "t": 64.44
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 160,
+   "t": 64.44
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "right",
+    "id": "r1",
+    "text": "Mir ist heiß."
+   },
+   "word": 160,
+   "t": 64.44
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 160,
+   "t": 64.44
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "list",
+    "id": "l1",
+    "items": "Mir ist kalt.|Mir ist schlecht.|Mir ist langweilig.",
+    "stagger": "auto"
+   },
+   "word": 180,
+   "t": 71.98
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "note",
+    "id": "n1",
+    "text": "Ich bin langweilig. = Ich bin ein Langweiler."
+   },
+   "word": 190,
+   "t": 76.64
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 190,
+   "t": 76.64
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "look": "viewer"
+   },
+   "word": 190,
+   "t": 76.64
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "laughing"
+   },
+   "word": 196,
+   "t": 79.46
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.8"
+   },
+   "word": 204,
+   "t": 82.36
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "crossed"
+   },
+   "word": 204,
+   "t": 82.36
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "mischievously"
+   },
+   "word": 204,
+   "t": 82.36
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 217,
+   "t": 89.1
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "board"
+   },
+   "word": 217,
+   "t": 89.1
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 217,
+   "t": 89.1
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "icon",
+    "id": "i2",
+    "name": "plate"
+   },
+   "word": 217,
+   "t": 89.1
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   },
+   "word": 217,
+   "t": 89.1
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "wrong",
+    "id": "w2",
+    "text": "Nein danke, ich bin voll."
+   },
+   "word": 235,
+   "t": 96.34
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan"
+   },
+   "word": 235,
+   "t": 96.34
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "surprised"
+   },
+   "word": 243,
+   "t": 99.84
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.8"
+   },
+   "word": 243,
+   "t": 99.84
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 243,
+   "t": 99.84
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "laughing"
+   },
+   "word": 247,
+   "t": 102.94
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "laughs"
+   },
+   "word": 247,
+   "t": 102.94
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 261,
+   "t": 107.16
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 261,
+   "t": 107.16
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "right",
+    "id": "r2",
+    "text": "Ich bin satt."
+   },
+   "word": 261,
+   "t": 107.16
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 261,
+   "t": 107.16
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "note",
+    "id": "n2",
+    "text": "pappsatt · Ich kann nicht mehr."
+   },
+   "word": 266,
+   "t": 109.78
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "sentence",
+    "id": "s2",
+    "text": "Danke, ich bin satt – war super lecker!",
+    "highlight": "satt"
+   },
+   "word": 281,
+   "t": 115.08
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "look": "viewer"
+   },
+   "word": 294,
+   "t": 119.86
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "warmly"
+   },
+   "word": 294,
+   "t": 119.86
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 299,
+   "t": 122.24
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 299,
+   "t": 122.24
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "split"
+   },
+   "word": 326,
+   "t": 131.58
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 326,
+   "t": 131.58
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "wrong",
+    "id": "w3",
+    "text": "Ich habe 25 Jahre."
+   },
+   "word": 326,
+   "t": 131.58
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "crossed",
+    "look": "viewer"
+   },
+   "word": 326,
+   "t": 131.58
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.5"
+   },
+   "word": 341,
+   "t": 138.36
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "idle"
+   },
+   "word": 341,
+   "t": 138.36
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "deadpan"
+   },
+   "word": 352,
+   "t": 142.88
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 356,
+   "t": 144.86
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 356,
+   "t": 144.86
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "right",
+    "id": "r3",
+    "text": "Ich bin 25 (Jahre alt)."
+   },
+   "word": 356,
+   "t": 144.86
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 356,
+   "t": 144.86
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "sentence",
+    "id": "s3",
+    "text": "Wie alt bist du?",
+    "highlight": "bist"
+   },
+   "word": 375,
+   "t": 152.32
+  },
+  {
+   "cue": "erase",
+   "args": {
+    "id": "w3"
+   },
+   "word": 384,
+   "t": 155.34
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "bubble",
+    "id": "b3a",
+    "who": "left",
+    "text": "Wie alt ist deine Oma?"
+   },
+   "word": 384,
+   "t": 155.34
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 384,
+   "t": 155.34
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   },
+   "word": 384,
+   "t": 155.34
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "bubble",
+    "id": "b3b",
+    "who": "right",
+    "text": "Sie wird nächste Woche 90."
+   },
+   "word": 392,
+   "t": 158.34
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   },
+   "word": 397,
+   "t": 160.2
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "board"
+   },
+   "word": 400,
+   "t": 161.98
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 400,
+   "t": 161.98
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 400,
+   "t": 161.98
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "excited"
+   },
+   "word": 400,
+   "t": 161.98
+  },
+  {
+   "cue": "quiz",
+   "args": {
+    "id": "q1",
+    "q": "Winter. Heizung kaputt. Was sagst du?",
+    "options": "Ich bin kalt.|Ich habe kalt.|Mir ist kalt.",
+    "answer": "2",
+    "seconds": "5"
+   },
+   "word": 405,
+   "t": 164.18
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain"
+   },
+   "word": 405,
+   "t": 164.18
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "chin",
+    "look": "board"
+   },
+   "word": 423,
+   "t": 170.82
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "5"
+   },
+   "word": 425,
+   "t": 173.04
+  },
+  {
+   "cue": "reveal",
+   "args": {
+    "id": "q1"
+   },
+   "word": 425,
+   "t": 173.04
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 425,
+   "t": 173.04
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "viewer"
+   },
+   "word": 425,
+   "t": 173.04
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 439,
+   "t": 179.28
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "idle"
+   },
+   "word": 439,
+   "t": 179.28
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.5"
+   },
+   "word": 450,
+   "t": 183.38
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "chuckles"
+   },
+   "word": 450,
+   "t": 183.38
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 454,
+   "t": 185.58
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "split"
+   },
+   "word": 454,
+   "t": 185.58
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 454,
+   "t": 185.58
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "icon",
+    "id": "i4",
+    "name": "house"
+   },
+   "word": 454,
+   "t": 185.58
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   },
+   "word": 454,
+   "t": 185.58
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "wrong",
+    "id": "w4",
+    "text": "Ich gehe zu Hause."
+   },
+   "word": 463,
+   "t": 189.42
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "crossed"
+   },
+   "word": 467,
+   "t": 190.76
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "amused"
+   },
+   "word": 470,
+   "t": 192.38
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.8"
+   },
+   "word": 481,
+   "t": 195.88
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 481,
+   "t": 195.88
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "right",
+    "id": "r4a",
+    "text": "Ich gehe nach Hause."
+   },
+   "word": 481,
+   "t": 195.88
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 481,
+   "t": 195.88
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "right",
+    "id": "r4b",
+    "text": "Ich bin zu Hause."
+   },
+   "word": 490,
+   "t": 200.42
+  },
+  {
+   "cue": "erase",
+   "args": {
+    "id": "w4"
+   },
+   "word": 495,
+   "t": 203.64
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "bubble",
+    "id": "b4",
+    "who": "left",
+    "text": "Bist du heute Abend zu Hause?"
+   },
+   "word": 495,
+   "t": 203.64
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "sentence",
+    "id": "s4",
+    "text": "Ich geh jetzt heim.",
+    "highlight": "heim"
+   },
+   "word": 509,
+   "t": 207.82
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 509,
+   "t": 207.82
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 509,
+   "t": 207.82
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "board"
+   },
+   "word": 533,
+   "t": 216.16
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 533,
+   "t": 216.16
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "icon",
+    "id": "i5",
+    "name": "clock"
+   },
+   "word": 533,
+   "t": 216.16
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "bubble",
+    "id": "b5",
+    "who": "left",
+    "text": "Ich warte für dich vorm Kino!"
+   },
+   "word": 533,
+   "t": 216.16
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "idle",
+    "look": "board"
+   },
+   "word": 533,
+   "t": 216.16
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "surprised",
+    "look": "viewer"
+   },
+   "word": 543,
+   "t": 219.42
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "0.5"
+   },
+   "word": 545,
+   "t": 220.58
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "sarcastic"
+   },
+   "word": 550,
+   "t": 222.66
+  },
+  {
+   "cue": "pause",
+   "args": {
+    "s": "1"
+   },
+   "word": 563,
+   "t": 226.02
+  },
+  {
+   "cue": "strike",
+   "args": {
+    "id": "b5"
+   },
+   "word": 563,
+   "t": 226.02
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "right",
+    "id": "r5",
+    "text": "Ich warte auf dich."
+   },
+   "word": 563,
+   "t": 226.02
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 563,
+   "t": 226.02
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "note",
+    "id": "n5",
+    "text": "warten auf + Akkusativ"
+   },
+   "word": 580,
+   "t": 231.94
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "sentence",
+    "id": "s5",
+    "text": "Ich warte für dich auf den Handwerker.",
+    "highlight": "für dich"
+   },
+   "word": 585,
+   "t": 234.1
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "wide"
+   },
+   "word": 585,
+   "t": 234.1
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 585,
+   "t": 234.1
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk"
+   },
+   "word": 607,
+   "t": 240.7
+  },
+  {
+   "cue": "voice",
+   "args": {
+    "tag": "chuckles"
+   },
+   "word": 607,
+   "t": 240.7
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "split"
+   },
+   "word": 614,
+   "t": 243.28
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "melo"
+   },
+   "word": 614,
+   "t": 243.28
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   },
+   "word": 614,
+   "t": 243.28
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "wrong",
+    "id": "w6",
+    "text": "Wann ich ein Kind war, …"
+   },
+   "word": 620,
+   "t": 245.28
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "shrug"
+   },
+   "word": 630,
+   "t": 249.02
+  },
+  {
+   "cue": "scene",
+   "args": {
+    "layout": "board"
+   },
+   "word": 643,
+   "t": 253.86
+  },
+  {
+   "cue": "camera",
+   "args": {
+    "shot": "board"
+   },
+   "word": 643,
+   "t": 253.86
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "list",
+    "id": "l6",
+    "items": "wann = Frage|als = einmal, Vergangenheit|wenn = immer wieder, jetzt, später"
+   },
+   "word": 643,
+   "t": 253.86
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "board"
+   },
+   "word": 643,
+   "t": 253.86
+  },
+  {
+   "cue": "next",
+   "args": {
+    "id": "l6"
+   },
+   "word": 643,
+   "t": 253.86
+  },
+  {
+   "cue": "next",
+   "args": {
+    "id": "l6"
+   },
+   "word": 658,
+   "t": 259.12
+  },
+  {
+   "cue": "draw",
+   "args": {
+    "type": "right",
+    "id": "r6",
+    "text": "Als ich ein Kind war, …"
+   },
+   "word": 673,
+   "t": 264.16
+  }
+ ],
+ "words": [
+  {
+   "i": 0,
+   "text": "Juli,",
+   "start": 0,
+   "end": 0.5
+  },
+  {
+   "i": 1,
+   "text": "35",
+   "start": 0.74,
+   "end": 1.32
+  },
+  {
+   "i": 2,
+   "text": "Grad,",
+   "start": 1.32,
+   "end": 1.74
+  },
+  {
+   "i": 3,
+   "text": "Büro",
+   "start": 1.74,
+   "end": 2.48
+  },
+  {
+   "i": 4,
+   "text": "ohne",
+   "start": 2.48,
+   "end": 2.86
+  },
+  {
+   "i": 5,
+   "text": "Klimaanlage.",
+   "start": 2.86,
+   "end": 3.68
+  },
+  {
+   "i": 6,
+   "text": "Deine",
+   "start": 4.18,
+   "end": 4.42
+  },
+  {
+   "i": 7,
+   "text": "neue",
+   "start": 4.42,
+   "end": 4.58
+  },
+  {
+   "i": 8,
+   "text": "Kollegin",
+   "start": 4.58,
+   "end": 5
+  },
+  {
+   "i": 9,
+   "text": "fragt:",
+   "start": 5,
+   "end": 5.5
+  },
+  {
+   "i": 10,
+   "text": "„Alles",
+   "start": 5.74,
+   "end": 5.9
+  },
+  {
+   "i": 11,
+   "text": "okay?“",
+   "start": 5.9,
+   "end": 6.22
+  },
+  {
+   "i": 12,
+   "text": "Und",
+   "start": 6.72,
+   "end": 6.8
+  },
+  {
+   "i": 13,
+   "text": "du",
+   "start": 6.8,
+   "end": 6.98
+  },
+  {
+   "i": 14,
+   "text": "sagst:",
+   "start": 6.98,
+   "end": 7.36
+  },
+  {
+   "i": 15,
+   "text": "„Ich",
+   "start": 7.78,
+   "end": 7.92
+  },
+  {
+   "i": 16,
+   "text": "bin",
+   "start": 7.92,
+   "end": 8.06
+  },
+  {
+   "i": 17,
+   "text": "heiß.“",
+   "start": 8.06,
+   "end": 8.4
+  },
+  {
+   "i": 18,
+   "text": "Sie",
+   "start": 9.18,
+   "end": 9.3
+  },
+  {
+   "i": 19,
+   "text": "schaut",
+   "start": 9.3,
+   "end": 9.5
+  },
+  {
+   "i": 20,
+   "text": "dich",
+   "start": 9.5,
+   "end": 9.68
+  },
+  {
+   "i": 21,
+   "text": "an.",
+   "start": 9.68,
+   "end": 9.9
+  },
+  {
+   "i": 22,
+   "text": "Lange.",
+   "start": 10.58,
+   "end": 10.86
+  },
+  {
+   "i": 23,
+   "text": "Keine",
+   "start": 11.54,
+   "end": 11.86
+  },
+  {
+   "i": 24,
+   "text": "Sorge",
+   "start": 11.86,
+   "end": 12.18
+  },
+  {
+   "i": 25,
+   "text": "nach",
+   "start": 12.54,
+   "end": 12.68
+  },
+  {
+   "i": 26,
+   "text": "diesem",
+   "start": 12.68,
+   "end": 12.98
+  },
+  {
+   "i": 27,
+   "text": "Video",
+   "start": 12.98,
+   "end": 13.34
+  },
+  {
+   "i": 28,
+   "text": "passiert",
+   "start": 13.34,
+   "end": 13.72
+  },
+  {
+   "i": 29,
+   "text": "dir",
+   "start": 13.72,
+   "end": 13.88
+  },
+  {
+   "i": 30,
+   "text": "das",
+   "start": 13.88,
+   "end": 14.04
+  },
+  {
+   "i": 31,
+   "text": "nicht",
+   "start": 14.04,
+   "end": 14.24
+  },
+  {
+   "i": 32,
+   "text": "mehr.",
+   "start": 14.24,
+   "end": 14.48
+  },
+  {
+   "i": 33,
+   "text": "Zwölf",
+   "start": 14.82,
+   "end": 15.18
+  },
+  {
+   "i": 34,
+   "text": "Sätze,",
+   "start": 15.18,
+   "end": 15.48
+  },
+  {
+   "i": 35,
+   "text": "die",
+   "start": 15.58,
+   "end": 15.74
+  },
+  {
+   "i": 36,
+   "text": "dich",
+   "start": 15.74,
+   "end": 15.88
+  },
+  {
+   "i": 37,
+   "text": "sofort",
+   "start": 15.88,
+   "end": 16.38
+  },
+  {
+   "i": 38,
+   "text": "verraten.",
+   "start": 16.38,
+   "end": 17.06
+  },
+  {
+   "i": 39,
+   "text": "Und",
+   "start": 17.34,
+   "end": 17.44
+  },
+  {
+   "i": 40,
+   "text": "Nummer",
+   "start": 17.44,
+   "end": 17.66
+  },
+  {
+   "i": 41,
+   "text": "zwölf",
+   "start": 17.66,
+   "end": 17.984
+  },
+  {
+   "i": 42,
+   "text": "ist",
+   "start": 18.02,
+   "end": 18.36
+  },
+  {
+   "i": 43,
+   "text": "nur",
+   "start": 18.36,
+   "end": 18.56
+  },
+  {
+   "i": 44,
+   "text": "ein",
+   "start": 18.56,
+   "end": 18.92
+  },
+  {
+   "i": 45,
+   "text": "Wort",
+   "start": 18.92,
+   "end": 19.14
+  },
+  {
+   "i": 46,
+   "text": "aber",
+   "start": 19.58,
+   "end": 19.74
+  },
+  {
+   "i": 47,
+   "text": "da",
+   "start": 19.74,
+   "end": 20
+  },
+  {
+   "i": 48,
+   "text": "machen",
+   "start": 20,
+   "end": 20.3
+  },
+  {
+   "i": 49,
+   "text": "sogar",
+   "start": 20.3,
+   "end": 20.5
+  },
+  {
+   "i": 50,
+   "text": "Leute",
+   "start": 20.5,
+   "end": 20.84
+  },
+  {
+   "i": 51,
+   "text": "mit",
+   "start": 20.84,
+   "end": 21.02
+  },
+  {
+   "i": 52,
+   "text": "C1",
+   "start": 21.02,
+   "end": 21.62
+  },
+  {
+   "i": 53,
+   "text": "Fehler.",
+   "start": 21.62,
+   "end": 22
+  },
+  {
+   "i": 54,
+   "text": "Hi,",
+   "start": 22.5,
+   "end": 22.7
+  },
+  {
+   "i": 55,
+   "text": "ich",
+   "start": 23,
+   "end": 23.12
+  },
+  {
+   "i": 56,
+   "text": "bin",
+   "start": 23.12,
+   "end": 23.3
+  },
+  {
+   "i": 57,
+   "text": "Melo.",
+   "start": 23.3,
+   "end": 23.93
+  },
+  {
+   "i": 58,
+   "text": "Ja,",
+   "start": 24,
+   "end": 24.22
+  },
+  {
+   "i": 59,
+   "text": "mein",
+   "start": 24.42,
+   "end": 24.56
+  },
+  {
+   "i": 60,
+   "text": "Kopf",
+   "start": 24.56,
+   "end": 24.86
+  },
+  {
+   "i": 61,
+   "text": "ist",
+   "start": 24.86,
+   "end": 25.16
+  },
+  {
+   "i": 62,
+   "text": "eine",
+   "start": 25.16,
+   "end": 25.44
+  },
+  {
+   "i": 63,
+   "text": "Wassermelone.",
+   "start": 25.44,
+   "end": 26.04
+  },
+  {
+   "i": 64,
+   "text": "Und",
+   "start": 26.04,
+   "end": 26.48
+  },
+  {
+   "i": 65,
+   "text": "ja,",
+   "start": 26.48,
+   "end": 26.72
+  },
+  {
+   "i": 66,
+   "text": "oben",
+   "start": 26.98,
+   "end": 27.24
+  },
+  {
+   "i": 67,
+   "text": "fehlt",
+   "start": 27.24,
+   "end": 27.54
+  },
+  {
+   "i": 68,
+   "text": "ein",
+   "start": 27.54,
+   "end": 27.72
+  },
+  {
+   "i": 69,
+   "text": "Stück.",
+   "start": 27.72,
+   "end": 27.92
+  },
+  {
+   "i": 70,
+   "text": "Frag",
+   "start": 28.32,
+   "end": 28.68
+  },
+  {
+   "i": 71,
+   "text": "nicht.",
+   "start": 28.68,
+   "end": 28.94
+  },
+  {
+   "i": 72,
+   "text": "Hier",
+   "start": 29.5,
+   "end": 29.64
+  },
+  {
+   "i": 73,
+   "text": "gibt's",
+   "start": 29.64,
+   "end": 30.02
+  },
+  {
+   "i": 74,
+   "text": "Deutsch",
+   "start": 30.02,
+   "end": 30.2
+  },
+  {
+   "i": 75,
+   "text": "mit",
+   "start": 30.2,
+   "end": 30.46
+  },
+  {
+   "i": 76,
+   "text": "Kern:",
+   "start": 30.46,
+   "end": 30.76
+  },
+  {
+   "i": 77,
+   "text": "kein",
+   "start": 31.14,
+   "end": 31.38
+  },
+  {
+   "i": 78,
+   "text": "Lehrbuch-Deutsch,",
+   "start": 31.38,
+   "end": 32.262
+  },
+  {
+   "i": 79,
+   "text": "sondern",
+   "start": 32.36,
+   "end": 32.58
+  },
+  {
+   "i": 80,
+   "text": "Deutsch,",
+   "start": 32.58,
+   "end": 32.96
+  },
+  {
+   "i": 81,
+   "text": "wie",
+   "start": 33.08,
+   "end": 33.16
+  },
+  {
+   "i": 82,
+   "text": "man",
+   "start": 33.16,
+   "end": 33.28
+  },
+  {
+   "i": 83,
+   "text": "es",
+   "start": 33.28,
+   "end": 33.46
+  },
+  {
+   "i": 84,
+   "text": "wirklich",
+   "start": 33.46,
+   "end": 33.78
+  },
+  {
+   "i": 85,
+   "text": "spricht.",
+   "start": 33.78,
+   "end": 34.18
+  },
+  {
+   "i": 86,
+   "text": "Heute",
+   "start": 34.76,
+   "end": 34.98
+  },
+  {
+   "i": 87,
+   "text": "schauen",
+   "start": 34.98,
+   "end": 35.28
+  },
+  {
+   "i": 88,
+   "text": "wir",
+   "start": 35.28,
+   "end": 35.42
+  },
+  {
+   "i": 89,
+   "text": "uns",
+   "start": 35.42,
+   "end": 35.58
+  },
+  {
+   "i": 90,
+   "text": "zwölf",
+   "start": 35.58,
+   "end": 36.06
+  },
+  {
+   "i": 91,
+   "text": "Sätze",
+   "start": 36.06,
+   "end": 36.34
+  },
+  {
+   "i": 92,
+   "text": "an,",
+   "start": 36.34,
+   "end": 36.56
+  },
+  {
+   "i": 93,
+   "text": "die",
+   "start": 36.7,
+   "end": 36.78
+  },
+  {
+   "i": 94,
+   "text": "total",
+   "start": 36.78,
+   "end": 37.2
+  },
+  {
+   "i": 95,
+   "text": "logisch",
+   "start": 37.2,
+   "end": 37.74
+  },
+  {
+   "i": 96,
+   "text": "klingen",
+   "start": 37.74,
+   "end": 37.98
+  },
+  {
+   "i": 97,
+   "text": "die",
+   "start": 38.44,
+   "end": 38.54
+  },
+  {
+   "i": 98,
+   "text": "aber",
+   "start": 38.54,
+   "end": 38.7
+  },
+  {
+   "i": 99,
+   "text": "kein",
+   "start": 38.7,
+   "end": 39.04
+  },
+  {
+   "i": 100,
+   "text": "Deutscher",
+   "start": 39.04,
+   "end": 39.48
+  },
+  {
+   "i": 101,
+   "text": "so",
+   "start": 39.48,
+   "end": 39.66
+  },
+  {
+   "i": 102,
+   "text": "sagt.",
+   "start": 39.66,
+   "end": 39.98
+  },
+  {
+   "i": 103,
+   "text": "Manche",
+   "start": 40.4,
+   "end": 40.66
+  },
+  {
+   "i": 104,
+   "text": "sind",
+   "start": 40.66,
+   "end": 40.82
+  },
+  {
+   "i": 105,
+   "text": "falsch,",
+   "start": 40.82,
+   "end": 41.12
+  },
+  {
+   "i": 106,
+   "text": "manche",
+   "start": 41.56,
+   "end": 41.84
+  },
+  {
+   "i": 107,
+   "text": "nur",
+   "start": 41.84,
+   "end": 42.06
+  },
+  {
+   "i": 108,
+   "text": "steif",
+   "start": 42.06,
+   "end": 42.52
+  },
+  {
+   "i": 109,
+   "text": "wie",
+   "start": 42.52,
+   "end": 42.72
+  },
+  {
+   "i": 110,
+   "text": "ein",
+   "start": 42.72,
+   "end": 42.86
+  },
+  {
+   "i": 111,
+   "text": "Lehrbuch.",
+   "start": 42.86,
+   "end": 43.26
+  },
+  {
+   "i": 112,
+   "text": "Für",
+   "start": 43.7,
+   "end": 43.82
+  },
+  {
+   "i": 113,
+   "text": "jeden",
+   "start": 43.82,
+   "end": 44.04
+  },
+  {
+   "i": 114,
+   "text": "Satz",
+   "start": 44.04,
+   "end": 44.4
+  },
+  {
+   "i": 115,
+   "text": "zeige",
+   "start": 44.4,
+   "end": 44.72
+  },
+  {
+   "i": 116,
+   "text": "ich",
+   "start": 44.72,
+   "end": 44.9
+  },
+  {
+   "i": 117,
+   "text": "dir,",
+   "start": 44.9,
+   "end": 45.04
+  },
+  {
+   "i": 118,
+   "text": "was",
+   "start": 45.28,
+   "end": 45.28
+  },
+  {
+   "i": 119,
+   "text": "Muttersprachler",
+   "start": 45.28,
+   "end": 46.08
+  },
+  {
+   "i": 120,
+   "text": "stattdessen",
+   "start": 46.08,
+   "end": 46.62
+  },
+  {
+   "i": 121,
+   "text": "sagen",
+   "start": 46.62,
+   "end": 46.94
+  },
+  {
+   "i": 122,
+   "text": "und",
+   "start": 47.34,
+   "end": 47.46
+  },
+  {
+   "i": 123,
+   "text": "wann.",
+   "start": 47.46,
+   "end": 47.8
+  },
+  {
+   "i": 124,
+   "text": "Also,",
+   "start": 48.22,
+   "end": 48.54
+  },
+  {
+   "i": 125,
+   "text": "zurück",
+   "start": 48.54,
+   "end": 49.12
+  },
+  {
+   "i": 126,
+   "text": "ins",
+   "start": 49.12,
+   "end": 49.34
+  },
+  {
+   "i": 127,
+   "text": "Büro.",
+   "start": 49.34,
+   "end": 49.7
+  },
+  {
+   "i": 128,
+   "text": "„Ich",
+   "start": 50.58,
+   "end": 50.72
+  },
+  {
+   "i": 129,
+   "text": "bin",
+   "start": 50.72,
+   "end": 50.88
+  },
+  {
+   "i": 130,
+   "text": "heiß.“",
+   "start": 50.88,
+   "end": 51.24
+  },
+  {
+   "i": 131,
+   "text": "Grammatisch",
+   "start": 52.02,
+   "end": 52.6
+  },
+  {
+   "i": 132,
+   "text": "ist",
+   "start": 52.6,
+   "end": 52.74
+  },
+  {
+   "i": 133,
+   "text": "der",
+   "start": 52.74,
+   "end": 52.88
+  },
+  {
+   "i": 134,
+   "text": "Satz",
+   "start": 52.88,
+   "end": 53.14
+  },
+  {
+   "i": 135,
+   "text": "perfekt.",
+   "start": 53.14,
+   "end": 53.5
+  },
+  {
+   "i": 136,
+   "text": "Das",
+   "start": 53.98,
+   "end": 54.14
+  },
+  {
+   "i": 137,
+   "text": "Problem",
+   "start": 54.14,
+   "end": 54.48
+  },
+  {
+   "i": 138,
+   "text": "ist",
+   "start": 54.48,
+   "end": 54.82
+  },
+  {
+   "i": 139,
+   "text": "die",
+   "start": 54.82,
+   "end": 54.96
+  },
+  {
+   "i": 140,
+   "text": "Bedeutung.",
+   "start": 54.96,
+   "end": 55.5
+  },
+  {
+   "i": 141,
+   "text": "„Ich",
+   "start": 55.9,
+   "end": 56.08
+  },
+  {
+   "i": 142,
+   "text": "bin",
+   "start": 56.08,
+   "end": 56.26
+  },
+  {
+   "i": 143,
+   "text": "heiß“",
+   "start": 56.26,
+   "end": 56.6
+  },
+  {
+   "i": 144,
+   "text": "heißt:",
+   "start": 56.6,
+   "end": 56.98
+  },
+  {
+   "i": 145,
+   "text": "Ich",
+   "start": 56.98,
+   "end": 57.58
+  },
+  {
+   "i": 146,
+   "text": "bin",
+   "start": 57.58,
+   "end": 57.82
+  },
+  {
+   "i": 147,
+   "text": "sexy.",
+   "start": 57.82,
+   "end": 58.3
+  },
+  {
+   "i": 148,
+   "text": "Oder,",
+   "start": 58.8,
+   "end": 59.12
+  },
+  {
+   "i": 149,
+   "text": "vor",
+   "start": 59.12,
+   "end": 59.56
+  },
+  {
+   "i": 150,
+   "text": "einem",
+   "start": 59.56,
+   "end": 59.74
+  },
+  {
+   "i": 151,
+   "text": "Fußballspiel:",
+   "start": 59.74,
+   "end": 60.46
+  },
+  {
+   "i": 152,
+   "text": "Ich",
+   "start": 60.86,
+   "end": 61
+  },
+  {
+   "i": 153,
+   "text": "bin",
+   "start": 61,
+   "end": 61.16
+  },
+  {
+   "i": 154,
+   "text": "total",
+   "start": 61.16,
+   "end": 61.6
+  },
+  {
+   "i": 155,
+   "text": "motiviert.",
+   "start": 61.6,
+   "end": 62.28
+  },
+  {
+   "i": 156,
+   "text": "Heiß",
+   "start": 62.66,
+   "end": 63
+  },
+  {
+   "i": 157,
+   "text": "aufs",
+   "start": 63,
+   "end": 63.26
+  },
+  {
+   "i": 158,
+   "text": "Spiel",
+   "start": 63.26,
+   "end": 63.48
+  },
+  {
+   "i": 159,
+   "text": "eben.",
+   "start": 63.48,
+   "end": 63.8
+  },
+  {
+   "i": 160,
+   "text": "Wenn",
+   "start": 64.44,
+   "end": 64.44
+  },
+  {
+   "i": 161,
+   "text": "du",
+   "start": 64.44,
+   "end": 64.56
+  },
+  {
+   "i": 162,
+   "text": "über",
+   "start": 64.56,
+   "end": 64.74
+  },
+  {
+   "i": 163,
+   "text": "die",
+   "start": 64.74,
+   "end": 64.86
+  },
+  {
+   "i": 164,
+   "text": "Temperatur",
+   "start": 64.86,
+   "end": 65.42
+  },
+  {
+   "i": 165,
+   "text": "sprichst,",
+   "start": 65.42,
+   "end": 66
+  },
+  {
+   "i": 166,
+   "text": "sagst",
+   "start": 66.16,
+   "end": 66.34
+  },
+  {
+   "i": 167,
+   "text": "du:",
+   "start": 66.34,
+   "end": 66.52
+  },
+  {
+   "i": 168,
+   "text": "„Mir",
+   "start": 66.96,
+   "end": 67.08
+  },
+  {
+   "i": 169,
+   "text": "ist",
+   "start": 67.08,
+   "end": 67.38
+  },
+  {
+   "i": 170,
+   "text": "heiß.“",
+   "start": 67.38,
+   "end": 67.68
+  },
+  {
+   "i": 171,
+   "text": "Mit",
+   "start": 68.12,
+   "end": 68.22
+  },
+  {
+   "i": 172,
+   "text": "Dativ.",
+   "start": 68.22,
+   "end": 68.76
+  },
+  {
+   "i": 173,
+   "text": "Nicht",
+   "start": 69.08,
+   "end": 69.22
+  },
+  {
+   "i": 174,
+   "text": "du",
+   "start": 69.22,
+   "end": 69.66
+  },
+  {
+   "i": 175,
+   "text": "bist",
+   "start": 69.66,
+   "end": 69.92
+  },
+  {
+   "i": 176,
+   "text": "heiß",
+   "start": 69.92,
+   "end": 70.2
+  },
+  {
+   "i": 177,
+   "text": "dir",
+   "start": 70.76,
+   "end": 70.9
+  },
+  {
+   "i": 178,
+   "text": "ist",
+   "start": 70.9,
+   "end": 71.18
+  },
+  {
+   "i": 179,
+   "text": "heiß.",
+   "start": 71.18,
+   "end": 71.5
+  },
+  {
+   "i": 180,
+   "text": "Genauso:",
+   "start": 71.98,
+   "end": 72.38
+  },
+  {
+   "i": 181,
+   "text": "„Mir",
+   "start": 72.84,
+   "end": 73.04
+  },
+  {
+   "i": 182,
+   "text": "ist",
+   "start": 73.04,
+   "end": 73.26
+  },
+  {
+   "i": 183,
+   "text": "kalt.“",
+   "start": 73.26,
+   "end": 73.66
+  },
+  {
+   "i": 184,
+   "text": "„Mir",
+   "start": 74.12,
+   "end": 74.2
+  },
+  {
+   "i": 185,
+   "text": "ist",
+   "start": 74.2,
+   "end": 74.4
+  },
+  {
+   "i": 186,
+   "text": "schlecht.“",
+   "start": 74.4,
+   "end": 74.72
+  },
+  {
+   "i": 187,
+   "text": "„Mir",
+   "start": 75.24,
+   "end": 75.32
+  },
+  {
+   "i": 188,
+   "text": "ist",
+   "start": 75.32,
+   "end": 75.52
+  },
+  {
+   "i": 189,
+   "text": "langweilig.“",
+   "start": 75.52,
+   "end": 76.24
+  },
+  {
+   "i": 190,
+   "text": "Und",
+   "start": 76.64,
+   "end": 76.76
+  },
+  {
+   "i": 191,
+   "text": "bitte",
+   "start": 76.76,
+   "end": 76.98
+  },
+  {
+   "i": 192,
+   "text": "nie:",
+   "start": 76.98,
+   "end": 77.36
+  },
+  {
+   "i": 193,
+   "text": "„Ich",
+   "start": 77.84,
+   "end": 78
+  },
+  {
+   "i": 194,
+   "text": "bin",
+   "start": 78,
+   "end": 78.32
+  },
+  {
+   "i": 195,
+   "text": "langweilig.“",
+   "start": 78.32,
+   "end": 79.16
+  },
+  {
+   "i": 196,
+   "text": "Das",
+   "start": 79.46,
+   "end": 79.78
+  },
+  {
+   "i": 197,
+   "text": "heißt",
+   "start": 79.78,
+   "end": 79.96
+  },
+  {
+   "i": 198,
+   "text": "nämlich:",
+   "start": 79.96,
+   "end": 80.32
+  },
+  {
+   "i": 199,
+   "text": "Ich",
+   "start": 80.76,
+   "end": 80.9
+  },
+  {
+   "i": 200,
+   "text": "bin",
+   "start": 80.9,
+   "end": 81.06
+  },
+  {
+   "i": 201,
+   "text": "eine",
+   "start": 81.06,
+   "end": 81.3
+  },
+  {
+   "i": 202,
+   "text": "langweilige",
+   "start": 81.3,
+   "end": 81.94
+  },
+  {
+   "i": 203,
+   "text": "Person.",
+   "start": 81.94,
+   "end": 82.36
+  },
+  {
+   "i": 204,
+   "text": "Ich",
+   "start": 82.36,
+   "end": 83.04
+  },
+  {
+   "i": 205,
+   "text": "persönlich",
+   "start": 83.04,
+   "end": 83.56
+  },
+  {
+   "i": 206,
+   "text": "dürfte",
+   "start": 83.56,
+   "end": 84.02
+  },
+  {
+   "i": 207,
+   "text": "übrigens",
+   "start": 84.02,
+   "end": 84.4
+  },
+  {
+   "i": 208,
+   "text": "„Ich",
+   "start": 84.4,
+   "end": 84.86
+  },
+  {
+   "i": 209,
+   "text": "bin",
+   "start": 84.86,
+   "end": 85.06
+  },
+  {
+   "i": 210,
+   "text": "heiß“",
+   "start": 85.06,
+   "end": 85.4
+  },
+  {
+   "i": 211,
+   "text": "sagen.",
+   "start": 85.4,
+   "end": 85.84
+  },
+  {
+   "i": 212,
+   "text": "Ich",
+   "start": 86.36,
+   "end": 86.44
+  },
+  {
+   "i": 213,
+   "text": "bin",
+   "start": 86.44,
+   "end": 86.6
+  },
+  {
+   "i": 214,
+   "text": "schließlich",
+   "start": 86.6,
+   "end": 87
+  },
+  {
+   "i": 215,
+   "text": "ziemlich",
+   "start": 87,
+   "end": 87.46
+  },
+  {
+   "i": 216,
+   "text": "saftig.",
+   "start": 87.46,
+   "end": 87.94
+  },
+  {
+   "i": 217,
+   "text": "Nächste",
+   "start": 89.1,
+   "end": 89.36
+  },
+  {
+   "i": 218,
+   "text": "Situation:",
+   "start": 89.36,
+   "end": 89.72
+  },
+  {
+   "i": 219,
+   "text": "Du",
+   "start": 90.48,
+   "end": 90.5
+  },
+  {
+   "i": 220,
+   "text": "bist",
+   "start": 90.5,
+   "end": 90.66
+  },
+  {
+   "i": 221,
+   "text": "bei",
+   "start": 90.66,
+   "end": 90.84
+  },
+  {
+   "i": 222,
+   "text": "deiner",
+   "start": 90.84,
+   "end": 91.08
+  },
+  {
+   "i": 223,
+   "text": "deutschen",
+   "start": 91.08,
+   "end": 91.34
+  },
+  {
+   "i": 224,
+   "text": "Schwiegermutter",
+   "start": 91.34,
+   "end": 92.08
+  },
+  {
+   "i": 225,
+   "text": "zum",
+   "start": 92.08,
+   "end": 92.3
+  },
+  {
+   "i": 226,
+   "text": "Essen.",
+   "start": 92.3,
+   "end": 92.6
+  },
+  {
+   "i": 227,
+   "text": "Dritter",
+   "start": 93.06,
+   "end": 93.34
+  },
+  {
+   "i": 228,
+   "text": "Teller",
+   "start": 93.34,
+   "end": 93.72
+  },
+  {
+   "i": 229,
+   "text": "Kartoffelsalat.",
+   "start": 93.72,
+   "end": 94.6
+  },
+  {
+   "i": 230,
+   "text": "Sie",
+   "start": 94.94,
+   "end": 95.02
+  },
+  {
+   "i": 231,
+   "text": "fragt:",
+   "start": 95.02,
+   "end": 95.72
+  },
+  {
+   "i": 232,
+   "text": "„Noch",
+   "start": 95.72,
+   "end": 95.92
+  },
+  {
+   "i": 233,
+   "text": "ein",
+   "start": 95.92,
+   "end": 96.08
+  },
+  {
+   "i": 234,
+   "text": "bisschen?“",
+   "start": 96.08,
+   "end": 96.34
+  },
+  {
+   "i": 235,
+   "text": "Und",
+   "start": 96.34,
+   "end": 96.94
+  },
+  {
+   "i": 236,
+   "text": "du",
+   "start": 96.94,
+   "end": 97.14
+  },
+  {
+   "i": 237,
+   "text": "sagst:",
+   "start": 97.14,
+   "end": 97.66
+  },
+  {
+   "i": 238,
+   "text": "„Nein",
+   "start": 97.96,
+   "end": 98.06
+  },
+  {
+   "i": 239,
+   "text": "danke,",
+   "start": 98.06,
+   "end": 98.38
+  },
+  {
+   "i": 240,
+   "text": "ich",
+   "start": 98.68,
+   "end": 98.8
+  },
+  {
+   "i": 241,
+   "text": "bin",
+   "start": 98.8,
+   "end": 98.94
+  },
+  {
+   "i": 242,
+   "text": "voll.“",
+   "start": 98.94,
+   "end": 99.28
+  },
+  {
+   "i": 243,
+   "text": "„Voll“",
+   "start": 99.84,
+   "end": 100.14
+  },
+  {
+   "i": 244,
+   "text": "heißt",
+   "start": 100.14,
+   "end": 100.48
+  },
+  {
+   "i": 245,
+   "text": "umgangssprachlich:",
+   "start": 100.48,
+   "end": 101.54
+  },
+  {
+   "i": 246,
+   "text": "betrunken.",
+   "start": 101.54,
+   "end": 102.48
+  },
+  {
+   "i": 247,
+   "text": "Du",
+   "start": 102.94,
+   "end": 103.24
+  },
+  {
+   "i": 248,
+   "text": "hast",
+   "start": 103.24,
+   "end": 103.38
+  },
+  {
+   "i": 249,
+   "text": "der",
+   "start": 103.38,
+   "end": 103.56
+  },
+  {
+   "i": 250,
+   "text": "Familie",
+   "start": 103.56,
+   "end": 103.9
+  },
+  {
+   "i": 251,
+   "text": "gerade",
+   "start": 103.9,
+   "end": 104.26
+  },
+  {
+   "i": 252,
+   "text": "erklärt,",
+   "start": 104.26,
+   "end": 104.82
+  },
+  {
+   "i": 253,
+   "text": "dass",
+   "start": 105.12,
+   "end": 105.22
+  },
+  {
+   "i": 254,
+   "text": "du",
+   "start": 105.22,
+   "end": 105.38
+  },
+  {
+   "i": 255,
+   "text": "mittags",
+   "start": 105.38,
+   "end": 105.74
+  },
+  {
+   "i": 256,
+   "text": "um",
+   "start": 105.74,
+   "end": 105.92
+  },
+  {
+   "i": 257,
+   "text": "eins",
+   "start": 105.92,
+   "end": 106.3
+  },
+  {
+   "i": 258,
+   "text": "schon",
+   "start": 106.3,
+   "end": 106.54
+  },
+  {
+   "i": 259,
+   "text": "blau",
+   "start": 106.54,
+   "end": 106.92
+  },
+  {
+   "i": 260,
+   "text": "bist.",
+   "start": 106.92,
+   "end": 107.16
+  },
+  {
+   "i": 261,
+   "text": "Richtig",
+   "start": 107.16,
+   "end": 107.96
+  },
+  {
+   "i": 262,
+   "text": "ist:",
+   "start": 107.96,
+   "end": 108.26
+  },
+  {
+   "i": 263,
+   "text": "„Ich",
+   "start": 108.26,
+   "end": 108.76
+  },
+  {
+   "i": 264,
+   "text": "bin",
+   "start": 108.76,
+   "end": 109
+  },
+  {
+   "i": 265,
+   "text": "satt.“",
+   "start": 109,
+   "end": 109.38
+  },
+  {
+   "i": 266,
+   "text": "Und",
+   "start": 109.78,
+   "end": 109.84
+  },
+  {
+   "i": 267,
+   "text": "wenn",
+   "start": 109.84,
+   "end": 109.96
+  },
+  {
+   "i": 268,
+   "text": "es",
+   "start": 109.96,
+   "end": 110.12
+  },
+  {
+   "i": 269,
+   "text": "wirklich",
+   "start": 110.12,
+   "end": 110.4
+  },
+  {
+   "i": 270,
+   "text": "viel",
+   "start": 110.4,
+   "end": 110.76
+  },
+  {
+   "i": 271,
+   "text": "war:",
+   "start": 110.76,
+   "end": 110.96
+  },
+  {
+   "i": 272,
+   "text": "„Ich",
+   "start": 111.42,
+   "end": 111.54
+  },
+  {
+   "i": 273,
+   "text": "bin",
+   "start": 111.54,
+   "end": 111.74
+  },
+  {
+   "i": 274,
+   "text": "pappsatt“",
+   "start": 111.74,
+   "end": 112.622
+  },
+  {
+   "i": 275,
+   "text": "oder",
+   "start": 112.72,
+   "end": 112.9
+  },
+  {
+   "i": 276,
+   "text": "einfach",
+   "start": 112.9,
+   "end": 113.3
+  },
+  {
+   "i": 277,
+   "text": "„Ich",
+   "start": 113.3,
+   "end": 113.86
+  },
+  {
+   "i": 278,
+   "text": "kann",
+   "start": 113.86,
+   "end": 114.14
+  },
+  {
+   "i": 279,
+   "text": "nicht",
+   "start": 114.14,
+   "end": 114.36
+  },
+  {
+   "i": 280,
+   "text": "mehr.“",
+   "start": 114.36,
+   "end": 114.56
+  },
+  {
+   "i": 281,
+   "text": "Ganz",
+   "start": 115.08,
+   "end": 115.3
+  },
+  {
+   "i": 282,
+   "text": "charmant",
+   "start": 115.3,
+   "end": 115.72
+  },
+  {
+   "i": 283,
+   "text": "geht's",
+   "start": 115.72,
+   "end": 116.08
+  },
+  {
+   "i": 284,
+   "text": "so:",
+   "start": 116.08,
+   "end": 116.28
+  },
+  {
+   "i": 285,
+   "text": "„Danke,",
+   "start": 116.74,
+   "end": 116.96
+  },
+  {
+   "i": 286,
+   "text": "ich",
+   "start": 117.32,
+   "end": 117.42
+  },
+  {
+   "i": 287,
+   "text": "bin",
+   "start": 117.42,
+   "end": 117.58
+  },
+  {
+   "i": 288,
+   "text": "satt",
+   "start": 117.58,
+   "end": 117.92
+  },
+  {
+   "i": 289,
+   "text": "aber",
+   "start": 118.18,
+   "end": 118.32
+  },
+  {
+   "i": 290,
+   "text": "es",
+   "start": 118.32,
+   "end": 118.5
+  },
+  {
+   "i": 291,
+   "text": "war",
+   "start": 118.5,
+   "end": 118.66
+  },
+  {
+   "i": 292,
+   "text": "super",
+   "start": 118.66,
+   "end": 119.08
+  },
+  {
+   "i": 293,
+   "text": "lecker!“",
+   "start": 119.08,
+   "end": 119.42
+  },
+  {
+   "i": 294,
+   "text": "Damit",
+   "start": 119.86,
+   "end": 120.12
+  },
+  {
+   "i": 295,
+   "text": "gewinnst",
+   "start": 120.12,
+   "end": 120.56
+  },
+  {
+   "i": 296,
+   "text": "du",
+   "start": 120.56,
+   "end": 120.68
+  },
+  {
+   "i": 297,
+   "text": "jede",
+   "start": 120.68,
+   "end": 121.02
+  },
+  {
+   "i": 298,
+   "text": "Schwiegermutter.",
+   "start": 121.02,
+   "end": 121.66
+  },
+  {
+   "i": 299,
+   "text": "Zugegeben:",
+   "start": 122.24,
+   "end": 122.8
+  },
+  {
+   "i": 300,
+   "text": "Nach",
+   "start": 123.1,
+   "end": 123.28
+  },
+  {
+   "i": 301,
+   "text": "dem",
+   "start": 123.28,
+   "end": 123.48
+  },
+  {
+   "i": 302,
+   "text": "Essen",
+   "start": 123.48,
+   "end": 123.7
+  },
+  {
+   "i": 303,
+   "text": "hört",
+   "start": 123.7,
+   "end": 123.94
+  },
+  {
+   "i": 304,
+   "text": "man",
+   "start": 123.94,
+   "end": 124.1
+  },
+  {
+   "i": 305,
+   "text": "auch",
+   "start": 124.1,
+   "end": 124.26
+  },
+  {
+   "i": 306,
+   "text": "von",
+   "start": 124.26,
+   "end": 124.44
+  },
+  {
+   "i": 307,
+   "text": "Deutschen",
+   "start": 124.44,
+   "end": 124.76
+  },
+  {
+   "i": 308,
+   "text": "mal",
+   "start": 124.76,
+   "end": 125.06
+  },
+  {
+   "i": 309,
+   "text": "„Ich",
+   "start": 125.06,
+   "end": 125.54
+  },
+  {
+   "i": 310,
+   "text": "bin",
+   "start": 125.54,
+   "end": 125.76
+  },
+  {
+   "i": 311,
+   "text": "so",
+   "start": 125.76,
+   "end": 126.08
+  },
+  {
+   "i": 312,
+   "text": "voll“.",
+   "start": 126.08,
+   "end": 126.48
+  },
+  {
+   "i": 313,
+   "text": "Aber",
+   "start": 126.86,
+   "end": 127
+  },
+  {
+   "i": 314,
+   "text": "mit",
+   "start": 127,
+   "end": 127.18
+  },
+  {
+   "i": 315,
+   "text": "„satt“",
+   "start": 127.18,
+   "end": 127.52
+  },
+  {
+   "i": 316,
+   "text": "liegst",
+   "start": 127.52,
+   "end": 127.92
+  },
+  {
+   "i": 317,
+   "text": "du",
+   "start": 127.92,
+   "end": 128.06
+  },
+  {
+   "i": 318,
+   "text": "nie",
+   "start": 128.06,
+   "end": 128.28
+  },
+  {
+   "i": 319,
+   "text": "falsch",
+   "start": 128.28,
+   "end": 128.66
+  },
+  {
+   "i": 320,
+   "text": "und",
+   "start": 129.04,
+   "end": 129.12
+  },
+  {
+   "i": 321,
+   "text": "niemand",
+   "start": 129.12,
+   "end": 129.36
+  },
+  {
+   "i": 322,
+   "text": "denkt,",
+   "start": 129.36,
+   "end": 129.68
+  },
+  {
+   "i": 323,
+   "text": "du",
+   "start": 129.68,
+   "end": 129.96
+  },
+  {
+   "i": 324,
+   "text": "hättest",
+   "start": 129.96,
+   "end": 130.22
+  },
+  {
+   "i": 325,
+   "text": "getrunken.",
+   "start": 130.22,
+   "end": 130.72
+  },
+  {
+   "i": 326,
+   "text": "Nummer",
+   "start": 131.58,
+   "end": 131.82
+  },
+  {
+   "i": 327,
+   "text": "drei.",
+   "start": 131.82,
+   "end": 132.576
+  },
+  {
+   "i": 328,
+   "text": "Vor",
+   "start": 132.66,
+   "end": 132.76
+  },
+  {
+   "i": 329,
+   "text": "allem,",
+   "start": 132.76,
+   "end": 132.98
+  },
+  {
+   "i": 330,
+   "text": "wenn",
+   "start": 132.98,
+   "end": 133.16
+  },
+  {
+   "i": 331,
+   "text": "du",
+   "start": 133.16,
+   "end": 133.3
+  },
+  {
+   "i": 332,
+   "text": "Spanisch,",
+   "start": 133.3,
+   "end": 133.9
+  },
+  {
+   "i": 333,
+   "text": "Portugiesisch",
+   "start": 134.04,
+   "end": 134.76
+  },
+  {
+   "i": 334,
+   "text": "oder",
+   "start": 134.76,
+   "end": 134.94
+  },
+  {
+   "i": 335,
+   "text": "Französisch",
+   "start": 134.94,
+   "end": 135.62
+  },
+  {
+   "i": 336,
+   "text": "sprichst:",
+   "start": 135.62,
+   "end": 136.08
+  },
+  {
+   "i": 337,
+   "text": "„Ich",
+   "start": 136.08,
+   "end": 136.52
+  },
+  {
+   "i": 338,
+   "text": "habe",
+   "start": 136.52,
+   "end": 136.72
+  },
+  {
+   "i": 339,
+   "text": "25",
+   "start": 136.72,
+   "end": 137.34
+  },
+  {
+   "i": 340,
+   "text": "Jahre.“",
+   "start": 137.34,
+   "end": 137.9
+  },
+  {
+   "i": 341,
+   "text": "Auf",
+   "start": 138.36,
+   "end": 138.62
+  },
+  {
+   "i": 342,
+   "text": "Deutsch",
+   "start": 138.62,
+   "end": 138.92
+  },
+  {
+   "i": 343,
+   "text": "klingt",
+   "start": 138.92,
+   "end": 139.16
+  },
+  {
+   "i": 344,
+   "text": "das,",
+   "start": 139.16,
+   "end": 139.42
+  },
+  {
+   "i": 345,
+   "text": "als",
+   "start": 139.56,
+   "end": 139.68
+  },
+  {
+   "i": 346,
+   "text": "hättest",
+   "start": 139.68,
+   "end": 139.94
+  },
+  {
+   "i": 347,
+   "text": "du",
+   "start": 139.94,
+   "end": 140.08
+  },
+  {
+   "i": 348,
+   "text": "25",
+   "start": 140.08,
+   "end": 140.64
+  },
+  {
+   "i": 349,
+   "text": "Jahre",
+   "start": 140.64,
+   "end": 141.26
+  },
+  {
+   "i": 350,
+   "text": "irgendwo",
+   "start": 141.26,
+   "end": 141.7
+  },
+  {
+   "i": 351,
+   "text": "gesammelt.",
+   "start": 141.7,
+   "end": 142.5
+  },
+  {
+   "i": 352,
+   "text": "Im",
+   "start": 142.88,
+   "end": 142.98
+  },
+  {
+   "i": 353,
+   "text": "Keller.",
+   "start": 142.98,
+   "end": 143.28
+  },
+  {
+   "i": 354,
+   "text": "In",
+   "start": 143.78,
+   "end": 143.88
+  },
+  {
+   "i": 355,
+   "text": "Kartons.",
+   "start": 143.88,
+   "end": 144.34
+  },
+  {
+   "i": 356,
+   "text": "Im",
+   "start": 144.86,
+   "end": 144.98
+  },
+  {
+   "i": 357,
+   "text": "Deutschen",
+   "start": 144.98,
+   "end": 145.34
+  },
+  {
+   "i": 358,
+   "text": "hast",
+   "start": 145.34,
+   "end": 145.7
+  },
+  {
+   "i": 359,
+   "text": "du",
+   "start": 145.7,
+   "end": 145.9
+  },
+  {
+   "i": 360,
+   "text": "dein",
+   "start": 145.9,
+   "end": 146.06
+  },
+  {
+   "i": 361,
+   "text": "Alter",
+   "start": 146.06,
+   "end": 146.32
+  },
+  {
+   "i": 362,
+   "text": "nicht",
+   "start": 146.32,
+   "end": 146.58
+  },
+  {
+   "i": 363,
+   "text": "du",
+   "start": 146.94,
+   "end": 147.04
+  },
+  {
+   "i": 364,
+   "text": "bist",
+   "start": 147.04,
+   "end": 147.34
+  },
+  {
+   "i": 365,
+   "text": "es:",
+   "start": 147.34,
+   "end": 147.6
+  },
+  {
+   "i": 366,
+   "text": "„Ich",
+   "start": 148,
+   "end": 148.16
+  },
+  {
+   "i": 367,
+   "text": "bin",
+   "start": 148.16,
+   "end": 148.42
+  },
+  {
+   "i": 368,
+   "text": "25“",
+   "start": 148.42,
+   "end": 149.06
+  },
+  {
+   "i": 369,
+   "text": "oder",
+   "start": 149.62,
+   "end": 149.86
+  },
+  {
+   "i": 370,
+   "text": "„Ich",
+   "start": 149.86,
+   "end": 150.48
+  },
+  {
+   "i": 371,
+   "text": "bin",
+   "start": 150.48,
+   "end": 150.64
+  },
+  {
+   "i": 372,
+   "text": "25",
+   "start": 150.64,
+   "end": 151.24
+  },
+  {
+   "i": 373,
+   "text": "Jahre",
+   "start": 151.24,
+   "end": 151.72
+  },
+  {
+   "i": 374,
+   "text": "alt.“",
+   "start": 151.72,
+   "end": 152.02
+  },
+  {
+   "i": 375,
+   "text": "Und",
+   "start": 152.32,
+   "end": 152.42
+  },
+  {
+   "i": 376,
+   "text": "die",
+   "start": 152.42,
+   "end": 152.56
+  },
+  {
+   "i": 377,
+   "text": "Frage",
+   "start": 152.56,
+   "end": 152.88
+  },
+  {
+   "i": 378,
+   "text": "dazu",
+   "start": 152.88,
+   "end": 153.16
+  },
+  {
+   "i": 379,
+   "text": "heißt:",
+   "start": 153.16,
+   "end": 153.46
+  },
+  {
+   "i": 380,
+   "text": "„Wie",
+   "start": 153.94,
+   "end": 154.08
+  },
+  {
+   "i": 381,
+   "text": "alt",
+   "start": 154.08,
+   "end": 154.34
+  },
+  {
+   "i": 382,
+   "text": "bist",
+   "start": 154.34,
+   "end": 154.52
+  },
+  {
+   "i": 383,
+   "text": "du?“",
+   "start": 154.52,
+   "end": 154.76
+  },
+  {
+   "i": 384,
+   "text": "Genauso",
+   "start": 155.34,
+   "end": 155.66
+  },
+  {
+   "i": 385,
+   "text": "bei",
+   "start": 155.66,
+   "end": 155.84
+  },
+  {
+   "i": 386,
+   "text": "anderen:",
+   "start": 155.84,
+   "end": 156.14
+  },
+  {
+   "i": 387,
+   "text": "„Wie",
+   "start": 156.8,
+   "end": 156.88
+  },
+  {
+   "i": 388,
+   "text": "alt",
+   "start": 156.88,
+   "end": 157.08
+  },
+  {
+   "i": 389,
+   "text": "ist",
+   "start": 157.08,
+   "end": 157.22
+  },
+  {
+   "i": 390,
+   "text": "deine",
+   "start": 157.22,
+   "end": 157.4
+  },
+  {
+   "i": 391,
+   "text": "Oma?“",
+   "start": 157.4,
+   "end": 157.78
+  },
+  {
+   "i": 392,
+   "text": "„Sie",
+   "start": 158.34,
+   "end": 158.46
+  },
+  {
+   "i": 393,
+   "text": "wird",
+   "start": 158.46,
+   "end": 158.64
+  },
+  {
+   "i": 394,
+   "text": "nächste",
+   "start": 158.64,
+   "end": 158.92
+  },
+  {
+   "i": 395,
+   "text": "Woche",
+   "start": 158.92,
+   "end": 159.14
+  },
+  {
+   "i": 396,
+   "text": "90.“",
+   "start": 159.14,
+   "end": 159.6
+  },
+  {
+   "i": 397,
+   "text": "Kurz",
+   "start": 160.2,
+   "end": 160.46
+  },
+  {
+   "i": 398,
+   "text": "und",
+   "start": 160.46,
+   "end": 160.9
+  },
+  {
+   "i": 399,
+   "text": "schmerzlos.",
+   "start": 160.9,
+   "end": 161.46
+  },
+  {
+   "i": 400,
+   "text": "Zeit",
+   "start": 161.98,
+   "end": 162.28
+  },
+  {
+   "i": 401,
+   "text": "für",
+   "start": 162.28,
+   "end": 162.48
+  },
+  {
+   "i": 402,
+   "text": "die",
+   "start": 162.48,
+   "end": 162.62
+  },
+  {
+   "i": 403,
+   "text": "erste",
+   "start": 162.62,
+   "end": 162.92
+  },
+  {
+   "i": 404,
+   "text": "Kernfrage.",
+   "start": 162.92,
+   "end": 163.6
+  },
+  {
+   "i": 405,
+   "text": "Winter,",
+   "start": 164.18,
+   "end": 164.5
+  },
+  {
+   "i": 406,
+   "text": "die",
+   "start": 164.86,
+   "end": 165.02
+  },
+  {
+   "i": 407,
+   "text": "Heizung",
+   "start": 165.02,
+   "end": 165.4
+  },
+  {
+   "i": 408,
+   "text": "ist",
+   "start": 165.4,
+   "end": 165.54
+  },
+  {
+   "i": 409,
+   "text": "kaputt.",
+   "start": 165.54,
+   "end": 165.9
+  },
+  {
+   "i": 410,
+   "text": "Was",
+   "start": 166.22,
+   "end": 166.32
+  },
+  {
+   "i": 411,
+   "text": "sagst",
+   "start": 166.32,
+   "end": 166.62
+  },
+  {
+   "i": 412,
+   "text": "du?",
+   "start": 166.62,
+   "end": 166.76
+  },
+  {
+   "i": 413,
+   "text": "„Ich",
+   "start": 167.2,
+   "end": 167.3
+  },
+  {
+   "i": 414,
+   "text": "bin",
+   "start": 167.3,
+   "end": 167.46
+  },
+  {
+   "i": 415,
+   "text": "kalt“,",
+   "start": 167.46,
+   "end": 167.86
+  },
+  {
+   "i": 416,
+   "text": "„Ich",
+   "start": 168.28,
+   "end": 168.46
+  },
+  {
+   "i": 417,
+   "text": "habe",
+   "start": 168.46,
+   "end": 168.74
+  },
+  {
+   "i": 418,
+   "text": "kalt“",
+   "start": 168.74,
+   "end": 169.24
+  },
+  {
+   "i": 419,
+   "text": "oder",
+   "start": 169.24,
+   "end": 169.64
+  },
+  {
+   "i": 420,
+   "text": "„Mir",
+   "start": 169.64,
+   "end": 170.2
+  },
+  {
+   "i": 421,
+   "text": "ist",
+   "start": 170.2,
+   "end": 170.44
+  },
+  {
+   "i": 422,
+   "text": "kalt“?",
+   "start": 170.44,
+   "end": 170.82
+  },
+  {
+   "i": 423,
+   "text": "Fünf",
+   "start": 170.82,
+   "end": 171.45
+  },
+  {
+   "i": 424,
+   "text": "Sekunden.",
+   "start": 171.52,
+   "end": 172.8
+  },
+  {
+   "i": 425,
+   "text": "Richtig:",
+   "start": 173.04,
+   "end": 173.36
+  },
+  {
+   "i": 426,
+   "text": "„Mir",
+   "start": 173.78,
+   "end": 174.04
+  },
+  {
+   "i": 427,
+   "text": "ist",
+   "start": 174.04,
+   "end": 174.32
+  },
+  {
+   "i": 428,
+   "text": "kalt.“",
+   "start": 174.32,
+   "end": 174.7
+  },
+  {
+   "i": 429,
+   "text": "„Ich",
+   "start": 175.22,
+   "end": 175.36
+  },
+  {
+   "i": 430,
+   "text": "habe",
+   "start": 175.36,
+   "end": 175.68
+  },
+  {
+   "i": 431,
+   "text": "kalt“",
+   "start": 175.68,
+   "end": 176.1
+  },
+  {
+   "i": 432,
+   "text": "ist",
+   "start": 176.18,
+   "end": 176.34
+  },
+  {
+   "i": 433,
+   "text": "Spanisch",
+   "start": 176.34,
+   "end": 176.98
+  },
+  {
+   "i": 434,
+   "text": "oder",
+   "start": 176.98,
+   "end": 177.14
+  },
+  {
+   "i": 435,
+   "text": "Französisch",
+   "start": 177.14,
+   "end": 177.86
+  },
+  {
+   "i": 436,
+   "text": "mit",
+   "start": 177.86,
+   "end": 178.02
+  },
+  {
+   "i": 437,
+   "text": "deutschen",
+   "start": 178.02,
+   "end": 178.28
+  },
+  {
+   "i": 438,
+   "text": "Wörtern.",
+   "start": 178.28,
+   "end": 178.76
+  },
+  {
+   "i": 439,
+   "text": "Und",
+   "start": 179.28,
+   "end": 179.4
+  },
+  {
+   "i": 440,
+   "text": "„Ich",
+   "start": 179.4,
+   "end": 179.86
+  },
+  {
+   "i": 441,
+   "text": "bin",
+   "start": 179.86,
+   "end": 180.14
+  },
+  {
+   "i": 442,
+   "text": "kalt“?",
+   "start": 180.14,
+   "end": 180.58
+  },
+  {
+   "i": 443,
+   "text": "Das",
+   "start": 181.08,
+   "end": 181.2
+  },
+  {
+   "i": 444,
+   "text": "klingt",
+   "start": 181.2,
+   "end": 181.42
+  },
+  {
+   "i": 445,
+   "text": "nach",
+   "start": 181.42,
+   "end": 181.6
+  },
+  {
+   "i": 446,
+   "text": "einem",
+   "start": 181.6,
+   "end": 181.8
+  },
+  {
+   "i": 447,
+   "text": "Menschen",
+   "start": 181.8,
+   "end": 182.1
+  },
+  {
+   "i": 448,
+   "text": "ohne",
+   "start": 182.1,
+   "end": 182.34
+  },
+  {
+   "i": 449,
+   "text": "Gefühle.",
+   "start": 182.34,
+   "end": 182.92
+  },
+  {
+   "i": 450,
+   "text": "Oder",
+   "start": 183.38,
+   "end": 183.96
+  },
+  {
+   "i": 451,
+   "text": "nach",
+   "start": 183.96,
+   "end": 184.32
+  },
+  {
+   "i": 452,
+   "text": "einem",
+   "start": 184.32,
+   "end": 184.5
+  },
+  {
+   "i": 453,
+   "text": "Kühlschrank.",
+   "start": 184.5,
+   "end": 184.98
+  },
+  {
+   "i": 454,
+   "text": "Weiter",
+   "start": 185.58,
+   "end": 185.8
+  },
+  {
+   "i": 455,
+   "text": "geht's.",
+   "start": 185.8,
+   "end": 186.38
+  },
+  {
+   "i": 456,
+   "text": "Feierabend.",
+   "start": 186.76,
+   "end": 187.38
+  },
+  {
+   "i": 457,
+   "text": "Du",
+   "start": 187.68,
+   "end": 187.8
+  },
+  {
+   "i": 458,
+   "text": "packst",
+   "start": 187.8,
+   "end": 188.12
+  },
+  {
+   "i": 459,
+   "text": "deine",
+   "start": 188.12,
+   "end": 188.16
+  },
+  {
+   "i": 460,
+   "text": "Sachen",
+   "start": 188.16,
+   "end": 188.5
+  },
+  {
+   "i": 461,
+   "text": "und",
+   "start": 188.5,
+   "end": 188.74
+  },
+  {
+   "i": 462,
+   "text": "sagst:",
+   "start": 188.74,
+   "end": 189.22
+  },
+  {
+   "i": 463,
+   "text": "„Ich",
+   "start": 189.42,
+   "end": 189.56
+  },
+  {
+   "i": 464,
+   "text": "gehe",
+   "start": 189.56,
+   "end": 189.72
+  },
+  {
+   "i": 465,
+   "text": "zu",
+   "start": 189.72,
+   "end": 189.94
+  },
+  {
+   "i": 466,
+   "text": "Hause.“",
+   "start": 189.94,
+   "end": 190.22
+  },
+  {
+   "i": 467,
+   "text": "Klingt",
+   "start": 190.76,
+   "end": 191.12
+  },
+  {
+   "i": 468,
+   "text": "fast",
+   "start": 191.12,
+   "end": 191.48
+  },
+  {
+   "i": 469,
+   "text": "richtig.",
+   "start": 191.48,
+   "end": 191.98
+  },
+  {
+   "i": 470,
+   "text": "Heißt",
+   "start": 192.38,
+   "end": 192.74
+  },
+  {
+   "i": 471,
+   "text": "aber",
+   "start": 192.74,
+   "end": 192.92
+  },
+  {
+   "i": 472,
+   "text": "höchstens:",
+   "start": 192.92,
+   "end": 193.44
+  },
+  {
+   "i": 473,
+   "text": "Du",
+   "start": 193.7,
+   "end": 193.78
+  },
+  {
+   "i": 474,
+   "text": "läufst",
+   "start": 193.78,
+   "end": 194.12
+  },
+  {
+   "i": 475,
+   "text": "in",
+   "start": 194.12,
+   "end": 194.22
+  },
+  {
+   "i": 476,
+   "text": "deiner",
+   "start": 194.22,
+   "end": 194.46
+  },
+  {
+   "i": 477,
+   "text": "Wohnung",
+   "start": 194.46,
+   "end": 194.74
+  },
+  {
+   "i": 478,
+   "text": "hin",
+   "start": 194.74,
+   "end": 194.96
+  },
+  {
+   "i": 479,
+   "text": "und",
+   "start": 194.96,
+   "end": 195.1
+  },
+  {
+   "i": 480,
+   "text": "her.",
+   "start": 195.1,
+   "end": 195.36
+  },
+  {
+   "i": 481,
+   "text": "Die",
+   "start": 195.88,
+   "end": 195.94
+  },
+  {
+   "i": 482,
+   "text": "Regel",
+   "start": 195.94,
+   "end": 196.2
+  },
+  {
+   "i": 483,
+   "text": "ist",
+   "start": 196.2,
+   "end": 196.42
+  },
+  {
+   "i": 484,
+   "text": "einfach:",
+   "start": 196.42,
+   "end": 196.84
+  },
+  {
+   "i": 485,
+   "text": "Bewegung,",
+   "start": 197.3,
+   "end": 197.82
+  },
+  {
+   "i": 486,
+   "text": "also",
+   "start": 198,
+   "end": 198.24
+  },
+  {
+   "i": 487,
+   "text": "„wohin?“",
+   "start": 198.24,
+   "end": 199.02
+  },
+  {
+   "i": 488,
+   "text": "nach",
+   "start": 199.42,
+   "end": 199.58
+  },
+  {
+   "i": 489,
+   "text": "Hause.",
+   "start": 199.58,
+   "end": 199.92
+  },
+  {
+   "i": 490,
+   "text": "Position,",
+   "start": 200.42,
+   "end": 200.78
+  },
+  {
+   "i": 491,
+   "text": "also",
+   "start": 201.28,
+   "end": 201.48
+  },
+  {
+   "i": 492,
+   "text": "„wo?“",
+   "start": 201.48,
+   "end": 202.08
+  },
+  {
+   "i": 493,
+   "text": "zu",
+   "start": 202.46,
+   "end": 202.7
+  },
+  {
+   "i": 494,
+   "text": "Hause.",
+   "start": 202.7,
+   "end": 203.04
+  },
+  {
+   "i": 495,
+   "text": "„Bist",
+   "start": 203.64,
+   "end": 203.76
+  },
+  {
+   "i": 496,
+   "text": "du",
+   "start": 203.76,
+   "end": 203.88
+  },
+  {
+   "i": 497,
+   "text": "heute",
+   "start": 203.88,
+   "end": 204.04
+  },
+  {
+   "i": 498,
+   "text": "Abend",
+   "start": 204.04,
+   "end": 204.3
+  },
+  {
+   "i": 499,
+   "text": "zu",
+   "start": 204.3,
+   "end": 204.52
+  },
+  {
+   "i": 500,
+   "text": "Hause?“",
+   "start": 204.52,
+   "end": 204.78
+  },
+  {
+   "i": 501,
+   "text": "„Nein,",
+   "start": 205.34,
+   "end": 205.58
+  },
+  {
+   "i": 502,
+   "text": "ich",
+   "start": 205.88,
+   "end": 205.98
+  },
+  {
+   "i": 503,
+   "text": "gehe",
+   "start": 205.98,
+   "end": 206.12
+  },
+  {
+   "i": 504,
+   "text": "erst",
+   "start": 206.12,
+   "end": 206.38
+  },
+  {
+   "i": 505,
+   "text": "um",
+   "start": 206.38,
+   "end": 206.52
+  },
+  {
+   "i": 506,
+   "text": "elf",
+   "start": 206.52,
+   "end": 206.7
+  },
+  {
+   "i": 507,
+   "text": "nach",
+   "start": 206.72,
+   "end": 206.92
+  },
+  {
+   "i": 508,
+   "text": "Hause.“",
+   "start": 206.92,
+   "end": 207.22
+  },
+  {
+   "i": 509,
+   "text": "Kleiner",
+   "start": 207.82,
+   "end": 208.12
+  },
+  {
+   "i": 510,
+   "text": "Bonus:",
+   "start": 208.12,
+   "end": 208.44
+  },
+  {
+   "i": 511,
+   "text": "Viele",
+   "start": 208.88,
+   "end": 209.08
+  },
+  {
+   "i": 512,
+   "text": "sagen",
+   "start": 209.08,
+   "end": 209.36
+  },
+  {
+   "i": 513,
+   "text": "einfach",
+   "start": 209.36,
+   "end": 209.82
+  },
+  {
+   "i": 514,
+   "text": "„heim“,",
+   "start": 209.82,
+   "end": 210.44
+  },
+  {
+   "i": 515,
+   "text": "besonders",
+   "start": 210.7,
+   "end": 211.02
+  },
+  {
+   "i": 516,
+   "text": "im",
+   "start": 211.02,
+   "end": 211.254
+  },
+  {
+   "i": 517,
+   "text": "Süden",
+   "start": 211.28,
+   "end": 211.64
+  },
+  {
+   "i": 518,
+   "text": "und",
+   "start": 211.64,
+   "end": 211.86
+  },
+  {
+   "i": 519,
+   "text": "in",
+   "start": 211.86,
+   "end": 211.98
+  },
+  {
+   "i": 520,
+   "text": "der",
+   "start": 211.98,
+   "end": 212.08
+  },
+  {
+   "i": 521,
+   "text": "Schweiz.",
+   "start": 212.08,
+   "end": 212.38
+  },
+  {
+   "i": 522,
+   "text": "„Ich",
+   "start": 212.9,
+   "end": 213.04
+  },
+  {
+   "i": 523,
+   "text": "geh",
+   "start": 213.04,
+   "end": 213.166
+  },
+  {
+   "i": 524,
+   "text": "jetzt",
+   "start": 213.18,
+   "end": 213.36
+  },
+  {
+   "i": 525,
+   "text": "heim.“",
+   "start": 213.36,
+   "end": 213.74
+  },
+  {
+   "i": 526,
+   "text": "Da",
+   "start": 214.1,
+   "end": 214.28
+  },
+  {
+   "i": 527,
+   "text": "kannst",
+   "start": 214.28,
+   "end": 214.46
+  },
+  {
+   "i": 528,
+   "text": "du",
+   "start": 214.46,
+   "end": 214.64
+  },
+  {
+   "i": 529,
+   "text": "gar",
+   "start": 214.64,
+   "end": 214.88
+  },
+  {
+   "i": 530,
+   "text": "nichts",
+   "start": 214.88,
+   "end": 215.06
+  },
+  {
+   "i": 531,
+   "text": "falsch",
+   "start": 215.06,
+   "end": 215.34
+  },
+  {
+   "i": 532,
+   "text": "machen.",
+   "start": 215.34,
+   "end": 215.58
+  },
+  {
+   "i": 533,
+   "text": "Du",
+   "start": 216.16,
+   "end": 216.26
+  },
+  {
+   "i": 534,
+   "text": "schreibst",
+   "start": 216.26,
+   "end": 216.62
+  },
+  {
+   "i": 535,
+   "text": "einem",
+   "start": 216.62,
+   "end": 216.76
+  },
+  {
+   "i": 536,
+   "text": "Freund:",
+   "start": 216.76,
+   "end": 217.1
+  },
+  {
+   "i": 537,
+   "text": "„Ich",
+   "start": 217.1,
+   "end": 217.7
+  },
+  {
+   "i": 538,
+   "text": "warte",
+   "start": 217.7,
+   "end": 218.02
+  },
+  {
+   "i": 539,
+   "text": "für",
+   "start": 218.02,
+   "end": 218.16
+  },
+  {
+   "i": 540,
+   "text": "dich",
+   "start": 218.16,
+   "end": 218.32
+  },
+  {
+   "i": 541,
+   "text": "vorm",
+   "start": 218.32,
+   "end": 218.482
+  },
+  {
+   "i": 542,
+   "text": "Kino.“",
+   "start": 218.5,
+   "end": 218.96
+  },
+  {
+   "i": 543,
+   "text": "Für",
+   "start": 219.42,
+   "end": 219.68
+  },
+  {
+   "i": 544,
+   "text": "ihn?",
+   "start": 219.68,
+   "end": 220.02
+  },
+  {
+   "i": 545,
+   "text": "Das",
+   "start": 220.58,
+   "end": 220.72
+  },
+  {
+   "i": 546,
+   "text": "heißt:",
+   "start": 220.72,
+   "end": 221
+  },
+  {
+   "i": 547,
+   "text": "an",
+   "start": 221,
+   "end": 221.44
+  },
+  {
+   "i": 548,
+   "text": "seiner",
+   "start": 221.44,
+   "end": 221.68
+  },
+  {
+   "i": 549,
+   "text": "Stelle.",
+   "start": 221.68,
+   "end": 222.2
+  },
+  {
+   "i": 550,
+   "text": "Er",
+   "start": 222.66,
+   "end": 222.82
+  },
+  {
+   "i": 551,
+   "text": "muss",
+   "start": 222.82,
+   "end": 223.02
+  },
+  {
+   "i": 552,
+   "text": "also",
+   "start": 223.02,
+   "end": 223.28
+  },
+  {
+   "i": 553,
+   "text": "gar",
+   "start": 223.28,
+   "end": 223.46
+  },
+  {
+   "i": 554,
+   "text": "nicht",
+   "start": 223.46,
+   "end": 223.6
+  },
+  {
+   "i": 555,
+   "text": "mehr",
+   "start": 223.6,
+   "end": 223.76
+  },
+  {
+   "i": 556,
+   "text": "kommen",
+   "start": 223.76,
+   "end": 223.98
+  },
+  {
+   "i": 557,
+   "text": "du",
+   "start": 224.22,
+   "end": 224.32
+  },
+  {
+   "i": 558,
+   "text": "wartest",
+   "start": 224.32,
+   "end": 224.66
+  },
+  {
+   "i": 559,
+   "text": "ja",
+   "start": 224.66,
+   "end": 224.78
+  },
+  {
+   "i": 560,
+   "text": "schon",
+   "start": 224.78,
+   "end": 224.96
+  },
+  {
+   "i": 561,
+   "text": "für",
+   "start": 224.96,
+   "end": 225.14
+  },
+  {
+   "i": 562,
+   "text": "ihn.",
+   "start": 225.14,
+   "end": 225.3
+  },
+  {
+   "i": 563,
+   "text": "Wenn",
+   "start": 226.02,
+   "end": 226.02
+  },
+  {
+   "i": 564,
+   "text": "du",
+   "start": 226.02,
+   "end": 226.16
+  },
+  {
+   "i": 565,
+   "text": "auf",
+   "start": 226.16,
+   "end": 226.32
+  },
+  {
+   "i": 566,
+   "text": "jemanden",
+   "start": 226.32,
+   "end": 226.7
+  },
+  {
+   "i": 567,
+   "text": "wartest,",
+   "start": 226.7,
+   "end": 227.26
+  },
+  {
+   "i": 568,
+   "text": "brauchst",
+   "start": 227.46,
+   "end": 227.74
+  },
+  {
+   "i": 569,
+   "text": "du",
+   "start": 227.74,
+   "end": 227.88
+  },
+  {
+   "i": 570,
+   "text": "„auf“:",
+   "start": 227.88,
+   "end": 228.34
+  },
+  {
+   "i": 571,
+   "text": "„Ich",
+   "start": 228.92,
+   "end": 229.02
+  },
+  {
+   "i": 572,
+   "text": "warte",
+   "start": 229.02,
+   "end": 229.38
+  },
+  {
+   "i": 573,
+   "text": "auf",
+   "start": 229.38,
+   "end": 229.66
+  },
+  {
+   "i": 574,
+   "text": "dich.“",
+   "start": 229.66,
+   "end": 229.96
+  },
+  {
+   "i": 575,
+   "text": "„Ich",
+   "start": 230.44,
+   "end": 230.58
+  },
+  {
+   "i": 576,
+   "text": "warte",
+   "start": 230.58,
+   "end": 230.84
+  },
+  {
+   "i": 577,
+   "text": "auf",
+   "start": 230.84,
+   "end": 231.04
+  },
+  {
+   "i": 578,
+   "text": "den",
+   "start": 231.04,
+   "end": 231.2
+  },
+  {
+   "i": 579,
+   "text": "Bus.“",
+   "start": 231.2,
+   "end": 231.4
+  },
+  {
+   "i": 580,
+   "text": "Und",
+   "start": 231.94,
+   "end": 232.06
+  },
+  {
+   "i": 581,
+   "text": "danach",
+   "start": 232.06,
+   "end": 232.36
+  },
+  {
+   "i": 582,
+   "text": "kommt",
+   "start": 232.36,
+   "end": 232.72
+  },
+  {
+   "i": 583,
+   "text": "der",
+   "start": 232.72,
+   "end": 232.88
+  },
+  {
+   "i": 584,
+   "text": "Akkusativ.",
+   "start": 232.88,
+   "end": 233.44
+  },
+  {
+   "i": 585,
+   "text": "„Für",
+   "start": 234.1,
+   "end": 234.26
+  },
+  {
+   "i": 586,
+   "text": "dich“",
+   "start": 234.26,
+   "end": 234.56
+  },
+  {
+   "i": 587,
+   "text": "passt",
+   "start": 234.56,
+   "end": 234.88
+  },
+  {
+   "i": 588,
+   "text": "nur,",
+   "start": 234.88,
+   "end": 235.24
+  },
+  {
+   "i": 589,
+   "text": "wenn",
+   "start": 235.36,
+   "end": 235.44
+  },
+  {
+   "i": 590,
+   "text": "du",
+   "start": 235.44,
+   "end": 235.6
+  },
+  {
+   "i": 591,
+   "text": "wirklich",
+   "start": 235.6,
+   "end": 235.98
+  },
+  {
+   "i": 592,
+   "text": "jemanden",
+   "start": 235.98,
+   "end": 236.5
+  },
+  {
+   "i": 593,
+   "text": "vertrittst:",
+   "start": 236.5,
+   "end": 237.12
+  },
+  {
+   "i": 594,
+   "text": "„Ich",
+   "start": 237.42,
+   "end": 237.54
+  },
+  {
+   "i": 595,
+   "text": "warte",
+   "start": 237.54,
+   "end": 237.8
+  },
+  {
+   "i": 596,
+   "text": "für",
+   "start": 237.8,
+   "end": 238
+  },
+  {
+   "i": 597,
+   "text": "dich",
+   "start": 238,
+   "end": 238.16
+  },
+  {
+   "i": 598,
+   "text": "auf",
+   "start": 238.16,
+   "end": 238.34
+  },
+  {
+   "i": 599,
+   "text": "den",
+   "start": 238.34,
+   "end": 238.46
+  },
+  {
+   "i": 600,
+   "text": "Handwerker,",
+   "start": 238.46,
+   "end": 239
+  },
+  {
+   "i": 601,
+   "text": "dann",
+   "start": 239.22,
+   "end": 239.32
+  },
+  {
+   "i": 602,
+   "text": "musst",
+   "start": 239.32,
+   "end": 239.48
+  },
+  {
+   "i": 603,
+   "text": "du",
+   "start": 239.48,
+   "end": 239.6
+  },
+  {
+   "i": 604,
+   "text": "dir",
+   "start": 239.6,
+   "end": 239.7
+  },
+  {
+   "i": 605,
+   "text": "nicht",
+   "start": 239.7,
+   "end": 239.84
+  },
+  {
+   "i": 606,
+   "text": "freinehmen.“",
+   "start": 239.84,
+   "end": 240.614
+  },
+  {
+   "i": 607,
+   "text": "Das",
+   "start": 240.7,
+   "end": 241.08
+  },
+  {
+   "i": 608,
+   "text": "ist",
+   "start": 241.08,
+   "end": 241.26
+  },
+  {
+   "i": 609,
+   "text": "dann",
+   "start": 241.26,
+   "end": 241.42
+  },
+  {
+   "i": 610,
+   "text": "aber",
+   "start": 241.42,
+   "end": 241.6
+  },
+  {
+   "i": 611,
+   "text": "auch",
+   "start": 241.6,
+   "end": 241.76
+  },
+  {
+   "i": 612,
+   "text": "echte",
+   "start": 241.76,
+   "end": 242.14
+  },
+  {
+   "i": 613,
+   "text": "Freundschaft.",
+   "start": 242.14,
+   "end": 242.68
+  },
+  {
+   "i": 614,
+   "text": "Nummer",
+   "start": 243.28,
+   "end": 243.44
+  },
+  {
+   "i": 615,
+   "text": "sechs.",
+   "start": 243.44,
+   "end": 244.196
+  },
+  {
+   "i": 616,
+   "text": "Du",
+   "start": 244.28,
+   "end": 244.38
+  },
+  {
+   "i": 617,
+   "text": "erzählst",
+   "start": 244.38,
+   "end": 244.78
+  },
+  {
+   "i": 618,
+   "text": "von",
+   "start": 244.78,
+   "end": 244.96
+  },
+  {
+   "i": 619,
+   "text": "früher:",
+   "start": 244.96,
+   "end": 245.28
+  },
+  {
+   "i": 620,
+   "text": "„Wann",
+   "start": 245.28,
+   "end": 246
+  },
+  {
+   "i": 621,
+   "text": "ich",
+   "start": 246,
+   "end": 246.12
+  },
+  {
+   "i": 622,
+   "text": "ein",
+   "start": 246.12,
+   "end": 246.26
+  },
+  {
+   "i": 623,
+   "text": "Kind",
+   "start": 246.26,
+   "end": 246.52
+  },
+  {
+   "i": 624,
+   "text": "war,",
+   "start": 246.52,
+   "end": 246.78
+  },
+  {
+   "i": 625,
+   "text": "habe",
+   "start": 246.92,
+   "end": 247.06
+  },
+  {
+   "i": 626,
+   "text": "ich",
+   "start": 247.06,
+   "end": 247.26
+  },
+  {
+   "i": 627,
+   "text": "viel",
+   "start": 247.26,
+   "end": 247.54
+  },
+  {
+   "i": 628,
+   "text": "Fußball",
+   "start": 247.54,
+   "end": 247.96
+  },
+  {
+   "i": 629,
+   "text": "gespielt.“",
+   "start": 247.96,
+   "end": 248.42
+  },
+  {
+   "i": 630,
+   "text": "Im",
+   "start": 249.02,
+   "end": 249.14
+  },
+  {
+   "i": 631,
+   "text": "Englischen",
+   "start": 249.14,
+   "end": 249.6
+  },
+  {
+   "i": 632,
+   "text": "ist",
+   "start": 249.6,
+   "end": 249.82
+  },
+  {
+   "i": 633,
+   "text": "das",
+   "start": 249.82,
+   "end": 249.94
+  },
+  {
+   "i": 634,
+   "text": "alles",
+   "start": 249.94,
+   "end": 250.22
+  },
+  {
+   "i": 635,
+   "text": "„when“.",
+   "start": 250.22,
+   "end": 250.82
+  },
+  {
+   "i": 636,
+   "text": "Im",
+   "start": 251.3,
+   "end": 251.46
+  },
+  {
+   "i": 637,
+   "text": "Deutschen",
+   "start": 251.46,
+   "end": 251.8
+  },
+  {
+   "i": 638,
+   "text": "gibt",
+   "start": 251.8,
+   "end": 252.1
+  },
+  {
+   "i": 639,
+   "text": "es",
+   "start": 252.1,
+   "end": 252.26
+  },
+  {
+   "i": 640,
+   "text": "dafür",
+   "start": 252.26,
+   "end": 252.48
+  },
+  {
+   "i": 641,
+   "text": "drei",
+   "start": 252.48,
+   "end": 252.86
+  },
+  {
+   "i": 642,
+   "text": "Wörter.",
+   "start": 252.86,
+   "end": 253.3
+  },
+  {
+   "i": 643,
+   "text": "„Wann“",
+   "start": 253.86,
+   "end": 254.12
+  },
+  {
+   "i": 644,
+   "text": "ist",
+   "start": 254.12,
+   "end": 254.36
+  },
+  {
+   "i": 645,
+   "text": "nur",
+   "start": 254.36,
+   "end": 254.6
+  },
+  {
+   "i": 646,
+   "text": "für",
+   "start": 254.6,
+   "end": 254.76
+  },
+  {
+   "i": 647,
+   "text": "Fragen:",
+   "start": 254.76,
+   "end": 255.14
+  },
+  {
+   "i": 648,
+   "text": "„Wann",
+   "start": 255.74,
+   "end": 255.86
+  },
+  {
+   "i": 649,
+   "text": "kommst",
+   "start": 255.86,
+   "end": 256.18
+  },
+  {
+   "i": 650,
+   "text": "du?“",
+   "start": 256.18,
+   "end": 256.32
+  },
+  {
+   "i": 651,
+   "text": "Oder:",
+   "start": 256.64,
+   "end": 256.84
+  },
+  {
+   "i": 652,
+   "text": "„Ich",
+   "start": 256.84,
+   "end": 257.34
+  },
+  {
+   "i": 653,
+   "text": "weiß",
+   "start": 257.34,
+   "end": 257.52
+  },
+  {
+   "i": 654,
+   "text": "nicht,",
+   "start": 257.52,
+   "end": 257.76
+  },
+  {
+   "i": 655,
+   "text": "wann",
+   "start": 257.8,
+   "end": 258
+  },
+  {
+   "i": 656,
+   "text": "er",
+   "start": 258,
+   "end": 258.16
+  },
+  {
+   "i": 657,
+   "text": "kommt.“",
+   "start": 258.16,
+   "end": 258.44
+  },
+  {
+   "i": 658,
+   "text": "„Als“",
+   "start": 259.12,
+   "end": 259.42
+  },
+  {
+   "i": 659,
+   "text": "ist",
+   "start": 259.42,
+   "end": 259.72
+  },
+  {
+   "i": 660,
+   "text": "für",
+   "start": 259.72,
+   "end": 259.92
+  },
+  {
+   "i": 661,
+   "text": "etwas,",
+   "start": 259.92,
+   "end": 260.18
+  },
+  {
+   "i": 662,
+   "text": "das",
+   "start": 260.32,
+   "end": 260.4
+  },
+  {
+   "i": 663,
+   "text": "in",
+   "start": 260.4,
+   "end": 260.58
+  },
+  {
+   "i": 664,
+   "text": "der",
+   "start": 260.58,
+   "end": 260.68
+  },
+  {
+   "i": 665,
+   "text": "Vergangenheit",
+   "start": 260.68,
+   "end": 261.36
+  },
+  {
+   "i": 666,
+   "text": "einmal",
+   "start": 261.36,
+   "end": 261.54
+  },
+  {
+   "i": 667,
+   "text": "passiert",
+   "start": 261.54,
+   "end": 261.98
+  },
+  {
+   "i": 668,
+   "text": "ist",
+   "start": 261.98,
+   "end": 262.3
+  },
+  {
+   "i": 669,
+   "text": "oder",
+   "start": 262.3,
+   "end": 262.78
+  },
+  {
+   "i": 670,
+   "text": "für",
+   "start": 262.78,
+   "end": 263.04
+  },
+  {
+   "i": 671,
+   "text": "einen",
+   "start": 263.04,
+   "end": 263.2
+  },
+  {
+   "i": 672,
+   "text": "Zeitraum.",
+   "start": 263.2,
+   "end": 263.78
+  },
+  {
+   "i": 673,
+   "text": "Also:",
+   "start": 264.16,
+   "end": 264.4
+  },
+  {
+   "i": 674,
+   "text": "„Als",
+   "start": 264.74,
+   "end": 265.08
+  },
+  {
+   "i": 675,
+   "text": "ich",
+   "start": 265.08,
+   "end": 265.26
+  },
+  {
+   "i": 676,
+   "text": "ein",
+   "start": 265.26,
+   "end": 265.4
+  },
+  {
+   "i": 677,
+   "text": "Kind",
+   "start": 265.4,
+   "end": 265.66
+  },
+  {
+   "i": 678,
+   "text": "war,",
+   "start": 265.66,
+   "end": 265.98
+  },
+  {
+   "i": 679,
+   "text": "habe",
+   "start": 266.16,
+   "end": 266.28
+  },
+  {
+   "i": 680,
+   "text": "ich",
+   "start": 266.28,
+   "end": 266.48
+  },
+  {
+   "i": 681,
+   "text": "viel",
+   "start": 266.48,
+   "end": 266.74
+  },
+  {
+   "i": 682,
+   "text": "Fußball",
+   "start": 266.74,
+   "end": 267.16
+  },
+  {
+   "i": 683,
+   "text": "gespielt.“",
+   "start": 267.16,
+   "end": 267.58
+  }
+ ],
+ "sentences": [
+  {
+   "text": "Juli, 35 Grad, Büro ohne Klimaanlage.",
+   "start": 0,
+   "end": 3.68
+  },
+  {
+   "text": "Deine neue Kollegin fragt: „Alles okay?“",
+   "start": 4.18,
+   "end": 6.22
+  },
+  {
+   "text": "Und du sagst: „Ich bin heiß.“",
+   "start": 6.72,
+   "end": 8.4
+  },
+  {
+   "text": "Sie schaut dich an.",
+   "start": 9.18,
+   "end": 9.9
+  },
+  {
+   "text": "Lange.",
+   "start": 10.58,
+   "end": 10.86
+  },
+  {
+   "text": "Keine Sorge nach diesem Video passiert dir das nicht mehr.",
+   "start": 11.54,
+   "end": 14.48
+  },
+  {
+   "text": "Zwölf Sätze, die dich sofort verraten.",
+   "start": 14.82,
+   "end": 17.06
+  },
+  {
+   "text": "Und Nummer zwölf ist nur ein Wort aber da machen sogar Leute mit C1 Fehler.",
+   "start": 17.34,
+   "end": 22
+  },
+  {
+   "text": "Hi, ich bin Melo.",
+   "start": 22.5,
+   "end": 23.93
+  },
+  {
+   "text": "Ja, mein Kopf ist eine Wassermelone.",
+   "start": 24,
+   "end": 26.04
+  },
+  {
+   "text": "Und ja, oben fehlt ein Stück.",
+   "start": 26.04,
+   "end": 27.92
+  },
+  {
+   "text": "Frag nicht.",
+   "start": 28.32,
+   "end": 28.94
+  },
+  {
+   "text": "Hier gibt's Deutsch mit Kern: kein Lehrbuch-Deutsch, sondern Deutsch, wie man es wirklich spricht.",
+   "start": 29.5,
+   "end": 34.18
+  },
+  {
+   "text": "Heute schauen wir uns zwölf Sätze an, die total logisch klingen die aber kein Deutscher so sagt.",
+   "start": 34.76,
+   "end": 39.98
+  },
+  {
+   "text": "Manche sind falsch, manche nur steif wie ein Lehrbuch.",
+   "start": 40.4,
+   "end": 43.26
+  },
+  {
+   "text": "Für jeden Satz zeige ich dir, was Muttersprachler stattdessen sagen und wann.",
+   "start": 43.7,
+   "end": 47.8
+  },
+  {
+   "text": "Also, zurück ins Büro.",
+   "start": 48.22,
+   "end": 49.7
+  },
+  {
+   "text": "„Ich bin heiß.“",
+   "start": 50.58,
+   "end": 51.24
+  },
+  {
+   "text": "Grammatisch ist der Satz perfekt.",
+   "start": 52.02,
+   "end": 53.5
+  },
+  {
+   "text": "Das Problem ist die Bedeutung.",
+   "start": 53.98,
+   "end": 55.5
+  },
+  {
+   "text": "„Ich bin heiß“ heißt: Ich bin sexy.",
+   "start": 55.9,
+   "end": 58.3
+  },
+  {
+   "text": "Oder, vor einem Fußballspiel: Ich bin total motiviert.",
+   "start": 58.8,
+   "end": 62.28
+  },
+  {
+   "text": "Heiß aufs Spiel eben.",
+   "start": 62.66,
+   "end": 63.8
+  },
+  {
+   "text": "Wenn du über die Temperatur sprichst, sagst du: „Mir ist heiß.“",
+   "start": 64.44,
+   "end": 67.68
+  },
+  {
+   "text": "Mit Dativ.",
+   "start": 68.12,
+   "end": 68.76
+  },
+  {
+   "text": "Nicht du bist heiß dir ist heiß.",
+   "start": 69.08,
+   "end": 71.5
+  },
+  {
+   "text": "Genauso: „Mir ist kalt.“",
+   "start": 71.98,
+   "end": 73.66
+  },
+  {
+   "text": "„Mir ist schlecht.“",
+   "start": 74.12,
+   "end": 74.72
+  },
+  {
+   "text": "„Mir ist langweilig.“",
+   "start": 75.24,
+   "end": 76.24
+  },
+  {
+   "text": "Und bitte nie: „Ich bin langweilig.“",
+   "start": 76.64,
+   "end": 79.16
+  },
+  {
+   "text": "Das heißt nämlich: Ich bin eine langweilige Person.",
+   "start": 79.46,
+   "end": 82.36
+  },
+  {
+   "text": "Ich persönlich dürfte übrigens „Ich bin heiß“ sagen.",
+   "start": 82.36,
+   "end": 85.84
+  },
+  {
+   "text": "Ich bin schließlich ziemlich saftig.",
+   "start": 86.36,
+   "end": 87.94
+  },
+  {
+   "text": "Nächste Situation: Du bist bei deiner deutschen Schwiegermutter zum Essen.",
+   "start": 89.1,
+   "end": 92.6
+  },
+  {
+   "text": "Dritter Teller Kartoffelsalat.",
+   "start": 93.06,
+   "end": 94.6
+  },
+  {
+   "text": "Sie fragt: „Noch ein bisschen?“",
+   "start": 94.94,
+   "end": 96.34
+  },
+  {
+   "text": "Und du sagst: „Nein danke, ich bin voll.“",
+   "start": 96.34,
+   "end": 99.28
+  },
+  {
+   "text": "„Voll“ heißt umgangssprachlich: betrunken.",
+   "start": 99.84,
+   "end": 102.48
+  },
+  {
+   "text": "Du hast der Familie gerade erklärt, dass du mittags um eins schon blau bist.",
+   "start": 102.94,
+   "end": 107.16
+  },
+  {
+   "text": "Richtig ist: „Ich bin satt.“",
+   "start": 107.16,
+   "end": 109.38
+  },
+  {
+   "text": "Und wenn es wirklich viel war: „Ich bin pappsatt“ oder einfach „Ich kann nicht mehr.“",
+   "start": 109.78,
+   "end": 114.56
+  },
+  {
+   "text": "Ganz charmant geht's so: „Danke, ich bin satt aber es war super lecker!“",
+   "start": 115.08,
+   "end": 119.42
+  },
+  {
+   "text": "Damit gewinnst du jede Schwiegermutter.",
+   "start": 119.86,
+   "end": 121.66
+  },
+  {
+   "text": "Zugegeben: Nach dem Essen hört man auch von Deutschen mal „Ich bin so voll“.",
+   "start": 122.24,
+   "end": 126.48
+  },
+  {
+   "text": "Aber mit „satt“ liegst du nie falsch und niemand denkt, du hättest getrunken.",
+   "start": 126.86,
+   "end": 130.72
+  },
+  {
+   "text": "Nummer drei.",
+   "start": 131.58,
+   "end": 132.576
+  },
+  {
+   "text": "Vor allem, wenn du Spanisch, Portugiesisch oder Französisch sprichst: „Ich habe 25 Jahre.“",
+   "start": 132.66,
+   "end": 137.9
+  },
+  {
+   "text": "Auf Deutsch klingt das, als hättest du 25 Jahre irgendwo gesammelt.",
+   "start": 138.36,
+   "end": 142.5
+  },
+  {
+   "text": "Im Keller.",
+   "start": 142.88,
+   "end": 143.28
+  },
+  {
+   "text": "In Kartons.",
+   "start": 143.78,
+   "end": 144.34
+  },
+  {
+   "text": "Im Deutschen hast du dein Alter nicht du bist es: „Ich bin 25“ oder „Ich bin 25 Jahre alt.“",
+   "start": 144.86,
+   "end": 152.02
+  },
+  {
+   "text": "Und die Frage dazu heißt: „Wie alt bist du?“",
+   "start": 152.32,
+   "end": 154.76
+  },
+  {
+   "text": "Genauso bei anderen: „Wie alt ist deine Oma?“",
+   "start": 155.34,
+   "end": 157.78
+  },
+  {
+   "text": "„Sie wird nächste Woche 90.“",
+   "start": 158.34,
+   "end": 159.6
+  },
+  {
+   "text": "Kurz und schmerzlos.",
+   "start": 160.2,
+   "end": 161.46
+  },
+  {
+   "text": "Zeit für die erste Kernfrage.",
+   "start": 161.98,
+   "end": 163.6
+  },
+  {
+   "text": "Winter, die Heizung ist kaputt.",
+   "start": 164.18,
+   "end": 165.9
+  },
+  {
+   "text": "Was sagst du?",
+   "start": 166.22,
+   "end": 166.76
+  },
+  {
+   "text": "„Ich bin kalt“, „Ich habe kalt“ oder „Mir ist kalt“?",
+   "start": 167.2,
+   "end": 170.82
+  },
+  {
+   "text": "Fünf Sekunden.",
+   "start": 170.82,
+   "end": 172.8
+  },
+  {
+   "text": "Richtig: „Mir ist kalt.“",
+   "start": 173.04,
+   "end": 174.7
+  },
+  {
+   "text": "„Ich habe kalt“ ist Spanisch oder Französisch mit deutschen Wörtern.",
+   "start": 175.22,
+   "end": 178.76
+  },
+  {
+   "text": "Und „Ich bin kalt“?",
+   "start": 179.28,
+   "end": 180.58
+  },
+  {
+   "text": "Das klingt nach einem Menschen ohne Gefühle.",
+   "start": 181.08,
+   "end": 182.92
+  },
+  {
+   "text": "Oder nach einem Kühlschrank.",
+   "start": 183.38,
+   "end": 184.98
+  },
+  {
+   "text": "Weiter geht's.",
+   "start": 185.58,
+   "end": 186.38
+  },
+  {
+   "text": "Feierabend.",
+   "start": 186.76,
+   "end": 187.38
+  },
+  {
+   "text": "Du packst deine Sachen und sagst: „Ich gehe zu Hause.“",
+   "start": 187.68,
+   "end": 190.22
+  },
+  {
+   "text": "Klingt fast richtig.",
+   "start": 190.76,
+   "end": 191.98
+  },
+  {
+   "text": "Heißt aber höchstens: Du läufst in deiner Wohnung hin und her.",
+   "start": 192.38,
+   "end": 195.36
+  },
+  {
+   "text": "Die Regel ist einfach: Bewegung, also „wohin?“",
+   "start": 195.88,
+   "end": 199.02
+  },
+  {
+   "text": "nach Hause.",
+   "start": 199.42,
+   "end": 199.92
+  },
+  {
+   "text": "Position, also „wo?“",
+   "start": 200.42,
+   "end": 202.08
+  },
+  {
+   "text": "zu Hause.",
+   "start": 202.46,
+   "end": 203.04
+  },
+  {
+   "text": "„Bist du heute Abend zu Hause?“",
+   "start": 203.64,
+   "end": 204.78
+  },
+  {
+   "text": "„Nein, ich gehe erst um elf nach Hause.“",
+   "start": 205.34,
+   "end": 207.22
+  },
+  {
+   "text": "Kleiner Bonus: Viele sagen einfach „heim“, besonders im Süden und in der Schweiz.",
+   "start": 207.82,
+   "end": 212.38
+  },
+  {
+   "text": "„Ich geh jetzt heim.“",
+   "start": 212.9,
+   "end": 213.74
+  },
+  {
+   "text": "Da kannst du gar nichts falsch machen.",
+   "start": 214.1,
+   "end": 215.58
+  },
+  {
+   "text": "Du schreibst einem Freund: „Ich warte für dich vorm Kino.“",
+   "start": 216.16,
+   "end": 218.96
+  },
+  {
+   "text": "Für ihn?",
+   "start": 219.42,
+   "end": 220.02
+  },
+  {
+   "text": "Das heißt: an seiner Stelle.",
+   "start": 220.58,
+   "end": 222.2
+  },
+  {
+   "text": "Er muss also gar nicht mehr kommen du wartest ja schon für ihn.",
+   "start": 222.66,
+   "end": 225.3
+  },
+  {
+   "text": "Wenn du auf jemanden wartest, brauchst du „auf“: „Ich warte auf dich.“",
+   "start": 226.02,
+   "end": 229.96
+  },
+  {
+   "text": "„Ich warte auf den Bus.“",
+   "start": 230.44,
+   "end": 231.4
+  },
+  {
+   "text": "Und danach kommt der Akkusativ.",
+   "start": 231.94,
+   "end": 233.44
+  },
+  {
+   "text": "„Für dich“ passt nur, wenn du wirklich jemanden vertrittst: „Ich warte für dich auf den Handwerker, dann musst du dir nicht freinehmen.“",
+   "start": 234.1,
+   "end": 240.614
+  },
+  {
+   "text": "Das ist dann aber auch echte Freundschaft.",
+   "start": 240.7,
+   "end": 242.68
+  },
+  {
+   "text": "Nummer sechs.",
+   "start": 243.28,
+   "end": 244.196
+  },
+  {
+   "text": "Du erzählst von früher: „Wann ich ein Kind war, habe ich viel Fußball gespielt.“",
+   "start": 244.28,
+   "end": 248.42
+  },
+  {
+   "text": "Im Englischen ist das alles „when“.",
+   "start": 249.02,
+   "end": 250.82
+  },
+  {
+   "text": "Im Deutschen gibt es dafür drei Wörter.",
+   "start": 251.3,
+   "end": 253.3
+  },
+  {
+   "text": "„Wann“ ist nur für Fragen: „Wann kommst du?“",
+   "start": 253.86,
+   "end": 256.32
+  },
+  {
+   "text": "Oder: „Ich weiß nicht, wann er kommt.“",
+   "start": 256.64,
+   "end": 258.44
+  },
+  {
+   "text": "„Als“ ist für etwas, das in der Vergangenheit einmal passiert ist oder für einen Zeitraum.",
+   "start": 259.12,
+   "end": 263.78
+  },
+  {
+   "text": "Also: „Als ich ein Kind war, habe ich viel Fußball gespielt.“",
+   "start": 264.16,
+   "end": 267.58
+  }
+ ],
+ "subs": [
+  {
+   "start": 0,
+   "end": 4.03,
+   "words": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "lines": [
+    [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   ]
+  },
+  {
+   "start": 4.1,
+   "end": 6.57,
+   "words": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "lines": [
+    [
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   ]
+  },
+  {
+   "start": 6.64,
+   "end": 8.75,
+   "words": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "lines": [
+    [
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ]
+   ]
+  },
+  {
+   "start": 9.1,
+   "end": 10.25,
+   "words": [
+    18,
+    19,
+    20,
+    21
+   ],
+   "lines": [
+    [
+     18,
+     19,
+     20,
+     21
+    ]
+   ]
+  },
+  {
+   "start": 10.5,
+   "end": 11.52,
+   "words": [
+    22
+   ],
+   "lines": [
+    [
+     22
+    ]
+   ]
+  },
+  {
+   "start": 11.46,
+   "end": 14.8,
+   "words": [
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "lines": [
+    [
+     23,
+     24,
+     25,
+     26,
+     27
+    ],
+    [
+     28,
+     29,
+     30,
+     31,
+     32
+    ]
+   ]
+  },
+  {
+   "start": 14.74,
+   "end": 17.32,
+   "words": [
+    33,
+    34,
+    35,
+    36,
+    37,
+    38
+   ],
+   "lines": [
+    [
+     33,
+     34,
+     35,
+     36,
+     37,
+     38
+    ]
+   ]
+  },
+  {
+   "start": 17.26,
+   "end": 22.35,
+   "words": [
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53
+   ],
+   "lines": [
+    [
+     39,
+     40,
+     41,
+     42,
+     43,
+     44,
+     45,
+     46
+    ],
+    [
+     47,
+     48,
+     49,
+     50,
+     51,
+     52,
+     53
+    ]
+   ]
+  },
+  {
+   "start": 22.42,
+   "end": 26.02,
+   "words": [
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+   ],
+   "lines": [
+    [
+     54,
+     55,
+     56,
+     57,
+     58,
+     59
+    ],
+    [
+     60,
+     61,
+     62,
+     63
+    ]
+   ]
+  },
+  {
+   "start": 25.96,
+   "end": 28.27,
+   "words": [
+    64,
+    65,
+    66,
+    67,
+    68,
+    69
+   ],
+   "lines": [
+    [
+     64,
+     65,
+     66,
+     67,
+     68,
+     69
+    ]
+   ]
+  },
+  {
+   "start": 28.24,
+   "end": 29.32,
+   "words": [
+    70,
+    71
+   ],
+   "lines": [
+    [
+     70,
+     71
+    ]
+   ]
+  },
+  {
+   "start": 29.42,
+   "end": 32.34,
+   "words": [
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78
+   ],
+   "lines": [
+    [
+     72,
+     73,
+     74,
+     75,
+     76
+    ],
+    [
+     77,
+     78
+    ]
+   ]
+  },
+  {
+   "start": 32.28,
+   "end": 34.53,
+   "words": [
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85
+   ],
+   "lines": [
+    [
+     79,
+     80,
+     81
+    ],
+    [
+     82,
+     83,
+     84,
+     85
+    ]
+   ]
+  },
+  {
+   "start": 34.68,
+   "end": 39.02,
+   "words": [
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99
+   ],
+   "lines": [
+    [
+     86,
+     87,
+     88,
+     89,
+     90,
+     91,
+     92
+    ],
+    [
+     93,
+     94,
+     95,
+     96,
+     97,
+     98,
+     99
+    ]
+   ]
+  },
+  {
+   "start": 38.96,
+   "end": 43.61,
+   "words": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111
+   ],
+   "lines": [
+    [
+     100,
+     101,
+     102,
+     103,
+     104,
+     105
+    ],
+    [
+     106,
+     107,
+     108,
+     109,
+     110,
+     111
+    ]
+   ]
+  },
+  {
+   "start": 43.62,
+   "end": 48.15,
+   "words": [
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123
+   ],
+   "lines": [
+    [
+     112,
+     113,
+     114,
+     115,
+     116,
+     117,
+     118
+    ],
+    [
+     119,
+     120,
+     121,
+     122,
+     123
+    ]
+   ]
+  },
+  {
+   "start": 48.14,
+   "end": 50.05,
+   "words": [
+    124,
+    125,
+    126,
+    127
+   ],
+   "lines": [
+    [
+     124,
+     125,
+     126,
+     127
+    ]
+   ]
+  },
+  {
+   "start": 50.5,
+   "end": 51.59,
+   "words": [
+    128,
+    129,
+    130
+   ],
+   "lines": [
+    [
+     128,
+     129,
+     130
+    ]
+   ]
+  },
+  {
+   "start": 51.94,
+   "end": 53.85,
+   "words": [
+    131,
+    132,
+    133,
+    134,
+    135
+   ],
+   "lines": [
+    [
+     131,
+     132,
+     133,
+     134,
+     135
+    ]
+   ]
+  },
+  {
+   "start": 53.9,
+   "end": 55.85,
+   "words": [
+    136,
+    137,
+    138,
+    139,
+    140
+   ],
+   "lines": [
+    [
+     136,
+     137,
+     138,
+     139,
+     140
+    ]
+   ]
+  },
+  {
+   "start": 55.82,
+   "end": 58.65,
+   "words": [
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147
+   ],
+   "lines": [
+    [
+     141,
+     142,
+     143,
+     144,
+     145,
+     146,
+     147
+    ]
+   ]
+  },
+  {
+   "start": 58.72,
+   "end": 62.63,
+   "words": [
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155
+   ],
+   "lines": [
+    [
+     148,
+     149,
+     150,
+     151
+    ],
+    [
+     152,
+     153,
+     154,
+     155
+    ]
+   ]
+  },
+  {
+   "start": 62.58,
+   "end": 64.15,
+   "words": [
+    156,
+    157,
+    158,
+    159
+   ],
+   "lines": [
+    [
+     156,
+     157,
+     158,
+     159
+    ]
+   ]
+  },
+  {
+   "start": 64.36,
+   "end": 66.87,
+   "words": [
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167
+   ],
+   "lines": [
+    [
+     160,
+     161,
+     162,
+     163,
+     164
+    ],
+    [
+     165,
+     166,
+     167
+    ]
+   ]
+  },
+  {
+   "start": 66.88,
+   "end": 69.06,
+   "words": [
+    168,
+    169,
+    170,
+    171,
+    172
+   ],
+   "lines": [
+    [
+     168,
+     169,
+     170,
+     171,
+     172
+    ]
+   ]
+  },
+  {
+   "start": 69,
+   "end": 71.85,
+   "words": [
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179
+   ],
+   "lines": [
+    [
+     173,
+     174,
+     175,
+     176,
+     177,
+     178,
+     179
+    ]
+   ]
+  },
+  {
+   "start": 71.9,
+   "end": 74.01,
+   "words": [
+    180,
+    181,
+    182,
+    183
+   ],
+   "lines": [
+    [
+     180,
+     181,
+     182,
+     183
+    ]
+   ]
+  },
+  {
+   "start": 74.04,
+   "end": 75.12,
+   "words": [
+    184,
+    185,
+    186
+   ],
+   "lines": [
+    [
+     184,
+     185,
+     186
+    ]
+   ]
+  },
+  {
+   "start": 75.16,
+   "end": 76.59,
+   "words": [
+    187,
+    188,
+    189
+   ],
+   "lines": [
+    [
+     187,
+     188,
+     189
+    ]
+   ]
+  },
+  {
+   "start": 76.56,
+   "end": 79.44,
+   "words": [
+    190,
+    191,
+    192,
+    193,
+    194,
+    195
+   ],
+   "lines": [
+    [
+     190,
+     191,
+     192,
+     193,
+     194,
+     195
+    ]
+   ]
+  },
+  {
+   "start": 79.38,
+   "end": 82.34,
+   "words": [
+    196,
+    197,
+    198,
+    199,
+    200,
+    201,
+    202,
+    203
+   ],
+   "lines": [
+    [
+     196,
+     197,
+     198,
+     199,
+     200
+    ],
+    [
+     201,
+     202,
+     203
+    ]
+   ]
+  },
+  {
+   "start": 82.28,
+   "end": 86.19,
+   "words": [
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211
+   ],
+   "lines": [
+    [
+     204,
+     205,
+     206
+    ],
+    [
+     207,
+     208,
+     209,
+     210,
+     211
+    ]
+   ]
+  },
+  {
+   "start": 86.28,
+   "end": 88.29,
+   "words": [
+    212,
+    213,
+    214,
+    215,
+    216
+   ],
+   "lines": [
+    [
+     212,
+     213,
+     214,
+     215,
+     216
+    ]
+   ]
+  },
+  {
+   "start": 89.02,
+   "end": 92.95,
+   "words": [
+    217,
+    218,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224,
+    225,
+    226
+   ],
+   "lines": [
+    [
+     217,
+     218,
+     219,
+     220,
+     221,
+     222
+    ],
+    [
+     223,
+     224,
+     225,
+     226
+    ]
+   ]
+  },
+  {
+   "start": 92.98,
+   "end": 94.92,
+   "words": [
+    227,
+    228,
+    229
+   ],
+   "lines": [
+    [
+     227,
+     228,
+     229
+    ]
+   ]
+  },
+  {
+   "start": 94.86,
+   "end": 96.32,
+   "words": [
+    230,
+    231,
+    232,
+    233,
+    234
+   ],
+   "lines": [
+    [
+     230,
+     231,
+     232,
+     233,
+     234
+    ]
+   ]
+  },
+  {
+   "start": 96.26,
+   "end": 99.63,
+   "words": [
+    235,
+    236,
+    237,
+    238,
+    239,
+    240,
+    241,
+    242
+   ],
+   "lines": [
+    [
+     235,
+     236,
+     237,
+     238,
+     239,
+     240,
+     241,
+     242
+    ]
+   ]
+  },
+  {
+   "start": 99.76,
+   "end": 102.83,
+   "words": [
+    243,
+    244,
+    245,
+    246
+   ],
+   "lines": [
+    [
+     243,
+     244,
+     245,
+     246
+    ]
+   ]
+  },
+  {
+   "start": 102.86,
+   "end": 107.14,
+   "words": [
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260
+   ],
+   "lines": [
+    [
+     247,
+     248,
+     249,
+     250,
+     251,
+     252
+    ],
+    [
+     253,
+     254,
+     255,
+     256,
+     257,
+     258,
+     259,
+     260
+    ]
+   ]
+  },
+  {
+   "start": 107.08,
+   "end": 109.73,
+   "words": [
+    261,
+    262,
+    263,
+    264,
+    265
+   ],
+   "lines": [
+    [
+     261,
+     262,
+     263,
+     264,
+     265
+    ]
+   ]
+  },
+  {
+   "start": 109.7,
+   "end": 114.34,
+   "words": [
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279
+   ],
+   "lines": [
+    [
+     266,
+     267,
+     268,
+     269,
+     270,
+     271,
+     272,
+     273
+    ],
+    [
+     274,
+     275,
+     276,
+     277,
+     278,
+     279
+    ]
+   ]
+  },
+  {
+   "start": 114.28,
+   "end": 115.06,
+   "words": [
+    280
+   ],
+   "lines": [
+    [
+     280
+    ]
+   ]
+  },
+  {
+   "start": 115,
+   "end": 119.77,
+   "words": [
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293
+   ],
+   "lines": [
+    [
+     281,
+     282,
+     283,
+     284,
+     285
+    ],
+    [
+     286,
+     287,
+     288,
+     289,
+     290,
+     291,
+     292,
+     293
+    ]
+   ]
+  },
+  {
+   "start": 119.78,
+   "end": 122.01,
+   "words": [
+    294,
+    295,
+    296,
+    297,
+    298
+   ],
+   "lines": [
+    [
+     294,
+     295,
+     296,
+     297,
+     298
+    ]
+   ]
+  },
+  {
+   "start": 122.16,
+   "end": 126.83,
+   "words": [
+    299,
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312
+   ],
+   "lines": [
+    [
+     299,
+     300,
+     301,
+     302,
+     303,
+     304,
+     305
+    ],
+    [
+     306,
+     307,
+     308,
+     309,
+     310,
+     311,
+     312
+    ]
+   ]
+  },
+  {
+   "start": 126.78,
+   "end": 129.66,
+   "words": [
+    313,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    321,
+    322
+   ],
+   "lines": [
+    [
+     313,
+     314,
+     315,
+     316,
+     317
+    ],
+    [
+     318,
+     319,
+     320,
+     321,
+     322
+    ]
+   ]
+  },
+  {
+   "start": 129.6,
+   "end": 131.07,
+   "words": [
+    323,
+    324,
+    325
+   ],
+   "lines": [
+    [
+     323,
+     324,
+     325
+    ]
+   ]
+  },
+  {
+   "start": 131.5,
+   "end": 135.6,
+   "words": [
+    326,
+    327,
+    328,
+    329,
+    330,
+    331,
+    332,
+    333,
+    334,
+    335
+   ],
+   "lines": [
+    [
+     326,
+     327,
+     328,
+     329,
+     330,
+     331,
+     332
+    ],
+    [
+     333,
+     334,
+     335
+    ]
+   ]
+  },
+  {
+   "start": 135.54,
+   "end": 138.25,
+   "words": [
+    336,
+    337,
+    338,
+    339,
+    340
+   ],
+   "lines": [
+    [
+     336,
+     337,
+     338,
+     339,
+     340
+    ]
+   ]
+  },
+  {
+   "start": 138.28,
+   "end": 142.85,
+   "words": [
+    341,
+    342,
+    343,
+    344,
+    345,
+    346,
+    347,
+    348,
+    349,
+    350,
+    351
+   ],
+   "lines": [
+    [
+     341,
+     342,
+     343,
+     344,
+     345,
+     346
+    ],
+    [
+     347,
+     348,
+     349,
+     350,
+     351
+    ]
+   ]
+  },
+  {
+   "start": 142.8,
+   "end": 144.69,
+   "words": [
+    352,
+    353,
+    354,
+    355
+   ],
+   "lines": [
+    [
+     352,
+     353,
+     354,
+     355
+    ]
+   ]
+  },
+  {
+   "start": 144.78,
+   "end": 147.95,
+   "words": [
+    356,
+    357,
+    358,
+    359,
+    360,
+    361,
+    362,
+    363,
+    364,
+    365
+   ],
+   "lines": [
+    [
+     356,
+     357,
+     358,
+     359,
+     360
+    ],
+    [
+     361,
+     362,
+     363,
+     364,
+     365
+    ]
+   ]
+  },
+  {
+   "start": 147.92,
+   "end": 152.3,
+   "words": [
+    366,
+    367,
+    368,
+    369,
+    370,
+    371,
+    372,
+    373,
+    374
+   ],
+   "lines": [
+    [
+     366,
+     367,
+     368,
+     369,
+     370,
+     371,
+     372,
+     373,
+     374
+    ]
+   ]
+  },
+  {
+   "start": 152.24,
+   "end": 155.11,
+   "words": [
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383
+   ],
+   "lines": [
+    [
+     375,
+     376,
+     377,
+     378,
+     379
+    ],
+    [
+     380,
+     381,
+     382,
+     383
+    ]
+   ]
+  },
+  {
+   "start": 155.26,
+   "end": 158.13,
+   "words": [
+    384,
+    385,
+    386,
+    387,
+    388,
+    389,
+    390,
+    391
+   ],
+   "lines": [
+    [
+     384,
+     385,
+     386
+    ],
+    [
+     387,
+     388,
+     389,
+     390,
+     391
+    ]
+   ]
+  },
+  {
+   "start": 158.26,
+   "end": 159.95,
+   "words": [
+    392,
+    393,
+    394,
+    395,
+    396
+   ],
+   "lines": [
+    [
+     392,
+     393,
+     394,
+     395,
+     396
+    ]
+   ]
+  },
+  {
+   "start": 160.12,
+   "end": 161.81,
+   "words": [
+    397,
+    398,
+    399
+   ],
+   "lines": [
+    [
+     397,
+     398,
+     399
+    ]
+   ]
+  },
+  {
+   "start": 161.9,
+   "end": 163.95,
+   "words": [
+    400,
+    401,
+    402,
+    403,
+    404
+   ],
+   "lines": [
+    [
+     400,
+     401,
+     402,
+     403,
+     404
+    ]
+   ]
+  },
+  {
+   "start": 164.1,
+   "end": 166.2,
+   "words": [
+    405,
+    406,
+    407,
+    408,
+    409
+   ],
+   "lines": [
+    [
+     405,
+     406,
+     407,
+     408,
+     409
+    ]
+   ]
+  },
+  {
+   "start": 166.14,
+   "end": 170.8,
+   "words": [
+    410,
+    411,
+    412,
+    413,
+    414,
+    415,
+    416,
+    417,
+    418,
+    419,
+    420,
+    421,
+    422
+   ],
+   "lines": [
+    [
+     410,
+     411,
+     412,
+     413,
+     414,
+     415
+    ],
+    [
+     416,
+     417,
+     418,
+     419,
+     420,
+     421,
+     422
+    ]
+   ]
+  },
+  {
+   "start": 170.74,
+   "end": 175.05,
+   "words": [
+    423,
+    424,
+    425,
+    426,
+    427,
+    428
+   ],
+   "lines": [
+    [
+     423,
+     424,
+     425,
+     426,
+     427,
+     428
+    ]
+   ]
+  },
+  {
+   "start": 175.14,
+   "end": 179.11,
+   "words": [
+    429,
+    430,
+    431,
+    432,
+    433,
+    434,
+    435,
+    436,
+    437,
+    438
+   ],
+   "lines": [
+    [
+     429,
+     430,
+     431,
+     432,
+     433,
+     434
+    ],
+    [
+     435,
+     436,
+     437,
+     438
+    ]
+   ]
+  },
+  {
+   "start": 179.2,
+   "end": 180.93,
+   "words": [
+    439,
+    440,
+    441,
+    442
+   ],
+   "lines": [
+    [
+     439,
+     440,
+     441,
+     442
+    ]
+   ]
+  },
+  {
+   "start": 181,
+   "end": 183.27,
+   "words": [
+    443,
+    444,
+    445,
+    446,
+    447,
+    448,
+    449
+   ],
+   "lines": [
+    [
+     443,
+     444,
+     445,
+     446
+    ],
+    [
+     447,
+     448,
+     449
+    ]
+   ]
+  },
+  {
+   "start": 183.3,
+   "end": 185.33,
+   "words": [
+    450,
+    451,
+    452,
+    453
+   ],
+   "lines": [
+    [
+     450,
+     451,
+     452,
+     453
+    ]
+   ]
+  },
+  {
+   "start": 185.5,
+   "end": 187.66,
+   "words": [
+    454,
+    455,
+    456
+   ],
+   "lines": [
+    [
+     454,
+     455,
+     456
+    ]
+   ]
+  },
+  {
+   "start": 187.6,
+   "end": 190.57,
+   "words": [
+    457,
+    458,
+    459,
+    460,
+    461,
+    462,
+    463,
+    464,
+    465,
+    466
+   ],
+   "lines": [
+    [
+     457,
+     458,
+     459,
+     460,
+     461
+    ],
+    [
+     462,
+     463,
+     464,
+     465,
+     466
+    ]
+   ]
+  },
+  {
+   "start": 190.68,
+   "end": 192.33,
+   "words": [
+    467,
+    468,
+    469
+   ],
+   "lines": [
+    [
+     467,
+     468,
+     469
+    ]
+   ]
+  },
+  {
+   "start": 192.3,
+   "end": 195.71,
+   "words": [
+    470,
+    471,
+    472,
+    473,
+    474,
+    475,
+    476,
+    477,
+    478,
+    479,
+    480
+   ],
+   "lines": [
+    [
+     470,
+     471,
+     472,
+     473,
+     474
+    ],
+    [
+     475,
+     476,
+     477,
+     478,
+     479,
+     480
+    ]
+   ]
+  },
+  {
+   "start": 195.8,
+   "end": 199.37,
+   "words": [
+    481,
+    482,
+    483,
+    484,
+    485,
+    486,
+    487
+   ],
+   "lines": [
+    [
+     481,
+     482,
+     483,
+     484
+    ],
+    [
+     485,
+     486,
+     487
+    ]
+   ]
+  },
+  {
+   "start": 199.34,
+   "end": 202.43,
+   "words": [
+    488,
+    489,
+    490,
+    491,
+    492
+   ],
+   "lines": [
+    [
+     488,
+     489,
+     490,
+     491,
+     492
+    ]
+   ]
+  },
+  {
+   "start": 202.38,
+   "end": 203.46,
+   "words": [
+    493,
+    494
+   ],
+   "lines": [
+    [
+     493,
+     494
+    ]
+   ]
+  },
+  {
+   "start": 203.56,
+   "end": 205.13,
+   "words": [
+    495,
+    496,
+    497,
+    498,
+    499,
+    500
+   ],
+   "lines": [
+    [
+     495,
+     496,
+     497,
+     498,
+     499,
+     500
+    ]
+   ]
+  },
+  {
+   "start": 205.26,
+   "end": 207.57,
+   "words": [
+    501,
+    502,
+    503,
+    504,
+    505,
+    506,
+    507,
+    508
+   ],
+   "lines": [
+    [
+     501,
+     502,
+     503,
+     504,
+     505,
+     506,
+     507,
+     508
+    ]
+   ]
+  },
+  {
+   "start": 207.74,
+   "end": 212.06,
+   "words": [
+    509,
+    510,
+    511,
+    512,
+    513,
+    514,
+    515,
+    516,
+    517,
+    518,
+    519,
+    520
+   ],
+   "lines": [
+    [
+     509,
+     510,
+     511,
+     512,
+     513
+    ],
+    [
+     514,
+     515,
+     516,
+     517,
+     518,
+     519,
+     520
+    ]
+   ]
+  },
+  {
+   "start": 212,
+   "end": 212.88,
+   "words": [
+    521
+   ],
+   "lines": [
+    [
+     521
+    ]
+   ]
+  },
+  {
+   "start": 212.82,
+   "end": 214.08,
+   "words": [
+    522,
+    523,
+    524,
+    525
+   ],
+   "lines": [
+    [
+     522,
+     523,
+     524,
+     525
+    ]
+   ]
+  },
+  {
+   "start": 214.02,
+   "end": 215.93,
+   "words": [
+    526,
+    527,
+    528,
+    529,
+    530,
+    531,
+    532
+   ],
+   "lines": [
+    [
+     526,
+     527,
+     528,
+     529,
+     530,
+     531,
+     532
+    ]
+   ]
+  },
+  {
+   "start": 216.08,
+   "end": 219.31,
+   "words": [
+    533,
+    534,
+    535,
+    536,
+    537,
+    538,
+    539,
+    540,
+    541,
+    542
+   ],
+   "lines": [
+    [
+     533,
+     534,
+     535,
+     536
+    ],
+    [
+     537,
+     538,
+     539,
+     540,
+     541,
+     542
+    ]
+   ]
+  },
+  {
+   "start": 219.34,
+   "end": 220.42,
+   "words": [
+    543,
+    544
+   ],
+   "lines": [
+    [
+     543,
+     544
+    ]
+   ]
+  },
+  {
+   "start": 220.5,
+   "end": 222.55,
+   "words": [
+    545,
+    546,
+    547,
+    548,
+    549
+   ],
+   "lines": [
+    [
+     545,
+     546,
+     547,
+     548,
+     549
+    ]
+   ]
+  },
+  {
+   "start": 222.58,
+   "end": 225.65,
+   "words": [
+    550,
+    551,
+    552,
+    553,
+    554,
+    555,
+    556,
+    557,
+    558,
+    559,
+    560,
+    561,
+    562
+   ],
+   "lines": [
+    [
+     550,
+     551,
+     552,
+     553,
+     554,
+     555,
+     556
+    ],
+    [
+     557,
+     558,
+     559,
+     560,
+     561,
+     562
+    ]
+   ]
+  },
+  {
+   "start": 225.94,
+   "end": 228.69,
+   "words": [
+    563,
+    564,
+    565,
+    566,
+    567,
+    568,
+    569,
+    570
+   ],
+   "lines": [
+    [
+     563,
+     564,
+     565,
+     566,
+     567
+    ],
+    [
+     568,
+     569,
+     570
+    ]
+   ]
+  },
+  {
+   "start": 228.84,
+   "end": 230.31,
+   "words": [
+    571,
+    572,
+    573,
+    574
+   ],
+   "lines": [
+    [
+     571,
+     572,
+     573,
+     574
+    ]
+   ]
+  },
+  {
+   "start": 230.36,
+   "end": 231.75,
+   "words": [
+    575,
+    576,
+    577,
+    578,
+    579
+   ],
+   "lines": [
+    [
+     575,
+     576,
+     577,
+     578,
+     579
+    ]
+   ]
+  },
+  {
+   "start": 231.86,
+   "end": 233.79,
+   "words": [
+    580,
+    581,
+    582,
+    583,
+    584
+   ],
+   "lines": [
+    [
+     580,
+     581,
+     582,
+     583,
+     584
+    ]
+   ]
+  },
+  {
+   "start": 234.02,
+   "end": 237.4,
+   "words": [
+    585,
+    586,
+    587,
+    588,
+    589,
+    590,
+    591,
+    592,
+    593
+   ],
+   "lines": [
+    [
+     585,
+     586,
+     587,
+     588,
+     589,
+     590
+    ],
+    [
+     591,
+     592,
+     593
+    ]
+   ]
+  },
+  {
+   "start": 237.34,
+   "end": 240.68,
+   "words": [
+    594,
+    595,
+    596,
+    597,
+    598,
+    599,
+    600,
+    601,
+    602,
+    603,
+    604,
+    605,
+    606
+   ],
+   "lines": [
+    [
+     594,
+     595,
+     596,
+     597,
+     598,
+     599,
+     600
+    ],
+    [
+     601,
+     602,
+     603,
+     604,
+     605,
+     606
+    ]
+   ]
+  },
+  {
+   "start": 240.62,
+   "end": 243.03,
+   "words": [
+    607,
+    608,
+    609,
+    610,
+    611,
+    612,
+    613
+   ],
+   "lines": [
+    [
+     607,
+     608,
+     609,
+     610,
+     611,
+     612,
+     613
+    ]
+   ]
+  },
+  {
+   "start": 243.2,
+   "end": 246.9,
+   "words": [
+    614,
+    615,
+    616,
+    617,
+    618,
+    619,
+    620,
+    621,
+    622,
+    623,
+    624
+   ],
+   "lines": [
+    [
+     614,
+     615,
+     616,
+     617,
+     618
+    ],
+    [
+     619,
+     620,
+     621,
+     622,
+     623,
+     624
+    ]
+   ]
+  },
+  {
+   "start": 246.84,
+   "end": 248.77,
+   "words": [
+    625,
+    626,
+    627,
+    628,
+    629
+   ],
+   "lines": [
+    [
+     625,
+     626,
+     627,
+     628,
+     629
+    ]
+   ]
+  },
+  {
+   "start": 248.94,
+   "end": 251.17,
+   "words": [
+    630,
+    631,
+    632,
+    633,
+    634,
+    635
+   ],
+   "lines": [
+    [
+     630,
+     631,
+     632,
+     633,
+     634,
+     635
+    ]
+   ]
+  },
+  {
+   "start": 251.22,
+   "end": 253.65,
+   "words": [
+    636,
+    637,
+    638,
+    639,
+    640,
+    641,
+    642
+   ],
+   "lines": [
+    [
+     636,
+     637,
+     638,
+     639,
+     640,
+     641,
+     642
+    ]
+   ]
+  },
+  {
+   "start": 253.78,
+   "end": 256.62,
+   "words": [
+    643,
+    644,
+    645,
+    646,
+    647,
+    648,
+    649,
+    650
+   ],
+   "lines": [
+    [
+     643,
+     644,
+     645,
+     646,
+     647
+    ],
+    [
+     648,
+     649,
+     650
+    ]
+   ]
+  },
+  {
+   "start": 256.56,
+   "end": 258.79,
+   "words": [
+    651,
+    652,
+    653,
+    654,
+    655,
+    656,
+    657
+   ],
+   "lines": [
+    [
+     651,
+     652,
+     653,
+     654,
+     655,
+     656,
+     657
+    ]
+   ]
+  },
+  {
+   "start": 259.04,
+   "end": 263.18,
+   "words": [
+    658,
+    659,
+    660,
+    661,
+    662,
+    663,
+    664,
+    665,
+    666,
+    667,
+    668,
+    669,
+    670,
+    671
+   ],
+   "lines": [
+    [
+     658,
+     659,
+     660,
+     661,
+     662,
+     663,
+     664,
+     665
+    ],
+    [
+     666,
+     667,
+     668,
+     669,
+     670,
+     671
+    ]
+   ]
+  },
+  {
+   "start": 263.12,
+   "end": 267.93,
+   "words": [
+    672,
+    673,
+    674,
+    675,
+    676,
+    677,
+    678,
+    679,
+    680,
+    681,
+    682,
+    683
+   ],
+   "lines": [
+    [
+     672,
+     673,
+     674,
+     675,
+     676,
+     677,
+     678
+    ],
+    [
+     679,
+     680,
+     681,
+     682,
+     683
+    ]
+   ]
+  }
+ ]
+}
