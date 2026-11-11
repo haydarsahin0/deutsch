@@ -1,7 +1,7 @@
 # Channel status — Deutsch mit Melo
 Keep this file current: update it whenever something is published, produced or decided (it is how a fresh session knows where we are).
 
-_Last update: 2026-11-11_
+_Last update: 2026-11-11 (evening)_
 
 ## Channel
 - Name „Deutsch mit Melo“, slogan „Deutsch mit Kern“, handle suggestion @deutschmitmelo. Banner/profile: `brand/out/youtube-banner.png`, `brand/out/youtube-profile.png`. Channel texts: `docs/kanal-beschreibung.txt`, `docs/kanal-keywords.txt`.
@@ -19,9 +19,10 @@ _Last update: 2026-11-11_
 | 2026-11-12 | Short „Ich bin voll“ | ready, delivered to owner | `shorts/02-ich-bin-voll/` |
 | 2026-11-13 | Short „Ich will ein Bier“ | ready, delivered | `shorts/03-ich-will-ein-bier/` |
 | 2026-11-14 | Short „Doch!“ | ready, delivered | `shorts/05-doch/` |
-| 2026-11-15 | Long #2 | ⏳ topic not chosen yet | — |
+| 2026-11-15 | Long #2 „50 Wörter am Tag“ (20-15-10-5-Formel: Wortfamilien, Komposita, Internationalismen, Lückenwörter) | ✍️ script in progress | `episodes/02-50-woerter-am-tag/` |
 | spare | Short „Tschüss/Servus“ (map) | config only, not rendered | `shorts/04-tschuess-servus/` |
 
 ## Next
-- Episode 2: owner to pick the topic. Candidates (growth analyst): „10 Redewendungen, die jeder Deutsche benutzt“ (recommended), „Verben mit Präpositionen“, „doch / mal / halt / eben“. Then skill `melo-episode`.
+- Episode 2: topic chosen by owner (2026-11-11): „Wie lerne ich 50 Wörter am Tag?“, 10–13 min, original method, **no Turkish references at all**. Next: German check → TTS parts to owner → audio → direction → render → thumbnail → 3 Shorts.
+- Later topic ideas: „10 Redewendungen“, „Verben mit Präpositionen“, „doch / mal / halt / eben“.
 - Next stats check-ins: 2026-11-13 evening and 2026-11-18 (skill `melo-growth`).
