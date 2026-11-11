@@ -27,24 +27,24 @@ Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier
 
 ⏱ Kapitel
 0:00 „Ich bin heiß.“ – ein peinlicher Moment
-0:00 Intro: Das sagt kein Deutscher
-0:00 1 · „Ich bin heiß“ → „Mir ist heiß“
-0:00 2 · „Ich bin voll“ → „Ich bin satt“
-0:00 3 · „Ich habe 25 Jahre“ → „Ich bin 25“
-0:00 Kernfrage 1
-0:00 4 · „zu Hause“ oder „nach Hause“?
-0:00 5 · „Ich warte für dich“ → „auf dich“
-0:00 6 · wann, wenn oder als?
-0:00 7 · „Ich will ein Bier“ → „Ich hätte gern …“ (bekommen ≠ become)
-0:00 Kernfrage 2
-0:00 8 · „Und Ihnen?“ – Smalltalk unter Freunden
-0:00 9 · „Auf Wiedersehen“ → Tschüss, Servus, Tschö
-0:00 10 · „Ich bin fertig“ – zwei Bedeutungen
-0:00 11 · „Das macht Sinn“ oder „Das ergibt Sinn“?
-0:00 Kernfrage 3
-0:00 12 · „Ja“ oder „Doch“? (sogar C1 macht hier Fehler)
-0:00 Der Kern der Sache – alles in einer Minute
-0:00 Hausaufgabe & Tschüss
+0:22 Intro: Das sagt kein Deutscher
+0:50 1 · „Ich bin heiß“ → „Mir ist heiß“
+1:29 2 · „Ich bin voll“ → „Ich bin satt“
+2:11 3 · „Ich habe 25 Jahre“ → „Ich bin 25“
+2:42 Kernfrage 1
+3:09 4 · „zu Hause“ oder „nach Hause“?
+3:40 5 · „Ich warte für dich“ → „auf dich“
+4:07 6 · wann, wenn oder als?
+4:52 7 · „Ich will ein Bier“ → „Ich hätte gern …“ (bekommen ≠ become)
+5:34 Kernfrage 2
+6:15 8 · „Und Ihnen?“ – Smalltalk unter Freunden
+7:04 9 · „Auf Wiedersehen“ → Tschüss, Servus, Tschö
+7:37 10 · „Ich bin fertig“ – zwei Bedeutungen
+8:13 11 · „Das macht Sinn“ oder „Das ergibt Sinn“?
+8:56 Kernfrage 3
+9:26 12 · „Ja“ oder „Doch“? (sogar C1 macht hier Fehler)
+10:21 Der Kern der Sache – alles in einer Minute
+11:08 Hausaufgabe & Tschüss
 
 📚 Das lernst du in diesem Video
 • Mir ist heiß / kalt / langweilig (Dativ statt „ich bin“)
@@ -65,7 +65,6 @@ Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier
 #DeutschLernen #DeutschMitMelo #TypischeFehler #LearnGerman #Deutsch
 ```
 
-> Hinweis: Die Zeitmarken (0:00) nach dem Rendern aus `build/alignment.json` eintragen (Anfangszeit des ersten Worts nach jeder `##`-Überschrift im Skript). Die erste Marke muss 0:00 sein, mindestens 3 Kapitel, jedes ≥ 10 s.
 
 ## Tags (22)
 ```
