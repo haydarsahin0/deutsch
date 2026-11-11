@@ -84,12 +84,31 @@ function buildSubs(words, maxChars = 42) {
       }
       s.lines = [s.words.slice(0, best), s.words.slice(best)];
     } else s.lines = [s.words];
+    s.lines = s.lines.map(l => l.map(i2 => ({ text: (words[i2].raw || words[i2].text), w: i2 })));
     const next = subs[i + 1];
     s.end = Math.max(s.end + 0.35, s.start + 1.0);
     if (next) s.end = Math.min(s.end, next.start - 0.02);
     s.start = r3(Math.max(0, s.start - 0.08)); s.end = r3(s.end);
   }
   return subs;
+}
+
+// alignment.subtitles [{start,end,lines:[str],words:[i,j]}] → [{start,end,lines:[[{text,w}]]}]
+// (w = word index for karaoke highlighting; punctuation-only tokens such as "–" get w = null)
+function subsFromAlignment(subs, words, duration) {
+  const out = [];
+  for (const s of subs) {
+    if (s.start > duration) continue;
+    let wi = s.words ? s.words[0] : null;
+    const lines = (s.lines || []).map(line => line.split(/\s+/).filter(Boolean).map(tok => {
+      const isW = /[\p{L}\p{N}]/u.test(tok);
+      const o = { text: tok, w: isW && wi != null && (!s.words || wi <= s.words[1]) ? wi : null };
+      if (isW && wi != null) wi++;
+      return o;
+    }));
+    out.push({ start: r3(s.start), end: r3(Math.min(s.end, duration)), lines });
+  }
+  return out;
 }
 
 function compile(ep, opts = {}) {
@@ -104,7 +123,7 @@ function compile(ep, opts = {}) {
   }
   const AL = JSON.parse(fs.readFileSync(alPath, 'utf8'));
   const words = (AL.words || []).map((w, i) => ({ i: w.i != null ? w.i : i, text: w.text, start: +w.start, end: +w.end }));
-  let audio = AL.source && fs.existsSync(AL.source) ? AL.source : findAudio(ep);
+  let audio = AL.source && fs.existsSync(AL.source) ? AL.source : (AL.audio && fs.existsSync(path.join(ep, AL.audio)) ? path.join(ep, AL.audio) : findAudio(ep));
   if (AL.source && !fs.existsSync(AL.source) && fs.existsSync(path.join(ep, AL.source))) audio = path.join(ep, AL.source);
   const audioDur = audio ? probeDuration(audio) : null;
   let duration = Math.min(AL.duration || Infinity, audioDur || Infinity);
@@ -294,8 +313,13 @@ function compile(ep, opts = {}) {
       el.items.forEach(it => { it.dur = r3(writeDur(it.text)); });
       // list without reveals (pending `next` beyond partial end) keeps hidden items
     }
-    if (el.type === 'quiz' && el.reveal != null && el.countdown != null) el.countdownEnd = r3(Math.min(el.countdown + el.seconds, el.reveal));
-    else if (el.type === 'quiz') el.countdownEnd = r3(el.countdown + el.seconds);
+    if (el.type === 'quiz') {
+      el.countdownEnd = r3(el.countdown + el.seconds);
+      // the countdown runs in the inserted silence; never reveal before it ends (dev audio without silence: cap)
+      if (el.reveal != null && el.reveal < el.countdownEnd) {
+        if (el.countdownEnd - el.reveal < 6) el.reveal = el.countdownEnd; else el.countdownEnd = el.reveal;
+      }
+    }
     if (el.erase != null) el.eraseEnd = r3(el.erase + (el.eraseBy === 'scene' ? ERASE_DUR : el.eraseBy === 'ink' ? 0 : ELEM_ERASE_DUR));
   }
 
@@ -337,9 +361,10 @@ function compile(ep, opts = {}) {
 
   // chapters from '## N – …' / '## Kernfrage N' headings
   const chapters = [];
+  if (AL.sections && AL.sections.length && AL.sections.every(s => isFinite(s.t))) sections = AL.sections.map(s => ({ ...s, cue: -1 }));
   for (const s of sections) {
-    let t = null;
-    const sc = scriptCues[s.cue];
+    let t = isFinite(s.t) ? s.t : null;
+    const sc = t == null ? scriptCues[s.cue] : null;
     if (sc) {
       const match = cues.find(c => c.k === s.cue && c.cue === sc.cue) || cues.find(c => (c.word || 0) >= s.word);
       if (match) t = match.t;
@@ -365,7 +390,7 @@ function compile(ep, opts = {}) {
     cues: live.map(c => ({ cue: c.cue, args: c.args, word: c.word, t: c.t })),
     words: words.filter(w => w.start <= duration),
     sentences: (AL.sentences || []).filter(s => s.start <= duration),
-    subs: buildSubs(words.filter(w => w.start <= duration))
+    subs: AL.subtitles && AL.subtitles.length ? subsFromAlignment(AL.subtitles, words, duration) : buildSubs(words.filter(w => w.start <= duration))
   };
   fs.writeFileSync(path.join(build, 'timeline.json'), JSON.stringify(TL, null, 1));
   fs.writeFileSync(path.join(build, 'timeline.js'), 'window.TIMELINE = ' + JSON.stringify({ ...TL, envelope }) + ';\n');
