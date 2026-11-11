@@ -16,3 +16,4 @@ shorts/*/out/*.mp4
 shorts/*/build/
 shorts/*/out/*.mp4
 shorts/*/render.log
+episodes/*/assemble.log
