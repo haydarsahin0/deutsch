@@ -15,6 +15,14 @@
    "trim_start": 0.0,
    "trim_end": 281.8874,
    "offset": 274.479
+  },
+  {
+   "file": "audio/teil-3.mp3",
+   "sha1": "b1fe4a30b35581f6270222219622aa362e87f740",
+   "source_duration": 124.761,
+   "trim_start": 0.0,
+   "trim_end": 124.7608,
+   "offset": 556.7164
   }
  ],
  "gap": 0.35,
@@ -33,15 +41,85 @@
    "pause_s": 5.0,
    "word": 985,
    "gap_before": 0.52
+  },
+  {
+   "at": 560.595,
+   "dur": 1.645,
+   "pause_s": 2.0,
+   "word": 1330,
+   "gap_before": 0.355
+  },
+  {
+   "at": 564.135,
+   "dur": 1.605,
+   "pause_s": 2.0,
+   "word": 1338,
+   "gap_before": 0.395
+  },
+  {
+   "at": 569.475,
+   "dur": 1.595,
+   "pause_s": 2.0,
+   "word": 1348,
+   "gap_before": 0.405
+  },
+  {
+   "at": 573.765,
+   "dur": 1.635,
+   "pause_s": 2.0,
+   "word": 1359,
+   "gap_before": 0.365
+  },
+  {
+   "at": 579.11,
+   "dur": 1.645,
+   "pause_s": 2.0,
+   "word": 1374,
+   "gap_before": 0.355
+  },
+  {
+   "at": 581.445,
+   "dur": 1.605,
+   "pause_s": 2.0,
+   "word": 1378,
+   "gap_before": 0.395
+  },
+  {
+   "at": 584.24,
+   "dur": 1.6,
+   "pause_s": 2.0,
+   "word": 1382,
+   "gap_before": 0.4
+  },
+  {
+   "at": 588.7,
+   "dur": 1.71,
+   "pause_s": 2.0,
+   "word": 1393,
+   "gap_before": 0.29
+  },
+  {
+   "at": 592.4,
+   "dur": 1.695,
+   "pause_s": 2.0,
+   "word": 1401,
+   "gap_before": 0.305
+  },
+  {
+   "at": 600.365,
+   "dur": 4.65,
+   "pause_s": 5.0,
+   "word": 1420,
+   "gap_before": 0.35
   }
  ],
  "loudness": {
-  "input_lufs": -20.31,
+  "input_lufs": -20.34,
   "input_true_peak": -1.65,
-  "gain_db": 4.31,
+  "gain_db": 4.34,
   "limiter": true,
   "target_lufs": -16.0
  },
- "voice_sha1": "af172bc71bc734006044af1fdefe2587abeefd0a",
- "duration": 565.096
+ "voice_sha1": "5b3e03caba05d3c9d9fdade1385e482d6ff8a779",
+ "duration": 709.592
 }
