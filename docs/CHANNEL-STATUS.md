@@ -19,9 +19,10 @@ _Last update: 2026-11-11_
 | 2026-11-12 | Short „Ich bin voll“ | ready, delivered to owner | `shorts/02-ich-bin-voll/` |
 | 2026-11-13 | Short „Ich will ein Bier“ | ready, delivered | `shorts/03-ich-will-ein-bier/` |
 | 2026-11-14 | Short „Doch!“ | ready, delivered | `shorts/05-doch/` |
-| 2026-11-15 | Long #2 | ⏳ topic not chosen yet | — |
+| 2026-11-15 | Long #2 „Von A1 zu C1: 7 Abkürzungen, die dir kein Kurs verrät“ | ✍️ script + meta draft done (1,629 words ≈ 11 min); waiting for owner's ElevenLabs audio (3 parts) | `episodes/02-von-a1-zu-c1/` |
 | spare | Short „Tschüss/Servus“ (map) | config only, not rendered | `shorts/04-tschuess-servus/` |
 
 ## Next
-- Episode 2: owner to pick the topic. Candidates (growth analyst): „10 Redewendungen, die jeder Deutsche benutzt“ (recommended), „Verben mit Präpositionen“, „doch / mal / halt / eben“. Then skill `melo-episode`.
+- Episode 2 (topic chosen by owner: fastest way A1 → C1, original tips, no clichés): script done. Next: owner records `tts-elevenlabs/teil-1..3.txt` → `assemble-audio.py` → director pass → render → thumbnail → 3 Shorts (candidates at the end of `meta.md`: „Hamwa noch Milch?“, Live-Kommentar „Keine Milch!“, „So klingt B2 – so klingt C1“).
+- Topic backlog (growth analyst): „10 Redewendungen, die jeder Deutsche benutzt“, „Verben mit Präpositionen“, „doch / mal / halt / eben“.
 - Next stats check-ins: 2026-11-13 evening and 2026-11-18 (skill `melo-growth`).
