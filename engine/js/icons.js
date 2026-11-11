@@ -284,6 +284,101 @@
   I.stethoscope = function () { return { strokes: [S([[30, 10], [26, 44], [40, 66], [56, 66], [70, 44], [66, 10]], 'w', 1.3), S([[48, 66], [48, 82], [62, 90]], 'w', 1.3), S(circ(70, 88, 8), 'w', 1.2)], fills: [F(circ(70, 88, 8), 'y')] }; };
   I['subscribe-button'] = function () { var b = rrect(6, 30, 88, 40, 10); return { strokes: [S(b, 'w', 1.3), S([[18, 40], [18, 60], [34, 50], [18, 40]], 'w', 1.1), S([[42, 50], [84, 50]], 'w', 0.8)], fills: [F(b, 'r')] }; };
   I.toolbox = function () { var b = [[8, 40], [92, 40], [92, 86], [8, 86]]; return { strokes: [S(b.concat([[8, 40]]), 'w', 1.2), S([[34, 40], [36, 24], [64, 24], [66, 40]], 'w', 1.2), S([[8, 56], [92, 56]], 'w', 0.9), S([[44, 50], [56, 50]], 'y', 1.2)], fills: [F(b, 'r')] }; };
+  // ── layered props: back→front; strokes of a layer are hidden where a later layer's outline covers them
+  function rot(pts, cx, cy, deg) { var a = deg * Math.PI / 180, c = Math.cos(a), s = Math.sin(a); return pts.map(function (q) { var dx = q[0] - cx, dy = q[1] - cy; return [cx + dx * c - dy * s, cy + dx * s + dy * c]; }); }
+  function inPoly(q, P) { var r = false; for (var i = 0, j = P.length - 1; i < P.length; j = i++) { if ((P[i][1] > q[1]) !== (P[j][1] > q[1]) && q[0] < (P[j][0] - P[i][0]) * (q[1] - P[i][1]) / (P[j][1] - P[i][1]) + P[i][0]) r = !r; } return r; }
+  function dens(pts, st) { var o = [pts[0]]; for (var i = 1; i < pts.length; i++) { var a = pts[i - 1], b = pts[i], n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / st)); for (var k = 1; k <= n; k++) o.push([a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n]); } return o; }
+  function layered(L) {
+    var st = [], fl = [];
+    L.forEach(function (l, i) {
+      var cov = L.slice(i + 1).map(function (m) { return m.o; }).filter(Boolean);
+      (l.f || []).forEach(function (f) { fl.push(f); });
+      (l.s || []).forEach(function (s) {
+        if (!cov.length) { st.push(s); return; }
+        var cur = [];
+        dens(s.pts, 1.5).forEach(function (q) { if (cov.some(function (c) { return inPoly(q, c); })) { if (cur.length > 1) st.push(S(cur, s.col, s.w)); cur = []; } else cur.push(q); });
+        if (cur.length > 1) st.push(S(cur, s.col, s.w));
+      });
+    });
+    return { strokes: st, fills: fl };
+  }
+  function qmark(cx, cy, k, col, w) { return [S(arc(cx, cy - 6 * k, 6 * k, 6 * k, 195, 400, 14).concat([[cx, cy + 2 * k], [cx, cy + 5 * k]]), col, w), S(circ(cx, cy + 10 * k, 1.2 * k), col, w)]; }
+  function euro(cx, cy, k, col) { return [S(arc(cx + 1 * k, cy, 6 * k, 7 * k, 40, 320, 14), col, 1), S([[cx - 7 * k, cy - 2 * k], [cx + 2 * k, cy - 2 * k]], col, 0.8), S([[cx - 7 * k, cy + 2 * k], [cx + 1 * k, cy + 2 * k]], col, 0.8)]; }
+  I['flashcard-pile'] = function () {
+    var C = [[28, 80, -9, 'w', 0], [72, 82, 11, 'y', 1], [50, 84, 2, 'w', 0], [33, 64, -20, 'p', 1], [66, 63, 15, 'w', 1], [49, 50, -4, 'y', 0], [42, 36, 21, 'w', 1], [78, 28, 38, 'b', 1], [56, 30, -12, 'w', 1]];
+    return layered(C.map(function (c, i) {
+      var x = c[0], y = c[1], o = rot(rect(x - 20, y - 13, 40, 26), x, y, c[2]), s = [S(o, 'w', 1.1)];
+      if (c[4]) {
+        s.push(S(rot([[x - 13, y - 4], [x - 9, y - 7], [x - 5, y - 3], [x - 1, y - 7], [x + 3, y - 3], [x + 7, y - 6]], x, y, c[2]), 'w', 0.7));
+        s.push(S(rot(i % 2 ? [[x - 13, y + 4], [x - 7, y + 2], [x - 2, y + 5], [x + 4, y + 2]] : [[x - 13, y + 4], [x + 10, y + 4]], x, y, c[2]), i % 3 ? 'w' : 'r', 0.7));
+      }
+      return { o: o, s: s, f: [F(o, c[3])] };
+    }));
+  };
+  I['money-bills'] = function () {
+    var B = [[40, 40, -16, 'o'], [50, 52, -4, 'b'], [56, 64, 9, 'g']];
+    var L = B.map(function (b, i) {
+      var x = b[0], y = b[1], o = rot(rect(x - 32, y - 18, 64, 36), x, y, b[2]);
+      var s = [S(o, 'w', 1.2), S(rot(rect(x - 27, y - 13, 54, 26), x, y, b[2]), 'w', 0.6), S(rot(circ(x, y, 9), x, y, 0), 'w', 0.8)];
+      if (i === 2) s = s.concat(euro(x + 1, y, 1, 'w'), [S(rot([[x - 22, y - 8], [x - 14, y - 8]], x, y, b[2]), 'w', 0.8), S(rot([[x + 14, y + 8], [x + 22, y + 8]], x, y, b[2]), 'w', 0.8)]);
+      return { o: o, s: s, f: [F(o, b[3])] };
+    });
+    var coin = circ(84, 84, 11);
+    L.push({ o: coin, s: [S(coin, 'w', 1.2)].concat(euro(84, 84, 0.8, 'w')), f: [F(coin, 'y')] });
+    return layered(L);
+  };
+  I['emergency-box'] = function () {
+    var b = rrect(12, 34, 76, 56, 7), cx = 50, cy = 63, a = 6, l = 16;
+    var cross = [[cx - a, cy - l], [cx + a, cy - l], [cx + a, cy - a], [cx + l, cy - a], [cx + l, cy + a], [cx + a, cy + a], [cx + a, cy + l], [cx - a, cy + l], [cx - a, cy + a], [cx - l, cy + a], [cx - l, cy - a], [cx - a, cy - a], [cx - a, cy - l]];
+    return { strokes: [S([[36, 34], [36, 22], [64, 22], [64, 34]], 'w', 1.4), S(b, 'w', 1.3), S([[12, 42], [88, 42]], 'w', 0.8), S(rect(46, 38, 8, 6), 'w', 0.8), S(cross, 'r', 1.2)],
+      fills: [F(b, 'w'), F(cross, 'r')] };
+  };
+  I.ladder = function () {
+    function xl(y, o) { return 26 + o + 7 * (94 - y) / 86; } function xr(y, o) { return 74 - o - 7 * (94 - y) / 86; }
+    var rl = [[xl(94, 0), 94], [xl(8, 0), 8], [xl(8, 6), 8], [xl(94, 6), 94]], rr = [[xr(94, 0), 94], [xr(8, 0), 8], [xr(8, 6), 8], [xr(94, 6), 94]];
+    var s = [S(rl.concat([rl[0]]), 'w', 1.2), S(rr.concat([rr[0]]), 'w', 1.2)], f = [F(rl, 'o'), F(rr, 'o')];
+    [28, 51, 74].forEach(function (y) { var r = [[xl(y, 6), y - 3], [xr(y, 6), y - 3], [xr(y + 3, 6), y + 3], [xl(y + 3, 6), y + 3]]; s.push(S(r.concat([r[0]]), 'w', 1)); f.push(F(r, 'o')); });
+    s.push(S([[16, 96], [84, 96]], 'w', 0.6));
+    return { strokes: s, fills: f };
+  };
+  I.keys = function () {
+    function key(hx, hy, deg, col) {
+      var head = rot(circ(hx, hy, 10), hx, hy, 0), shaft = rot([[hx + 9, hy - 3], [hx + 48, hy - 3], [hx + 48, hy + 3], [hx + 9, hy + 3]], hx, hy, deg);
+      var teeth = rot([[hx + 33, hy + 3], [hx + 33, hy + 10], [hx + 38, hy + 10], [hx + 38, hy + 6], [hx + 42, hy + 6], [hx + 42, hy + 11], [hx + 48, hy + 11], [hx + 48, hy + 3]], hx, hy, deg);
+      var hole = rot(circ(hx - 4, hy, 3), hx, hy, deg);
+      return [{ o: shaft, s: [S(shaft, 'w', 1.1), S(teeth, 'w', 1.1)], f: [F(shaft, col), F(teeth, col)] }, { o: head, s: [S(head, 'w', 1.2), S(hole, 'w', 0.9)], f: [F(head, col), F(hole, 'k')] }];
+    }
+    var L = key(34.9, 38.1, 100, 'w').concat(key(49.1, 36.4, 50, 'y'));
+    L.push({ s: [S(circ(40, 22, 13), 'w', 1.4)] });
+    return layered(L);
+  };
+  I['moving-boxes'] = function () {
+    var bf = [[10, 58], [68, 58], [68, 94], [10, 94]], bs = [[68, 58], [88, 47], [88, 83], [68, 94]], bt = [[10, 58], [30, 47], [88, 47], [68, 58]];
+    var tf = [[22, 26], [62, 26], [62, 54], [22, 54]], ts = [[62, 26], [78, 17], [78, 45], [62, 54]], tt = [[22, 26], [38, 17], [78, 17], [62, 26]];
+    var tape1 = [[40, 26], [46, 26], [46, 36], [40, 36]], tape2 = [[36, 17], [42, 17], [46, 26], [40, 26]], tape3 = [[33, 58], [39, 58], [39, 68], [33, 68]];
+    function cl(p) { return p.concat([p[0]]); }
+    return layered([
+      { o: bf.concat([[68, 94], [88, 83], [88, 47], [30, 47]]), s: [S(cl(bt), 'w', 1.1), S(cl(bs), 'w', 1.2), S(cl(bf), 'w', 1.2), S(cl(tape3), 'w', 0.7), S(rect(46, 72, 16, 12), 'w', 0.8), S([[49, 76], [59, 76]], 'w', 0.6), S([[49, 80], [56, 80]], 'w', 0.6)], f: [F(bt, 'y'), F(bs, 'o'), F(bf, 'o'), F(tape3, 'w'), F(rect(46, 72, 16, 12), 'w')] },
+      { o: tf.concat([[62, 54], [78, 45], [78, 17], [38, 17]]), s: [S(cl(tt), 'w', 1.1), S(cl(ts), 'w', 1.2), S(cl(tf), 'w', 1.2), S(cl(tape2), 'w', 0.7), S(cl(tape1), 'w', 0.7), S([[70, 30], [70, 38]], 'w', 0.6)], f: [F(tt, 'y'), F(ts, 'o'), F(tf, 'o'), F(tape2, 'w'), F(tape1, 'w')] }
+    ]);
+  };
+  I.headphones = function () {
+    var outer = arc(50, 60, 34, 44, 180, 360, 30), inner = arc(50, 60, 27, 37, 360, 180, 30), band = outer.concat(inner);
+    var cl = rrect(8, 54, 20, 32, 8), cr = rrect(72, 54, 20, 32, 8), pl = rrect(26, 58, 7, 24, 3), pr = rrect(67, 58, 7, 24, 3);
+    return layered([
+      { s: [S(band.concat([band[0]]), 'w', 1.2)], f: [F(band, 'w')] },
+      { o: cl, s: [S(cl, 'w', 1.3), S(pl, 'w', 1), S([[14, 64], [14, 76]], 'w', 0.6)], f: [F(cl, 'r'), F(pl, 'k')] },
+      { o: cr, s: [S(cr, 'w', 1.3), S(pr, 'w', 1), S([[86, 64], [86, 76]], 'w', 0.6), S([[82, 86], [84, 94], [74, 96], [66, 92]], 'w', 0.9)], f: [F(cr, 'r'), F(pr, 'k')] }
+    ]);
+  };
+  I['letters-no-address'] = function () {
+    function env(x, y, w, h, deg, col, big) {
+      var o = rot(rect(x - w / 2, y - h / 2, w, h), x, y, deg), st = rot(rect(x + w / 2 - 15, y - h / 2 + 4, 11, 13), x, y, deg);
+      var q = qmark(x - 2, y - 1, big, 'r', 1.7).map(function (s) { return S(rot(s.pts, x, y, deg), s.col, s.w); });
+      return { o: o, s: [S(o, 'w', 1.2), S(st, 'w', 0.8), S(rot([[x + w / 2 - 13, y - h / 2 + 9], [x + w / 2 - 6, y - h / 2 + 9]], x, y, deg), 'w', 0.5)].concat(q), f: [F(o, col), F(st, 'b')] };
+    }
+    return layered([env(40, 34, 60, 40, -12, 'w', 1.1), env(58, 64, 70, 46, 7, 'y', 1.5)]);
+  };
   I.calendar = I.calendar; I.coffee = I.coffee; I.phone = I.phone; I.pizza = I.pizza;
   I.doodle = function () { // generic fallback: a sparkle burst
     var s = [];
