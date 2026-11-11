@@ -4,7 +4,7 @@ Generated from `script.md` (cues) + `build/alignment.json` (word times); one row
 Visual flow v2: new shot every ~3–5 s; every situation is acted out by the cast; Melo is a presenter who is sometimes there and sometimes not.
 Regenerate after cue edits (QA script: shot stats, Melo visibility, vocabulary check).
 
-**Stats:** 190 shots · Ø 3.65 s per shot · longest non-quiz shot 7.9 s (quiz shots 13–15 s incl. 5-s countdown) · max. 3.4 s without a new visual event outside the quiz countdowns · Melo visible 54.7 % · max. 2× the same shot type in a row.
+**Stats:** 190 shots · Ø 3.65 s per shot · longest non-quiz shot 7.9 s (quiz shots 13–15 s incl. 5-s countdown) · max. 4.0 s without a new visual event outside the quiz shots · Melo visible 54.7 % · max. 2× the same shot type in a row.
 **Shot types:** scene 71 · text 51 · melo 20 · list 15 · chapter 14 · split 7 · board 6 · quiz 3 · map 3.
 **Melo modes:** off 95 · in-scene 46 · medium 20 · side 19 · corner 10.
 
@@ -65,7 +65,7 @@ Legend: *Melo* = `off` / `corner-*` (small narrator) / `side-*` (next to text/bo
 | 46 | 2:32.3 | 3.1s | text/question |  | side-right | „Wie alt bist du?“ · fx zoom-punch |
 | 47 | 2:35.4 | 6.6s | scene | living-room · kumpel,  oma | in-scene:right | kumpel: „Wie alt ist deine Oma?“ · melo: „Sie wird nächste Woche 90.“ · prop birthday-cake-90 · cam push→oma · oma laughing |
 | | | | **Kernfrage 1** | | | |
-| 48 | 2:42.0 | 2.2s | chapter |  | – | Nr. None · „Kernfrage 1“ · fx sparkle |
+| 48 | 2:42.0 | 2.2s | chapter |  | – | „Kernfrage 1“ · fx sparkle |
 | 49 | 2:44.3 | 2.0s | scene | winter-room | in-scene:center | cam push · prop broken-radiator · fx shake |
 | 50 | 2:46.2 | 13.1s | quiz |  | off | Quiz: Winter. Heizung kaputt. Was sagst du? · highlight q1 · highlight q1 · highlight q1 · reveal q1 |
 | 51 | 2:59.3 | 4.1s | text/wrong |  | off | „Ich habe kalt.“ · (= Spanisch mit deutschen Wörtern) · prop flag-es · prop flag-fr |
@@ -183,7 +183,7 @@ Legend: *Melo* = `off` / `corner-*` (small narrator) / `side-*` (next to text/bo
 | 152 | 8:59.4 | 14.3s | quiz |  | corner-right | Quiz: … ich gestern nach Hause kam, war die Tür offen. · fx question-marks · highlight q3 · highlight q3 · highlight q3 · reveal q3 |
 | 153 | 9:13.7 | 2.3s | text/stack |  | off | „gestern/einmal/Vergangenheit“ |
 | 154 | 9:16.0 | 3.1s | scene | doorstep | in-scene:center | cam push · right: Als ich gestern nach Hause kam, … · fx question-marks |
-| 155 | 9:19.1 | 4.8s | split |  | corner-left | ✗ zu Hause ↔ ✓ nach Hause |
+| 155 | 9:19.1 | 4.8s | split |  | corner-left | ✗ zu Hause ↔ ✓ nach Hause · tick sp12 |
 | 156 | 9:23.9 | 2.2s | melo |  | medium | prop fly-swatter · fx shake |
 | | | | **12 – „Ja!“ statt „Doch!“** | | | |
 | 157 | 9:26.1 | 2.1s | chapter |  | – | Nr. 12 · „Das eine Wort“ |
@@ -202,7 +202,7 @@ Legend: *Melo* = `off` / `corner-*` (small narrator) / `side-*` (next to text/bo
 | 170 | 10:15.1 | 4.0s | list |  | side-right | „„Doch“ ist …“ · list: kurz/klar/ein bisschen rechthaberisch · next l12 · next l12 · next l12 |
 | 171 | 10:19.1 | 2.0s | melo |  | medium | fx sparkle |
 | | | | **Der Kern der Sache** | | | |
-| 172 | 10:21.1 | 3.9s | chapter |  | – | Nr. None · „Der Kern der Sache“ |
+| 172 | 10:21.1 | 3.9s | chapter |  | – | „Der Kern der Sache“ |
 | 173 | 10:25.0 | 6.3s | list |  | side-right | „Der Kern der Sache“ · list: Mir ist heiß./Ich bin satt. · next recap1 · next recap1 |
 | 174 | 10:31.3 | 4.0s | scene | cellar | off | cam push · prop boxes-25-jahre · right: Ich bin 25. · fx record-scratch |
 | 175 | 10:35.3 | 6.9s | list |  | off | „Der Kern der Sache“ · list: nach Hause · zu Hause/warten auf · next recap2 · next recap2 |

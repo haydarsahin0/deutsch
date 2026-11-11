@@ -197,7 +197,7 @@ Nummer elf ist für die Fortgeschrittenen: „Das macht Sinn.“
 
 [[reveal id=q3]] [[melo expr=talking pose=point look=viewer]] „Als“! [[shot type=text style=stack text="gestern|einmal|Vergangenheit" melo=off]] Gestern, einmal, Vergangenheit: [[shot type=scene set=doorstep melo=in-scene:center cam=push]] [[draw type=right id=r12q text="Als ich gestern nach Hause kam, …"]] „Als ich gestern nach Hause kam, war die Tür [[fx name=question-marks]] offen.“
 
-[[shot type=split left="zu Hause" right="nach Hause" leftLabel="nicht" rightLabel="sondern" melo=corner-left in=cut]] [[melo expr=smirk pose=idle]] Und hast du's gemerkt? „Nach Hause“, nicht „zu Hause“. [[shot type=melo framing=medium bg=mustard]] [[voice tag="proud"]] Zwei Fliegen mit einer [[prop id=swatter name=fly-swatter at=right anim=wiggle]] [[fx name=shake]] Klappe.
+[[shot type=split id=sp12 left="zu Hause" right="nach Hause" leftLabel="nicht" rightLabel="sondern" melo=corner-left in=cut]] [[melo expr=smirk pose=idle]] Und hast du's gemerkt? [[tick id=sp12]] „Nach Hause“, nicht „zu Hause“. [[shot type=melo framing=medium bg=mustard]] [[voice tag="proud"]] Zwei Fliegen mit einer [[prop id=swatter name=fly-swatter at=right anim=wiggle]] [[fx name=shake]] Klappe.
 
 ## 12 – „Ja!“ statt „Doch!“
 [[shot type=chapter num=12 title="Das eine Wort" in=zoom]] [[melo expr=smirk pose=finger look=viewer]]
