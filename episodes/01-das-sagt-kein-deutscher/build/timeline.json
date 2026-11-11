@@ -138,10 +138,10 @@
      "end": 6.355,
      "w0": 10,
      "w1": 11,
-     "maxDur": 2.64
+     "maxDur": 2.56
     },
     {
-     "t": 7.785,
+     "t": 7.415,
      "who": "melo",
      "text": "Ich bin heiß.",
      "id": null,
@@ -149,7 +149,7 @@
      "end": 8.66,
      "w0": 15,
      "w1": 17,
-     "maxDur": 0.605
+     "maxDur": 0.895
     }
    ],
    "props": [
@@ -792,7 +792,7 @@
      "end": 39.65,
      "w0": null,
      "w1": null,
-     "maxDur": 1.2
+     "maxDur": 1.12
     }
    ],
    "props": [],
@@ -1155,7 +1155,7 @@
      "end": 56.61,
      "w0": 141,
      "w1": 143,
-     "maxDur": 1.2
+     "maxDur": 1.12
     }
    ],
    "props": [
@@ -1472,7 +1472,7 @@
    ],
    "says": [
     {
-     "t": 80.76,
+     "t": 80.325,
      "who": "kumpel",
      "text": "… und dann meine Steuererklärung …",
      "id": null,
@@ -1480,7 +1480,7 @@
      "end": 82.56,
      "w0": null,
      "w1": null,
-     "maxDur": 1.365
+     "maxDur": 1.72
     }
    ],
    "props": [
@@ -1607,7 +1607,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 95.81,
+     "t": 95.295,
      "who": "schwiegermutter",
      "text": "Noch ein bisschen?",
      "id": null,
@@ -1615,7 +1615,7 @@
      "end": 96.48,
      "w0": 232,
      "w1": 234,
-     "maxDur": 0.3
+     "maxDur": 0.69
     }
    ],
    "props": [
@@ -1680,7 +1680,7 @@
    ],
    "says": [
     {
-     "t": 97.9,
+     "t": 97.51,
      "who": "melo",
      "text": "Nein danke, ich bin voll.",
      "id": null,
@@ -1688,7 +1688,7 @@
      "end": 99.315,
      "w0": 238,
      "w1": 242,
-     "maxDur": 1.125
+     "maxDur": 1.435
     }
    ],
    "props": [],
@@ -1912,10 +1912,10 @@
      "end": 112.48,
      "w0": 272,
      "w1": 274,
-     "maxDur": 2.925
+     "maxDur": 2.845
     },
     {
-     "t": 113.72,
+     "t": 113.32,
      "who": "melo",
      "text": "Ich kann nicht mehr.",
      "id": null,
@@ -1923,7 +1923,7 @@
      "end": 114.625,
      "w0": 277,
      "w1": 280,
-     "maxDur": 0.605
+     "maxDur": 0.925
     }
    ],
    "props": [
@@ -2113,7 +2113,7 @@
    ],
    "says": [
     {
-     "t": 125.275,
+     "t": 124.71,
      "who": "kumpel",
      "text": "Ich bin so voll.",
      "id": null,
@@ -2121,7 +2121,7 @@
      "end": 126.515,
      "w0": 309,
      "w1": 312,
-     "maxDur": 0.775
+     "maxDur": 1.26
     }
    ],
    "props": [],
@@ -2681,7 +2681,7 @@
      "end": 157.895,
      "w0": 387,
      "w1": 391,
-     "maxDur": 4.48
+     "maxDur": 4.4
     },
     {
      "t": 158.34,
@@ -2692,7 +2692,7 @@
      "end": 159.78,
      "w0": 392,
      "w1": 396,
-     "maxDur": 2.885
+     "maxDur": 2.805
     }
    ],
    "props": [
@@ -3080,7 +3080,7 @@
    ],
    "says": [
     {
-     "t": 193.535,
+     "t": 193.19,
      "who": "melo",
      "text": "Ich gehe zu Hause.",
      "id": null,
@@ -3088,7 +3088,7 @@
      "end": 194.43,
      "w0": 463,
      "w1": 466,
-     "maxDur": 0.65
+     "maxDur": 0.915
     }
    ],
    "props": [
@@ -3296,10 +3296,10 @@
      "end": 209.055,
      "w0": 495,
      "w1": 500,
-     "maxDur": 3.395
+     "maxDur": 3.315
     },
     {
-     "t": 209.455,
+     "t": 209.09,
      "who": "melo",
      "text": "Nein, ich gehe erst um elf nach Hause.",
      "id": null,
@@ -3307,7 +3307,7 @@
      "end": 211.395,
      "w0": 501,
      "w1": 508,
-     "maxDur": 1.675
+     "maxDur": 1.96
     }
    ],
    "props": [
@@ -3630,7 +3630,7 @@
      "end": 230.41,
      "w0": 565,
      "w1": 565,
-     "maxDur": 0.835
+     "maxDur": 0.755
     }
    ],
    "props": [],
@@ -3835,7 +3835,7 @@
      "end": 243.22,
      "w0": 594,
      "w1": 600,
-     "maxDur": 5.04
+     "maxDur": 4.96
     }
    ],
    "props": [
@@ -4235,7 +4235,7 @@
      "end": 279.815,
      "w0": 697,
      "w1": 703,
-     "maxDur": 1.795
+     "maxDur": 1.715
     }
    ],
    "props": [
@@ -4472,7 +4472,7 @@
    ],
    "says": [
     {
-     "t": 295.835,
+     "t": 295.5,
      "who": "melo",
      "text": "Ich will ein Bier.",
      "id": null,
@@ -4480,7 +4480,7 @@
      "end": 296.49,
      "w0": 742,
      "w1": 745,
-     "maxDur": 0.42
+     "maxDur": 0.675
     }
    ],
    "props": [],
@@ -4576,7 +4576,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 301.425,
+     "t": 300.995,
      "who": "kind",
      "text": "Ich will ein Eis!",
      "id": null,
@@ -4584,7 +4584,7 @@
      "end": 302.835,
      "w0": 759,
      "w1": 762,
-     "maxDur": 1.08
+     "maxDur": 1.43
     }
    ],
    "props": [
@@ -4685,10 +4685,10 @@
      "end": 312.575,
      "w0": 786,
      "w1": 788,
-     "maxDur": 3.485
+     "maxDur": 3.405
     },
     {
-     "t": 314.66,
+     "t": 314.18,
      "who": "melo",
      "text": "Ich hätte gern ein Radler.",
      "id": null,
@@ -4696,7 +4696,7 @@
      "end": 315.74,
      "w0": 794,
      "w1": 798,
-     "maxDur": 0.7
+     "maxDur": 1.1
     }
    ],
    "props": [
@@ -4878,7 +4878,7 @@
      "end": 324.965,
      "w0": 816,
      "w1": 820,
-     "maxDur": 1.895
+     "maxDur": 1.815
     }
    ],
    "props": [
@@ -5411,7 +5411,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 363.325,
+     "t": 362.96,
      "who": "moderator",
      "text": "Und hier ist die nächste Frage für Sie!",
      "id": null,
@@ -5419,7 +5419,7 @@
      "end": 365.375,
      "w0": 899,
      "w1": 906,
-     "maxDur": 1.785
+     "maxDur": 2.07
     }
    ],
    "props": [],
@@ -5636,7 +5636,7 @@
      "end": 379.83,
      "w0": 940,
      "w1": 942,
-     "maxDur": 1.015
+     "maxDur": 0.935
     }
    ],
    "props": [],
@@ -5758,7 +5758,7 @@
      "end": 385.485,
      "w0": 951,
      "w1": 955,
-     "maxDur": 1.665
+     "maxDur": 1.585
     }
    ],
    "props": [],
@@ -5972,7 +5972,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 398.47,
+     "t": 398.01,
      "who": "mitbewohnerin",
      "text": "Läuft.",
      "id": null,
@@ -5980,7 +5980,7 @@
      "end": 398.92,
      "w0": 987,
      "w1": 987,
-     "maxDur": 0.3
+     "maxDur": 0.47
     }
    ],
    "props": [],
@@ -6219,7 +6219,7 @@
      "end": 416.45,
      "w0": 1024,
      "w1": 1027,
-     "maxDur": 4.18
+     "maxDur": 4.1
     },
     {
      "t": 417.52,
@@ -6230,7 +6230,7 @@
      "end": 419.07,
      "w0": 1030,
      "w1": 1033,
-     "maxDur": 2.195
+     "maxDur": 2.115
     }
    ],
    "props": [],
@@ -6353,7 +6353,7 @@
    ],
    "says": [
     {
-     "t": 428.41,
+     "t": 427.84,
      "who": "melo",
      "text": "Auf Wiedersehen!",
      "id": null,
@@ -6361,7 +6361,7 @@
      "end": 429.16,
      "w0": 1063,
      "w1": 1064,
-     "maxDur": 0.3
+     "maxDur": 0.77
     }
    ],
    "props": [
@@ -6459,7 +6459,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 432.724,
+     "t": 431.715,
      "who": "chefin",
      "text": "Wir melden uns. Auf Wiedersehen!",
      "id": null,
@@ -6467,7 +6467,7 @@
      "end": 434.224,
      "w0": null,
      "w1": null,
-     "maxDur": 0.691
+     "maxDur": 1.62
     }
    ],
    "props": [],
@@ -6673,7 +6673,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 455.645,
+     "t": 455.26,
      "who": "melo",
      "text": "Tschüss, schönen Tag noch!",
      "id": null,
@@ -6681,7 +6681,7 @@
      "end": 456.77,
      "w0": 1130,
      "w1": 1133,
-     "maxDur": 0.84
+     "maxDur": 1.145
     }
    ],
    "props": [
@@ -6847,10 +6847,10 @@
      "end": 468.25,
      "w0": 1156,
      "w1": 1161,
-     "maxDur": 2.255
+     "maxDur": 2.175
     },
     {
-     "t": 468.565,
+     "t": 468.095,
      "who": "melo",
      "text": "Ja, bin fertig.",
      "id": null,
@@ -6858,7 +6858,7 @@
      "end": 469.615,
      "w0": 1162,
      "w1": 1164,
-     "maxDur": 0.68
+     "maxDur": 1.07
     }
    ],
    "props": [
@@ -6970,10 +6970,10 @@
      "end": 476.305,
      "w0": 1176,
      "w1": 1179,
-     "maxDur": 3.32
+     "maxDur": 3.24
     },
     {
-     "t": 477.195,
+     "t": 476.69,
      "who": "melo",
      "text": "Ich bin fix und fertig.",
      "id": null,
@@ -6981,7 +6981,7 @@
      "end": 478.58,
      "w0": 1181,
      "w1": 1185,
-     "maxDur": 0.98
+     "maxDur": 1.405
     }
    ],
    "props": [
@@ -7045,7 +7045,7 @@
      "end": 481.655,
      "w0": 1192,
      "w1": 1195,
-     "maxDur": 2.69
+     "maxDur": 2.61
     }
    ],
    "props": [],
@@ -7172,7 +7172,7 @@
      "end": 491.244,
      "w0": null,
      "w1": null,
-     "maxDur": 1.361
+     "maxDur": 1.281
     }
    ],
    "props": [
@@ -7335,7 +7335,7 @@
      "end": 502.814,
      "w0": null,
      "w1": null,
-     "maxDur": 1.381
+     "maxDur": 1.301
     }
    ],
    "props": [],
@@ -8099,7 +8099,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 574.85,
+     "t": 574.515,
      "who": "mitbewohnerin",
      "text": "Hast du keinen Hunger?",
      "id": null,
@@ -8107,7 +8107,7 @@
      "end": 575.655,
      "w0": 1409,
      "w1": 1412,
-     "maxDur": 0.57
+     "maxDur": 0.825
     }
    ],
    "props": [
@@ -8201,7 +8201,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 578.8,
+     "t": 578.76,
      "who": "melo",
      "text": "Ja!",
      "id": null,
@@ -8209,7 +8209,7 @@
      "end": 579.36,
      "w0": 1420,
      "w1": 1420,
-     "maxDur": 0.62
+     "maxDur": 0.58
     }
    ],
    "props": [],
@@ -8383,7 +8383,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 590.555,
+     "t": 590.2,
      "who": "mitbewohnerin",
      "text": "Ja, stimmt – kein Hunger.",
      "id": null,
@@ -8391,7 +8391,7 @@
      "end": 592.205,
      "w0": 1447,
      "w1": 1450,
-     "maxDur": 1.395
+     "maxDur": 1.67
     }
    ],
    "props": [],
@@ -8465,7 +8465,7 @@
      "end": 599.425,
      "w0": 1465,
      "w1": 1468,
-     "maxDur": 3.25
+     "maxDur": 3.17
     },
     {
      "t": 599.875,
@@ -8476,7 +8476,7 @@
      "end": 600.15,
      "w0": 1469,
      "w1": 1469,
-     "maxDur": 1.965
+     "maxDur": 1.885
     }
    ],
    "props": [
@@ -8612,10 +8612,10 @@
      "end": 609.495,
      "w0": 1488,
      "w1": 1493,
-     "maxDur": 2.46
+     "maxDur": 2.38
     },
     {
-     "t": 609.955,
+     "t": 609.49,
      "who": "melo",
      "text": "Doch, ich komme mit!",
      "id": null,
@@ -8623,7 +8623,7 @@
      "end": 610.965,
      "w0": 1494,
      "w1": 1497,
-     "maxDur": 0.645
+     "maxDur": 1.03
     }
    ],
    "props": [],
@@ -8921,7 +8921,7 @@
    "castCues": [],
    "says": [
     {
-     "t": 649.615,
+     "t": 649.05,
      "who": "melo",
      "text": "Ich hätte gern …",
      "id": null,
@@ -8929,7 +8929,7 @@
      "end": 650.425,
      "w0": 1580,
      "w1": 1582,
-     "maxDur": 0.345
+     "maxDur": 0.83
     }
    ],
    "props": [],
@@ -8977,10 +8977,10 @@
      "end": 652.735,
      "w0": 1585,
      "w1": 1587,
-     "maxDur": 1.84
+     "maxDur": 1.76
     },
     {
-     "t": 653.69,
+     "t": 653.15,
      "who": "melo",
      "text": "Passt.",
      "id": null,
@@ -8988,7 +8988,7 @@
      "end": 654.065,
      "w0": 1589,
      "w1": 1589,
-     "maxDur": 0.3
+     "maxDur": 0.47
     }
    ],
    "props": [],
@@ -9708,10 +9708,10 @@
    "cueT": 66.87,
    "erase": 69.05,
    "strike": null,
-   "tick": 67.92,
+   "tick": 67.6,
    "highlight": null,
    "text": "Mir ist heiß.",
-   "writeDur": 0.9,
+   "writeDur": 0.73,
    "eraseBy": "ink",
    "eraseEnd": 69.05
   },
@@ -9981,11 +9981,11 @@
     "id": "r4b",
     "text": "zu Hause"
    },
-   "appear": 206.585,
+   "appear": 205.935,
    "cueT": 206.665,
    "erase": 207.735,
    "strike": null,
-   "tick": 207.035,
+   "tick": 206.285,
    "highlight": null,
    "text": "zu Hause",
    "writeDur": 0.35,
@@ -10069,7 +10069,7 @@
    "appear": 250.175,
    "cueT": 249.965,
    "erase": 253.49,
-   "strike": 252.225,
+   "strike": 251.69,
    "tick": null,
    "highlight": null,
    "text": "Wann ich ein Kind war, …",
@@ -10155,9 +10155,9 @@
    "erase": 263.21,
    "strike": null,
    "tick": null,
-   "highlight": 262.51,
+   "highlight": 261.76,
    "text": "Ich weiß nicht, wann er kommt.",
-   "writeDur": 1.1,
+   "writeDur": 0.45,
    "eraseBy": "ink",
    "eraseEnd": 263.21
   },
@@ -10280,9 +10280,9 @@
    "erase": 286.33,
    "strike": null,
    "tick": null,
-   "highlight": 285.405,
+   "highlight": 284.88,
    "text": "Immer wenn ich bei Oma war, …",
-   "writeDur": 1.7,
+   "writeDur": 1.275,
    "eraseBy": "ink",
    "eraseEnd": 286.33
   },
@@ -10725,14 +10725,14 @@
     "text": "Ich bin fertig.",
     "highlight": "fertig"
    },
-   "appear": 460.765,
+   "appear": 460.37,
    "cueT": 460.765,
    "erase": 462.17,
    "strike": null,
    "tick": null,
-   "highlight": 461.47,
+   "highlight": 460.72,
    "text": "Ich bin fertig.",
-   "writeDur": 0.605,
+   "writeDur": 0.35,
    "eraseBy": "ink",
    "eraseEnd": 462.17
   },
@@ -10931,9 +10931,9 @@
    "erase": 534.195,
    "strike": null,
    "tick": null,
-   "highlight": 533.495,
+   "highlight": 532.745,
    "text": "Liebe Chefin, das ergibt Sinn.",
-   "writeDur": 0.96,
+   "writeDur": 0.31,
    "eraseBy": "ink",
    "eraseEnd": 534.195
   },
@@ -11020,10 +11020,10 @@
    "cueT": 556.045,
    "erase": 559.11,
    "strike": null,
-   "tick": 558.095,
+   "tick": 557.66,
    "highlight": null,
    "text": "Als ich gestern nach Hause kam, …",
-   "writeDur": 1.9,
+   "writeDur": 1.615,
    "eraseBy": "ink",
    "eraseEnd": 559.11
   },
@@ -11079,11 +11079,11 @@
     "id": "r12",
     "text": "Doch!"
    },
-   "appear": 597.44,
+   "appear": 596.79,
    "cueT": 597.71,
    "erase": 598.59,
    "strike": null,
-   "tick": 597.89,
+   "tick": 597.14,
    "highlight": null,
    "text": "Doch!",
    "writeDur": 0.35,
@@ -11362,11 +11362,11 @@
     "id": "r13d",
     "text": "Doch!"
    },
-   "appear": 667.645,
+   "appear": 666.995,
    "cueT": 667.935,
    "erase": 669.395,
    "strike": null,
-   "tick": 668.095,
+   "tick": 667.345,
    "highlight": null,
    "text": "Doch!",
    "writeDur": 0.35,
@@ -12523,10 +12523,10 @@
    "end": 6.355,
    "w0": 10,
    "w1": 11,
-   "maxDur": 2.64
+   "maxDur": 2.56
   },
   {
-   "t": 7.785,
+   "t": 7.415,
    "who": "melo",
    "text": "Ich bin heiß.",
    "id": null,
@@ -12534,7 +12534,7 @@
    "end": 8.66,
    "w0": 15,
    "w1": 17,
-   "maxDur": 0.605
+   "maxDur": 0.895
   },
   {
    "t": 38.45,
@@ -12545,7 +12545,7 @@
    "end": 39.65,
    "w0": null,
    "w1": null,
-   "maxDur": 1.2
+   "maxDur": 1.12
   },
   {
    "t": 57.95,
@@ -12556,10 +12556,10 @@
    "end": 56.61,
    "w0": 141,
    "w1": 143,
-   "maxDur": 1.2
+   "maxDur": 1.12
   },
   {
-   "t": 80.76,
+   "t": 80.325,
    "who": "kumpel",
    "text": "… und dann meine Steuererklärung …",
    "id": null,
@@ -12567,10 +12567,10 @@
    "end": 82.56,
    "w0": null,
    "w1": null,
-   "maxDur": 1.365
+   "maxDur": 1.72
   },
   {
-   "t": 95.81,
+   "t": 95.295,
    "who": "schwiegermutter",
    "text": "Noch ein bisschen?",
    "id": null,
@@ -12578,10 +12578,10 @@
    "end": 96.48,
    "w0": 232,
    "w1": 234,
-   "maxDur": 0.3
+   "maxDur": 0.69
   },
   {
-   "t": 97.9,
+   "t": 97.51,
    "who": "melo",
    "text": "Nein danke, ich bin voll.",
    "id": null,
@@ -12589,7 +12589,7 @@
    "end": 99.315,
    "w0": 238,
    "w1": 242,
-   "maxDur": 1.125
+   "maxDur": 1.435
   },
   {
    "t": 111.4,
@@ -12600,10 +12600,10 @@
    "end": 112.48,
    "w0": 272,
    "w1": 274,
-   "maxDur": 2.925
+   "maxDur": 2.845
   },
   {
-   "t": 113.72,
+   "t": 113.32,
    "who": "melo",
    "text": "Ich kann nicht mehr.",
    "id": null,
@@ -12611,10 +12611,10 @@
    "end": 114.625,
    "w0": 277,
    "w1": 280,
-   "maxDur": 0.605
+   "maxDur": 0.925
   },
   {
-   "t": 125.275,
+   "t": 124.71,
    "who": "kumpel",
    "text": "Ich bin so voll.",
    "id": null,
@@ -12622,7 +12622,7 @@
    "end": 126.515,
    "w0": 309,
    "w1": 312,
-   "maxDur": 0.775
+   "maxDur": 1.26
   },
   {
    "t": 156.745,
@@ -12633,7 +12633,7 @@
    "end": 157.895,
    "w0": 387,
    "w1": 391,
-   "maxDur": 4.48
+   "maxDur": 4.4
   },
   {
    "t": 158.34,
@@ -12644,10 +12644,10 @@
    "end": 159.78,
    "w0": 392,
    "w1": 396,
-   "maxDur": 2.885
+   "maxDur": 2.805
   },
   {
-   "t": 193.535,
+   "t": 193.19,
    "who": "melo",
    "text": "Ich gehe zu Hause.",
    "id": null,
@@ -12655,7 +12655,7 @@
    "end": 194.43,
    "w0": 463,
    "w1": 466,
-   "maxDur": 0.65
+   "maxDur": 0.915
   },
   {
    "t": 207.735,
@@ -12666,10 +12666,10 @@
    "end": 209.055,
    "w0": 495,
    "w1": 500,
-   "maxDur": 3.395
+   "maxDur": 3.315
   },
   {
-   "t": 209.455,
+   "t": 209.09,
    "who": "melo",
    "text": "Nein, ich gehe erst um elf nach Hause.",
    "id": null,
@@ -12677,7 +12677,7 @@
    "end": 211.395,
    "w0": 501,
    "w1": 508,
-   "maxDur": 1.675
+   "maxDur": 1.96
   },
   {
    "t": 228.325,
@@ -12688,7 +12688,7 @@
    "end": 230.41,
    "w0": 565,
    "w1": 565,
-   "maxDur": 0.835
+   "maxDur": 0.755
   },
   {
    "t": 241.535,
@@ -12699,7 +12699,7 @@
    "end": 243.22,
    "w0": 594,
    "w1": 600,
-   "maxDur": 5.04
+   "maxDur": 4.96
   },
   {
    "t": 277.785,
@@ -12710,10 +12710,10 @@
    "end": 279.815,
    "w0": 697,
    "w1": 703,
-   "maxDur": 1.795
+   "maxDur": 1.715
   },
   {
-   "t": 295.835,
+   "t": 295.5,
    "who": "melo",
    "text": "Ich will ein Bier.",
    "id": null,
@@ -12721,10 +12721,10 @@
    "end": 296.49,
    "w0": 742,
    "w1": 745,
-   "maxDur": 0.42
+   "maxDur": 0.675
   },
   {
-   "t": 301.425,
+   "t": 300.995,
    "who": "kind",
    "text": "Ich will ein Eis!",
    "id": null,
@@ -12732,7 +12732,7 @@
    "end": 302.835,
    "w0": 759,
    "w1": 762,
-   "maxDur": 1.08
+   "maxDur": 1.43
   },
   {
    "t": 311.875,
@@ -12743,10 +12743,10 @@
    "end": 312.575,
    "w0": 786,
    "w1": 788,
-   "maxDur": 3.485
+   "maxDur": 3.405
   },
   {
-   "t": 314.66,
+   "t": 314.18,
    "who": "melo",
    "text": "Ich hätte gern ein Radler.",
    "id": null,
@@ -12754,7 +12754,7 @@
    "end": 315.74,
    "w0": 794,
    "w1": 798,
-   "maxDur": 0.7
+   "maxDur": 1.1
   },
   {
    "t": 323.725,
@@ -12765,10 +12765,10 @@
    "end": 324.965,
    "w0": 816,
    "w1": 820,
-   "maxDur": 1.895
+   "maxDur": 1.815
   },
   {
-   "t": 363.325,
+   "t": 362.96,
    "who": "moderator",
    "text": "Und hier ist die nächste Frage für Sie!",
    "id": null,
@@ -12776,7 +12776,7 @@
    "end": 365.375,
    "w0": 899,
    "w1": 906,
-   "maxDur": 1.785
+   "maxDur": 2.07
   },
   {
    "t": 378.915,
@@ -12787,7 +12787,7 @@
    "end": 379.83,
    "w0": 940,
    "w1": 942,
-   "maxDur": 1.015
+   "maxDur": 0.935
   },
   {
    "t": 383.665,
@@ -12798,10 +12798,10 @@
    "end": 385.485,
    "w0": 951,
    "w1": 955,
-   "maxDur": 1.665
+   "maxDur": 1.585
   },
   {
-   "t": 398.47,
+   "t": 398.01,
    "who": "mitbewohnerin",
    "text": "Läuft.",
    "id": null,
@@ -12809,7 +12809,7 @@
    "end": 398.92,
    "w0": 987,
    "w1": 987,
-   "maxDur": 0.3
+   "maxDur": 0.47
   },
   {
    "t": 415.535,
@@ -12820,7 +12820,7 @@
    "end": 416.45,
    "w0": 1024,
    "w1": 1027,
-   "maxDur": 4.18
+   "maxDur": 4.1
   },
   {
    "t": 417.52,
@@ -12831,10 +12831,10 @@
    "end": 419.07,
    "w0": 1030,
    "w1": 1033,
-   "maxDur": 2.195
+   "maxDur": 2.115
   },
   {
-   "t": 428.41,
+   "t": 427.84,
    "who": "melo",
    "text": "Auf Wiedersehen!",
    "id": null,
@@ -12842,10 +12842,10 @@
    "end": 429.16,
    "w0": 1063,
    "w1": 1064,
-   "maxDur": 0.3
+   "maxDur": 0.77
   },
   {
-   "t": 432.724,
+   "t": 431.715,
    "who": "chefin",
    "text": "Wir melden uns. Auf Wiedersehen!",
    "id": null,
@@ -12853,10 +12853,10 @@
    "end": 434.224,
    "w0": null,
    "w1": null,
-   "maxDur": 0.691
+   "maxDur": 1.62
   },
   {
-   "t": 455.645,
+   "t": 455.26,
    "who": "melo",
    "text": "Tschüss, schönen Tag noch!",
    "id": null,
@@ -12864,7 +12864,7 @@
    "end": 456.77,
    "w0": 1130,
    "w1": 1133,
-   "maxDur": 0.84
+   "maxDur": 1.145
   },
   {
    "t": 466.99,
@@ -12875,10 +12875,10 @@
    "end": 468.25,
    "w0": 1156,
    "w1": 1161,
-   "maxDur": 2.255
+   "maxDur": 2.175
   },
   {
-   "t": 468.565,
+   "t": 468.095,
    "who": "melo",
    "text": "Ja, bin fertig.",
    "id": null,
@@ -12886,7 +12886,7 @@
    "end": 469.615,
    "w0": 1162,
    "w1": 1164,
-   "maxDur": 0.68
+   "maxDur": 1.07
   },
   {
    "t": 474.855,
@@ -12897,10 +12897,10 @@
    "end": 476.305,
    "w0": 1176,
    "w1": 1179,
-   "maxDur": 3.32
+   "maxDur": 3.24
   },
   {
-   "t": 477.195,
+   "t": 476.69,
    "who": "melo",
    "text": "Ich bin fix und fertig.",
    "id": null,
@@ -12908,7 +12908,7 @@
    "end": 478.58,
    "w0": 1181,
    "w1": 1185,
-   "maxDur": 0.98
+   "maxDur": 1.405
   },
   {
    "t": 480.42,
@@ -12919,7 +12919,7 @@
    "end": 481.655,
    "w0": 1192,
    "w1": 1195,
-   "maxDur": 2.69
+   "maxDur": 2.61
   },
   {
    "t": 489.744,
@@ -12930,7 +12930,7 @@
    "end": 491.244,
    "w0": null,
    "w1": null,
-   "maxDur": 1.361
+   "maxDur": 1.281
   },
   {
    "t": 501.914,
@@ -12941,10 +12941,10 @@
    "end": 502.814,
    "w0": null,
    "w1": null,
-   "maxDur": 1.381
+   "maxDur": 1.301
   },
   {
-   "t": 574.85,
+   "t": 574.515,
    "who": "mitbewohnerin",
    "text": "Hast du keinen Hunger?",
    "id": null,
@@ -12952,10 +12952,10 @@
    "end": 575.655,
    "w0": 1409,
    "w1": 1412,
-   "maxDur": 0.57
+   "maxDur": 0.825
   },
   {
-   "t": 578.8,
+   "t": 578.76,
    "who": "melo",
    "text": "Ja!",
    "id": null,
@@ -12963,10 +12963,10 @@
    "end": 579.36,
    "w0": 1420,
    "w1": 1420,
-   "maxDur": 0.62
+   "maxDur": 0.58
   },
   {
-   "t": 590.555,
+   "t": 590.2,
    "who": "mitbewohnerin",
    "text": "Ja, stimmt – kein Hunger.",
    "id": null,
@@ -12974,7 +12974,7 @@
    "end": 592.205,
    "w0": 1447,
    "w1": 1450,
-   "maxDur": 1.395
+   "maxDur": 1.67
   },
   {
    "t": 598.59,
@@ -12985,7 +12985,7 @@
    "end": 599.425,
    "w0": 1465,
    "w1": 1468,
-   "maxDur": 3.25
+   "maxDur": 3.17
   },
   {
    "t": 599.875,
@@ -12996,7 +12996,7 @@
    "end": 600.15,
    "w0": 1469,
    "w1": 1469,
-   "maxDur": 1.965
+   "maxDur": 1.885
   },
   {
    "t": 608.14,
@@ -13007,10 +13007,10 @@
    "end": 609.495,
    "w0": 1488,
    "w1": 1493,
-   "maxDur": 2.46
+   "maxDur": 2.38
   },
   {
-   "t": 609.955,
+   "t": 609.49,
    "who": "melo",
    "text": "Doch, ich komme mit!",
    "id": null,
@@ -13018,10 +13018,10 @@
    "end": 610.965,
    "w0": 1494,
    "w1": 1497,
-   "maxDur": 0.645
+   "maxDur": 1.03
   },
   {
-   "t": 649.615,
+   "t": 649.05,
    "who": "melo",
    "text": "Ich hätte gern …",
    "id": null,
@@ -13029,7 +13029,7 @@
    "end": 650.425,
    "w0": 1580,
    "w1": 1582,
-   "maxDur": 0.345
+   "maxDur": 0.83
   },
   {
    "t": 651.86,
@@ -13040,10 +13040,10 @@
    "end": 652.735,
    "w0": 1585,
    "w1": 1587,
-   "maxDur": 1.84
+   "maxDur": 1.76
   },
   {
-   "t": 653.69,
+   "t": 653.15,
    "who": "melo",
    "text": "Passt.",
    "id": null,
@@ -13051,7 +13051,7 @@
    "end": 654.065,
    "w0": 1589,
    "w1": 1589,
-   "maxDur": 0.3
+   "maxDur": 0.47
   }
  ],
  "rigWords": [
@@ -22749,7 +22749,7 @@
   "shots": 190,
   "min": 1.535,
   "avg": 3.651,
-  "handwritingFixed": 30
+  "handwritingFixed": 63
  },
  "cues": [
   {

@@ -144,8 +144,8 @@
       if (chars >= acc + l.text.length) { ctx.rect(l.x - p.fs * 0.3, top, l.w + p.fs * 0.7, hh); }
       else {
         var k = chars - acc, ki = Math.floor(k), f = k - ki;
-        var xr = l.x + lerp(l.cum[ki], l.cum[Math.min(ki + 1, l.text.length)], f);
-        ctx.rect(l.x - p.fs * 0.3, top, xr - l.x + p.fs * 0.3, hh);
+        var xr = l.x + lerp(l.cum[ki], l.cum[Math.min(ki + 1, l.text.length)], f), sl = p.fs * 0.16;
+        ctx.moveTo(l.x - p.fs * 0.3, top); ctx.lineTo(xr + sl, top); ctx.lineTo(xr - sl, top + hh); ctx.lineTo(l.x - p.fs * 0.3, top + hh); ctx.closePath();
         // pen bobs along the letter
         tip = [xr, l.y - p.fs * (0.25 + 0.3 * Math.abs(Math.sin(f * Math.PI * 2.0)))];
         break;
@@ -580,7 +580,7 @@
   function sceneAt(t) {
     if (E.sceneOverride) return E.sceneOverride;
     var sc = E.scenes[0];
-    for (var i = 0; i < E.scenes.length; i++) if (E.scenes[i].tStart <= t) sc = E.scenes[i];
+    for (var i = 0; i < E.scenes.length; i++) if (E.scenes[i].tStart <= t && !E.scenes[i].dropped) sc = E.scenes[i];
     return sc;
   }
   function meloPos(t) {
@@ -712,7 +712,7 @@
     if (ink && !vis.length) return;
     if (ink && surf.panel) {
       // paper card behind the ink writing (grows with the content)
-      var u = boxUnion(vis.map(function (e) { return e.box; }));
+      var u = surf.scene.panelBox || (surf.scene.panelBox = boxUnion(E.els.filter(function (e) { return e.scene === surf.scene.i && e.box; }).map(function (e) { return e.box; })));
       if (u) {
         var a0 = Math.min.apply(0, vis.map(function (e) { return e.appear; })), pp = easeOutBack((t - a0) / 0.35);
         ctx.save(); var pcx = u.x + u.w / 2, pcy = u.y + u.h / 2; ctx.translate(pcx, pcy); ctx.rotate(-0.012); ctx.scale(lerp(0.85, 1, pp), lerp(0.85, 1, pp)); ctx.globalAlpha = sat((t - a0) / 0.15);
@@ -1038,7 +1038,7 @@
       var a = t - f.t;
       if (f.name === 'shake' && a >= 0 && a < 0.55) { var k = 1 - a / 0.55; cam.cx += 16 * k * Math.sin(a * 83); cam.cy += 11 * k * Math.sin(a * 67 + 1); }
       if (f.name === 'zoom-punch' && a >= 0 && a < 0.6) { var b = a < 0.08 ? a / 0.08 : 1 - smooth((a - 0.08) / 0.52); cam.w /= 1 + 0.14 * b; }
-      if (f.name === 'record-scratch' && a >= 0 && a < 0.12) cam.cx += 10 * Math.sin(a * 200);
+      if (f.name === 'record-scratch' && a >= 0 && a < 0.5) { var bb = a < 0.06 ? a / 0.06 : 1 - smooth((a - 0.06) / 0.44); cam.w /= 1 + 0.1 * bb; cam.cx += 9 * (1 - a / 0.5) * Math.sin(a * 140); }
     });
     return clampFrame(cam);
   }
@@ -1255,7 +1255,9 @@
         ctx.fill(new Path2D(ink.brush([tail[2], tail[1]], { w: 6, ta: 0.05, tb: 0.3, min: 0.4 })));
       } else { ctx.fillStyle = INK; ctx.fill(new Path2D(ink.brush(handLine(outline, 5, 10, 1.2), { w: 6.5, ta: 0.02, tb: 0.02, min: 0.6, jit: 0.25 }))); }
       // text writes on over the quote (min 0.45 s)
-      var dur = q.w0 == null ? Math.max(0.6, Math.min(2.2, q.text.length * 0.05)) : Math.max(0.45, Math.min(2.2, (q.end - q.start) || 0.6)), prog = sat((t - q.t - 0.08) / dur);
+      var dur = q.w0 == null ? Math.max(0.6, Math.min(2.2, q.text.length * 0.05)) : Math.max(0.45, Math.min(2.2, (q.end - q.start) || 0.6));
+      if (q.maxDur != null) dur = Math.min(dur, q.maxDur);
+      var prog = sat((t - q.t - 0.08) / dur);
       var total = lines.join('').length, shown = prog * total, acc = 0;
       ctx.font = font; ctx.fillStyle = INK; ctx.textBaseline = 'alphabetic';
       lines.forEach(function (l, li) {
@@ -1359,18 +1361,16 @@
     });
   }
   // screen-space fx: flash, record-scratch (freeze + vinyl + desaturate)
-  function freezeT(sc, t) {
-    var tc = t;
-    (sc.fx || []).forEach(function (f) { if (f.name === 'record-scratch' && t >= f.t && t < f.t + (f.dur || 0.9)) tc = f.t; });
-    return tc;
-  }
+  // (record-scratch used to freeze the shot; the owner read that as a bug → nothing ever freezes now)
+  function freezeT(sc, t) { return t; }
   function drawScreenFx(ctx, sc, t) {
     (sc.fx || []).forEach(function (f) {
       var a = t - f.t;
       if (f.name === 'flash' && a >= 0 && a < 0.25) { ctx.save(); ctx.fillStyle = '#fff8e6'; ctx.globalAlpha = 0.85 * (1 - a / 0.25); ctx.fillRect(0, 0, 1920, 1080); ctx.restore(); }
       var D = f.dur || 0.9;
       if (f.name === 'record-scratch' && a >= 0 && a < D) {
-        ctx.save(); ctx.globalCompositeOperation = 'saturation'; ctx.fillStyle = '#808080'; ctx.globalAlpha = 0.75 * sat(a / 0.08) * sat((D - a) / 0.15); ctx.fillRect(0, 0, 1920, 1080); ctx.restore();
+        // brief desaturate pulse (everything keeps moving) + vinyl-scratch graphic
+        ctx.save(); ctx.globalCompositeOperation = 'saturation'; ctx.fillStyle = '#808080'; ctx.globalAlpha = 0.6 * sat(a / 0.05) * (1 - smooth((a - 0.05) / 0.4)); ctx.fillRect(0, 0, 1920, 1080); ctx.restore();
         ctx.save(); ctx.globalAlpha = sat(a / 0.06) * sat((D - a) / 0.15); ctx.translate(1730, 720); ctx.rotate(-a * 6);
         ctx.fillStyle = '#17130f'; ctx.beginPath(); ctx.arc(0, 0, 110, 0, 7); ctx.fill();
         ctx.strokeStyle = 'rgba(243,234,211,.25)'; ctx.lineWidth = 2; for (var rr = 40; rr < 105; rr += 9) { ctx.beginPath(); ctx.arc(0, 0, rr, 0, 7); ctx.stroke(); }
@@ -1407,7 +1407,8 @@
   }
   async function drawOverlayMelo(ctx, t, sc) {
     var o = overlayMelo(sc); if (!o) return;
-    var i = E.scenes.indexOf(sc), prev = E.scenes[i - 1], same = prev && prev.melo === sc.melo;
+    var i = E.scenes.indexOf(sc), j = i - 1; while (j >= 0 && E.scenes[j].dropped) j--;
+    var prev = E.scenes[j], same = prev && prev.melo === sc.melo;
     var a = t - sc.tStart, x = o.x, y = o.y;
     if (!same) {
       if (o.anim === 'walk') { var pw = ease(a / 1.2); x = lerp(o.from < 0 ? -260 : 2180, o.x, pw); y -= Math.abs(Math.sin(pw * Math.PI * 4)) * 14 * (1 - pw); }
@@ -1568,12 +1569,13 @@
       for (; fs > 56; fs -= 4) { font = '900 ' + fs + 'px Fraunces'; var ls = wrap(tl, font, 1000); if (ls.length <= 2 && ls.every(function (l) { return measure(l, font) <= 1000; })) break; }
       font = '900 ' + fs + 'px Fraunces';
       var lines = wrap(tl, font, 1000);
-      lines.forEach(function (l, i) { drawSlam(ctx, l, 760, 560 + i * fs * 1.1 - (lines.length - 1) * fs * 0.5, font, CREAM, (t - t0 - 0.4 - i * 0.12) / 0.3, 'left'); });
-      if (t > t0 + 0.7) { ctx.save(); ctx.globalAlpha = sat((t - t0 - 0.7) * 3); underlineInk(ctx, 760, 560 + lines.length * fs * 0.62, Math.min(1000, Math.max.apply(0, lines.map(function (l) { return measure(l, font); }))), 77); ctx.restore(); }
+      lines.forEach(function (l, i) { drawSlam(ctx, l, 760, 560 + i * fs * 1.1 - (lines.length - 1) * fs * 0.5, font, CREAM, (t - t0 - 0.1 - i * 0.06) / 0.25, 'left'); });
+      if (t > t0 + 0.35) { ctx.save(); ctx.globalAlpha = sat((t - t0 - 0.35) * 5); underlineInk(ctx, 760, 560 + lines.length * fs * 0.62, Math.min(1000, Math.max.apply(0, lines.map(function (l) { return measure(l, font); }))), 77); ctx.restore(); }
     } else {
       var el = { id: 'ch' + sc.i, text: a.title || '' }, L = sc.titleL || (sc.titleL = titleLayout(el)), y = 330 + (3 - L.lines.length) * L.fs * 0.45, wi = 0;
       L.lines.forEach(function (line, li) {
-        var x = 160; line.split(' ').forEach(function (w) { drawSlam(ctx, w, x, y, '400 ' + L.fs + 'px Anton', li === L.lines.length - 1 ? MUSTARD : CREAM, (t - t0 - wi * 0.14) / 0.28, 'left'); x += measure(w + ' ', '400 ' + L.fs + 'px Anton'); wi++; });
+        var nW = String(a.title || '').split(/\s+/).length, st = Math.min(0.14, 0.25 / Math.max(1, nW));
+        var x = 160; line.split(' ').forEach(function (w) { drawSlam(ctx, w, x, y, '400 ' + L.fs + 'px Anton', li === L.lines.length - 1 ? MUSTARD : CREAM, (t - t0 - wi * st) / 0.25, 'left'); x += measure(w + ' ', '400 ' + L.fs + 'px Anton'); wi++; });
         y += L.fs * 1.02;
       });
     }
@@ -1796,8 +1798,9 @@
     t = clamp(t, 0, E.tl.duration);
     var ctx = E.ctx, sc = sceneAt(t), idx = E.scenes.indexOf(sc);
     var animated = { ink: 1, whip: 1, slide: 1, zoom: 1, flash: 1 };
-    if (animated[sc.transition] && t < sc.tEnd && idx > 0) {
-      var prev = E.scenes[idx - 1];
+    var pi = idx - 1; while (pi >= 0 && E.scenes[pi].dropped) pi--;
+    if (animated[sc.transition] && t < sc.tEnd && pi >= 0) {
+      var prev = E.scenes[pi];
       E.sceneOverride = prev;
       try { await renderInto(ctx, t, prev); } finally { E.sceneOverride = null; }
       E.sceneOverride = sc;
@@ -1866,7 +1869,7 @@
     var sl = GEO.slate; E.cc = mk(sl.w * E.BS, sl.h * E.BS); E.cg = E.cc.getContext('2d');
     E.ccSmall = mk(sl.w / 5, sl.h / 5); E.ccSmallCtx = E.ccSmall.getContext('2d');
     // scenes, elements, layout
-    E.scenes = tl.scenes; E.els = tl.elements.slice(); E.byId = {}; E.els.forEach(function (e) { E.byId[e.id] = e; });
+    E.scenes = tl.scenes; E.els = tl.elements.filter(function (e) { return !e.dropped; }); E.byId = {}; E.els.forEach(function (e) { E.byId[e.id] = e; });
     // v2 shots: layout keys for board shots (Melo side/off) and ink surfaces of the other shot types
     LAYOUT['board-left'] = { melo: { x: 470, y: 1044, s: 0.84 }, ca: { x0: 640, y0: 168, x1: 1840, y1: 794 } };
     LAYOUT['board-right'] = { melo: { x: 1745, y: 1044, s: 0.84 }, ca: { x0: 620, y0: 168, x1: 1590, y1: 794 } };

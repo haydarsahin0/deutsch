@@ -572,7 +572,8 @@ function compile(ep, opts = {}) {
   const shotEndOf = e => { const sc = scenes[e.scene]; return Math.min(sc.end != null ? sc.end : duration, e.erase != null ? e.erase : 1e9); };
   for (const e of elements) {
     if (e.dropped) continue;
-    const end = shotEndOf(e), lim = end - 0.8, sc = scenes[e.scene], c0 = sc.contentStart != null ? sc.contentStart : sc.tStart;
+    const end = shotEndOf(e), sc = scenes[e.scene], c0 = sc.contentStart != null ? sc.contentStart : sc.tStart;
+    const lim = end - 0.8 - (e.strike != null || e.tick != null || e.highlight != null ? 0.65 : 0);  // room for strike/tick
     if (e.writeDur && e.appear + e.writeDur > lim) {
       hwFixed++;
       if (lim - e.appear >= 0.3) e.writeDur = r3(lim - e.appear);
@@ -583,12 +584,17 @@ function compile(ep, opts = {}) {
       if (it.t > lim - 0.2) { it.t = r3(Math.max(c0, lim - 0.35)); hwFixed++; }
       if (it.t + it.dur > lim) it.dur = r3(Math.max(0.2, lim - it.t));
     });
-    ['strike', 'tick', 'highlight'].forEach(k => { if (e[k] != null && e[k] > end - 0.7) { e[k] = r3(Math.max(e.appear + (e.writeDur || 0), end - 0.7)); hwFixed++; } });
+    ['strike', 'tick', 'highlight'].forEach(k => { if (e[k] != null && e[k] > end - 1.45) { e[k] = r3(Math.max(e.appear + (e.writeDur || 0), Math.min(e[k], end - 1.45))); hwFixed++; } });
     if (e.erase != null) e.eraseEnd = r3(e.erase + (e.eraseBy === 'scene' ? ERASE_DUR : e.eraseBy === 'ink' ? 0 : ELEM_ERASE_DUR));
   }
   for (const sc of scenes) {
     const end = sc.end != null ? sc.end : duration;
-    (sc.says || []).forEach(q => { q.maxDur = r3(Math.max(0.3, end - 0.8 - q.t)); });
+    const c0 = sc.contentStart != null ? sc.contentStart : sc.tStart;
+    (sc.says || []).forEach(q => {
+      const d = q.w0 == null ? Math.max(0.6, Math.min(2.2, q.text.length * 0.05)) : Math.max(0.45, Math.min(2.2, (q.end - q.start) || 0.6));
+      if (q.t + 0.08 + d > end - 0.8) { q.t = r3(Math.max(c0, Math.min(q.t, end - 0.9 - d))); hwFixed++; }
+      q.maxDur = r3(Math.max(0.3, end - 0.88 - q.t));
+    });
   }
   readability.handwritingFixed = hwFixed;
   if (scenes.some(x => x.isShot)) console.log(`  timeline: readability – ${readability.extended} shots delayed, ${readability.merged} merged; ${readability.shots} shots, min ${readability.min.toFixed(2)} s, avg ${readability.avg.toFixed(2)} s; ${hwFixed} write-ons sped up/moved`);
