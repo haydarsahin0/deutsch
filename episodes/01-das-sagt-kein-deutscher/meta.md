@@ -68,9 +68,10 @@ Ich bin Melo – der Kumpel, der dein Deutsch mit einem Grinsen korrigiert. Hier
 ```
 
 
-## Tags (22)
+## Tags (24, 488/500 Zeichen nach YouTube-Zählung)
+Reihenfolge = Priorität: exakter Titel-Suchbegriff → große Suchbegriffe → Niveau → Long-Tail-Themen → Prüfungen → Englisch/Türkisch → Marke.
 ```
-Deutsch lernen, typische Fehler Deutsch, Das sagt kein Deutscher, Deutsch B1, Deutsch B2, Deutsch C1, natürlich Deutsch sprechen, Deutsch wie Muttersprachler, Deutsch für Fortgeschrittene, Deutschlerner Fehler, Mir ist heiß, als wenn wann, nach Hause zu Hause, Doch Deutsch, Das macht Sinn, Umgangssprache Deutsch, Alltagsdeutsch, Goethe Prüfung, telc Deutsch, German mistakes, learn German, Deutsch mit Melo
+Das sagt kein Deutscher, Deutsch lernen, typische Fehler Deutsch, Deutsch Fehler vermeiden, Deutsch lernen B1, Deutsch lernen B2, Deutsch C1, Deutsch sprechen lernen, Deutsch wie ein Muttersprachler, natürlich Deutsch sprechen, deutsche Umgangssprache, Alltagsdeutsch, Deutsch für Fortgeschrittene, Mir ist heiß, als wenn wann, nach Hause zu Hause, Doch Deutsch, Das ergibt Sinn, Goethe Zertifikat B2, telc B1, learn German, German mistakes, Almanca, Deutsch mit Melo
 ```
 
 ## Angepinnter Kommentar
