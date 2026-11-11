@@ -30,8 +30,9 @@
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
   function f1(n) { return U.f1(n); }
 
-  function ink(prefix, seed) {
-    var S = new SI(seed || 1), nClip = 0, nG = 0;
+  // add the helpers below to a SceneInk instance (clip/gradient ids prefixed with the set name)
+  function extend(S, prefix) {
+    var nClip = 0, nG = 0;
     S.P = P; S.U = U; S.C = C; S.prefix = prefix;
     S.clip = function (pts) {
       var id = prefix + '-c' + (++nClip);
@@ -338,11 +339,86 @@
     };
     return S;
   }
+  function ink(prefix, seed) { return extend(new SI(seed || 1), prefix); }
+
+  // ── baked ink wobble (same field as SetKitA: cheap stand-in for the banner's feTurbulence/feDisplacementMap) ──
+  function hash(n) { n = (n ^ 61) ^ (n >>> 16); n = (n + (n << 3)) | 0; n ^= n >>> 4; n = Math.imul(n, 0x27d4eb2d); n ^= n >>> 15; return n >>> 0; }
+  function vnoise(seed) {
+    var tab = new Float32Array(1024), r = U.rng(hash(seed) || 1);
+    for (var i = 0; i < 1024; i++) tab[i] = r() * 2 - 1;
+    return function (x, y) {
+      var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+      function h(a, b) { return tab[((a * 73856093) ^ (b * 19349663)) & 1023]; }
+      var a = h(xi, yi), b = h(xi + 1, yi), c = h(xi, yi + 1), d = h(xi + 1, yi + 1);
+      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    };
+  }
+  var FIELDS = {};
+  function field(seed, amp) {
+    var k = seed + ':' + amp;
+    if (FIELDS[k]) return FIELDS[k];
+    var nx = vnoise(seed * 11 + 1), ny = vnoise(seed * 13 + 2), gx = vnoise(seed * 17 + 3), gy = vnoise(seed * 19 + 4);
+    var f = 0.02, ff = 0.4, A = 1.7 * amp, Gm = 0.35 * amp;
+    return (FIELDS[k] = function (x, y) {
+      return [A * (nx(x * f, y * f) + 0.5 * nx(x * f * 2.3 + 7, y * f * 2.3 + 3)) + Gm * gx(x * ff, y * ff),
+              A * (ny(x * f, y * f) + 0.5 * ny(x * f * 2.3 + 5, y * f * 2.3 + 9)) + Gm * gy(x * ff, y * ff)];
+    });
+  }
+  function withWobble(seed, amp, fn) {
+    var prev = MB.parts.displace(amp > 0 ? field(seed, amp) : null);
+    try { return fn(); } finally { MB.parts.displace(prev); }
+  }
+  function now() { return (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now(); }
+
+  // ── define + register a set (same contract as SetKitA.define) ──
+  // def = { slots, ambient?, variants?, seed?, wobble?, build(opts) → { bg: S => markup, fg?: S => markup, amb?: { key: (t, opts, S) => markup } } }
+  // bg/fg may contain <!--amb:key--> tokens, replaced per frame by amb[key](t) (ambient sets only; keep those cheap: no hatching).
+  // render(opts) → { bg, fg } (+ still: {bg, fg} without the ambient bits, for ambient sets). Static layers are cached per seed|variant.
+  function define(name, def) {
+    var cache = {}, Sets = root.Sets || (isNode ? require('./sets.js') : null);
+    function layer(seed, fn) {
+      var S = ink(name, seed);
+      var body = withWobble(seed, def.wobble == null ? 1 : def.wobble, function () { return fn(S); });
+      return (S.defs ? '<defs>' + S.defs + '</defs>' : '') + body;
+    }
+    function statics(opts) {
+      var seed = opts.seed || 0, key = seed + '|' + (opts.variant || '');
+      if (cache[key]) return cache[key];
+      var t0 = now(), b = def.build(opts || {}), base = (def.seed || 1) * 1000 + seed * 7;
+      var bg = layer(base + 1, b.bg), fg = b.fg ? layer(base + 2, b.fg) : '';
+      var fb = Fonts.css(bg), ff = fg ? Fonts.css(fg) : '';
+      return (cache[key] = { bg: (fb ? '<defs>' + fb + '</defs>' : '') + bg, fg: fg ? (ff ? '<defs>' + ff + '</defs>' : '') + fg : '', amb: b.amb || {}, ms: now() - t0 });
+    }
+    var ambInk = {};
+    function splice(s, st, t, opts) {
+      return s.replace(/<!--amb:(\w+)-->/g, function (m, k) {
+        if (!st.amb[k]) return '';
+        var S = ambInk[k] || (ambInk[k] = ink(name + '-a' + k, 77));
+        S.defs = ''; S.r = U.rng(991 + Math.round((t || 0) * 30));
+        var body = st.amb[k](t || 0, opts, S);
+        return (S.defs ? '<defs>' + S.defs + '</defs>' : '') + body;
+      });
+    }
+    var full = {
+      slots: def.slots, ambient: !!def.ambient, variants: def.variants || [],
+      render: function (opts) {
+        opts = opts || {};
+        var st = statics(opts);
+        if (!def.ambient) return { bg: splice(st.bg, st, 0, opts), fg: splice(st.fg, st, 0, opts) };
+        return { bg: splice(st.bg, st, opts.t, opts), fg: splice(st.fg, st, opts.t, opts),
+          still: { bg: st.bg.replace(/<!--amb:\w+-->/g, ''), fg: st.fg.replace(/<!--amb:\w+-->/g, '') } };
+      },
+      _statics: statics
+    };
+    for (var k in def.extra || {}) full[k] = def.extra[k];
+    if (Sets) Sets.register(name, full);
+    return full;
+  }
 
   // slot helper: {x, y, scale, [face: 1|-1 (which way the character should look)]}
   function slot(x, y, scale, extra) { var o = { x: x, y: y, scale: scale }; for (var k in extra || {}) o[k] = extra[k]; return o; }
 
-  var api = { ink: ink, P: P, U: U, esc: esc, slot: slot, MeloB: MB };
+  var api = { ink: ink, extend: extend, define: define, withWobble: withWobble, P: P, U: U, esc: esc, slot: slot, MeloB: MB };
   if (isNode) module.exports = api;
   root.SetKitB = api;
 })(typeof self !== 'undefined' ? self : this);

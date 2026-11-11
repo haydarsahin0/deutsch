@@ -18,42 +18,42 @@ voice_notes:
 ---
 
 ## Hook
-[[scene layout=melo]] [[camera shot=melo]] [[melo expr=smirk pose=idle look=viewer]]
-[[voice tag="casual, storytelling"]] Juli, 35 Grad, Büro ohne Klimaanlage.
+[[shot type=text style=big text="Juli · 35 °C" melo=off in=cut]] [[prop id=cal name=calendar-july at=left anim=drop]] [[melo expr=smirk pose=idle look=viewer]]
+[[voice tag="casual, storytelling"]] Juli, [[prop id=thermo name=thermometer-35 at=right anim=pop]] 35 Grad, [[shot type=scene set=office-hot cast="kollegin:left:neutral" melo=in-scene:right in=cut cam=pan-right]] [[fx name=steam]] Büro ohne [[prop id=ac name=broken-ac at=back anim=wiggle]] Klimaanlage.
 
-[[melo expr=talking pose=explain]] Deine neue Kollegin fragt: „Alles okay?“ [[melo expr=deadpan]] Und du sagst:
+[[camera shot=push focus=kollegin]] [[melo expr=talking pose=explain]] Deine neue Kollegin fragt: [[say who=kollegin text="Alles okay?"]] „Alles okay?“ [[camera shot=push focus=melo]] [[fx name=sweat]] [[melo expr=deadpan]] Und du sagst:
 
-[[scene layout=board]] [[camera shot=board]] [[draw type=wrong id=h1 text="Ich bin heiß." strike=manual]] „Ich bin heiß.“ [[pause s=1]]
+[[say who=melo text="Ich bin heiß."]] „Ich bin [[fx name=record-scratch]] [[cast id=kollegin expr=shocked]] heiß.“ [[pause s=1]]
 
-[[camera shot=melo]] [[melo expr=unimpressed look=viewer]] [[voice tag="deadpan"]] Sie schaut dich an. Lange. [[pause s=1]]
+[[shot type=scene set=office-hot cast="kollegin:center:shocked" melo=off cam=push]] [[melo expr=unimpressed look=viewer]] [[voice tag="deadpan"]] Sie schaut dich an. [[camera shot=push focus=kollegin]] [[cast id=kollegin expr=skeptical]] Lange. [[pause s=1]]
 
-[[melo expr=smirk pose=finger]] [[voice tag="friendly"]] Keine Sorge – nach diesem Video passiert dir das nicht mehr. [[strike id=h1]] Zwölf Sätze, die dich sofort verraten. [[melo pose=point look=board]] Und Nummer zwölf ist nur ein Wort – [[camera shot=melo]] [[melo expr=smirk pose=crossed look=viewer]] aber da machen sogar Leute mit C1 Fehler.
+[[shot type=text id=h1 style=wrong text="Ich bin heiß." strike=manual melo=off in=whip]] [[melo expr=smirk pose=finger]] [[voice tag="friendly"]] Keine Sorge – nach diesem Video [[strike id=h1]] passiert dir das nicht mehr. [[shot type=scene set=street-day cast="kumpel:left:skeptical, oma:right:skeptical" melo=in-scene:center cam=wide]] [[draw type=note id=n12 text="12 Sätze"]] [[melo expr=surprised pose=shrug]] Zwölf Sätze, die dich sofort [[cast id=oma pose=point]] [[fx name=zoom-punch]] verraten. [[shot type=text style=question text="Nr. 12: nur ein Wort?" melo=off]] Und Nummer zwölf ist nur ein Wort – [[shot type=scene set=exam-room cast="chefin:left:confused, kumpel:right:embarrassed" melo=off cam=push]] [[melo expr=smirk pose=crossed look=viewer]] aber da machen sogar Leute mit [[prop id=c1 name=badge-c1 at=left anim=pop]] C1 [[fx name=sweat]] Fehler.
 
 ## Intro
-[[scene layout=title]] [[camera shot=wide]] [[draw type=title id=t1 text="Das sagt kein Deutscher!"]] [[melo expr=talking pose=explain look=viewer]]
-[[voice tag="cheerful"]] Hi, ich bin Melo. [[melo expr=smirk pose=idle]] Ja, mein Kopf ist eine Wassermelone. Und ja, oben fehlt ein Stück. [[pause s=0.8]] [[melo expr=deadpan]] [[voice tag="deadpan"]] Frag nicht.
+[[shot type=melo framing=wide bg=board in=ink]] [[draw type=title id=t1 text="Das sagt kein Deutscher!"]] [[melo expr=talking pose=explain look=viewer]]
+[[voice tag="cheerful"]] Hi, ich bin Melo. [[shot type=melo framing=medium bg=mustard]] [[melo expr=smirk pose=idle]] Ja, mein Kopf ist eine [[draw type=note id=n0a text="Wassermelone!"]] Wassermelone. [[camera shot=tilt focus=melo]] Und ja, oben fehlt ein [[draw type=note id=n0b text="1 Stück fehlt"]] Stück. [[pause s=0.8]] [[melo expr=deadpan]] [[draw type=note id=n0c text="Frag nicht."]] [[fx name=zoom-punch]] [[voice tag="deadpan"]] Frag nicht.
 
-[[melo expr=talking pose=finger]] Hier gibt's Deutsch mit Kern: kein Lehrbuch-Deutsch, sondern Deutsch, wie man es wirklich spricht. [[draw type=note id=n0 text="12 Sätze · falsch oder zu steif"]] Heute schauen wir uns zwölf Sätze an, die total logisch klingen – die aber kein Deutscher so sagt. Manche sind falsch, manche nur steif wie ein Lehrbuch.
+[[shot type=text style=big text="Deutsch mit Kern" melo=off in=cut]] [[prop id=seed name=melon-seed at=center anim=drop]] [[melo expr=talking pose=finger]] Hier gibt's Deutsch mit Kern: [[shot type=split left="Lehrbuch-Deutsch" right="echtes Deutsch" leftLabel="kein" rightLabel="sondern" melo=off]] kein [[prop id=book name=textbook at=left anim=drop]] Lehrbuch-Deutsch, sondern Deutsch, wie man es [[prop id=talk name=speech-bubbles at=right anim=pop]] wirklich spricht. [[shot type=text style=stack text="12 Sätze|total logisch" melo=off]] Heute schauen wir uns zwölf Sätze an, die total [[prop id=bulb name=lightbulb at=right anim=pop]] logisch klingen – [[shot type=scene set=street-day cast="kumpel:left:confused, oma:right:skeptical" melo=in-scene:center cam=push]] [[say who=melo text="Ich habe 25 Jahre."]] die aber kein Deutscher so [[fx name=question-marks]] sagt. [[shot type=text style=stack text="manche falsch|manche zu steif" melo=off in=cut]] [[melo expr=unimpressed pose=crossed]] Manche sind falsch, manche nur steif wie ein [[prop id=book2 name=textbook at=right anim=drop]] Lehrbuch.
 
-[[melo pose=explain]] Für jeden Satz zeige ich dir, was Muttersprachler stattdessen sagen – und wann. [[melo pose=point look=board]] Also, zurück ins Büro.
+[[shot type=list title="Für jeden Satz:" melo=side-left]] [[draw type=list id=l0 items="Was sagt man wirklich?|Und wann?"]] [[melo pose=explain]] Für jeden Satz zeige ich dir, [[next id=l0]] was Muttersprachler stattdessen sagen – und [[next id=l0]] wann. [[shot type=scene set=office-hot cast="kollegin:center:tired" melo=off in=whip cam=pan-right]] [[cast id=kollegin pose=facepalm]] Also, zurück ins [[fx name=sweat]] Büro.
 
 ## 1 – „Ich bin heiß.“
-[[scene layout=split]] [[camera shot=wide]] [[draw type=icon id=i1 name=sun]] [[draw type=wrong id=w1 text="Ich bin heiß."]] [[melo expr=unimpressed pose=crossed look=viewer]]
-„Ich bin heiß.“ Grammatisch ist der Satz perfekt. Das Problem ist die Bedeutung.
+[[shot type=chapter num=1 title="„Ich bin heiß.“" in=zoom]] [[melo expr=unimpressed pose=crossed look=viewer]]
+„Ich bin heiß.“ [[shot type=text style=right text="Ich bin heiß." sub="Grammatik: perfekt" melo=off]] Grammatisch ist der Satz perfekt. [[shot type=text style=question text="Und die Bedeutung?" melo=side-left]] [[melo pose=chin]] Das Problem ist die [[fx name=question-marks]] Bedeutung.
 
-[[melo expr=smirk pose=idle]] „Ich bin heiß“ heißt: Ich bin sexy. [[pause s=0.5]] Oder, vor einem Fußballspiel: Ich bin total motiviert. Heiß aufs Spiel eben. [[pause s=1]]
+[[shot type=scene set=street-day cast="kollegin:right:embarrassed" melo=in-scene:center cam=push]] [[melo expr=smirk pose=idle]] [[say who=melo text="Ich bin heiß."]] „Ich bin heiß“ heißt: [[prop id=shades name=sunglasses at=center anim=drop]] Ich bin [[fx name=hearts]] sexy. [[pause s=0.5]] [[shot type=scene set=football-park cast="kumpel:left:happy" melo=in-scene:right cam=wide]] Oder, vor einem [[prop id=ball name=football at=center anim=drop]] Fußballspiel: Ich bin total [[fx name=steam]] [[cast id=kumpel pose=hands-up]] motiviert. [[camera shot=push focus=melo]] Heiß aufs Spiel [[fx name=shake]] eben. [[pause s=1]]
 
-[[camera shot=board]] [[draw type=right id=r1 text="Mir ist heiß."]] [[melo expr=talking pose=point look=board]] Wenn du über die Temperatur sprichst, sagst du: „Mir ist heiß.“ Mit Dativ. Nicht du bist heiß – dir ist heiß.
+[[shot type=board melo=side-right]] [[draw type=icon id=i1 name=thermometer]] [[melo expr=talking pose=point look=board]] Wenn du über die Temperatur sprichst, sagst du: [[draw type=right id=r1 text="Mir ist heiß."]] „Mir ist heiß.“ [[draw type=note id=n1d text="mir = Dativ"]] Mit Dativ. [[shot type=split left="Du bist heiß." right="Dir ist heiß." leftLabel="nicht" rightLabel="sondern" melo=off]] Nicht du bist heiß – dir ist heiß.
 
-[[draw type=list id=l1 items="Mir ist kalt.|Mir ist schlecht.|Mir ist langweilig." stagger=auto]] Genauso: „Mir ist kalt.“ „Mir ist schlecht.“ „Mir ist langweilig.“
+[[shot type=list title="Mir ist …" melo=off]] [[draw type=list id=l1 items="kalt.|schlecht.|langweilig."]] Genauso: [[next id=l1]] [[prop id=snow name=snowflake at=right anim=pop]] „Mir ist kalt.“ [[next id=l1]] [[prop id=sick name=green-face at=right anim=pop]] „Mir ist schlecht.“ [[next id=l1]] [[prop id=yawn name=zzz at=right anim=pop]] „Mir ist langweilig.“
 
-[[draw type=note id=n1 text="Ich bin langweilig. = Ich bin ein Langweiler."]] [[camera shot=melo]] [[melo expr=smirk look=viewer]] Und bitte nie: „Ich bin langweilig.“ [[melo expr=laughing]] Das heißt nämlich: Ich bin eine langweilige Person. [[pause s=0.8]]
+[[shot type=text style=wrong text="Ich bin langweilig." melo=corner-left in=whip]] [[melo expr=smirk look=viewer]] Und bitte nie: „Ich bin langweilig.“ [[shot type=scene set=living-room cast="kumpel:center:neutral, mitbewohnerin:right:tired" melo=corner-left cam=wide]] [[cast id=kumpel pose=talk]] [[melo expr=laughing]] Das heißt nämlich: [[say who=kumpel text="… und dann meine Steuererklärung …"]] Ich bin eine [[cast id=mitbewohnerin pose=facepalm]] [[prop id=zzz name=zzz at=right anim=wiggle]] langweilige Person. [[pause s=0.8]]
 
-[[melo expr=smirk pose=crossed]] [[voice tag="mischievously"]] Ich persönlich dürfte übrigens „Ich bin heiß“ sagen. Ich bin schließlich ziemlich saftig. [[pause s=1]]
+[[shot type=melo framing=medium bg=mustard]] [[melo expr=smirk pose=crossed]] [[voice tag="mischievously"]] Ich persönlich dürfte übrigens „Ich bin heiß“ sagen. [[camera shot=push focus=melo]] Ich bin schließlich ziemlich [[fx name=sparkle]] [[prop id=drops name=juice-drops at=center anim=pop]] saftig. [[pause s=1]]
 
 ## 2 – „Ich bin voll.“
-[[scene layout=board]] [[camera shot=wide]] [[draw type=icon id=i2 name=plate]] [[melo expr=talking pose=explain look=viewer]]
-Nächste Situation: Du bist bei deiner deutschen Schwiegermutter zum Essen. Dritter Teller Kartoffelsalat. Sie fragt: „Noch ein bisschen?“
+[[shot type=chapter num=2 title="„Ich bin voll.“" in=zoom]] [[melo expr=talking pose=explain look=viewer]]
+Nächste Situation: [[shot type=scene set=dinner-table cast="schwiegermutter:table-left:happy" melo=in-scene:table-right cam=wide]] Du bist bei deiner deutschen Schwiegermutter zum Essen. [[camera shot=push focus=table]] [[prop id=plates name=plate-stack at=table-right anim=drop]] Dritter Teller [[draw type=note id=n2t text="Teller Nr. 3"]] Kartoffelsalat. Sie fragt: [[say who=schwiegermutter text="Noch ein bisschen?"]] „Noch ein bisschen?“
 
 [[draw type=wrong id=w2 text="Nein danke, ich bin voll."]] [[melo expr=deadpan]] Und du sagst: „Nein danke, ich bin voll.“ [[melo expr=surprised]] [[pause s=0.8]]
 
