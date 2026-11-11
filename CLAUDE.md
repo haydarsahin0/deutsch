@@ -29,12 +29,12 @@ Read `docs/CHANNEL-STATUS.md` first (what's published, what's ready, what's next
 ## Episode workflow
 1. **Script** (one writer pass + one German check): `episodes/NN-slug/script.md` (spoken German + `[[cues]]`), then `node tools/sprechtext.js episodes/NN-slug` → `tts-elevenlabs/teil-*.txt` (owner pastes into ElevenLabs v3, voice "Ben – Effortless and Casual") + `meta.md` (YouTube title/description/tags).
 2. **Voice**: owner uploads `audio/teil-1.mp3 …` → `python3 tools/assemble-audio.py episodes/NN-slug` (joins parts, inserts quiz silences, aligns with faster-whisper, writes subtitles). Seconds-fast re-align after cue edits: `python3 tools/align.py episodes/NN-slug`.
-3. **Direction**: rewrite cues only (spoken text must stay byte-identical — diff `tts.txt`): a new `[[shot]]` every ~3–6 s, show every situation with sets + cast, Melo visible ~50 % and never huge. Check pacing: `python3 tools/shot-stats.py <script.md> <alignment.json>`.
+3. **Direction**: rewrite cues only (spoken text must stay byte-identical — diff `tts.txt`): a new `[[shot]]` every **~5–10 s** (owner, ep. 2), with things happening inside each shot; every episode tells a **story in its own NEW sets** (draw 10–15 new sets per episode for its storyline, reuse earlier episodes' sets only rarely, avoid repeating a set inside the episode unless the story returns there); Melo visible ~50 % and never huge. Check pacing: `python3 tools/shot-stats.py <script.md> <alignment.json>`.
 4. **Render**: `node tools/build.js episodes/NN-slug` (envelope → timeline → render → mux; `--from/--to`, `--preview`). Output `out/video.mp4` (gitignored). ~25 min for 12 min of video.
 5. **QA**: one contact sheet, fix, re-render only affected ranges.
 
 ## Owner preferences (learned)
-- Constant visual flow (short-form retention), everything mentioned is shown; no long static board shots.
+- Constant visual flow, everything mentioned is shown; no long static board shots. **Scene changes every ~5–10 s (not faster)**, and **big scene variety**: each episode lives in its own new locations like a story (the viewer should feel inside a story), not the same few sets again.
 - But text must be readable: chapter/text cards stay long enough; writing finishes before cuts.
 - Melo not too big, not always on screen. No freeze-frame gags (they look like bugs).
 - Burned-in synced subtitles (karaoke highlight) + separate `.srt` for YouTube.
