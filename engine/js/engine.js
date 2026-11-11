@@ -1281,7 +1281,7 @@
   function propPos(sc, at) {
     if (sc.type === 'scene') {
       var S = slotsOf(sc);
-      if (S[at]) { var sl = S[at]; return [sl.x, sl.y - (at === 'back' ? 420 : 520) * (sl.scale || 1)]; }
+      if (S[at]) { var sl = S[at], base = sl.seated && sl.seatY ? sl.seatY + 140 * (sl.scale || 1) : sl.y; return [sl.x + (sl.seated ? 170 : 0), base - (at === 'back' ? 420 : 560) * (sl.scale || 1)]; }
     }
     var m = String(at || '').match(/^(-?\d+)\s*,\s*(-?\d+)$/);
     if (m) return [+m[1], +m[2]];
@@ -1627,7 +1627,8 @@
       if (f.kind === 'cast') await drawCast(ctx, sc, f.m, tc, cam);
       else {
         var sl = slotPos(sc, f.slot), side = sl.face === -1 ? 'left' : sl.face === 1 ? 'right' : (sc.cast && sc.cast.length && slotPos(sc, sc.cast[0].slot).x < sl.x) ? 'left' : 'right';
-        await drawMeloFig(ctx, tc, { x: sl.x, y: sl.y, s: sl.scale || 1.1 }, cam, { boardSide: side, board: false });
+        var my = sl.seated && sl.seatY ? sl.seatY + 165 * (sl.scale || 1) : sl.y;  // seated: legs hidden by the table
+        await drawMeloFig(ctx, tc, { x: sl.x, y: my, s: sl.scale || 1.1 }, cam, { boardSide: side, board: false });
       }
     }
     if (lay.fg) ctx.drawImage(lay.fg, 0, 0, 1920, 1080);

@@ -10,7 +10,7 @@
  *  - a few extra helpers (shadeSide, shaft, heat shimmer lines).
  * Browser: melo-b.js, scene-ink.js, fonts-embed.js, sets.js, kit-b.js, kit-a.js, then the set files. Node: require works.
  *
- * def = { slots, ambient?, variants?, build(S, opts, A) → { bg: markup, fg?: markup, amb?: { key: function (t, opts) → markup } } }
+ * def = { slots, ambient?, variants?, build(S, opts, A) → { bg: markup, fg?: markup, amb?: { key: function (t, opts) → markup }, post?: fn(layerMarkup) → markup } }
  * render(opts) → { bg, fg } (+ `still: {bg, fg}` without ambient bits for ambient sets).
  */
 (function (root, factory) {
@@ -78,6 +78,28 @@
     return S.lines(L, { w: o.w || 2.4, ta: 0.4, tb: 0.4, min: 0.1, smooth: 0 }, o.color || P.ink, ' opacity="' + (o.op || 0.25) + '"');
   }
 
+
+  // ───────── sepia / faded-photo colour remap (string transform at build time; no SVG filter) ─────────
+  // k = 0..1 strength. Remaps every #rgb/#rrggbb and rgb()/rgba() colour in the markup (fonts' base64 is untouched:
+  // it never contains '#'). Used for "memory" variants (e.g. football-park variant 'retro').
+  function sepiaRGB(r, g, b, k) {
+    var y = 0.3 * r + 0.59 * g + 0.11 * b;
+    var sr = Math.min(255, y * 1.07 + 28), sg = Math.min(255, y * 0.9 + 14), sb = Math.min(255, y * 0.66);
+    return [r + (sr - r) * k, g + (sg - g) * k, b + (sb - b) * k];
+  }
+  function hex2(n) { n = Math.max(0, Math.min(255, Math.round(n))); return (n < 16 ? '0' : '') + n.toString(16); }
+  function sepia(markup, k) {
+    k = k == null ? 0.85 : k;
+    return markup.replace(/(?<!url\()(?<!href=")#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g, function (m, h) {
+      if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+      var c = sepiaRGB(parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16), k);
+      return '#' + hex2(c[0]) + hex2(c[1]) + hex2(c[2]);
+    }).replace(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d.]+\s*)?\)/g, function (m, r, g, b, a) {
+      var c = sepiaRGB(+r, +g, +b, k);
+      return (a ? 'rgba(' : 'rgb(') + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + (a || '') + ')';
+    });
+  }
+
   // ───────── define + register ─────────
   function now() { return (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now(); }
   function define(name, def) {
@@ -89,6 +111,7 @@
       var S = KB.ink(name, base);
       var b = withWobble(base, def.wobble == null ? 1 : def.wobble, function () { return def.build(S, opts, api); });
       var out = S.out(b.bg, b.fg || '');
+      if (b.post) { out.bg = b.post(out.bg); out.fg = out.fg ? b.post(out.fg) : ''; }
       var st = { bg: out.bg, fg: out.fg, amb: b.amb || {}, ms: now() - t0 };
       cache[key] = st;
       return st;
@@ -114,7 +137,7 @@
   // per-frame ink for ambient bits (ids prefixed <name>-amb; no hatching recommended → cheap)
   function ambInk(name, seed) { return KB.ink(name + '-amb', seed || 1); }
 
-  var api = { define: define, withWobble: withWobble, ambInk: ambInk, shadeSide: shadeSide, shaft: shaft, shimmer: shimmer,
+  var api = { define: define, sepia: sepia, withWobble: withWobble, ambInk: ambInk, shadeSide: shadeSide, shaft: shaft, shimmer: shimmer,
     P: P, U: U, KB: KB, slot: KB.slot };
   return api;
 });

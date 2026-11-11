@@ -34,6 +34,16 @@
   function extend(S, prefix) {
     var nClip = 0, nG = 0;
     S.P = P; S.U = U; S.C = C; S.prefix = prefix;
+    // 2-point strokes: densify so tapers apply at the ends only (otherwise the whole stroke collapses to o.min width)
+    function dens(pts) {
+      if (pts.length !== 2) return pts;
+      var a = pts[0], b = pts[1], q = [];
+      for (var i = 0; i <= 8; i++) q.push([a[0] + (b[0] - a[0]) * i / 8, a[1] + (b[1] - a[1]) * i / 8]);
+      return q;
+    }
+    var _line = S.line, _lines = S.lines;
+    S.line = function (pts, o, c, e) { return _line.call(this, dens(pts), o, c, e); };
+    S.lines = function (list, o, c, e) { return _lines.call(this, list.map(dens), o, c, e); };
     S.clip = function (pts) {
       var id = prefix + '-c' + (++nClip);
       this.defs += '<clipPath id="' + id + '"><path d="' + U.polyD(pts, true) + '"/></clipPath>';

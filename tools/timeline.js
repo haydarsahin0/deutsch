@@ -443,6 +443,8 @@ function compile(ep, opts = {}) {
     if (!sc.tokens || !sc.tokens.length) continue;
     const end = sc.end != null ? sc.end : duration;
     if (sc.tokens.some(k => k.t > end - 0.4)) sc.tokens.forEach((k, i) => { k.t = r3(sc.contentStart + 0.05 + i * 0.16); k.matched = false; });
+    // never an empty frame: words pop in at least on a brisk cadence from the shot start, earlier if spoken earlier
+    sc.tokens.forEach((k, i) => { k.t = r3(Math.min(k.t, sc.contentStart + 0.12 + i * 0.24)); });
     const last = sc.tokens[sc.tokens.length - 1].t;
     if (sc.args.style === 'wrong' && sc.args.strike !== 'manual') sc.strikeT = r3(Math.min(last + 0.7, end - 0.3));
     if (sc.args.style === 'right') sc.tickT = r3(Math.min(last + 0.5, end - 0.3));

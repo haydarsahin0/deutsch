@@ -74,7 +74,7 @@
   }
 
   function windowSkyline(S) {
-    var x = 1250, y = 92, w = 560, h = 470;
+    var x = 1270, y = 92, w = 500, h = 470;
     var view = (function () {
       var v = '';
       v += S.glow(x + w * 0.3, y + 80, 260, 160, '#fff4d8', 0.6);
@@ -149,7 +149,7 @@
   }
 
   function desk(S) {
-    var s = '', x0 = 330, x1 = 1180, top = 776;
+    var s = '', x0 = 330, x1 = 1180, top = 830;
     // top surface (visible as a thin band)
     var tp = [[x0 - 20, top - 22], [x1 + 20, top - 22], [x1 + 34, top + 6], [x0 - 34, top + 6]];
     // items standing on the desk (behind the front edge)
@@ -183,7 +183,7 @@
     var fr = [[x0 - 34, top + 6], [x1 + 34, top + 6], [x1 + 20, 1010], [x0 - 20, 1010]];
     s += S.floorShadow((x0 + x1) / 2, 1012, (x1 - x0) * 0.58, 20, 0.3);
     s += S.shape(fr, DESK, { w: 3.6, extra: 4 });
-    s += S.box(x0, top + 40, x1 - x0, 150, '#7a5236', { w: 2.4, extra: 2.6, hatch: 'r', hk: 0.1, hop: 0.4 });
+    s += S.box(x0, top + 34, x1 - x0, 110, '#7a5236', { w: 2.4, extra: 2.6, hatch: 'r', hk: 0.1, hop: 0.4 });
     s += S.hatch(fr, { ang: 2, gap: 9, w: 1.1, op: 0.25 });
     s += '<path d="M' + (x0 - 34) + ' ' + (top + 6) + 'L' + (x1 + 34) + ' ' + (top + 6) + 'L' + (x1 + 20) + ' 1010L' + (x0 - 20) + ' 1010Z" fill="' + S.linear([[0, '#000', 0], [1, '#000', 0.25]], 0, 0, 0, 1) + '"/>';
     // nameplate facing the camera
@@ -207,7 +207,7 @@
     build: function () {
       return {
         bg: function (S) {
-          return room(S) + windowSkyline(S) + backWall(S) + shelf(S) + ficus(S, 1150, YH + 18) + bossChair(S, 760) + guestChair(S, 1400, 878) +
+          return room(S) + windowSkyline(S) + backWall(S) + shelf(S) + ficus(S, 1868, YH + 40) + bossChair(S, 760) + guestChair(S, 1400, 878) +
             '<rect x="0" y="0" width="1920" height="1080" fill="' + S.radial([[0.55, '#2a2418', 0], [1, '#2a2418', 0.3]], { cx: '55%', cy: '40%', r: '75%' }) + '"/>';
         },
         fg: function (S) { return desk(S); }

@@ -433,6 +433,14 @@
     var x = an[0], y = an[1], k = st.k || 1, sz = Math.max(0.7, S) * k;
     var T2 = function (p) { return p.map(function (q) { return [x + q[0] * dir * sz, y + q[1] * sz]; }); };
     var s = '';
+    if (st.slipper) {
+      var sl = catmull([[-10, 10], [-11, 1], [-4, -6], [10, -6], [26, -2], [33, 5], [32, 11]], 4, true);
+      s += shape(ink, T2(sl), st.col, SH, { w: 1.4, extra: 1.6 });
+      s += shape(ink, T2([[-12, 9], [34, 9], [35, 13], [-11, 13.5]]), st.sole || '#8a7a68', SH, { w: 1.2, extra: 1.4 });
+      var fz = ''; for (var i = 0; i < 7; i++) fz += 'M' + polyD(T2([[2 + i * 4, -4 + Math.abs(3 - i) * 0.6], [3 + i * 4, -7 + Math.abs(3 - i) * 0.6]]), false).slice(1);
+      s += '<path d="' + fz + '" stroke="' + INK + '" stroke-width="0.9" stroke-linecap="round" opacity="0.6"/>';
+      return '<g class="cast-shoe">' + s + '</g>';
+    }
     if (st.heel) {
       var up = catmull([[-8, 7], [-8, 0], [-5, -4], [2, -3], [8, 1], [18, 4], [24, 6.5], [25, 9]], 4, true);
       s += shape(ink, T2(up), st.col, SH, { w: 1.3, extra: 1.3 });
@@ -539,6 +547,14 @@
     return s;
   }
   function vNeck(c, n0, yV, w, col) { return shape(c.ink, [[n0[0] - w, n0[1] + 1], [n0[0] + w, n0[1] + 1], [n0[0], yV]], col, c.SH, { w: 1, extra: 0.8 }); }
+  function bowtie(c, p, col, w) {
+    w = w || 1; var ink = c.ink, s = '';
+    s += shape(ink, [[p[0], p[1]], [p[0] - 10 * w, p[1] - 5 * w], [p[0] - 10 * w, p[1] + 5 * w]], col, c.SH, { w: 1.1, extra: 1 });
+    s += shape(ink, [[p[0], p[1]], [p[0] + 10 * w, p[1] - 5 * w], [p[0] + 10 * w, p[1] + 5 * w]], col, c.SH, { w: 1.1, extra: 1 });
+    s += shape(ink, ellipse(p[0], p[1], 2.8 * w, 3 * w, 12), col, c.SH, { w: 1, extra: 0.6 });
+    return s;
+  }
+  function stripes(y0, y1, x0, x1, step, col, op) { var d = ''; for (var y = y0; y <= y1; y += step) d += 'M' + f1(x0) + ' ' + f1(y) + 'H' + f1(x1); return '<path d="' + d + '" stroke="' + col + '" stroke-width="' + f1(step / 2) + '"' + (op ? ' opacity="' + op + '"' : '') + '/>'; }
   function skirtPoly(c, y0, y1, w0, w1, sit) {
     var cx = c.hip[0];
     if (sit) { y1 = c.knee[1] + 6; w1 = Math.max(w1, Math.abs(c.knee[0] - cx) + 12 * c.S); }
@@ -704,6 +720,13 @@
       });
     }
     s += '<g class="cast-mouth">' + mouth(ink, fx, ey + my, ex.m, clamp(ex.open || 0, 0, 1), uid + 'mo', F, addDef) + '</g>';
+    if (F.headMirror) { // ENT head mirror on a band across the forehead
+      var hmY = ey - 42, hb = catmull([[fx - 62, hmY + 10], [fx - 20, hmY - 4], [fx + 30, hmY - 4], [fx + 66, hmY + 10]], 5, false);
+      s += stroke(ink, hb, { w: 4.2, ta: 0.05, tb: 0.05, min: 0.8, jit: 0.05 }, '#2b2a28');
+      var mc = [fx - 24, hmY - 6];
+      s += shape(ink, ellipse(mc[0], mc[1], 15, 13, 28), '#c9cdd0', [0.55, 0.83], { w: 1.5, extra: 1.6 });
+      s += '<circle cx="' + mc[0] + '" cy="' + mc[1] + '" r="3.2" fill="' + INK + '"/><path d="M' + (mc[0] - 9) + ' ' + (mc[1] - 4) + 'q4 -6 10 -6" stroke="#fff" stroke-width="2" fill="none" opacity="0.85"/>';
+    }
     if (fxs.lines) s += stroke(ink, [[fx + 58, ey - 30], [fx + 66, ey - 38]], { w: 2 }) + stroke(ink, [[fx + 62, ey - 22], [fx + 73, ey - 26]], { w: 2 }) + stroke(ink, [[fx + 52, ey - 36], [fx + 54, ey - 47]], { w: 2 });
     if (fxs.sweat) {
       var drops = fxs.sweat > 1 ? [[-50, -28, 1], [56, -12, 0.85], [-44, 2, 0.7]] : [[54, -26, 1]];
@@ -1005,6 +1028,7 @@
       m.teeth = m.teeth === 2 && lipOpen < 0.2 ? 2 : 1; m.tongue = lipOpen > 0.3 ? 1 : 0; m.wave = 0;
       ex.open = Math.max(lipOpen, restOpen * 0.3);
     } else ex.open = restOpen;
+    if (F.grin && (exprN === 'happy' || exprN === 'smug') && lipOpen === 0) { ex.open = Math.max(ex.open, 0.32); ex.m.teeth = 1; ex.m.l = [ex.m.l[0] - 2, ex.m.l[1] - 1]; ex.m.r = [ex.m.r[0] + 2, ex.m.r[1] - 1]; }
     if (pName === 'facepalm') { ex.eL.up = Math.min(ex.eL.up || 3, 2); ex.eR.up = Math.min(ex.eR.up || 3, 2); }
 
     // gestures
