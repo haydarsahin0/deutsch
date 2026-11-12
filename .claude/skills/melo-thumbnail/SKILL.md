@@ -17,3 +17,4 @@ Delegate to ONE Opus agent (design is quality-defining). Source pattern: `episod
 
 ## Shorts covers
 Produced by `tools/make-short.py` from the `cover` block (1080×1920; key content inside the central 1080×1080).
+- **Every Short cover is hand-designed and different** (owner: identical-template covers look like copies). Own HTML per Short in `shorts/NN/cover/cover.html` (patterns: `shorts/01-ich-bin-heiss/cover/` diagonal fire split, `shorts/02-ich-bin-voll/cover/` 3-row beer-hall table); own colour world, layout and headline per Short; key content in central 1080×1080, top 180 / bottom 420 px decoration only; PNG < 2 MB (or JPG). The owner's favourite style is the ep2 long thumbnail B (diagonal warm/cold split, „HEUTE 50 | MORGEN 3“).

@@ -39,3 +39,4 @@ Read `docs/CHANNEL-STATUS.md` first (what's published, what's ready, what's next
 - Melo not too big, not always on screen. No freeze-frame gags (they look like bugs).
 - Burned-in synced subtitles (karaoke highlight) + separate `.srt` for YouTube.
 - Style: adult ink-illustration (hatching, grain, muted vintage), not childish.
+- Thumbnails/covers: favourite = ep2 thumbnail B (diagonal split, huge text, red ink circle). Each Short gets its own distinct hand-designed cover, never a shared template.
