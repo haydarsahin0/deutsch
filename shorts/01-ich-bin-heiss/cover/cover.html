@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Cover Short 01 v2</title>
+<!-- Shorts cover v2 for 01-ich-bin-heiss („Ich bin heiß“ → „Mir ist heiß“). Fire world, diagonal comic-panel split:
+     upper panel = wrong (red, shocked blushing Kollegin, red ink loop), lower panel = right (amber, Melo pointing, ✓).
+     Append #g to overlay the Shorts safe zones (top 180 / bottom 420 UI, centre 1080×1080 square).
+     node tools/render.js shorts/01-ich-bin-heiss/cover/cover.html shorts/01-ich-bin-heiss/out/cover-v2.png 1080 1920 -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #1a0503; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+<script src="../../../engine/cast/cast.js"></script>
+</head>
+<body>
+<svg id="stage" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+(async function () {
+  await Promise.all(['400 100px Anton', '700 100px Oswald'].map(function (f) { return document.fonts.load(f, 'AÖẞ35?!–°'); }));
+  var W = 1080, H = 1920, HASH = (location.hash || '').slice(1);
+  var INK = '#14110d', RED = '#E5302A', YEL = '#FFC83A', GRN = '#1d9640';
+  var S = new SceneInk(21), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  function f1(v) { return U.f1(v); }
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="8" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="glowSh" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="8" result="d"/><feGaussianBlur in="d" stdDeviation="18"/>' +
+    '<feOffset dx="10" dy="16"/><feComponentTransfer><feFuncA type="linear" slope=".75"/></feComponentTransfer></filter>' +
+    '<filter id="tblur" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>' +
+    '<filter id="distress" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.4 0 0 0 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>' +
+    '<filter id="rim" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="11" result="d"/><feOffset dx="-7" dy="-8"/><feGaussianBlur stdDeviation="1.5" result="o"/><feFlood flood-color="#fff3c4"/><feComposite in2="o" operator="in"/></filter>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="9"/><feOffset dx="7" dy="11"/><feComponentTransfer><feFuncA type="linear" slope=".6"/></feComponentTransfer></filter>' +
+    '<filter id="heat" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3"/></filter>';
+
+  // ── helpers (ep. 1 C3 / ep. 2 B) ─────────────────────────
+  var glN = 0;
+  function glow(g, clip) {
+    var id = 'gl' + (glN++);
+    defs += '<radialGradient id="' + id + '" cx="' + g.x + '" cy="' + g.y + '" r="' + g.r + '" gradientUnits="userSpaceOnUse">' +
+      '<stop offset="0" stop-color="' + g.c + '" stop-opacity="' + (g.o || 1) + '"/><stop offset=".45" stop-color="' + g.c + '" stop-opacity="' + ((g.o || 1) * 0.45) + '"/><stop offset="1" stop-color="' + g.c + '" stop-opacity="0"/></radialGradient>';
+    return '<rect width="' + W + '" height="' + H + '" fill="url(#' + id + ')"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  function rays(cx, cy, n, color, op, clip) {
+    var d = '';
+    for (var i = 0; i < n; i++) {
+      var a0 = i / n * Math.PI * 2, a1 = a0 + Math.PI / n * 0.9;
+      d += 'M' + cx + ' ' + cy + 'L' + f1(cx + 2600 * Math.cos(a0)) + ' ' + f1(cy + 2600 * Math.sin(a0)) + 'L' + f1(cx + 2600 * Math.cos(a1)) + ' ' + f1(cy + 2600 * Math.sin(a1)) + 'Z';
+    }
+    return '<path d="' + d + '" fill="' + color + '" opacity="' + op + '"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  function word(t, x, y, w, maxSize, fill, o) {
+    o = o || {};
+    var size = Math.min(maxSize, maxSize * w / measure(t, '400 ' + maxSize + 'px Anton'));
+    var sw = size * (o.sw || 0.1), sh = size * 0.055;
+    var attrs = 'x="' + x + '" y="' + y + '" font-family="Anton" font-size="' + f1(size) + '" text-anchor="' + (o.anchor || 'start') + '"';
+    var g = '<g' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" opacity=".75" filter="url(#tblur)" transform="translate(' + f1(sh * 1.6) + ' ' + f1(sh * 2.4) + ')">' + t + '</text>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + f1(sh * 0.8) + ' ' + f1(sh) + ')">' + t + '</text>';
+    g += '<text ' + attrs + ' fill="' + fill + '" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + t + '</text>';
+    return g + '</g>';
+  }
+  // Melo with soft shadow, warm rim light, heavy silhouette. hx,hy = skull centre, hh = skull height px
+  function melo(opts, hx, hy, hh) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh;
+    var vb = [-hx * u, -388 - hy * u, W * u, H * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#rim)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+  }
+  // cast member with head centre at (x,y) and head half-height r
+  function cast(id, o, x, y, r, rot) {
+    var f0 = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: 1 }, o));
+    var k = r / (f0.anchors.headCenter[1] - f0.anchors.headTop[1]);
+    var fr = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: k }, o)), hc = fr.anchors.headCenter;
+    var g = '<g transform="translate(' + f1(x - hc[0]) + ' ' + f1(y - hc[1]) + ') rotate(' + (rot || 0) + ' ' + f1(hc[0]) + ' ' + f1(hc[1]) + ')">' + fr.svg + '</g>';
+    return { svg: '<g filter="url(#glowSh)">' + g + '</g><g filter="url(#sil)">' + g + '</g>' + g, k: k };
+  }
+  function loop(cx, cy, rx, ry, w, color, rot) {
+    var pts = [], n = 52, a0 = -2.2;
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (Math.PI * 2 + 0.55) * i / n, k = 1 + 0.05 * Math.sin(i * 0.5) + i * 0.0012;
+      pts.push([cx + rx * k * Math.cos(a), cy + ry * k * Math.sin(a)]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + cx + ' ' + cy + ')">' + S.line(pts, { w: w, ta: 0.08, tb: 0.25, min: 0.45, jit: 0.1 }, color) + '</g>';
+  }
+  function badge(x, y, t, bgc, fg, size, rot) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.8, h = size * 1.35;
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + (rot || 0) + ')">' +
+      S.shape(S.rect(0, 0, w, h, 20, 1.2), bgc, { w: 3.5, extra: 2 }) +
+      '<text x="' + (w / 2) + '" y="' + (h * 0.76) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" fill="' + fg + '" text-anchor="middle">' + t + '</text></g>';
+  }
+  function check(cx, cy, r, color) {
+    return '<g transform="translate(' + cx + ' ' + cy + ')">' +
+      S.line([[-r, -r * 0.05], [-r * 0.55, r * 0.35], [-r * 0.2, r * 0.75], [r * 0.25, r * 0.05], [r * 1.05, -r * 1.0]], { w: r * 0.38, ta: 0.15, tb: 0.1, min: 0.55, jit: 0.15, smooth: 6 }, color) + '</g>';
+  }
+  function stamp(cx, cy, rot, sc, color, mark) {
+    var g = '<g transform="translate(' + cx + ' ' + cy + ') rotate(' + rot + ') scale(' + sc + ')">';
+    g += '<circle r="100" fill="#000" filter="url(#soft)"/>';
+    g += S.shape(S.ellipse(0, 0, 98, 98, 60, 0.02), '#f6eed9', { w: 7, extra: 3 });
+    g += '<g filter="url(#distress)">' + S.shape(S.ellipse(0, 0, 80, 80, 60, 0.03), 'none', { w: 11, extra: 3, color: color }) + mark + '</g>';
+    return g + '</g>';
+  }
+  function drop(x, y, r, rot) {
+    var pts = [];
+    for (var i = 0; i < 40; i++) {
+      var a = i / 40 * Math.PI * 2, k = Math.sin(a) < 0 ? 1 + 0.9 * Math.pow(-Math.sin(a), 3) : 1;
+      pts.push([x + r * Math.cos(a) * (Math.sin(a) < 0 ? 1 - 0.75 * Math.pow(-Math.sin(a), 1.4) : 1), y + r * Math.sin(a) * k]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + x + ' ' + y + ')">' + S.shape(pts, '#bfe6ff', { w: 3.2, extra: 1.5 }) +
+      '<ellipse cx="' + f1(x - r * 0.3) + '" cy="' + f1(y - r * 0.1) + '" rx="' + f1(r * 0.18) + '" ry="' + f1(r * 0.32) + '" fill="#fff" opacity=".9"/></g>';
+  }
+  function flame(x, base, w, h, lean, fill, inner) {
+    var L = [], R = [];
+    for (var i = 0; i <= 14; i++) {
+      var t = i / 14, yy = base - h * t, half = w / 2 * Math.sin(Math.PI * Math.pow(1 - t, 0.85)) * (1 - 0.25 * t), sway = lean * t * t;
+      L.push([x + sway - half - 4 * Math.sin(t * 9), yy]); R.push([x + sway + half + 3 * Math.sin(t * 7), yy]);
+    }
+    var pts = L.concat(R.reverse());
+    var g = S.shape(pts, fill, { w: 4, extra: 2 });
+    g += S.hatch(pts, { ang: 55, gap: 10, w: 1.6, op: 0.3, cond: function (X) { return X > x + lean * 0.3; } });
+    if (inner) g += S.shape(pts.map(function (p) { return [x + (p[0] - x) * 0.5 + lean * 0.05, base - (base - p[1]) * 0.58]; }), inner, { w: 2.2, extra: 1 });
+    return g;
+  }
+
+  // ── layout: seam from (0,SL) to (W,SR); upper = wrong, lower = right ─────
+  var SL = 1068, SR = 902;
+  function seamY(x) { return SL + (SR - SL) * x / W; }
+  defs += '<clipPath id="up"><path d="M0 0H' + W + 'V' + SR + 'L0 ' + SL + 'Z"/></clipPath>';
+  defs += '<clipPath id="lo"><path d="M0 ' + SL + 'L' + W + ' ' + SR + 'V' + H + 'H0Z"/></clipPath>';
+
+  // upper panel: blood-red heat
+  s += '<rect width="' + W + '" height="' + H + '" fill="#3c0705"/>';
+  s += glow({ x: 330, y: 700, r: 760, c: '#e5302a', o: 0.7 }, 'up');
+  s += glow({ x: 212, y: 318, r: 640, c: '#ff9a1a', o: 0.85 }, 'up');
+  s += glow({ x: 900, y: 560, r: 420, c: '#ff5a3a', o: 0.35 }, 'up');
+  s += rays(212, 318, 26, '#000', 0.13, 'up');
+  // heat shimmer
+  var hs = '';
+  for (var j = 0; j < 9; j++) {
+    var y0 = 470 + j * 52, x0 = 40 + (j % 3) * 30, pts = [];
+    for (var xx = 0; xx <= 520; xx += 26) pts.push([x0 + xx, y0 + 9 * Math.sin(xx / 34 + j)]);
+    hs += S.line(pts, { w: 3, ta: 0.3, tb: 0.3, min: 0.3, smooth: 3 }, '#ffd27a');
+  }
+  s += '<g opacity=".16" filter="url(#heat)" clip-path="url(#up)">' + hs + '</g>';
+
+  // the sun with 35°
+  var SX = 212, SY = 318, SRd = 118;
+  var sr = '';
+  for (var i = 0; i < 16; i++) {
+    var a = i / 16 * Math.PI * 2 + 0.1, r0 = SRd + 22, r1 = SRd + (i % 2 ? 62 : 96);
+    sr += S.line([[SX + r0 * Math.cos(a), SY + r0 * Math.sin(a)], [SX + r1 * Math.cos(a), SY + r1 * Math.sin(a)]], { w: 17, ta: 0.2, tb: 0.45, min: 0.35 }, '#ffd23a');
+  }
+  s += '<g filter="url(#sil)">' + sr + '</g>' + sr;
+  defs += '<radialGradient id="sunf" cx="' + (SX - 40) + '" cy="' + (SY - 45) + '" r="' + (SRd * 1.5) + '" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffd23a"/><stop offset="1" stop-color="#ff8a1a"/></radialGradient>';
+  var sun = S.ellipse(SX, SY, SRd, SRd, 70, 0.015);
+  s += '<circle cx="' + SX + '" cy="' + SY + '" r="' + (SRd + 6) + '" fill="#000" filter="url(#soft)"/>';
+  s += S.shape(sun, 'url(#sunf)', { w: 8, extra: 3 });
+  s += S.hatch(sun, { ang: 45, gap: 10, w: 2, op: 0.25, cond: function (X, Y) { return (X - SX) + (Y - SY) > SRd * 0.55; } });
+  s += word('35°', SX + 4, SY + 52, 190, 150, '#b3160c', { anchor: 'middle', sw: 0.035 }).replace(/opacity=".75"/, 'opacity="0"');
+
+  // shocked, blushing Kollegin (upper right), body hidden by the lower panel
+  var KX = 818, KY = 662, KR = 172;
+  var kc = cast('kollegin', { expr: 'shocked', pose: 'hands-up', prop: 'none' }, KX, KY, KR, 5);
+  s += kc.svg;
+  // blush + sweat
+  var bl = '';
+  [[-0.5, 0.22], [0.52, 0.2]].forEach(function (p) {
+    var bx = KX + p[0] * KR, by = KY + p[1] * KR;
+    bl += '<ellipse cx="' + f1(bx) + '" cy="' + f1(by) + '" rx="' + f1(KR * 0.22) + '" ry="' + f1(KR * 0.12) + '" fill="#ff4f6a" opacity=".55" filter="url(#heat)"/>';
+    for (var q = -1; q <= 1; q++) bl += S.line([[bx - KR * 0.08 + q * KR * 0.09, by + KR * 0.06], [bx + KR * 0.02 + q * KR * 0.09, by - KR * 0.07]], { w: 4, ta: 0.3, tb: 0.3, min: 0.3 }, '#a3152b');
+  });
+  s += '<g transform="rotate(5 ' + KX + ' ' + KY + ')">' + bl + '</g>';
+  s += drop(KX + KR * 1.08, KY - KR * 0.55, 20, 18) + drop(KX - KR * 1.12, KY - KR * 0.3, 16, -20) + drop(KX + KR * 1.2, KY - KR * 0.05, 13, 25);
+
+  // wrong line
+  s += word('ICH BIN', 52, 612, 400, 175, '#ffffff', { rot: -5 });
+  s += word('HEIẞ?', 46, 858, 515, 300, '#ffffff', { rot: -5, sw: 0.085 });
+  s += loop(300, 752, 288, 152, 15, RED, -5);
+  s += '<g filter="url(#distress)">' + badge(372, 878, 'FALSCH!', '#f6eed9', RED, 44, -9) + '</g>';
+
+  // lower panel: amber, drawn over the Kollegin's body
+  s += '<path d="M0 ' + SL + 'L' + W + ' ' + SR + 'V' + H + 'H0Z" fill="#3b1a04"/>';
+  s += glow({ x: 760, y: 1240, r: 700, c: '#ff9b1f', o: 0.62 }, 'lo');
+  s += glow({ x: 230, y: 1250, r: 460, c: '#ffd27a', o: 0.4 }, 'lo');
+  s += rays(230, 1180, 22, '#000', 0.09, 'lo');
+  // flames licking up from the bottom (decor zone)
+  var fl = '';
+  [[60, 1930, 190, 330, 30], [230, 1940, 160, 250, -20], [400, 1930, 210, 360, 25], [600, 1940, 170, 280, -25], [790, 1930, 220, 380, 30], [985, 1940, 190, 320, -20]].forEach(function (f) {
+    fl += flame(f[0], f[1], f[2], f[3], f[4], '#ff6a1a', '#ffd23a');
+  });
+  s += '<g opacity=".95">' + fl + '</g>';
+  // seam
+  s += S.line([[-10, SL + 2], [W / 2, (SL + SR) / 2], [W + 10, SR - 2]], { w: 15, ta: 0, tb: 0, min: 1 }, '#000');
+
+  // Melo, smug, pointing at the right answer
+  var pt = JSON.parse(JSON.stringify(MeloB._POSES.point));
+  pt.b = { sh: [13, -272], el: [74, -280], wr: [136, -300], hand: { g: 'point', ang: -10, flip: 0 } };
+  s += melo({ view: 'full', poseParams: pt, expression: 'smirk', look: [0.6, -0.05], headTilt: -4 }, 232, 1168, 262);
+
+  // right line
+  s += word('MIR IST', 1040, 1208, 380, 175, '#ffffff', { anchor: 'end', rot: 4 });
+  s += word('HEIẞ!', 1044, 1452, 515, 300, YEL, { anchor: 'end', rot: 4, sw: 0.085 });
+  s += stamp(572, 1132, 8, 0.62, GRN, check(4, 6, 46, GRN));
+
+  s += badge(463, 196, 'B1–C1', YEL, INK, 40, 0);
+  defs += '<radialGradient id="vig" cx="540" cy="960" r="1150" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>';
+  s += '<rect width="' + W + '" height="' + H + '" fill="url(#vig)"/>';
+  s += '<rect width="' + W + '" height="' + H + '" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
+  if (HASH === 'g') s += '<rect width="1080" height="180" fill="#f0f" opacity=".45"/><rect y="1500" width="1080" height="420" fill="#f0f" opacity=".45"/><rect y="420" width="1080" height="1080" fill="none" stroke="#0ff" stroke-width="6"/><rect y="285" width="1080" height="1350" fill="none" stroke="#0f0" stroke-width="4" stroke-dasharray="20 14"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+  window.__done = true;
+})();
+</script>
+</body>
+</html>

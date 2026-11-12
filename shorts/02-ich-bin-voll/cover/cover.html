@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Cover Short 02 v2</title>
+<!-- Shorts cover v2 for 02-ich-bin-voll („Ich bin voll“ → „Ich bin satt“). Cold teal beer-hall world, horizontal stack:
+     row 1 = wrong (foaming beer mug + VOLL?, ✗), row 2 = dinner table (shocked Schwiegermutter pointing, Melo laughing/shrugging),
+     row 3 = right (overfull Kartoffelsalat plate + SATT!, ✓) on a green gingham tablecloth.
+     Append #g to overlay the Shorts safe zones.
+     node tools/render.js shorts/02-ich-bin-voll/cover/cover.html shorts/02-ich-bin-voll/out/cover-v2.png 1080 1920 -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #04191a; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+<script src="../../../engine/cast/cast.js"></script>
+</head>
+<body>
+<svg id="stage" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+(async function () {
+  await Promise.all(['400 100px Anton', '700 100px Oswald'].map(function (f) { return document.fonts.load(f, 'AÖẞ35?!–°'); }));
+  var W = 1080, H = 1920, HASH = (location.hash || '').slice(1);
+  var INK = '#14110d', RED = '#E5302A', YEL = '#FFC83A', GRN = '#1d9640';
+  var S = new SceneInk(21), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  function f1(v) { return U.f1(v); }
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="8" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="glowSh" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="8" result="d"/><feGaussianBlur in="d" stdDeviation="18"/>' +
+    '<feOffset dx="10" dy="16"/><feComponentTransfer><feFuncA type="linear" slope=".75"/></feComponentTransfer></filter>' +
+    '<filter id="tblur" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>' +
+    '<filter id="distress" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.4 0 0 0 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>' +
+    '<filter id="rim" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="11" result="d"/><feOffset dx="-7" dy="-8"/><feGaussianBlur stdDeviation="1.5" result="o"/><feFlood flood-color="#fff3c4"/><feComposite in2="o" operator="in"/></filter>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="9"/><feOffset dx="7" dy="11"/><feComponentTransfer><feFuncA type="linear" slope=".6"/></feComponentTransfer></filter>' +
+    '<filter id="heat" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3"/></filter>';
+
+  // ── helpers (ep. 1 C3 / ep. 2 B) ─────────────────────────
+  var glN = 0;
+  function glow(g, clip) {
+    var id = 'gl' + (glN++);
+    defs += '<radialGradient id="' + id + '" cx="' + g.x + '" cy="' + g.y + '" r="' + g.r + '" gradientUnits="userSpaceOnUse">' +
+      '<stop offset="0" stop-color="' + g.c + '" stop-opacity="' + (g.o || 1) + '"/><stop offset=".45" stop-color="' + g.c + '" stop-opacity="' + ((g.o || 1) * 0.45) + '"/><stop offset="1" stop-color="' + g.c + '" stop-opacity="0"/></radialGradient>';
+    return '<rect width="' + W + '" height="' + H + '" fill="url(#' + id + ')"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  function rays(cx, cy, n, color, op, clip) {
+    var d = '';
+    for (var i = 0; i < n; i++) {
+      var a0 = i / n * Math.PI * 2, a1 = a0 + Math.PI / n * 0.9;
+      d += 'M' + cx + ' ' + cy + 'L' + f1(cx + 2600 * Math.cos(a0)) + ' ' + f1(cy + 2600 * Math.sin(a0)) + 'L' + f1(cx + 2600 * Math.cos(a1)) + ' ' + f1(cy + 2600 * Math.sin(a1)) + 'Z';
+    }
+    return '<path d="' + d + '" fill="' + color + '" opacity="' + op + '"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  function word(t, x, y, w, maxSize, fill, o) {
+    o = o || {};
+    var size = Math.min(maxSize, maxSize * w / measure(t, '400 ' + maxSize + 'px Anton'));
+    var sw = size * (o.sw || 0.1), sh = size * 0.055;
+    var attrs = 'x="' + x + '" y="' + y + '" font-family="Anton" font-size="' + f1(size) + '" text-anchor="' + (o.anchor || 'start') + '"';
+    var g = '<g' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" opacity=".75" filter="url(#tblur)" transform="translate(' + f1(sh * 1.6) + ' ' + f1(sh * 2.4) + ')">' + t + '</text>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + f1(sh * 0.8) + ' ' + f1(sh) + ')">' + t + '</text>';
+    g += '<text ' + attrs + ' fill="' + fill + '" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + t + '</text>';
+    return g + '</g>';
+  }
+  // Melo with soft shadow, warm rim light, heavy silhouette. hx,hy = skull centre, hh = skull height px
+  function melo(opts, hx, hy, hh) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh;
+    var vb = [-hx * u, -388 - hy * u, W * u, H * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#rim)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+  }
+  // cast member with head centre at (x,y) and head half-height r
+  function cast(id, o, x, y, r, rot) {
+    var f0 = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: 1 }, o));
+    var k = r / (f0.anchors.headCenter[1] - f0.anchors.headTop[1]);
+    var fr = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: k }, o)), hc = fr.anchors.headCenter;
+    var g = '<g transform="translate(' + f1(x - hc[0]) + ' ' + f1(y - hc[1]) + ') rotate(' + (rot || 0) + ' ' + f1(hc[0]) + ' ' + f1(hc[1]) + ')">' + fr.svg + '</g>';
+    return { svg: '<g filter="url(#glowSh)">' + g + '</g><g filter="url(#sil)">' + g + '</g>' + g, k: k };
+  }
+  function loop(cx, cy, rx, ry, w, color, rot) {
+    var pts = [], n = 52, a0 = -2.2;
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (Math.PI * 2 + 0.55) * i / n, k = 1 + 0.05 * Math.sin(i * 0.5) + i * 0.0012;
+      pts.push([cx + rx * k * Math.cos(a), cy + ry * k * Math.sin(a)]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + cx + ' ' + cy + ')">' + S.line(pts, { w: w, ta: 0.08, tb: 0.25, min: 0.45, jit: 0.1 }, color) + '</g>';
+  }
+  function badge(x, y, t, bgc, fg, size, rot) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.8, h = size * 1.35;
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + (rot || 0) + ')">' +
+      S.shape(S.rect(0, 0, w, h, 20, 1.2), bgc, { w: 3.5, extra: 2 }) +
+      '<text x="' + (w / 2) + '" y="' + (h * 0.76) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" fill="' + fg + '" text-anchor="middle">' + t + '</text></g>';
+  }
+  function check(cx, cy, r, color) {
+    return '<g transform="translate(' + cx + ' ' + cy + ')">' +
+      S.line([[-r, -r * 0.05], [-r * 0.55, r * 0.35], [-r * 0.2, r * 0.75], [r * 0.25, r * 0.05], [r * 1.05, -r * 1.0]], { w: r * 0.38, ta: 0.15, tb: 0.1, min: 0.55, jit: 0.15, smooth: 6 }, color) + '</g>';
+  }
+  function stamp(cx, cy, rot, sc, color, mark) {
+    var g = '<g transform="translate(' + cx + ' ' + cy + ') rotate(' + rot + ') scale(' + sc + ')">';
+    g += '<circle r="100" fill="#000" filter="url(#soft)"/>';
+    g += S.shape(S.ellipse(0, 0, 98, 98, 60, 0.02), '#f6eed9', { w: 7, extra: 3 });
+    g += '<g filter="url(#distress)">' + S.shape(S.ellipse(0, 0, 80, 80, 60, 0.03), 'none', { w: 11, extra: 3, color: color }) + mark + '</g>';
+    return g + '</g>';
+  }
+  function drop(x, y, r, rot) {
+    var pts = [];
+    for (var i = 0; i < 40; i++) {
+      var a = i / 40 * Math.PI * 2, k = Math.sin(a) < 0 ? 1 + 0.9 * Math.pow(-Math.sin(a), 3) : 1;
+      pts.push([x + r * Math.cos(a) * (Math.sin(a) < 0 ? 1 - 0.75 * Math.pow(-Math.sin(a), 1.4) : 1), y + r * Math.sin(a) * k]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + x + ' ' + y + ')">' + S.shape(pts, '#bfe6ff', { w: 3.2, extra: 1.5 }) +
+      '<ellipse cx="' + f1(x - r * 0.3) + '" cy="' + f1(y - r * 0.1) + '" rx="' + f1(r * 0.18) + '" ry="' + f1(r * 0.32) + '" fill="#fff" opacity=".9"/></g>';
+  }
+  function flame(x, base, w, h, lean, fill, inner) {
+    var L = [], R = [];
+    for (var i = 0; i <= 14; i++) {
+      var t = i / 14, yy = base - h * t, half = w / 2 * Math.sin(Math.PI * Math.pow(1 - t, 0.85)) * (1 - 0.25 * t), sway = lean * t * t;
+      L.push([x + sway - half - 4 * Math.sin(t * 9), yy]); R.push([x + sway + half + 3 * Math.sin(t * 7), yy]);
+    }
+    var pts = L.concat(R.reverse());
+    var g = S.shape(pts, fill, { w: 4, extra: 2 });
+    if (inner) g += S.shape(pts.map(function (p) { return [x + (p[0] - x) * 0.5 + lean * 0.05, base - (base - p[1]) * 0.58]; }), inner, { w: 2.2, extra: 1 });
+    return g;
+  }
+
+  // ── layout: three rows; table edge TE splits the cold room from the tablecloth ─────
+  var TE = 1150;
+  defs += '<clipPath id="room"><rect width="' + W + '" height="' + TE + '"/></clipPath>';
+  defs += '<clipPath id="cloth"><path d="M0 ' + TE + 'H' + W + 'V' + H + 'H0Z"/></clipPath>';
+
+  // cold room: bottle-green / teal beer hall
+  s += '<rect width="' + W + '" height="' + H + '" fill="#05211f"/>';
+  s += glow({ x: 560, y: 760, r: 820, c: '#1f9a8c', o: 0.55 }, 'room');
+  s += glow({ x: 190, y: 640, r: 420, c: '#ffb43a', o: 0.42 }, 'room');
+  s += glow({ x: 540, y: 300, r: 520, c: '#d9fff0', o: 0.22 }, 'room');
+  // wood panelling (vertical planks) with hatching
+  var pl = '';
+  for (var px = 0; px <= W; px += 120) pl += S.line([[px + 3, -10], [px - 2, TE / 2], [px + 2, TE + 10]], { w: 4, ta: 0.05, tb: 0.05, min: 0.6, jit: 0.2 }, '#000');
+  s += '<g opacity=".32">' + pl + '</g>';
+  s += '<g opacity=".5">' + S.hatch(S.rect(0, 0, W, TE, 200, 0), { ang: 75, gap: 13, w: 1.4, op: 0.22 }) + '</g>';
+  // a dado rail
+  s += S.line([[-10, 404], [W / 2, 399], [W + 10, 405]], { w: 9, ta: 0, tb: 0, min: 1 }, '#000');
+  // pendant lamp (decor zone)
+  s += S.line([[540, -10], [541, 210]], { w: 5, ta: 0, tb: 0, min: 1 }, '#000');
+  defs += '<linearGradient id="cone" x1="0" y1="290" x2="0" y2="1172" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff3c8" stop-opacity=".30"/><stop offset="1" stop-color="#fff3c8" stop-opacity="0"/></linearGradient>';
+  s += '<path d="M455 292L120 ' + TE + 'H960L625 292Z" fill="url(#cone)"/>';
+  var shade = [[470, 300], [490, 250], [520, 220], [560, 220], [590, 250], [610, 300]];
+  s += S.shape(U.catmull(shade, 6, false).concat([[540, 312]]), '#1f6a52', { w: 5, extra: 2 });
+  s += S.hatch(U.catmull(shade, 6, false).concat([[540, 312]]), { ang: 60, gap: 8, w: 1.4, op: 0.35, cond: function (X) { return X > 556; } });
+  s += '<ellipse cx="540" cy="303" rx="54" ry="10" fill="#fff6d2"/>';
+
+  // ── row 1: foaming beer mug + VOLL? (wrong) ──
+  function mug(cx, by, w, h, rot) {
+    var x0 = cx - w / 2, x1 = cx + w / 2, y0 = by - h;
+    var g = '<g transform="rotate(' + rot + ' ' + cx + ' ' + by + ')">';
+    var body = S.rect(x0, y0, w, h, 40, 1.2);
+    g += '<rect x="' + x0 + '" y="' + y0 + '" width="' + w + '" height="' + h + '" fill="#000" filter="url(#soft)"/>';
+    // handle (viewer-left)
+    var hd = U.catmull([[x0 + 4, y0 + h * 0.2], [x0 - w * 0.34, y0 + h * 0.22], [x0 - w * 0.4, y0 + h * 0.55], [x0 - w * 0.3, y0 + h * 0.8], [x0 + 4, y0 + h * 0.8]], 6, false);
+    g += S.line(hd, { w: 34, ta: 0, tb: 0, min: 1 }, '#000') + S.line(hd, { w: 20, ta: 0, tb: 0, min: 1 }, '#d8efe9');
+    defs += '<linearGradient id="beer" x1="' + x0 + '" y1="0" x2="' + x1 + '" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffcf4a"/><stop offset=".55" stop-color="#f29a16"/><stop offset="1" stop-color="#b85d08"/></linearGradient>';
+    g += S.shape(body, 'url(#beer)', { w: 7, extra: 3 });
+    // glass facets + bubbles
+    for (var i = 1; i < 4; i++) g += S.line([[x0 + w * i / 4, y0 + h * 0.16], [x0 + w * i / 4 + 2, by - 14]], { w: 5, ta: 0.2, tb: 0.2, min: 0.5 }, '#fff3c0');
+    var bb = '';
+    [[0.18, 0.75, 7], [0.3, 0.55, 5], [0.62, 0.68, 6], [0.82, 0.45, 5], [0.45, 0.85, 4], [0.7, 0.3, 4]].forEach(function (b) { bb += '<circle cx="' + f1(x0 + w * b[0]) + '" cy="' + f1(y0 + h * b[1]) + '" r="' + b[2] + '" fill="none" stroke="#fff6d0" stroke-width="2.5"/>'; });
+    g += bb;
+    g += S.hatch(body, { ang: 45, gap: 9, w: 1.6, op: 0.25, cond: function (X) { return X > x0 + w * 0.7; } });
+    // overflowing foam cap with drips
+    var fo = [], n = 9;
+    for (var i = 0; i <= n; i++) {
+      var t = i / n, xx = x0 - 26 + (w + 52) * t;
+      fo.push([xx, y0 + 22 + (i % 2 ? 6 : -4)]);
+    }
+    var top = [];
+    for (var i = 0; i <= 18; i++) { var t = i / 18, xx = x0 - 26 + (w + 52) * t; top.push([xx, y0 - 34 - 26 * Math.sin(Math.PI * t) - 13 * Math.abs(Math.sin(t * 15))]); }
+    var drips = [[x0 + w * 0.12, 70], [x0 + w * 0.55, 105], [x1 - 6, 52]];
+    var bot = [];
+    for (var i = 18; i >= 0; i--) {
+      var t = i / 18, xx = x0 - 26 + (w + 52) * t, yy = y0 + 22 + 6 * Math.sin(t * 20);
+      drips.forEach(function (d) { var dx = Math.abs(xx - d[0]); if (dx < 22) yy += d[1] * Math.cos(dx / 22 * Math.PI / 2); });
+      bot.push([xx, yy]);
+    }
+    var foam = top.concat([[x1 + 30, y0 + 8]], bot, [[x0 - 30, y0 + 8]]);
+    g += S.shape(foam, '#fbf4e2', { w: 6, extra: 3 });
+    g += S.hatch(foam, { ang: -40, gap: 9, w: 1.3, op: 0.22, cond: function (X, Y) { return Y > y0 + 6; } });
+    [[0.2, -20, 9], [0.45, -38, 12], [0.72, -26, 8], [0.88, -6, 7], [0.06, 0, 6]].forEach(function (b) { g += '<circle cx="' + f1(x0 + w * b[0]) + '" cy="' + f1(y0 + b[1]) + '" r="' + b[2] + '" fill="none" stroke="#14110d" stroke-width="2.5" opacity=".55"/>'; });
+    return g + '</g>';
+  }
+  s += mug(205, 792, 232, 288, -7);
+  s += stamp(318, 742, -10, 0.56, RED, (function () {
+    var r = 44;
+    return '<g transform="rotate(-8)">' + S.line([[-r, -r], [-r * 0.1, -r * 0.08], [r, r]], { w: r * 0.36, ta: 0.08, tb: 0.15, min: 0.6, jit: 0.2 }, RED) +
+      S.line([[r * 0.95, -r * 1.02], [0, 0.05 * r], [-r * 0.98, r * 0.95]], { w: r * 0.36, ta: 0.08, tb: 0.15, min: 0.6, jit: 0.2 }, RED) + '</g>';
+  })());
+  s += word('ICH BIN', 412, 550, 330, 135, '#ffffff', { rot: -2 });
+  s += word('VOLL?', 404, 800, 630, 290, '#ffffff', { rot: -2, sw: 0.085 });
+  s += '<g filter="url(#distress)">' + badge(770, 452, '= BETRUNKEN', '#f6eed9', RED, 40, 6) + '</g>';
+
+  // ── row 2: the dinner table ──
+  // Schwiegermutter (left), shocked, pointing at Melo
+  s += cast('schwiegermutter', { expr: 'shocked', pose: 'point', prop: 'none' }, 286, 985, 124, -6).svg;
+  // Melo (right), laughing shrug
+  s += melo({ view: 'full', pose: 'shrug', expression: 'laughing', look: [-0.6, 0.05], headTilt: 5 }, 810, 982, 236);
+  // little "?!" shock marks above her
+  s += S.line([[150, 865], [128, 818]], { w: 9, ta: 0.2, tb: 0.4, min: 0.4 }, YEL) + S.line([[196, 846], [192, 798]], { w: 9, ta: 0.2, tb: 0.4, min: 0.4 }, YEL) + S.line([[240, 850], [256, 806]], { w: 9, ta: 0.2, tb: 0.4, min: 0.4 }, YEL);
+
+  // tablecloth: deep green gingham in perspective (vanishing point above)
+  s += '<path d="M0 ' + TE + 'H' + W + 'V' + H + 'H0Z" fill="#0b3b2f"/>';
+  var gh = '', VX = 540, VY = -900;
+  for (var i = -14; i <= 14; i += 2) {
+    var xa = VX + i * 52 * (TE - VY) / 1000, xb = VX + (i + 1) * 52 * (TE - VY) / 1000, xc = VX + (i + 1) * 52 * (H - VY) / 1000, xd = VX + i * 52 * (H - VY) / 1000;
+    gh += '<path d="M' + f1(xa) + ' ' + TE + 'L' + f1(xb) + ' ' + TE + 'L' + f1(xc) + ' ' + H + 'L' + f1(xd) + ' ' + H + 'Z" fill="#2f8a68" opacity=".55"/>';
+  }
+  var yy = TE + 8, hh = 40, k = 0;
+  while (yy < H) { if (k % 2 === 0) gh += '<rect x="0" y="' + f1(yy) + '" width="' + W + '" height="' + f1(hh) + '" fill="#2f8a68" opacity=".55"/>'; yy += hh; hh *= 1.06; k++; }
+  s += '<g clip-path="url(#cloth)">' + gh + S.hatch(S.rect(0, TE, W, H - TE, 200, 0), { ang: 30, gap: 12, w: 1.3, op: 0.18 }) + '</g>';
+  s += glow({ x: 540, y: 1330, r: 620, c: '#9fffd8', o: 0.22 }, 'cloth');
+  // table edge + cloth shadow line
+  s += '<rect x="0" y="' + TE + '" width="' + W + '" height="26" fill="#000" opacity=".35" filter="url(#heat)"/>';
+  s += S.line([[-10, TE + 2], [W / 2, TE - 2], [W + 10, TE + 3]], { w: 14, ta: 0, tb: 0, min: 1 }, '#000');
+
+  // ── row 3: overfull Kartoffelsalat plate + SATT! (right) ──
+  function plate(cx, cy, rx, ry) {
+    var g = '<ellipse cx="' + (cx + 10) + '" cy="' + (cy + 18) + '" rx="' + rx + '" ry="' + ry + '" fill="#000" opacity=".5" filter="url(#soft)"/>';
+    var pe = S.ellipse(cx, cy, rx, ry, 70, 0.01);
+    g += S.shape(pe, '#f4efe2', { w: 6, extra: 3 });
+    g += S.shape(S.ellipse(cx, cy - 4, rx * 0.74, ry * 0.68, 60, 0.01), '#e7e0cc', { w: 3, extra: 1.5 });
+    g += S.line(S.ellipse(cx, cy + 2, rx * 0.93, ry * 0.88, 60, 0, 0.3, 2.8), { w: 4, ta: 0.2, tb: 0.2, min: 0.5 }, '#3c6e9a');
+    // heap, way too high
+    var hp = U.catmull([[cx - rx * 0.86, cy - 4], [cx - rx * 0.7, cy - ry * 1.6], [cx - rx * 0.38, cy - ry * 2.6], [cx - rx * 0.02, cy - ry * 3.05], [cx + rx * 0.34, cy - ry * 2.7], [cx + rx * 0.66, cy - ry * 1.7], [cx + rx * 0.86, cy - 2]], 6, false);
+    var heap = hp.concat([[cx + rx * 0.4, cy + ry * 0.45], [cx - rx * 0.4, cy + ry * 0.45]]);
+    g += S.shape(heap, '#e4c35a', { w: 6, extra: 3 });
+    g += S.hatch(heap, { ang: 40, gap: 9, w: 1.6, op: 0.3, cond: function (X, Y) { return X > cx + rx * 0.15; } });
+    // potato cubes
+    var rnd = 5; function R() { rnd = (rnd * 16807) % 2147483647; return (rnd - 1) / 2147483646; }
+    var cubes = '';
+    for (var i = 0; i < 26; i++) {
+      var t = R(), hgt = R();
+      var px = cx - rx * 0.7 + rx * 1.4 * t, top = cy - ry * 3.0 * Math.sin(Math.PI * (0.08 + 0.84 * t)) * 0.95;
+      var py = top + (cy + ry * 0.2 - top) * hgt * 0.85 + 10, sz = 22 + R() * 12;
+      cubes += '<g transform="rotate(' + f1(R() * 60 - 30) + ' ' + f1(px) + ' ' + f1(py) + ')">' + S.shape(S.rect(px - sz / 2, py - sz / 2, sz, sz * 0.86, 8, 1.2), R() < 0.5 ? '#f6e3a0' : '#efd27a', { w: 2.6, extra: 1 }) + '</g>';
+    }
+    g += cubes;
+    // pickles + chives
+    [[-0.3, -1.6], [0.25, -2.1], [0.45, -0.8], [-0.55, -0.6]].forEach(function (p) {
+      var ex = cx + rx * p[0], ey = cy + ry * p[1];
+      g += S.shape(S.ellipse(ex, ey, 17, 10, 24, 0.03), '#6f9a3a', { w: 2.6, extra: 1 }) + '<ellipse cx="' + ex + '" cy="' + ey + '" rx="9" ry="4.5" fill="#b9d27a"/>';
+    });
+    var ch = '';
+    for (var i = 0; i < 30; i++) { var t = R(), px = cx - rx * 0.7 + rx * 1.4 * t, top = cy - ry * 3.0 * Math.sin(Math.PI * (0.08 + 0.84 * t)); var py = top + (cy - top) * R() * 0.9 + 8; ch += S.line([[px, py], [px + 8, py - 5]], { w: 4, ta: 0.3, tb: 0.3, min: 0.4 }, '#2f7a2c'); }
+    g += ch;
+    // fork stuck in the heap
+    g += '<g transform="rotate(-28 ' + (cx + rx * 0.2) + ' ' + (cy - ry * 2.4) + ')">' +
+      S.shape(S.rect(cx + rx * 0.2 - 9, cy - ry * 2.4 - 95, 18, 95, 20, 0.6), '#c9d3d6', { w: 4, extra: 1.5 }) +
+      S.shape(S.rect(cx + rx * 0.2 - 22, cy - ry * 2.4 - 150, 44, 60, 20, 0.6), '#c9d3d6', { w: 4, extra: 1.5 }) +
+      '<path d="M' + (cx + rx * 0.2 - 8) + ' ' + (cy - ry * 2.4 - 150) + 'v30M' + (cx + rx * 0.2 + 8) + ' ' + (cy - ry * 2.4 - 150) + 'v30" stroke="#14110d" stroke-width="5"/></g>';
+    return g;
+  }
+  s += plate(200, 1422, 176, 58);
+  s += word('ICH BIN', 414, 1260, 300, 120, '#ffffff', { rot: -2 });
+  s += word('SATT!', 404, 1490, 600, 252, YEL, { rot: -2, sw: 0.085 });
+  s += S.line([[420, 1520], [700, 1512], [1010, 1490]], { w: 20, ta: 0.15, tb: 0.35, min: 0.4, jit: 0.15, smooth: 6 }, '#2fd06a');
+  s += stamp(936, 1226, 8, 0.56, GRN, check(4, 6, 46, GRN));
+
+  s += badge(58, 200, 'B1–C1', YEL, INK, 40, 0);
+  defs += '<radialGradient id="vig" cx="540" cy="960" r="1150" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>';
+  s += '<rect width="' + W + '" height="' + H + '" fill="url(#vig)"/>';
+  s += '<rect width="' + W + '" height="' + H + '" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
+  if (HASH === 'g') s += '<rect width="1080" height="180" fill="#f0f" opacity=".45"/><rect y="1500" width="1080" height="420" fill="#f0f" opacity=".45"/><rect y="420" width="1080" height="1080" fill="none" stroke="#0ff" stroke-width="6"/><rect y="285" width="1080" height="1350" fill="none" stroke="#0f0" stroke-width="4" stroke-dasharray="20 14"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+  window.__done = true;
+})();
+</script>
+</body>
+</html>
