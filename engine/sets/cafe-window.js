@@ -84,6 +84,8 @@
     fg += S.floorShadow((TB.x0 + TB.x1) / 2, 985, 200, 12, 0.3);
     fg += S.line([[390, TB.yf], [390, 975]], { w: 16, ta: 0.02, tb: 0.02, min: 0.9 }, '#2f2a26') + S.shape(S.ellipse(390, 976, 90, 12, 30), '#2f2a26', { w: 1.6, extra: 1 });
     var top = S.ellipse((TB.x0 + TB.x1) / 2, TB.yb + 20, (TB.x1 - TB.x0) / 2, 30, 50);
+    var cl = U.catmull([[TB.x0 - 4, TB.yb + 22], [TB.x0 - 14, TB.yb + 120], [TB.x0 - 10, 952], [(TB.x0 + TB.x1) / 2, 960], [TB.x1 + 10, 952], [TB.x1 + 14, TB.yb + 120], [TB.x1 + 4, TB.yb + 22]], 6, true);
+    fg += S.shape(cl, '#efe9da', { w: 3, extra: 3.2 }) + S.hatch(cl, { ang: 88, gap: 46, w: 1.6, op: 0.3 }) + A.shadeSide(S, cl, [1, 0.3], 0.3, { ang: 70, gap: 7, op: 0.35 });
     fg += S.shape(top, '#e9dfc4', { w: 3, extra: 3 }) + S.shape(S.poly([[TB.x0, TB.yb + 20], [TB.x1, TB.yb + 20], [TB.x1 - 4, TB.yb + 38], [TB.x0 + 4, TB.yb + 38]], 40, 0.6), '#b9a27a', { w: 2, extra: 2 });
     fg += S.shape(S.ellipse((TB.x0 + TB.x1) / 2, TB.yb + 20, (TB.x1 - TB.x0) / 2, 30, 50), null, { w: 2.6, extra: 2 });
     // newspaper folded + magazine + cappuccino

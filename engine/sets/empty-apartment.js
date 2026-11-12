@@ -51,7 +51,7 @@
     var f = S.rect(x - 20, y + 120, w + 40, h, 40, 1);
     view += S.shape(f, '#e2d7c0', { w: 2, extra: 2 }) + S.hatch(f, { ang: 70, gap: 9, w: 1.1, op: 0.2 });
     for (var r = 0; r < 4; r++) for (var c = 0; c < 2; c++) view += S.box(x + 30 + c * (w / 2), y + 160 + r * 120, w / 2 - 60, 80, '#8fa2ad', { w: 1.6, extra: 1.2, hatch: false });
-    view += S.circ(x + w * 0.7, y + 60, 60, '#8db15e', { w: 2, extra: 2, jit: 0.25 });
+    view += S.circ(x + w * 0.78, y + 40, 70, '#8db15e', { w: 2, extra: 2, jit: 0.3 }) + S.hatch(S.ellipse(x + w * 0.78, y + 40, 70, 70, 30, 0.3), { ang: 50, gap: 8, w: 1.1, op: 0.3 });
     var s = S.window(x, y, w, h, { sky: '#d4e2e8', view: view, panes: [2, 3], frame: '#f4f1e8', sillCol: '#ece7da' });
     // transom bar
     s += S.box(x + 10, y + h * 0.28 - 7, w - 20, 14, '#f4f1e8', { w: 2, extra: 2, hatch: false });

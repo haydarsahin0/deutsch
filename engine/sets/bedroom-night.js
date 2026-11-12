@@ -119,7 +119,8 @@
     fg += S.glow(LAMP.x + 120, DK.yb + 22, 260, 34, '#ffe3a0', 0.6);
     var front = S.rect(DK.x0, DK.yf, DK.x1 - DK.x0, 34, 40, 0.8);
     fg += S.shape(front, '#7d5a3a', { w: 3, extra: 3.2 });
-    // legs + drawer unit
+    // modesty panel (hides the seated character's legs) + legs + drawer unit
+    fg += S.box(DK.x0 + 16, DK.yf + 30, DK.x1 - DK.x0 - 40, DK.yl - DK.yf - 6, '#5e4430', { w: 2.4, extra: 2.6 }) + S.hatch(S.rect(DK.x0 + 16, DK.yf + 30, DK.x1 - DK.x0 - 40, DK.yl - DK.yf - 6), { ang: 80, gap: 9, w: 1.2, op: 0.3 });
     fg += S.box(DK.x0 + 10, DK.yf + 34, 26, DK.yl - DK.yf - 34, '#6b4a2f', { w: 2.4, extra: 2.6, hatch: 'r', hk: 0.4 });
     fg += S.box(DK.x1 - 200, DK.yf + 34, 190, DK.yl - DK.yf - 34, '#7d5a3a', { w: 2.8, extra: 3, hatch: 'r', hk: 0.2 });
     [0, 1, 2].forEach(function (j) {
@@ -139,7 +140,7 @@
     // mug with tea + pen
     fg += S.mug(1035, DK.yb + 8, 40, 46, '#c9b06a', { top: '#5a3a1a' });
     fg += S.line([[640, DK.yf - 10], [700, DK.yf - 18]], { w: 5, ta: 0.05, tb: 0.4, min: 0.5 }, P.redD);
-    return { bg: bg, fg: fg, post: function (m) { return m; } };
+    return { bg: bg, fg: fg };
   }
 
   A.define('bedroom-night', {

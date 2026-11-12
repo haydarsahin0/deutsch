@@ -25,6 +25,13 @@
     // phone shadow
     bg += S.fillOnly(S.rrect(PH.x + 26, PH.y + 34, PH.w, PH.h, 70), 'rgba(10,8,6,.45)');
 
+    // ── hand: sleeve + palm behind the phone (Melo green, navy sleeve); the thumb goes over the bezel later ──
+    var hd = '', HX = PH.x + PH.w;
+    var sleeve = S.poly([[HX + 10, 1100], [HX + 60, 760], [1960, 700], [1960, 1100]], 40, 1.4);
+    hd += S.shape(sleeve, '#2c333b', { w: 3, extra: 3.4 }) + A.shadeSide(S, sleeve, [1, 0.4], 0.0, { ang: 70, gap: 8, op: 0.35, color: '#0b0e14' });
+    var palm = U.catmull([[HX - 30, 600], [HX + 30, 520], [HX + 120, 520], [HX + 170, 640], [HX + 160, 800], [HX + 60, 830], [HX - 10, 760]], 6, true);
+    hd += S.shape(palm, '#6a9644', { w: 3, extra: 3.2 }) + A.shadeSide(S, palm, [1, 0.3], 0.2, { ang: 60, gap: 7, op: 0.4 });
+    bg += hd; hd = '';
     // ── phone body ──
     var body = S.rrect(PH.x, PH.y, PH.w, PH.h, 70);
     bg += S.shape(body, '#2a2d30', { w: 4, extra: 4.5 });
@@ -79,17 +86,9 @@
       S.hatch(glass, { ang: -50, gap: 8, w: 1.4, op: 0.12, color: '#ffffff', cond: function (X, Y) { var u = (X - SC.x) + (Y - SC.y) * 0.8; return (u > 160 && u < 260) || (u > 330 && u < 360); } }) + '</g>';
     bg += S.shape(glass, null, { w: 2.2, extra: 1.6 });
 
-    // ── hand gripping the right edge (Melo green, navy sleeve) ──
-    var hd = '', HX = PH.x + PH.w;
-    var sleeve = S.poly([[HX + 10, 1100], [HX + 60, 760], [1960, 700], [1960, 1100]], 40, 1.4);
-    hd += S.shape(sleeve, '#2c333b', { w: 3, extra: 3.4 }) + A.shadeSide(S, sleeve, [1, 0.4], 0.0, { ang: 70, gap: 8, op: 0.35, color: '#0b0e14' });
-    var palm = U.catmull([[HX - 30, 600], [HX + 30, 520], [HX + 120, 520], [HX + 170, 640], [HX + 160, 800], [HX + 60, 830], [HX - 10, 760]], 6, true);
-    hd += S.shape(palm, '#6a9644', { w: 3, extra: 3.2 }) + A.shadeSide(S, palm, [1, 0.3], 0.2, { ang: 60, gap: 7, op: 0.4 });
-    // thumb over the glass edge
+    // thumb over the bezel
     var th = U.catmull([[HX - 20, 610], [HX - 90, 560], [HX - 120, 520], [HX - 96, 500], [HX - 40, 530], [HX + 20, 560]], 5, true);
     hd += S.shape(th, '#6a9644', { w: 2.8, extra: 3 }) + S.line([[HX - 104, 512], [HX - 92, 520]], { w: 2, ta: 0.2, tb: 0.2 }, '#3f6329');
-    // fingers wrapping behind the right edge (only tips visible on the left of the bezel? → knuckles on the edge)
-    [[HX - 6, 360], [HX - 4, 430], [HX - 2, 500]].forEach(function (k) { hd += S.shape(S.ellipse(k[0] + 18, k[1], 30, 26, 24, 0.05), '#6a9644', { w: 2.4, extra: 2.4 }); });
     bg += hd;
     // vignette
     bg += '<rect x="0" y="0" width="1920" height="1080" fill="' + S.radial([[0.6, '#120e0a', 0], [1, '#120e0a', 0.45]], { cx: '50%', cy: '45%', r: '75%' }) + '"/>';

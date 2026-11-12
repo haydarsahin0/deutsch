@@ -29,7 +29,7 @@
     bg += flw + S.line([[-20, DADO], [1940, DADO]], { w: 4, ta: 0.01, tb: 0.01 }) + S.line([[-20, DADO + 40], [1940, DADO + 40]], { w: 3, ta: 0.01, tb: 0.01 });
     bg += S.hatch(dado, { ang: 80, gap: 15, w: 1.1, op: 0.12 });
     // ── floor: checker tiles ──
-    bg += S.floor(WALL_Y, { kind: 'tiles', gap: 110, rows: 7, fill: '#e6d8b8', fill2: '#a9503c', vx: 1030, vy: 400, lop: 0.3 });
+    bg += S.floor(WALL_Y, { kind: 'tiles', gap: 110, rows: 7, fill: '#e2d3b2', fill2: '#c07a60', vx: 1030, vy: 400, lop: 0.22 });
     bg += S.skirting(WALL_Y, 14, '#5e3f22');
 
     // ── stairs rising to the left ──

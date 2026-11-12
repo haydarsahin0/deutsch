@@ -7,7 +7,7 @@
   'use strict';
   var A = root.SetKitA || require('./kit-a.js');
   var P = A.P, U = A.U;
-  var WALL_Y = 800, WIN = { x: 790, y: 110, w: 500, h: 440 }, TB = { x0: 860, x1: 1240, yb: 742, yf: 784, cloth: 870 };
+  var WALL_Y = 800, WIN = { x: 790, y: 110, w: 500, h: 440 }, TB = { x0: 860, x1: 1240, yb: 742, yf: 784, cloth: 958 };
 
   function build(S) {
     var bg = '', fg = '', i;
