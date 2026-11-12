@@ -121,7 +121,6 @@
       var n = 7;
       for (var q = 0; q < n; q++) { var px = m[0] + 20 + (m[1] - m[0] - 40) * q / (n - 1); bg += S.circ(px, 190, 6, q === (j ? 2 : 4) ? P.red : '#f4eedf', { w: 1.6, extra: 1 }); }
     });
-    bg += S.T(1605, 207, 'Hauptbahnhof', { f: 'Oswald', s: 0.1 });   // (no visible text; keeps glyph set small)
 
     // ── floor: blue-grey rubber with dots ──
     var fl = [[-20, FLOOR_Y], [1940, FLOOR_Y], [1940, 1100], [-20, 1100]];
@@ -153,10 +152,9 @@
       left:         A.slot(740, 985, 1.0, { face: 1 }),                       // by the left door pole
       center:       A.slot(960, 990, 1.02),                                   // in the door area
       right:        A.slot(1190, 985, 1.0, { face: -1 }),                     // by the right door pole
-      standing:     A.slot(1010, 985, 1.0, { face: -1, hold: [DX1hand(), 230] }),   // holding a strap / the pole
+      standing:     A.slot(1010, 985, 1.0, { face: -1 }),                            // holding the right door pole
       'seat-left':  A.slot(330, 960, 0.95, { face: 1, seated: true, seatY: 780 }),
       'seat-right': A.slot(1600, 960, 0.95, { face: -1, seated: true, seatY: 780 })
     }
   });
-  function DX1hand() { return 1080; }
 })(typeof self !== 'undefined' ? self : this);
