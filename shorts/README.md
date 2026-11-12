@@ -37,6 +37,8 @@ Engine renders are cached per time range in `build/seg-<from>-<to>.mp4`, so chan
 | `hook` | 2 title lines over the video: white line, yellow line |
 | `tag` | small channel tag above the title (default `DEUTSCH MIT MELO`) |
 | `endcard` | `{line1, line2, sub, click}` defaults „MEHR DAVON?“ / „ABONNIEREN!“ / „Ganzes Video auf dem Kanal“, cursor click at 1.75 s |
+| `loop` | `true` = loop Short: hook title static from frame 1 (no pop-in), no audio fade-out; use with no `cta` (→ no end card). Example `shorts/s01-verb-springt/` |
+| `sticker` | `{text, from, to, x, y, rot, size}` small paper sticker with a drawn push-pin (e.g. „Speichern & abonnieren“), fades in/out between `from`–`to` s; default x/y = right end above the video panel |
 | `cover` | `{headline, wrong, right, cast, castExpr, castPose, meloExpr, badge}` – `cast` is an id from `engine/cast/cast.js` (kollegin, schwiegermutter, kellner, kumpel, mitbewohnerin, kind, chefin, oma, arzt, moderator) |
 | `pad` | seconds of air around each segment (0.15) |
 | `subtitle_max_words`, `subtitle_highlight` | 4, `#FFC83A` |
