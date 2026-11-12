@@ -13,3 +13,4 @@ Analyses per check-in: `docs/growth/YYYY-MM-DD.md`.
 | 2026-11-12 | day 2 | Long #2 50 Wörter am Tag | scheduled 13.11 | ? | Scheduled for 13.11 (plan said 15.11). Thumbnail A is set. |
 | 2026-11-12 | day 2 | Short #1 engagement | 457 engaged | ? | 38.7 % viewed / 61.3 % swiped; avg 0:29 of 0:53; 4.1 h watch. Hook too slow. |
 | 2026-11-12 | channel 28 d | Channel (15.10–11.11) | 1,110 views · 4.5 h (incl. Shorts) | 24 (+4) | Long #1: 14 views, avg 2:25 (21 %) → about 0.6 public long-form hours toward the YPP goal. Short #1: 1,092, avg 0:29 (56.5 %). Short #2: 9 views in its first hours, avg 0:14 (31 %) / 63 % in the first 3 h (5 views): no test batch yet. |
+| 2026-11-12 | TikTok | first 2 Shorts on TikTok | – | TikTok: 3 followers | 20 likes from the first 2 Shorts. The owner now cross-posts the Shorts to TikTok. |
