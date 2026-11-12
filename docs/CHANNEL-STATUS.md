@@ -26,9 +26,10 @@ From 2026-11-13: 3-day cycle (see CLAUDE.md). Day 1 = long video at 17:05 with n
 | 2026-11-15 12:05 | Ep2 Short „Die Notaufnahme für Wörter“ | todo | – |
 | 2026-11-15 17:05 | Loop #3 | todo: script → owner TTS | – |
 | 2026-11-15 19:05 | Ep2 Short „10 Wörter für die Wohnungssuche“ | todo | – |
-| 2026-11-16 17:05 | Long #3 | todo: topic + script now | – |
+| 2026-11-16 17:05 | Long #3 „Deutsch lernen mit KI: Ich habe eine KI 30 Tage als Deutschlehrer getestet“ (FIXED by owner, 2026-11-12) | todo: script (15+ min, first-person, real AI examples) | – |
 | spare | „10 Wörter für die Wohnungssuche“ (ep2), „Tschüss/Servus“ (ep1) | – | – |
 
 ## Next
+- **Episode 3 topic (owner decision, fixed):** „Deutsch lernen mit KI: Ich habe eine KI 30 Tage als Deutschlehrer getestet“. 15–18 min, first-person curiosity title, built on REAL AI prompts and answers (honest test: what works, where the AI is wrong), German only.
 - Later topic ideas: „10 Redewendungen“, „Verben mit Präpositionen“, „doch / mal / halt / eben“.
 - Next stats check-ins: 2026-11-13 evening and 2026-11-18 (skill `melo-growth`).
