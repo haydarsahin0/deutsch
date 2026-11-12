@@ -17,14 +17,16 @@ From 2026-11-13: 3-day cycle (see CLAUDE.md). Day 1 = long video at 17:05 with n
 | 2026-11-11 | Long #1 „Das sagt KEIN Deutscher!“ | ✅ published | `episodes/01-das-sagt-kein-deutscher/` |
 | 2026-11-11 | Short #1 „Ich bin heiß“ | ✅ published (1,093 views, 38.7 % viewed vs. swiped) | `shorts/01-ich-bin-heiss/` |
 | 2026-11-12 | Short #2 „Ich bin voll“ | ✅ published (new v2 cover) | `shorts/02-ich-bin-voll/` |
-| 2026-11-13 17:05 | Long #2 „50 Wörter am Tag“ | ✅ scheduled by owner (thumbnail B main, A in the test) | `episodes/02-50-woerter-am-tag/` |
-| 2026-11-14 12:05 | Ep2-Short „Die Abruf-Leiter“ | todo | – |
-| 2026-11-14 17:05 | Loop „Wo steht das Verb?“ | ✅ ready, delivered | `shorts/s01-verb-springt/` |
-| 2026-11-14 19:05 | Short „Ich will ein Bier“ (v2) | ✅ ready | `shorts/03-ich-will-ein-bier/` |
-| 2026-11-15 12:05 | Ep2-Short „Die Notaufnahme für Wörter“ | todo | – |
-| 2026-11-15 17:05 | Loop #2 (e.g. Wo/Wohin) | todo: script → owner TTS | – |
-| 2026-11-15 19:05 | Short „Doch!“ | ready (check hook) | `shorts/05-doch/` |
-| 2026-11-16 17:05 | Long #3 | todo: topic + script NOW | – |
+| 2026-11-12 17:05 | Loop „Wo steht das Verb?“ | ✅ ready, the owner posts it today | `shorts/s01-verb-springt/` |
+| 2026-11-12 19:05 | Short „Ich will ein Bier“ (v2) | ✅ ready, the owner posts it today | `shorts/03-ich-will-ein-bier/` |
+| 2026-11-13 17:05 | Long #2 „50 Wörter am Tag“ | ✅ scheduled by the owner (thumbnail B main) | `episodes/02-50-woerter-am-tag/` |
+| 2026-11-14 12:05 | Ep2 Short „Die Abruf-Leiter“ | todo | – |
+| 2026-11-14 17:05 | Loop #2 | todo: script → owner TTS | – |
+| 2026-11-14 19:05 | Short „Doch!“ (ep1) | ready (check hook) | `shorts/05-doch/` |
+| 2026-11-15 12:05 | Ep2 Short „Die Notaufnahme für Wörter“ | todo | – |
+| 2026-11-15 17:05 | Loop #3 | todo: script → owner TTS | – |
+| 2026-11-15 19:05 | Ep2 Short „10 Wörter für die Wohnungssuche“ | todo | – |
+| 2026-11-16 17:05 | Long #3 | todo: topic + script now | – |
 | spare | „10 Wörter für die Wohnungssuche“ (ep2), „Tschüss/Servus“ (ep1) | – | – |
 
 ## Next
