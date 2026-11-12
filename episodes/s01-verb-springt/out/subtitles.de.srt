@@ -1,57 +1,61 @@
 1
-00:00:00,135 --> 00:00:02,425
-Weil ich müde bin. Nicht:
+00:00:00,135 --> 00:00:01,635
+Weil ich müde bin.
 
 2
+00:00:01,760 --> 00:00:02,760
+Nicht:
+
+3
 00:00:03,180 --> 00:00:04,620
 „weil ich bin müde“.
 
-3
+4
 00:00:04,840 --> 00:00:07,345
 Das ist der Fehler Nummer eins auf B1.
 
-4
+5
 00:00:07,675 --> 00:00:10,760
 Die Regel in zehn Sekunden.
 Es gibt drei Gruppen.
 
-5
+6
 00:00:10,915 --> 00:00:14,375
 Eins: und, aber, oder, denn, sondern.
 
-6
+7
 00:00:14,555 --> 00:00:18,780
 Sie zählen nicht – das Verb bleibt
 auf Platz zwei: … denn ich bin müde.
 
-7
+8
 00:00:19,035 --> 00:00:21,900
 Zwei: deshalb, trotzdem, dann.
 
-8
+9
 00:00:22,075 --> 00:00:25,750
 Sie stehen selbst auf Platz eins –
 das Verb kommt sofort danach: …
 
-9
+10
 00:00:25,910 --> 00:00:30,715
 deshalb trinke ich Kaffee.
 Drei: weil, dass, obwohl, wenn.
 
-10
+11
 00:00:30,860 --> 00:00:34,130
 Hier springt das Verb ans Ende: …
 weil ich müde bin.
 
-11
+12
 00:00:34,290 --> 00:00:38,035
 Profi-Level: Steht der Nebensatz
 vorne, treffen sich die Verben:
 
-12
+13
 00:00:38,225 --> 00:00:40,575
 Obwohl ich Kaffee trinke, bin ich müde.
 
-13
+14
 00:00:40,640 --> 00:00:43,310
 Und warum trinke ich so viel Kaffee?

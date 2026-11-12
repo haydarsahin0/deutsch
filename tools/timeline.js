@@ -21,7 +21,7 @@ const LAYOUTS = new Set(['board', 'melo', 'split', 'title']);
 
 // ── word cards (`[[cards id=.. text="…"]]`, see docs/PIPELINE.md "Word cards") ──
 // rows split by " | ", cards by spaces; "a+b" = cards that touch (no gap). Per card:
-//   [grey|blue|red|green|ink|mustard]word = coloured card, *word* = VERB (red, glowing), !word = ink badge,
+//   grey:word / blue: / red: / green: / ink: / mustard: = coloured card (no brackets: cue args can't hold "]"), *word* = VERB (red, glowing), !word = ink badge,
 //   #word = card in the strip's accent colour, ___ = empty slot, "_" inside a word = space,
 //   suffix @N = small position number under the card, suffix ~key = identity for morphs (default: text + occurrence).
 const CARD_COLORS = new Set(['grey', 'gray', 'blue', 'red', 'green', 'ink', 'mustard', 'paper']);
@@ -35,7 +35,7 @@ function parseCards(text) {
         let x = raw, key = null, num = null, color = null, kind = 'plain';
         let m = x.match(/~([\w-]+)$/); if (m) { key = m[1]; x = x.slice(0, m.index); }
         m = x.match(/@([^@\s]{1,6})$/); if (m) { num = m[1]; x = x.slice(0, m.index); }
-        m = x.match(/^\[(\w+)\]/); if (m && CARD_COLORS.has(m[1])) { color = m[1] === 'gray' ? 'grey' : m[1]; x = x.slice(m[0].length); kind = 'color'; }
+        m = x.match(/^([a-z]+):(?=.)/); if (m && CARD_COLORS.has(m[1])) { color = m[1] === 'gray' ? 'grey' : m[1]; x = x.slice(m[0].length); kind = 'color'; }
         if (/^\*.+\*$/.test(x)) { kind = 'verb'; x = x.slice(1, -1); }
         else if (x[0] === '!' && x.length > 1) { kind = 'badge'; x = x.slice(1); }
         else if (x[0] === '#' && x.length > 1) { kind = 'accent'; x = x.slice(1); }

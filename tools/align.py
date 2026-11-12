@@ -966,6 +966,7 @@ def make_subtitles(al):
             cur = []
         cur.append(k)
     runs.append(cur)
+    hard = {r[0] for r in runs[1:]}  # first words of hard runs: blocks are never merged across them
     blocks = []
     for run in runs:
         a, b = run[0], run[-1] + 1
@@ -1027,6 +1028,8 @@ def make_subtitles(al):
         return words[j - 1]["end"] - words[i]["start"]
 
     def fits(i, j):
+        if any(x in hard for x in range(i + 1, j)):
+            return False
         return bdur(i, j) <= MAX_DUR and break_lines([words[x]["raw"] for x in range(i, j)]) is not None
 
     k = 0

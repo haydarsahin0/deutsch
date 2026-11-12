@@ -15,7 +15,7 @@
    "type": "scene",
    "layout": "scene",
    "start": 0,
-   "end": 43.311,
+   "end": 4.84,
    "transition": "cut",
    "tStart": 0,
    "tEnd": 0,
@@ -26,9 +26,203 @@
     "set": "cafe-window",
     "melo": "in-scene:window-seat",
     "in": "cut",
-    "cam": "wide"
+    "cam": "static",
+    "zoom": "1.28",
+    "cx": "820",
+    "cy": "560"
    },
    "word": 0,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [
+    {
+     "t": -4.865,
+     "id": "cof0",
+     "name": "coffee",
+     "at": "640,700",
+     "anim": "none",
+     "scale": 0.5
+    }
+   ],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "cafe-window",
+   "strips": [
+    {
+     "id": "a",
+     "states": [
+      {
+       "x": "1150",
+       "size": "120",
+       "text": "red:…weil ich müde *bin.*",
+       "cards": [
+        [
+         {
+          "key": "weil#1",
+          "text": "…weil",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "ich#1",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "müde#1",
+          "text": "müde",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "bin#1",
+          "text": "bin.",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         }
+        ]
+       ],
+       "t": -1.865,
+       "static": true,
+       "mark": "right",
+       "markT": -1.865
+      },
+      {
+       "x": "1150",
+       "size": "120",
+       "label": "nicht:",
+       "text": "red:weil ich *bin* müde",
+       "cards": [
+        [
+         {
+          "key": "weil#1",
+          "text": "weil",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "ich#1",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "müde#1",
+          "text": "müde",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         }
+        ]
+       ],
+       "t": 1.76,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "x": "1150",
+       "size": "120",
+       "label": "nicht:",
+       "text": "red:weil ich *bin* müde",
+       "cards": [
+        [
+         {
+          "key": "weil#1",
+          "text": "weil",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "ich#1",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         },
+         {
+          "key": "müde#1",
+          "text": "müde",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.865
+         }
+        ]
+       ],
+       "t": 3.88,
+       "mark": "wrong",
+       "markT": 3.88
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "type": "cards",
+   "layout": "cards",
+   "start": 4.84,
+   "end": 7.675,
+   "transition": "cut",
+   "tStart": 4.84,
+   "tEnd": 4.84,
+   "contentStart": 4.84,
+   "melo": "off",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 9,
    "cast": [],
    "castCues": [],
    "says": [],
@@ -37,7 +231,1663 @@
    "pins": [],
    "isShot": true,
    "cams": [],
-   "set": "cafe-window"
+   "strips": [
+    {
+     "id": "f",
+     "states": [
+      {
+       "size": "150",
+       "text": "!Fehler_Nr._1 | auf red:B1",
+       "cards": [
+        [
+         {
+          "key": "fehlernr1#1",
+          "text": "Fehler Nr. 1",
+          "kind": "badge",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 4.84
+         }
+        ],
+        [
+         {
+          "key": "auf#1",
+          "text": "auf",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 6.18
+         },
+         {
+          "key": "b1#1",
+          "text": "B1",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 6.42
+         }
+        ]
+       ],
+       "t": 4.84,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "type": "cards",
+   "layout": "cards",
+   "start": 7.675,
+   "end": 10.915,
+   "transition": "cut",
+   "tStart": 7.675,
+   "tEnd": 7.675,
+   "contentStart": 7.675,
+   "melo": "off",
+   "args": {
+    "type": "cards",
+    "bg": "paper",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 17,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "r",
+     "states": [
+      {
+       "size": "118",
+       "text": "Die Regel | in mustard:10_Sekunden",
+       "cards": [
+        [
+         {
+          "key": "die#1",
+          "text": "Die",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 7.675
+         },
+         {
+          "key": "regel#1",
+          "text": "Regel",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 7.72
+         }
+        ],
+        [
+         {
+          "key": "in#1",
+          "text": "in",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 8.06
+         },
+         {
+          "key": "10sekunden#1",
+          "text": "10 Sekunden",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 8.24
+         }
+        ]
+       ],
+       "t": 7.675,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "118",
+       "text": "Die Regel in mustard:10_Sekunden | grey:Gruppe_1 blue:Gruppe_2 red:Gruppe_3",
+       "cards": [
+        [
+         {
+          "key": "die#1",
+          "text": "Die",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 7.675
+         },
+         {
+          "key": "regel#1",
+          "text": "Regel",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 7.72
+         },
+         {
+          "key": "in#1",
+          "text": "in",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 8.06
+         },
+         {
+          "key": "10sekunden#1",
+          "text": "10 Sekunden",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 8.24
+         }
+        ],
+        [
+         {
+          "key": "gruppe1#1",
+          "text": "Gruppe 1",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 9.65
+         },
+         {
+          "key": "gruppe2#1",
+          "text": "Gruppe 2",
+          "kind": "color",
+          "color": "blue",
+          "num": null,
+          "joinPrev": false,
+          "t": 9.72
+         },
+         {
+          "key": "gruppe3#1",
+          "text": "Gruppe 3",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 9.79
+         }
+        ]
+       ],
+       "t": 9.53,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "type": "cards",
+   "layout": "cards",
+   "start": 10.915,
+   "end": 15.6,
+   "transition": "cut",
+   "tStart": 10.915,
+   "tEnd": 10.915,
+   "contentStart": 10.915,
+   "melo": "off",
+   "args": {
+    "type": "cards",
+    "bg": "grey",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 26,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "g1",
+     "states": [
+      {
+       "size": "112",
+       "label": "Gruppe 1",
+       "text": "grey:und grey:aber grey:oder grey:denn grey:sondern",
+       "cards": [
+        [
+         {
+          "key": "und#1",
+          "text": "und",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 11.59
+         },
+         {
+          "key": "aber#1",
+          "text": "aber",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 12.065
+         },
+         {
+          "key": "oder#1",
+          "text": "oder",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 12.585
+         },
+         {
+          "key": "denn#1",
+          "text": "denn",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 13.165
+         },
+         {
+          "key": "sondern#1",
+          "text": "sondern",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 13.545
+         }
+        ]
+       ],
+       "t": 10.915,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "112",
+       "label": "Gruppe 1",
+       "text": "grey:und grey:aber grey:oder grey:denn grey:sondern | !=_0 zählen_nicht",
+       "cards": [
+        [
+         {
+          "key": "und#1",
+          "text": "und",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 11.59
+         },
+         {
+          "key": "aber#1",
+          "text": "aber",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 12.065
+         },
+         {
+          "key": "oder#1",
+          "text": "oder",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 12.585
+         },
+         {
+          "key": "denn#1",
+          "text": "denn",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 13.165
+         },
+         {
+          "key": "sondern#1",
+          "text": "sondern",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 13.545
+         }
+        ],
+        [
+         {
+          "key": "=0#1",
+          "text": "= 0",
+          "kind": "badge",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 14.675
+         },
+         {
+          "key": "zählennicht#1",
+          "text": "zählen nicht",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 14.745
+         }
+        ]
+       ],
+       "t": 14.555,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "type": "scene",
+   "layout": "scene",
+   "start": 15.6,
+   "end": 19.035,
+   "transition": "cut",
+   "tStart": 15.6,
+   "tEnd": 15.6,
+   "contentStart": 15.6,
+   "melo": "in-scene:window-seat",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "push"
+   },
+   "word": 35,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "cafe-window",
+   "strips": [
+    {
+     "id": "s1",
+     "states": [
+      {
+       "size": "108",
+       "text": "Ich trinke Kaffee, | ich *bin* müde.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.6
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.67
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.74
+         }
+        ],
+        [
+         {
+          "key": "ich#2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.81
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.88
+         },
+         {
+          "key": "müde#1",
+          "text": "müde.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.95
+         }
+        ]
+       ],
+       "t": 15.6,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "108",
+       "label": "Verb: Platz 2",
+       "text": "Ich trinke Kaffee, | ich@1 *bin*@2 müde.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.6
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.67
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.74
+         }
+        ],
+        [
+         {
+          "key": "ich#2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": "1",
+          "joinPrev": false,
+          "t": 15.81
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": "2",
+          "joinPrev": false,
+          "t": 15.88
+         },
+         {
+          "key": "müde#1",
+          "text": "müde.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.95
+         }
+        ]
+       ],
+       "t": 16.5,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "108",
+       "label": "Verb: Platz 2",
+       "text": "Ich trinke Kaffee, | grey:denn@0 ich@1 *bin*@2 müde.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.6
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.67
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.74
+         }
+        ],
+        [
+         {
+          "key": "denn#1",
+          "text": "denn",
+          "kind": "color",
+          "color": "grey",
+          "num": "0",
+          "joinPrev": false,
+          "t": 17.705
+         },
+         {
+          "key": "ich#2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": "1",
+          "joinPrev": false,
+          "t": 15.81
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": "2",
+          "joinPrev": false,
+          "t": 15.88
+         },
+         {
+          "key": "müde#1",
+          "text": "müde.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.95
+         }
+        ]
+       ],
+       "t": 17.585,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "type": "cards",
+   "layout": "cards",
+   "start": 19.035,
+   "end": 23.91,
+   "transition": "cut",
+   "tStart": 19.035,
+   "tEnd": 19.035,
+   "contentStart": 19.035,
+   "melo": "corner-left",
+   "args": {
+    "type": "cards",
+    "bg": "blue",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 45,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "g2",
+     "states": [
+      {
+       "size": "112",
+       "label": "Gruppe 2",
+       "text": "blue:deshalb blue:trotzdem blue:dann",
+       "cards": [
+        [
+         {
+          "key": "deshalb#1",
+          "text": "deshalb",
+          "kind": "color",
+          "color": "blue",
+          "num": null,
+          "joinPrev": false,
+          "t": 19.785
+         },
+         {
+          "key": "trotzdem#1",
+          "text": "trotzdem",
+          "kind": "color",
+          "color": "blue",
+          "num": null,
+          "joinPrev": false,
+          "t": 20.485
+         },
+         {
+          "key": "dann#1",
+          "text": "dann",
+          "kind": "color",
+          "color": "blue",
+          "num": null,
+          "joinPrev": false,
+          "t": 21.345
+         }
+        ]
+       ],
+       "t": 19.035,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "112",
+       "label": "Gruppe 2",
+       "text": "blue:deshalb blue:trotzdem blue:dann | !=_1 selbst_Platz_1",
+       "cards": [
+        [
+         {
+          "key": "deshalb#1",
+          "text": "deshalb",
+          "kind": "color",
+          "color": "blue",
+          "num": null,
+          "joinPrev": false,
+          "t": 19.785
+         },
+         {
+          "key": "trotzdem#1",
+          "text": "trotzdem",
+          "kind": "color",
+          "color": "blue",
+          "num": null,
+          "joinPrev": false,
+          "t": 20.485
+         },
+         {
+          "key": "dann#1",
+          "text": "dann",
+          "kind": "color",
+          "color": "blue",
+          "num": null,
+          "joinPrev": false,
+          "t": 21.345
+         }
+        ],
+        [
+         {
+          "key": "=1#1",
+          "text": "= 1",
+          "kind": "badge",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 22.195
+         },
+         {
+          "key": "selbstplatz1#1",
+          "text": "selbst Platz 1",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 22.265
+         }
+        ]
+       ],
+       "t": 22.075,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "type": "scene",
+   "layout": "scene",
+   "start": 23.91,
+   "end": 27.61,
+   "transition": "cut",
+   "tStart": 23.91,
+   "tEnd": 23.91,
+   "contentStart": 23.91,
+   "melo": "in-scene:window-seat",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "pan-left"
+   },
+   "word": 55,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "cafe-window",
+   "strips": [
+    {
+     "id": "s2",
+     "states": [
+      {
+       "size": "108",
+       "text": "Ich bin müde, | ich@1 *trinke*@2 Kaffee.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 23.91
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 23.98
+         },
+         {
+          "key": "müde#1",
+          "text": "müde,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 24.05
+         }
+        ],
+        [
+         {
+          "key": "ich#2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": "1",
+          "joinPrev": false,
+          "t": 24.12
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "verb",
+          "color": null,
+          "num": "2",
+          "joinPrev": false,
+          "t": 24.19
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 24.26
+         }
+        ]
+       ],
+       "t": 23.91,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "108",
+       "label": "Verb sofort danach",
+       "text": "Ich bin müde, | blue:deshalb@1 *trinke*@2 ich@3 Kaffee.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 23.91
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 23.98
+         },
+         {
+          "key": "müde#1",
+          "text": "müde,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 24.05
+         }
+        ],
+        [
+         {
+          "key": "deshalb#1",
+          "text": "deshalb",
+          "kind": "color",
+          "color": "blue",
+          "num": "1",
+          "joinPrev": false,
+          "t": 26.03
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "verb",
+          "color": null,
+          "num": "2",
+          "joinPrev": false,
+          "t": 24.19
+         },
+         {
+          "key": "ich#2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": "3",
+          "joinPrev": false,
+          "t": 24.12
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 24.26
+         }
+        ]
+       ],
+       "t": 25.91,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "type": "cards",
+   "layout": "cards",
+   "start": 27.61,
+   "end": 31.74,
+   "transition": "cut",
+   "tStart": 27.61,
+   "tEnd": 27.61,
+   "contentStart": 27.61,
+   "melo": "corner-right",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "corner-right",
+    "in": "cut"
+   },
+   "word": 64,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "g3",
+     "states": [
+      {
+       "size": "112",
+       "label": "Gruppe 3",
+       "text": "red:weil red:dass red:obwohl red:wenn",
+       "cards": [
+        [
+         {
+          "key": "weil#1",
+          "text": "weil",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 28.275
+         },
+         {
+          "key": "dass#1",
+          "text": "dass",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 28.94
+         },
+         {
+          "key": "obwohl#1",
+          "text": "obwohl",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 29.455
+         },
+         {
+          "key": "wenn#1",
+          "text": "wenn",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 30.08
+         }
+        ]
+       ],
+       "t": 27.61,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "112",
+       "label": "Gruppe 3",
+       "text": "red:weil red:dass red:obwohl red:wenn | !=_ENDE Verb_springt",
+       "cards": [
+        [
+         {
+          "key": "weil#1",
+          "text": "weil",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 28.275
+         },
+         {
+          "key": "dass#1",
+          "text": "dass",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 28.94
+         },
+         {
+          "key": "obwohl#1",
+          "text": "obwohl",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 29.455
+         },
+         {
+          "key": "wenn#1",
+          "text": "wenn",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 30.08
+         }
+        ],
+        [
+         {
+          "key": "=ende#1",
+          "text": "= ENDE",
+          "kind": "badge",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 30.98
+         },
+         {
+          "key": "verbspringt#1",
+          "text": "Verb springt",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.05
+         }
+        ]
+       ],
+       "t": 30.86,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 8,
+   "type": "scene",
+   "layout": "scene",
+   "start": 31.74,
+   "end": 34.29,
+   "transition": "cut",
+   "tStart": 31.74,
+   "tEnd": 31.74,
+   "contentStart": 31.74,
+   "melo": "in-scene:window-seat",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "tilt"
+   },
+   "word": 73,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "cafe-window",
+   "strips": [
+    {
+     "id": "s3",
+     "states": [
+      {
+       "size": "108",
+       "text": "Ich trinke Kaffee, | ich *bin* müde.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.74
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.81
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.88
+         }
+        ],
+        [
+         {
+          "key": "ich#2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.95
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 32.02
+         },
+         {
+          "key": "müde#1",
+          "text": "müde.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 32.09
+         }
+        ]
+       ],
+       "t": 31.74,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "108",
+       "label": "Verb ans Ende",
+       "text": "Ich trinke Kaffee, | red:weil ich müde *bin.*",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.74
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.81
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.88
+         }
+        ],
+        [
+         {
+          "key": "weil#1",
+          "text": "weil",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 32.83
+         },
+         {
+          "key": "ich#2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.95
+         },
+         {
+          "key": "müde#1",
+          "text": "müde",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 32.09
+         },
+         {
+          "key": "bin#1",
+          "text": "bin.",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 32.02
+         }
+        ]
+       ],
+       "t": 32.71,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 9,
+   "type": "cards",
+   "layout": "cards",
+   "start": 34.29,
+   "end": 40.64,
+   "transition": "cut",
+   "tStart": 34.29,
+   "tEnd": 34.29,
+   "contentStart": 34.29,
+   "melo": "off",
+   "args": {
+    "type": "cards",
+    "bg": "dark",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 79,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "p",
+     "states": [
+      {
+       "size": "112",
+       "label": "Profi-Level",
+       "text": "Ich~i1 *bin* müde, | red:obwohl ich~i2 Kaffee *trinke.*",
+       "cards": [
+        [
+         {
+          "key": "i1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.29
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.36
+         },
+         {
+          "key": "müde#1",
+          "text": "müde,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.43
+         }
+        ],
+        [
+         {
+          "key": "obwohl#1",
+          "text": "obwohl",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 34.5
+         },
+         {
+          "key": "i2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.57
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.64
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke.",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.71
+         }
+        ]
+       ],
+       "t": 34.29,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "112",
+       "label": "Profi-Level",
+       "text": "red:Obwohl ich~i2 Kaffee *trinke,* | Ich~i1 *bin* müde.",
+       "cards": [
+        [
+         {
+          "key": "obwohl#1",
+          "text": "Obwohl",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 34.5
+         },
+         {
+          "key": "i2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.57
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.64
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke,",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.71
+         }
+        ],
+        [
+         {
+          "key": "i1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.29
+         },
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.36
+         },
+         {
+          "key": "müde#1",
+          "text": "müde.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.43
+         }
+        ]
+       ],
+       "t": 35.35,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "112",
+       "stair": "1",
+       "gap": "0.06",
+       "label": "Profi-Level",
+       "text": "red:Obwohl ich~i2 Kaffee *trinke,* | *bin* ich~i1 müde.",
+       "cards": [
+        [
+         {
+          "key": "obwohl#1",
+          "text": "Obwohl",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 34.5
+         },
+         {
+          "key": "i2",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.57
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.64
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke,",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.71
+         }
+        ],
+        [
+         {
+          "key": "bin#1",
+          "text": "bin",
+          "kind": "verb",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.36
+         },
+         {
+          "key": "i1",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.29
+         },
+         {
+          "key": "müde#1",
+          "text": "müde.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.43
+         }
+        ]
+       ],
+       "t": 36.735,
+       "mark": null,
+       "markT": null,
+       "join": "Verb, Verb"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 10,
+   "type": "scene",
+   "layout": "scene",
+   "start": 40.64,
+   "end": 43.311,
+   "transition": "cut",
+   "tStart": 40.64,
+   "tEnd": 40.64,
+   "contentStart": 40.64,
+   "melo": "in-scene:window-seat",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.28",
+    "cx": "820",
+    "cy": "560"
+   },
+   "word": 95,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [
+    {
+     "t": 35.64,
+     "id": "cof9",
+     "name": "coffee",
+     "at": "640,700",
+     "anim": "none",
+     "scale": 0.5
+    }
+   ],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "cafe-window",
+   "strips": [
+    {
+     "id": "q",
+     "states": [
+      {
+       "x": "1150",
+       "size": "120",
+       "text": "Und warum trinke ich | so viel Kaffee?",
+       "cards": [
+        [
+         {
+          "key": "und#1",
+          "text": "Und",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 40.64
+         },
+         {
+          "key": "warum#1",
+          "text": "warum",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 41.23
+         },
+         {
+          "key": "trinke#1",
+          "text": "trinke",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 41.73
+         },
+         {
+          "key": "ich#1",
+          "text": "ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 42.17
+         }
+        ],
+        [
+         {
+          "key": "so#1",
+          "text": "so",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 42.27
+         },
+         {
+          "key": "viel#1",
+          "text": "viel",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 42.41
+         },
+         {
+          "key": "kaffee#1",
+          "text": "Kaffee?",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 42.57
+         }
+        ]
+       ],
+       "t": 40.64,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
   }
  ],
  "elements": [],
@@ -58,7 +1908,72 @@
    "kind": "section"
   }
  ],
- "melo": [],
+ "melo": [
+  {
+   "t": 0.135,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 1.76,
+   "args": {
+    "expr": "deadpan",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 15.6,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "right"
+   }
+  },
+  {
+   "t": 19.035,
+   "args": {
+    "expr": "deadpan",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 23.91,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "right"
+   }
+  },
+  {
+   "t": 27.61,
+   "args": {
+    "expr": "deadpan",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 31.74,
+   "args": {
+    "expr": "deadpan",
+    "pose": "point",
+    "look": "right"
+   }
+  },
+  {
+   "t": 40.64,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  }
+ ],
  "quotes": [],
  "rigWords": [
   {
@@ -724,9 +2639,9 @@
  "readability": {
   "extended": 0,
   "merged": 0,
-  "shots": 1,
-  "min": 43.176,
-  "avg": 43.176,
+  "shots": 11,
+  "min": 2.55,
+  "avg": 3.925,
   "handwritingFixed": 0
  },
  "cues": [
@@ -737,10 +2652,473 @@
     "set": "cafe-window",
     "melo": "in-scene:window-seat",
     "in": "cut",
-    "cam": "wide"
+    "cam": "static",
+    "zoom": "1.28",
+    "cx": "820",
+    "cy": "560"
    },
    "word": 0,
    "t": 0.135
+  },
+  {
+   "cue": "prop",
+   "args": {
+    "id": "cof0",
+    "name": "coffee",
+    "at": "640,700",
+    "scale": "0.5",
+    "anim": "none"
+   },
+   "word": 0,
+   "t": 0.135
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 0,
+   "t": 0.135
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "a",
+    "in": "none",
+    "size": "120",
+    "x": "1150",
+    "mark": "right",
+    "text": "red:…weil ich müde *bin.*"
+   },
+   "word": 0,
+   "t": 0.135
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 4,
+   "t": 1.76
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "a",
+    "label": "nicht:",
+    "text": "red:weil ich *bin* müde"
+   },
+   "word": 4,
+   "t": 1.76
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "a",
+    "mark": "wrong"
+   },
+   "word": 8,
+   "t": 3.88
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 9,
+   "t": 4.84
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "f",
+    "size": "150",
+    "sync": "words",
+    "text": "!Fehler_Nr._1 | auf red:B1"
+   },
+   "word": 9,
+   "t": 4.84
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "paper",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 17,
+   "t": 7.675
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "r",
+    "size": "118",
+    "sync": "words",
+    "text": "Die Regel | in mustard:10_Sekunden"
+   },
+   "word": 17,
+   "t": 7.675
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "r",
+    "text": "Die Regel in mustard:10_Sekunden | grey:Gruppe_1 blue:Gruppe_2 red:Gruppe_3"
+   },
+   "word": 22,
+   "t": 9.53
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "grey",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 26,
+   "t": 10.915
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "g1",
+    "size": "112",
+    "label": "Gruppe 1",
+    "sync": "words",
+    "text": "grey:und grey:aber grey:oder grey:denn grey:sondern"
+   },
+   "word": 26,
+   "t": 10.915
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "g1",
+    "text": "grey:und grey:aber grey:oder grey:denn grey:sondern | !=_0 zählen_nicht"
+   },
+   "word": 32,
+   "t": 14.555
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "push"
+   },
+   "word": 35,
+   "t": 15.6
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "right"
+   },
+   "word": 35,
+   "t": 15.6
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s1",
+    "size": "108",
+    "text": "Ich trinke Kaffee, | ich *bin* müde."
+   },
+   "word": 35,
+   "t": 15.6
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s1",
+    "label": "Verb: Platz 2",
+    "text": "Ich trinke Kaffee, | ich@1 *bin*@2 müde."
+   },
+   "word": 39,
+   "t": 16.5
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s1",
+    "text": "Ich trinke Kaffee, | grey:denn@0 ich@1 *bin*@2 müde."
+   },
+   "word": 41,
+   "t": 17.585
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "blue",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 45,
+   "t": 19.035
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 45,
+   "t": 19.035
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "g2",
+    "size": "112",
+    "label": "Gruppe 2",
+    "sync": "words",
+    "text": "blue:deshalb blue:trotzdem blue:dann"
+   },
+   "word": 45,
+   "t": 19.035
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "g2",
+    "text": "blue:deshalb blue:trotzdem blue:dann | !=_1 selbst_Platz_1"
+   },
+   "word": 49,
+   "t": 22.075
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "pan-left"
+   },
+   "word": 55,
+   "t": 23.91
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "right"
+   },
+   "word": 55,
+   "t": 23.91
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s2",
+    "size": "108",
+    "text": "Ich bin müde, | ich@1 *trinke*@2 Kaffee."
+   },
+   "word": 55,
+   "t": 23.91
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s2",
+    "label": "Verb sofort danach",
+    "text": "Ich bin müde, | blue:deshalb@1 *trinke*@2 ich@3 Kaffee."
+   },
+   "word": 60,
+   "t": 25.91
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "corner-right",
+    "in": "cut"
+   },
+   "word": 64,
+   "t": 27.61
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 64,
+   "t": 27.61
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "g3",
+    "size": "112",
+    "label": "Gruppe 3",
+    "sync": "words",
+    "text": "red:weil red:dass red:obwohl red:wenn"
+   },
+   "word": 64,
+   "t": 27.61
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "g3",
+    "text": "red:weil red:dass red:obwohl red:wenn | !=_ENDE Verb_springt"
+   },
+   "word": 69,
+   "t": 30.86
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "tilt"
+   },
+   "word": 73,
+   "t": 31.74
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "point",
+    "look": "right"
+   },
+   "word": 73,
+   "t": 31.74
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3",
+    "size": "108",
+    "text": "Ich trinke Kaffee, | ich *bin* müde."
+   },
+   "word": 73,
+   "t": 31.74
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3",
+    "label": "Verb ans Ende",
+    "text": "Ich trinke Kaffee, | red:weil ich müde *bin.*"
+   },
+   "word": 75,
+   "t": 32.71
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "dark",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 79,
+   "t": 34.29
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "p",
+    "size": "112",
+    "label": "Profi-Level",
+    "text": "Ich~i1 *bin* müde, | red:obwohl ich~i2 Kaffee *trinke.*"
+   },
+   "word": 79,
+   "t": 34.29
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "p",
+    "text": "red:Obwohl ich~i2 Kaffee *trinke,* | Ich~i1 *bin* müde."
+   },
+   "word": 80,
+   "t": 35.35
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "p",
+    "stair": "1",
+    "gap": "0.06",
+    "join": "Verb, Verb",
+    "text": "red:Obwohl ich~i2 Kaffee *trinke,* | *bin* ich~i1 müde."
+   },
+   "word": 84,
+   "t": 36.735
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.28",
+    "cx": "820",
+    "cy": "560"
+   },
+   "word": 95,
+   "t": 40.64
+  },
+  {
+   "cue": "prop",
+   "args": {
+    "id": "cof9",
+    "name": "coffee",
+    "at": "640,700",
+    "scale": "0.5",
+    "anim": "none"
+   },
+   "word": 95,
+   "t": 40.64
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 95,
+   "t": 40.64
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "q",
+    "size": "120",
+    "x": "1150",
+    "sync": "words",
+    "text": "Und warum trinke ich | so viel Kaffee?"
+   },
+   "word": 95,
+   "t": 40.64
   }
  ],
  "words": [
@@ -1479,7 +3857,7 @@
  "subs": [
   {
    "start": 0.135,
-   "end": 2.425,
+   "end": 1.635,
    "lines": [
     [
      {
@@ -1497,7 +3875,15 @@
      {
       "text": "bin.",
       "w": 3
-     },
+     }
+    ]
+   ]
+  },
+  {
+   "start": 1.76,
+   "end": 2.76,
+   "lines": [
+    [
      {
       "text": "Nicht:",
       "w": 4
