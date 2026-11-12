@@ -993,6 +993,7 @@
     else if (m === 'pan-left') { cam.w = 1920 / 1.09; cam.cx = 960 + lerp(60, -60, p); }
     else if (m === 'pan-right') { cam.w = 1920 / 1.09; cam.cx = 960 + lerp(-60, 60, p); }
     else if (m === 'tilt') { cam.w = 1920 / 1.09; cam.cy = 540 + lerp(-36, 30, p); }
+    else if (m === 'static') cam.w = 1920 / 1.03;
     else cam.w = 1920 / lerp(1.02, 1.05, p);
     return cam;
   }
@@ -1025,6 +1026,7 @@
       var prevT = cams[i].t, from = i > 0 ? keyCam(sc, cams[i - 1], prevT) : baseShotCam(sc, prevT);
       cam = mixFrame(from, keyCam(sc, cams[i], t), ease((t - prevT) / 0.85));
     }
+    if (!(sc.args && sc.args.cam === 'static' && !cams.length)) // static = locked-off (loop start/end frames match)
     cam = { cx: cam.cx + 6 * Math.sin(t * 0.37 + sc.i) + 2.5 * Math.sin(t * 1.1), cy: cam.cy + 4 * Math.sin(t * 0.29 + 1 + sc.i), w: cam.w };
     // fx: shake / zoom-punch
     (sc.fx || []).forEach(function (f) {
@@ -1678,6 +1680,197 @@
     return cam;
   }
 
+
+  // ── word cards: sentence strips whose cards morph between states (the VERB card jumps), see `[[cards]]`
+  var CARD_FILL = { grey: '#857f72', blue: '#35588a', red: '#c43d33', green: '#3f7d2f', ink: '#1d1712', mustard: '#d9a23c', paper: '#f4ead2' };
+  var CARD_BG = { grey: '#d8d4c9', blue: '#d0d9e2', red: '#ead3c7', green: '#dde4c6', paper: '#ece2c8', cream: '#efe5cc' };
+  function cardStyle(cd, S) {
+    var col = cd.kind === 'verb' ? 'red' : cd.kind === 'badge' ? 'ink' : cd.kind === 'accent' ? (S.accent || 'mustard') : cd.kind === 'color' ? cd.color : cd.kind === 'slot' ? null : 'paper';
+    var fill = col ? CARD_FILL[col] : null;
+    var txt = cd.kind === 'badge' ? MUSTARD : (col === 'paper' || col === 'mustard' || !col) ? INK : CREAM;
+    return { fill: fill, txt: txt };
+  }
+  function cardsLayout(sc, S) {
+    if (S._L) return S._L;
+    var scene = sc.type === 'scene' || sc.type === 'melo', om = scene ? null : overlayMelo(sc);
+    var cx = S.x != null ? +S.x : scene ? 1250 : om ? (om.x < 960 ? 1090 : 830) : 960;
+    var cy = S.y != null ? +S.y : scene ? 300 : 530;
+    var maxW = S.maxw != null ? +S.maxw : scene ? 1180 : om ? 1300 : 1720;
+    var fs = S.size != null ? +S.size : 112, L;
+    for (var pass = 0; pass < 3; pass++) {
+      L = cardsPlace(S, fs);
+      if (L.w <= maxW) break;
+      fs = Math.floor(fs * maxW / L.w);
+    }
+    var dx = cx - (L.x0 + L.x1) / 2, dy = cy - (L.y0 + L.y1) / 2;
+    L.cards.forEach(function (c) { c.x += dx; c.y += dy; });
+    L.rows.forEach(function (r) { r.x0 += dx; r.x1 += dx; r.y += dy; });
+    L.box = { x0: L.x0 + dx, y0: L.y0 + dy, x1: L.x1 + dx, y1: L.y1 + dy };
+    L.map = {}; L.cards.forEach(function (c) { L.map[c.key] = c; });
+    return (S._L = L);
+  }
+  function cardsPlace(S, fs) {
+    var font = '900 ' + fs + 'px Fraunces', pad = fs * 0.3, gap = fs * 0.2, h = fs * 1.32;
+    var rowGap = (S.gap != null ? +S.gap : 0.42) * fs, cards = [], rows = [], y = 0, xs = 0, X0 = 1e9, X1 = -1e9;
+    (S.cards || []).forEach(function (row, ri) {
+      var x = null, hasNum = row.some(function (c) { return c.num != null; });
+      if (S.stair) x = ri > 0 && rows[ri - 1].last ? rows[ri - 1].last.x - rows[ri - 1].last.w / 2 : 0;
+      var rc = [], cur = 0;
+      row.forEach(function (cd, i) {
+        var w = cd.kind === 'slot' ? fs * 1.7 : measure(cd.text, font) + pad * 2;
+        if (i > 0) cur += cd.joinPrev ? 0 : gap;
+        rc.push({ key: cd.key, text: cd.text, kind: cd.kind, color: cd.color, num: cd.num, joinPrev: cd.joinPrev, t: cd.t, w: w, h: h, x: cur + w / 2, y: y + h / 2, row: ri, fs: fs });
+        cur += w;
+      });
+      var off = x == null ? -cur / 2 : x;
+      rc.forEach(function (c) { c.x += off; });
+      rows.push({ x0: off, x1: off + cur, y: y + h / 2, last: rc[rc.length - 1], first: rc[0] });
+      X0 = Math.min(X0, off); X1 = Math.max(X1, off + cur);
+      cards = cards.concat(rc);
+      y += h + rowGap + (hasNum ? fs * 0.6 : 0);
+    });
+    var yEnd = y - rowGap;
+    return { fs: fs, cards: cards, rows: rows, x0: X0, x1: X1, y0: 0, y1: Math.max(h, yEnd), w: X1 - X0 };
+  }
+  function drawCard(ctx, c, S, x, y, w, fs, text, alpha, sc, rot, t, glow) {
+    if (alpha <= 0) return;
+    var st = cardStyle(c, S), h = fs * 1.32, r = h * 0.2, tilt = ((hashStr(c.key) % 100) / 100 - 0.5) * 0.045;
+    ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x, y); ctx.rotate(tilt + (rot || 0)); ctx.scale(sc || 1, sc || 1);
+    ctx.fillStyle = 'rgba(23,19,15,.42)'; ctx.beginPath(); ctx.roundRect(-w / 2 + fs * 0.06, -h / 2 + fs * 0.09, w, h, r); ctx.fill();
+    if (glow) {
+      var g = 0.75 + 0.25 * Math.sin(t * 4.2);
+      ctx.save(); ctx.shadowColor = 'rgba(255,190,70,' + (0.95 * g).toFixed(3) + ')'; ctx.shadowBlur = fs * (0.45 + 0.25 * g) * E.scale;
+      ctx.fillStyle = st.fill; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, r); ctx.fill(); ctx.fill(); ctx.restore();
+    }
+    ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, r);
+    if (st.fill) { ctx.fillStyle = st.fill; ctx.fill(); }
+    else { ctx.fillStyle = 'rgba(244,234,210,.55)'; ctx.fill(); ctx.setLineDash([fs * 0.16, fs * 0.12]); }
+    ctx.lineWidth = fs * 0.045; ctx.strokeStyle = INK; ctx.stroke(); ctx.setLineDash([]);
+    // inked inner edge (vintage print look)
+    ctx.globalAlpha = alpha * 0.18; ctx.lineWidth = fs * 0.02; ctx.strokeStyle = st.txt; ctx.beginPath(); ctx.roundRect(-w / 2 + fs * 0.09, -h / 2 + fs * 0.09, w - fs * 0.18, h - fs * 0.18, r * 0.7); ctx.stroke();
+    ctx.globalAlpha = alpha;
+    if (text && text.trim()) {
+      ctx.font = '900 ' + fs + 'px Fraunces'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      var tw = measure(text, ctx.font), k = Math.min(1, (w - fs * 0.4) / Math.max(1, tw));
+      ctx.save(); ctx.scale(k, 1); ctx.fillStyle = st.txt; ctx.fillText(text, 0, fs * 0.33); ctx.restore();
+    }
+    ctx.restore();
+  }
+  function drawCardNum(ctx, num, x, y, fs, alpha) {
+    if (num == null || alpha <= 0) return;
+    var r = fs * 0.27, yy = y + fs * 0.66 + r * 0.95;
+    ctx.save(); ctx.globalAlpha = alpha;
+    ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(x, yy, r, 0, 7); ctx.fill();
+    ctx.font = '700 ' + Math.round(fs * 0.36) + 'px Oswald'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = CREAM;
+    ctx.fillText(String(num), x, yy + fs * 0.13);
+    ctx.restore();
+  }
+  function drawCards(ctx, sc, t) {
+    (sc.strips || []).forEach(function (st, si) {
+      var idx = -1; for (var i = 0; i < st.states.length; i++) if (st.states[i].t <= t + 1e-6) idx = i;
+      if (idx < 0) return;
+      var S = st.states[idx], L = cardsLayout(sc, S), P = idx > 0 ? st.states[idx - 1] : null, LP = P ? cardsLayout(sc, P) : null;
+      var dt = t - S.t, morph = !!(LP && dt < 1.0), pb = morph ? ease(dt / 0.55) : 1, fs = morph ? lerp(LP.fs, L.fs, pb) : L.fs;
+      var dark = sc.type === 'cards' && sc.args && (sc.args.bg === 'dark' || BGC[sc.args.bg] && !CARD_BG[sc.args.bg]);
+      // paper sheet behind the strip (default on in illustrated scenes)
+      var band = S.band != null ? S.band !== 'off' : (sc.type === 'scene' || sc.type === 'melo');
+      var bx = morph ? { x0: lerp(LP.box.x0, L.box.x0, pb), y0: lerp(LP.box.y0, L.box.y0, pb), x1: lerp(LP.box.x1, L.box.x1, pb), y1: lerp(LP.box.y1, L.box.y1, pb) } : L.box;
+      var first = st.states[0], firstT = first.static ? -1e9 : Math.min.apply(null, [].concat.apply([], first.cards).map(function (c) { return c.t; }).concat([first.t]));
+      if (band) {
+        var pa = sat((t - firstT) / 0.25), bp = fs * 0.42;
+        ctx.save(); ctx.globalAlpha = pa; ctx.translate((bx.x0 + bx.x1) / 2, (bx.y0 + bx.y1) / 2); ctx.rotate(-0.008); ctx.scale(lerp(0.92, 1, easeOut(pa)), lerp(0.92, 1, easeOut(pa)));
+        var BW = bx.x1 - bx.x0 + bp * 2, BH = bx.y1 - bx.y0 + bp * 2 + (S.label ? fs * 0.55 : 0), BY = -BH / 2 - (S.label ? fs * 0.0 : 0);
+        ctx.fillStyle = 'rgba(23,19,15,.35)'; ctx.beginPath(); ctx.roundRect(-BW / 2 + 10, BY + 14 - (S.label ? fs * 0.28 : 0), BW, BH, 18); ctx.fill();
+        ctx.fillStyle = 'rgba(243,234,211,.94)'; ctx.beginPath(); ctx.roundRect(-BW / 2, BY - (S.label ? fs * 0.28 : 0), BW, BH, 18); ctx.fill();
+        ctx.lineWidth = 4; ctx.strokeStyle = INK; ctx.stroke();
+        ctx.restore();
+      }
+      // label above the strip
+      if (S.label) {
+        var la = P && P.label === S.label ? 1 : sat(dt / 0.3);
+        ctx.save(); ctx.globalAlpha = la; ctx.font = '700 ' + Math.round(fs * 0.62) + 'px Caveat'; ctx.textAlign = 'left';
+        ctx.fillStyle = S.labelColor ? (CARD_FILL[S.labelColor] || S.labelColor) : dark ? MUSTARD : RED;
+        ctx.translate(bx.x0 - fs * 0.05, bx.y0 - fs * 0.22); ctx.rotate(-0.03); ctx.fillText(S.label, 0, 0); ctx.restore();
+      }
+      // verbs of the old/new layout (to let crossing cards duck under a jumping verb)
+      var verbs = morph ? L.cards.filter(function (c) { return c.kind === 'verb' && LP.map[c.key]; }) : [];
+      // cards leaving
+      if (morph && dt < 0.3) LP.cards.forEach(function (o) {
+        if (L.map[o.key] || o.t > S.t) return;
+        var q = dt / 0.3; drawCard(ctx, o, P, o.x, o.y - 30 * q, o.w, LP.fs, o.text, 1 - q, lerp(1, 0.7, q), 0, t, false);
+      });
+      var draws = [];
+      L.cards.forEach(function (c) {
+        if (c.t > t + 1e-6) return;
+        var o = morph ? LP.map[c.key] : null, x = c.x, y = c.y, w = c.w, text = c.text, al = 1, sc2 = 1, rot = 0, cfs = L.fs, z = 0, numA = 1;
+        if (o && o.t <= S.t + 1e-6) {
+          var dist = Math.hypot(c.x - o.x, c.y - o.y), isV = c.kind === 'verb';
+          var p = ease(dt / (isV && dist > 8 ? 0.75 : 0.5));
+          x = lerp(o.x, c.x, p); y = lerp(o.y, c.y, p); w = lerp(o.w, c.w, p); cfs = lerp(LP.fs, L.fs, p);
+          if (p < 0.5 && o.text !== c.text) text = o.text;
+          if (isV && dist > 8) { var ar = Math.sin(Math.PI * p); y -= ar * (L.fs * 1.25 + dist * 0.12); sc2 = 1 + 0.14 * ar; rot = 0.12 * ar * (c.x > o.x ? 1 : -1); z = 2; }
+          else if (dist > 8) {
+            var cross = verbs.some(function (v) { var vo = LP.map[v.key]; return (c.x - v.x) * (o.x - vo.x) < 0; });
+            if (cross) { y += Math.sin(Math.PI * p) * L.fs * 0.3; sc2 = 1 - 0.06 * Math.sin(Math.PI * p); }
+          }
+          if (o.num !== c.num) numA = sat(dt / 0.3);
+        } else {
+          var at = Math.max(c.t, morph ? S.t + 0.18 : c.t), a = t - at;
+          if (a < 0) return;
+          if (a < 0.4) { sc2 = lerp(1.35, 1, easeOutBack(a / 0.35)); al = sat(a / 0.12); y -= (1 - easeOut(a / 0.3)) * 50; rot = (1 - sat(a / 0.3)) * ((hashStr(c.key) & 1) ? 0.1 : -0.1); }
+          numA = al;
+        }
+        draws.push({ c: c, x: x, y: y, w: w, text: text, al: al, sc: sc2, rot: rot, fs: cfs, z: z, numA: numA });
+      });
+      draws.sort(function (a, b) { return a.z - b.z; });
+      draws.forEach(function (d) {
+        drawCard(ctx, d.c, S, d.x, d.y, d.w, d.fs, d.text, d.al, d.sc, d.rot, t, d.c.kind === 'verb' && !(S.mark === 'wrong'));
+        if (d.z === 0) drawCardNum(ctx, d.c.num, d.x, d.y, d.fs, d.numA);
+      });
+      // join: two cards that touch (verb meets verb)
+      if (S.join) {
+        var pair = null;
+        if (S.stair && L.rows.length > 1) pair = [L.rows[0].last, L.rows[1].first];
+        else L.cards.forEach(function (c, i) { if (!pair && c.joinPrev) pair = [L.cards[i - 1], c]; });
+        var ja = sat((t - S.t - 0.6) / 0.35);
+        if (pair && ja > 0) {
+          var a0 = pair[0], b0 = pair[1], jx = S.stair ? b0.x - b0.w / 2 : (a0.x + a0.w / 2), jy = S.stair ? (a0.y + b0.y) / 2 : a0.y;
+          ctx.save(); ctx.globalAlpha = ja;
+          ctx.strokeStyle = MUSTARD; ctx.lineWidth = L.fs * 0.07; ctx.beginPath(); ctx.arc(jx, jy, L.fs * (0.55 + 0.06 * Math.sin(t * 5)), 0, 7); ctx.stroke();
+          ctx.font = '700 ' + Math.round(L.fs * 0.66) + 'px Caveat'; ctx.fillStyle = dark ? MUSTARD : RED;
+          if (S.stair) { ctx.textAlign = 'right'; ctx.fillText(S.join, jx - L.fs * 0.85, b0.y + L.fs * 0.2); }
+          else { ctx.textAlign = 'center'; ctx.fillText(S.join, jx, a0.y + L.fs * 1.45); }
+          ctx.restore();
+        }
+      }
+      // mark: wrong (red strike + ✗) / right (green tick)
+      if (S.mark && S.markT != null && t >= S.markT) {
+        var mp = t - S.markT, B = L.box, F = L.fs;
+        if (S.mark === 'wrong') {
+          L.rows.forEach(function (r, i) { brushStroke(ctx, [[r.x0 - 25, r.y + F * 0.12], [r.x1 + 25, r.y - F * 0.1]], F * 0.13, RED, sat((mp - i * 0.12) / 0.3), 41 + i); });
+          var xx = B.x1 + F * 0.95, yy = (B.y0 + B.y1) / 2, R = F * 0.62;
+          if (xx + R > 1890) { xx = B.x1 - F * 0.2; yy = B.y0 - F * 0.55; }
+          brushStroke(ctx, [[xx - R, yy - R], [xx + R, yy + R]], F * 0.2, RED, sat((mp - 0.25) / 0.2), 51);
+          brushStroke(ctx, [[xx + R, yy - R], [xx - R, yy + R]], F * 0.2, RED, sat((mp - 0.42) / 0.2), 53);
+        } else if (S.mark === 'right') {
+          var tx = B.x1 + F * 0.45, ty = (B.y0 + B.y1) / 2 + F * 0.3, T2 = F * 1.1;
+          if (tx + T2 > 1890) { tx = B.x1 - F * 0.6; ty = B.y0 - F * 0.1; }
+          brushStroke(ctx, [[tx, ty - T2 * 0.38], [tx + T2 * 0.25, ty - T2 * 0.05], [tx + T2 * 0.8, ty - T2 * 0.95]], F * 0.17, '#3f7d2f', sat(mp / 0.35), 61);
+        }
+      }
+    });
+  }
+  // full-frame card shot (paper tinted by group colour, or dark)
+  function drawCardsShot(ctx, t, sc) {
+    var a = sc.args || {}, cam = shotCam(sc, t); camTransform(ctx, cam);
+    var bg = a.bg || 'paper';
+    if (bg === 'dark') darkBg(ctx, t);
+    else if (CARD_BG[bg]) paperBg(ctx, CARD_BG[bg], t);
+    else if (BGC[bg]) darkBg(ctx, t, BGC[bg]);
+    else paperBg(ctx, bg, t);
+    return cam;
+  }
+
   async function drawShot(ctx, t, sc) {
     E.heads = {}; E.mouths = {}; E.headR = {}; E.meloInShot = false;
     ctx.save();
@@ -1689,6 +1882,7 @@
       case 'chapter': cam = drawChapterShot(ctx, t, sc); break;
       case 'list': cam = drawListShot(ctx, t, sc); drawProps(ctx, sc, t); break;
       case 'map': cam = drawMapShot(ctx, t, sc); drawProps(ctx, sc, t); break;
+      case 'cards': cam = drawCardsShot(ctx, t, sc); drawProps(ctx, sc, t); break;
       case 'melo': cam = await drawMeloShot(ctx, t, sc); drawProps(ctx, sc, t); drawFx(ctx, sc, t); break;
       default: cam = FULL;
     }
@@ -1707,6 +1901,7 @@
     }
     ctx.save(); ctx.setTransform(E.scale, 0, 0, E.scale, 0, 0);
     await drawOverlayMelo(ctx, t, sc);
+    if (sc.strips) drawCards(ctx, sc, t);
     drawScreenFx(ctx, sc, t);
     ctx.restore();
   }
@@ -1901,7 +2096,10 @@
     // rig (engine/character/rig.js; falls back to the stub)
     var Rig = root.MeloRig || root.MeloStubRig;
     // words of quotes "spoken" by other characters are left out → Melo keeps his mouth shut there
-    E.rig = Rig.prepare({ fps: tl.fps || 30, envelope: tl.envelope, words: tl.rigWords || tl.words, cues: tl.cues, seed: 7, duration: tl.duration });
+    // melo cues before/at the first spoken word hold from frame 0 (no blend at the start, e.g. a loop's first frame)
+    var w0 = tl.words && tl.words.length ? tl.words[0].start : 0;
+    var rigCues = (tl.cues || []).map(function (c) { return c.cue === 'melo' && c.t <= w0 + 0.01 ? Object.assign({}, c, { t: -1 }) : c; });
+    E.rig = Rig.prepare({ fps: tl.fps || 30, envelope: tl.envelope, words: tl.rigWords || tl.words, cues: rigCues, seed: 7, duration: tl.duration });
     try { var a0 = E.rig.render(0, { boardSide: 'right', board: true }).anchors; if (a0 && a0.headCenter) E.headY = a0.headCenter[1]; } catch (e) { }
     // camera keyframes: start states
     E.cam = (tl.camera || []).map(function (k) { return { t: k.t, shot: k.shot, focus: k.focus }; });
