@@ -21,10 +21,13 @@ Read `docs/CHANNEL-STATUS.md` first (what's published, what's ready, what's next
 - Don't re-read big files (`engine/js/*.js`, `melo-b.js`, `cast.js`); grep for what you need.
 - Git: `tools/autosave.sh 300` (run in background) commits + pushes every 5 min; don't spend turns on commits.
 
-## Publishing schedule (owner's plan, from 2026-11-12)
-- 4-day cycle: **day 1 = long video, days 2–4 = one Short per day, always at 17:05 (Europe/Berlin)**; next long video on day 5.
-- So every long episode needs **3 Shorts** (the 3 strongest moments; `tools/make-short.py`, layout `fit: full`, single-line subtitles).
-- Episode N+1 must be fully rendered (+ thumbnail, meta, 3 Shorts) before its publish day → start its script right after episode N is published.
+## Publishing schedule (owner's plan v2, from 2026-11-13)
+- **3-day cycle.** Day 1 = long video at 17:05 (Europe/Berlin) and **no Shorts that day**. Days 2–3 = **3 Shorts per day**:
+  - **12:05** Short cut from a long episode
+  - **17:05** original educational **loop Short** (word/structure, card engine `[[cards]]`, Q→A loop, no end card; pattern `shorts/s01-verb-springt/`)
+  - **19:05** second Short cut from a long episode
+- Per cycle: 1 long episode + 4 episode Shorts (`tools/make-short.py`, `fit: full`, hook rule) + 2 loop Shorts (the owner records ~35 s each).
+- Episode N+1 must be fully rendered (+ thumbnail, meta, Shorts) before its publish day → script it right after episode N is published. To fit the usage limit: about 6–8 new sets per episode plus rotation of the existing library. Shorts covers come from reusable cover layouts with per-Short variation, never the same look twice in a row.
 
 ## Episode workflow
 1. **Script** (one writer pass + one German check): `episodes/NN-slug/script.md` (spoken German + `[[cues]]`), then `node tools/sprechtext.js episodes/NN-slug` → `tts-elevenlabs/teil-*.txt` (owner pastes into ElevenLabs v3, voice "Ben – Effortless and Casual") + `meta.md` (YouTube title/description/tags).

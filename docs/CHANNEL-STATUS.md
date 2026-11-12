@@ -9,20 +9,24 @@ _Last update: 2026-11-12_
 - Subscribers: 20 → 24 on 2026-11-11 (see `docs/growth/LOG.md`).
 
 ## Schedule
-4-day cycle, everything at **17:05 Europe/Berlin**: day 1 long video, days 2–4 one Short each.
+From 2026-11-13: 3-day cycle (see CLAUDE.md). Day 1 = long video at 17:05 with no Shorts. Days 2–3 = Shorts at 12:05 (episode cut), 17:05 (original loop Short) and 19:05 (episode cut).
 
 ## Published / planned
 | Date | Item | Status | Files |
 |---|---|---|---|
-| 2026-11-11 | Long #1 „Das sagt KEIN Deutscher! 12 Sätze, die dich sofort verraten“ | ✅ published (thumbnail C3 = `thumbnail-c3-4k.jpg`) | `episodes/01-das-sagt-kein-deutscher/` |
-| 2026-11-11 | Short #1 „Ich bin heiß“ | ✅ published (940 views first hours) | `shorts/01-ich-bin-heiss/` |
-| 2026-11-12 | Short „Ich bin voll“ | ready, delivered to owner | `shorts/02-ich-bin-voll/` |
-| 2026-11-13 | Short „Ich will ein Bier“ | ✅ re-cut v2 (cold open, 32 s) + new cover, delivered | `shorts/03-ich-will-ein-bier/` |
-| 2026-11-14 | Short „Doch!“ | ready, delivered | `shorts/05-doch/` |
-| 2026-11-15 | Long #2 „50 Wörter am Tag“ (5×10-System) | ✅ rendered (11:50, 110 shots, 14 new sets), owner approved; meta + chapters ✅, thumbnails A/B/C ✅ (B recommended, A/B test); next: 3 Shorts | `episodes/02-50-woerter-am-tag/` |
-| spare | Short „Tschüss/Servus“ (map) | config only, not rendered | `shorts/04-tschuess-servus/` |
+| 2026-11-11 | Long #1 „Das sagt KEIN Deutscher!“ | ✅ published | `episodes/01-das-sagt-kein-deutscher/` |
+| 2026-11-11 | Short #1 „Ich bin heiß“ | ✅ published (1,093 views, 38.7 % viewed vs. swiped) | `shorts/01-ich-bin-heiss/` |
+| 2026-11-12 | Short #2 „Ich bin voll“ | ✅ published (new v2 cover) | `shorts/02-ich-bin-voll/` |
+| 2026-11-13 17:05 | Long #2 „50 Wörter am Tag“ | ✅ scheduled by owner (thumbnail B main, A in the test) | `episodes/02-50-woerter-am-tag/` |
+| 2026-11-14 12:05 | Ep2-Short „Die Abruf-Leiter“ | todo | – |
+| 2026-11-14 17:05 | Loop „Wo steht das Verb?“ | ✅ ready, delivered | `shorts/s01-verb-springt/` |
+| 2026-11-14 19:05 | Short „Ich will ein Bier“ (v2) | ✅ ready | `shorts/03-ich-will-ein-bier/` |
+| 2026-11-15 12:05 | Ep2-Short „Die Notaufnahme für Wörter“ | todo | – |
+| 2026-11-15 17:05 | Loop #2 (e.g. Wo/Wohin) | todo: script → owner TTS | – |
+| 2026-11-15 19:05 | Short „Doch!“ | ready (check hook) | `shorts/05-doch/` |
+| 2026-11-16 17:05 | Long #3 | todo: topic + script NOW | – |
+| spare | „10 Wörter für die Wohnungssuche“ (ep2), „Tschüss/Servus“ (ep1) | – | – |
 
 ## Next
-- Episode 2: topic chosen by owner (2026-11-11): „Wie lerne ich 50 Wörter am Tag?“, 10–13 min, original method, **no Turkish references at all**. Next: German check → TTS parts to owner → audio → direction → render → thumbnail → 3 Shorts.
 - Later topic ideas: „10 Redewendungen“, „Verben mit Präpositionen“, „doch / mal / halt / eben“.
 - Next stats check-ins: 2026-11-13 evening and 2026-11-18 (skill `melo-growth`).
