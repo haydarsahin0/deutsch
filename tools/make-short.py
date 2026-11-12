@@ -11,6 +11,8 @@ Pipeline: snap segment times to word boundaries (+pad) → render each segment W
 (tools/short/short.html via tools/html-frames.js) → ASS karaoke subtitles from build/alignment.json (libass,
 brand TTFs in brand/fonts/ttf) → ffmpeg compose (visual hard cuts, 40 ms audio crossfades) → out/short.mp4
 (H.264 high crf 20, 30 fps, AAC 192k, +faststart). See shorts/README.md for the config fields.
+Loop Shorts: "loop": true (static hook title from frame 1, no audio fade-out), no "cta"/end card,
+optional "sticker": {"text", "from", "to", "x", "y", "rot", "size"} (small save/subscribe sticker mid-video).
 """
 import argparse, hashlib, json, math, os, shutil, subprocess, sys
 from pathlib import Path
@@ -240,11 +242,13 @@ def mouth_env(wav, a, dur):
 
 
 # ── graphics ──────────────────────────────────────────────────────────────────
-def html_frames(params, out, frames=1, transparent=False, build=None):
+def html_frames(params, out, frames=1, transparent=False, build=None, t0=None):
     pj = build / f'params-{params["mode"]}.json'
     pj.write_text(json.dumps(params, ensure_ascii=False), encoding='utf-8')
     cmd = ['node', 'tools/html-frames.js', '--page', 'tools/short/short.html', '--params', pj, '--out', out,
            '--w', W, '--h', H, '--frames', frames]
+    if t0 is not None:
+        cmd += ['--t0', t0]
     if transparent:
         cmd.append('--transparent')
     run(cmd)
@@ -321,7 +325,14 @@ def main():
     html_frames(dict(base_params(cfg), mode='bg', noSlot=True), bg_panel, build=build)
     for d in ('top', 'endcard'):
         shutil.rmtree(build / d, ignore_errors=True)
-    html_frames(dict(base_params(cfg), mode='top'), build / 'top', frames=21, transparent=True, build=build)
+    loop = bool(cfg.get('loop'))
+    if loop:   # loop Short: hook title already in place on frame 1 (last frame == first frame)
+        html_frames(dict(base_params(cfg), mode='top'), build / 'top.png', transparent=True, build=build, t0=0.8)
+    else:
+        html_frames(dict(base_params(cfg), mode='top'), build / 'top', frames=21, transparent=True, build=build)
+    sticker = cfg.get('sticker')
+    if sticker:
+        html_frames(dict(base_params(cfg), mode='sticker', sticker=sticker), build / 'sticker.png', transparent=True, build=build)
     cta = next((s for s in segs if s['kind'] == 'cta'), None)
     if cta:
         ec = dict({'line1': 'MEHR DAVON?', 'line2': 'ABONNIEREN!', 'sub': 'Ganzes Video auf dem Kanal', 'panelTop': 580,
@@ -350,7 +361,10 @@ def main():
     nseg = len(segs)
     fc.append(''.join(vl) + f'concat=n={nseg}:v=1:a=0,tpad=stop_mode=clone:stop_duration={hold + 0.1:.3f}[vid]')
     i_top = nseg + 1
-    inp += ['-framerate', FPS, '-i', build / 'top' / 'f_%04d.png']
+    if loop:
+        inp += ['-loop', '1', '-framerate', FPS, '-t', f'{total:.3f}', '-i', build / 'top.png']
+    else:
+        inp += ['-framerate', FPS, '-i', build / 'top' / 'f_%04d.png']
     fc.append(f'[0:v][vid]overlay=0:{SLOT_Y}:shortest=0[c1]')
     fc.append(f'[c1][{i_top}:v]overlay=0:0:eof_action=repeat:format=auto[c2]')
     fonts_dir = str(FONTS).replace(':', r'\:')
@@ -362,6 +376,13 @@ def main():
         fc.append(f'[{i_ec}:v]setpts=PTS+{cta["t0"]:.4f}/TB[ec]')
         fc.append(f'{last}[ec]overlay=0:0:eof_action=repeat:format=auto[c4]')
         last = '[c4]'
+    if sticker:   # small save/subscribe sticker mid-video (fades in/out), e.g. instead of an end card in a loop Short
+        i_st = len([x for x in inp if x == '-i'])
+        inp += ['-loop', '1', '-framerate', FPS, '-t', f'{total:.3f}', '-i', build / 'sticker.png']
+        a0, a1 = float(sticker.get('from', total * 0.45)), float(sticker.get('to', total * 0.45 + 7))
+        fc.append(f'[{i_st}:v]format=rgba,fade=t=in:st={a0:.3f}:d=0.3:alpha=1,fade=t=out:st={a1 - 0.3:.3f}:d=0.3:alpha=1[stk]')
+        fc.append(f'{last}[stk]overlay=0:0:format=auto[c5]')
+        last = '[c5]'
     fc.append(f'{last}format=yuv420p[vout]')
     # audio: each segment cut from voice.wav, internal joins extended by XFADE/2 and cross-faded (centred on the cut)
     i_wav = len([x for x in inp if x == '-i'])
@@ -376,7 +397,8 @@ def main():
     for k in range(1, nseg):
         fc.append(f'{cur}{al_[k]}acrossfade=d={XFADE}:c1=tri:c2=tri[x{k}]')
         cur = f'[x{k}]'
-    fc.append(f'{cur}afade=t=in:d=0.02,apad=whole_dur={total:.3f},afade=t=out:st={total - 0.35:.3f}:d=0.35[aout]')
+    fo = 0.03 if loop else 0.35   # loop: no audible fade, the end flows straight into the start
+    fc.append(f'{cur}afade=t=in:d=0.02,apad=whole_dur={total:.3f},afade=t=out:st={total - fo:.3f}:d={fo}[aout]')
 
     mp4 = out / 'short.mp4'
     run(['ffmpeg', '-y', '-v', 'error', *inp, '-filter_complex', ';'.join(fc), '-map', '[vout]', '-map', '[aout]',

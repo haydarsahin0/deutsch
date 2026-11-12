@@ -261,9 +261,23 @@
     return s;
   }
 
+  // small paper sticker with a drawn push-pin (loop Shorts: replaces the end card's call to action)
+  function stickerSvg() {
+    var st = P.sticker || {}, txt = st.text || 'Speichern & abonnieren', size = st.size || 40;
+    var w = measure(txt, '700 ' + size + 'px Oswald') + size * 2.3, h = size * 1.75;
+    var x = (st.x != null ? st.x : 1050) - w, y = (st.y != null ? st.y : 628) - h / 2, pr = size * 0.36, px = size * 0.85, py = h / 2;
+    return '<g transform="translate(' + U.f1(x) + ' ' + U.f1(y) + ') rotate(' + (st.rot != null ? st.rot : -3) + ' ' + U.f1(w / 2) + ' ' + U.f1(h / 2) + ')">' +
+      '<rect x="6" y="9" width="' + U.f1(w) + '" height="' + U.f1(h) + '" rx="14" fill="#000" opacity=".45" filter="url(#soft)"/>' +
+      S.shape(S.rect(0, 0, w, h, 16, 1.2), '#f4ead2', { w: 3.5, extra: 2 }) +
+      brushLine([[px + pr * 0.2, py + pr * 0.4], [px + pr * 1.1, py + pr * 1.6]], 4, '#1d1712') +
+      '<circle cx="' + U.f1(px) + '" cy="' + U.f1(py) + '" r="' + U.f1(pr) + '" fill="' + RED + '" stroke="#000" stroke-width="3.5"/>' +
+      '<circle cx="' + U.f1(px - pr * 0.3) + '" cy="' + U.f1(py - pr * 0.3) + '" r="' + U.f1(pr * 0.28) + '" fill="#fff" opacity=".7"/>' +
+      '<text x="' + U.f1(size * 1.6) + '" y="' + U.f1(h * 0.69) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" letter-spacing="1" fill="#1d1712">' + esc(txt) + '</text></g>';
+  }
+
   function build(t) {
     S = new SceneInk(7); defs = DEFS;
-    var s = MODE === 'bg' ? bgSvg() : MODE === 'top' ? hookTitle(t) + slotFrame() : MODE === 'endcard' ? endcardSvg(t) : coverSvg();
+    var s = MODE === 'bg' ? bgSvg() : MODE === 'top' ? hookTitle(t) + slotFrame() : MODE === 'endcard' ? endcardSvg(t) : MODE === 'sticker' ? stickerSvg() : coverSvg();
     document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
   }
   window.renderFrame = function (t) { build(t); };
