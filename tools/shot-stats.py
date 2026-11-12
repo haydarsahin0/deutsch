@@ -18,6 +18,8 @@ SHOT_TYPES = {'scene', 'text', 'split', 'board', 'list', 'map', 'chapter', 'melo
 SETS = set('office-hot dinner-table cellar winter-room living-room cinema-front football-park biergarten '
            'supermarket-checkout doctor-office doorstep quiz-show kneipe job-interview bakery after-work-desk '
            'park-bench university laptop-email wg-kitchen exam-room map-dach board office-plain street-day'.split())
+import os as _os
+SETS |= {f[:-3] for f in _os.listdir('/home/user/deutsch/engine/sets') if f.endswith('.js') and f not in ('sets.js', 'kit-a.js', 'kit-b.js', 'fonts-embed.js')}
 CAST = set('kollegin schwiegermutter kumpel mitbewohnerin kellner chefin kind oma arzt moderator'.split())
 CAST_EXPR = set('neutral happy laughing surprised shocked confused annoyed skeptical tired embarrassed talking'.split())
 CAST_POSE = set('idle talk point arms-crossed hands-up facepalm hold sit'.split())
