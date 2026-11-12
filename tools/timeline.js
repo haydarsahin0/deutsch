@@ -11,13 +11,44 @@ const { execFileSync } = require('child_process');
 const Script = require('../engine/lib/script.js');
 
 const KNOWN = new Set(['scene', 'camera', 'melo', 'draw', 'next', 'strike', 'highlight', 'tick', 'erase', 'quiz',
-  'reveal', 'voice', 'pause', 'sfx', 'shot', 'cast', 'say', 'prop', 'fx', 'pin']);
-const SHOT_TYPES = new Set(['scene', 'text', 'split', 'board', 'list', 'map', 'chapter', 'melo', 'quiz']);
+  'reveal', 'voice', 'pause', 'sfx', 'shot', 'cast', 'say', 'prop', 'fx', 'pin', 'cards']);
+const SHOT_TYPES = new Set(['scene', 'text', 'split', 'board', 'list', 'map', 'chapter', 'melo', 'quiz', 'cards']);
 const MELO_MODES = /^(off|corner-left|corner-right|side-left|side-right|in-scene(:[\w-]+)?|walk-in(-left|-right)?|peek(-left|-right)?|medium)$/;
 const IN_DUR = { cut: 0, ink: 0.6, whip: 0.35, slide: 0.45, zoom: 0.45, flash: 0.12 };
 const FX = new Set(['shake', 'flash', 'zoom-punch', 'sweat', 'steam', 'hearts', 'question-marks', 'sparkle', 'record-scratch']);
 const DRAW_TYPES = new Set(['title', 'wrong', 'right', 'word', 'sentence', 'note', 'bubble', 'list', 'icon']);
 const LAYOUTS = new Set(['board', 'melo', 'split', 'title']);
+
+// ── word cards (`[[cards id=.. text="…"]]`, see docs/PIPELINE.md "Word cards") ──
+// rows split by " | ", cards by spaces; "a+b" = cards that touch (no gap). Per card:
+//   [grey|blue|red|green|ink|mustard]word = coloured card, *word* = VERB (red, glowing), !word = ink badge,
+//   #word = card in the strip's accent colour, ___ = empty slot, "_" inside a word = space,
+//   suffix @N = small position number under the card, suffix ~key = identity for morphs (default: text + occurrence).
+const CARD_COLORS = new Set(['grey', 'gray', 'blue', 'red', 'green', 'ink', 'mustard', 'paper']);
+function parseCards(text) {
+  const seen = {};
+  return String(text || '').split(/\s*\|\s*/).map(row => row.trim()).filter(Boolean).map(row => {
+    const out = [];
+    row.split(/\s+/).filter(Boolean).forEach(tok => {
+      const parts = tok.length > 1 ? tok.split(/\+(?=.)/) : [tok];
+      parts.forEach((raw, pi) => {
+        let x = raw, key = null, num = null, color = null, kind = 'plain';
+        let m = x.match(/~([\w-]+)$/); if (m) { key = m[1]; x = x.slice(0, m.index); }
+        m = x.match(/@([^@\s]{1,6})$/); if (m) { num = m[1]; x = x.slice(0, m.index); }
+        m = x.match(/^\[(\w+)\]/); if (m && CARD_COLORS.has(m[1])) { color = m[1] === 'gray' ? 'grey' : m[1]; x = x.slice(m[0].length); kind = 'color'; }
+        if (/^\*.+\*$/.test(x)) { kind = 'verb'; x = x.slice(1, -1); }
+        else if (x[0] === '!' && x.length > 1) { kind = 'badge'; x = x.slice(1); }
+        else if (x[0] === '#' && x.length > 1) { kind = 'accent'; x = x.slice(1); }
+        if (/^_+$/.test(x)) { kind = 'slot'; x = '   '; }
+        else x = x.replace(/_/g, ' ');
+        const base = x.toLowerCase().replace(/[^\p{L}\p{N}=]+/gu, '') || x;
+        if (!key) { seen[base] = (seen[base] || 0) + 1; key = base + '#' + seen[base]; }
+        out.push({ key, text: x, kind, color, num, joinPrev: pi > 0 });
+      });
+    });
+    return out;
+  });
+}
 const SHOTS = new Set(['wide', 'melo', 'board', 'close']);
 const DEFAULT_SHOT = { board: 'board', melo: 'melo', split: 'wide', title: 'wide' };
 
@@ -291,7 +322,7 @@ function compile(ep, opts = {}) {
     switch (sc.type) {
       case 'chapter': return 2.8;
       case 'text': case 'split': case 'list': return Math.max(2.0, 0.35 * wordsOn(sc) + 0.8);
-      case 'scene': case 'board': case 'map': return 2.0;
+      case 'scene': case 'board': case 'map': case 'cards': return 2.0;
       case 'melo': return 1.5;
       default: return 0;
     }
@@ -316,6 +347,7 @@ function compile(ep, opts = {}) {
     if (sc.leftT != null) sc.leftT = snap(sc.leftT); if (sc.rightT != null) sc.rightT = r3(Math.max(sc.rightT, sc.leftT + 0.8));
     if (sc.strikeT != null) sc.strikeT = snap(sc.strikeT); if (sc.tickT != null) sc.tickT = snap(sc.tickT);
     ['castCues', 'says', 'props', 'fx', 'pins', 'cams'].forEach(k => (sc[k] || []).forEach((x, i) => { if (x.t < sc.contentStart) x.t = snap(x.t, k === 'props' ? i : 0); }));
+    (sc.strips || []).forEach(st => st.states.forEach(x => { if (x.t < sc.contentStart && !x.static) x.t = snap(x.t); (x.cards || []).forEach(r => r.forEach(cd => { if (cd.t != null && cd.t < x.t) cd.t = x.t; })); }));
     for (const e of elements) if (e.scene === sc.i) {
       if (e.appear < sc.contentStart) { const dd = sc.contentStart - e.appear; e.appear = r3(sc.contentStart); ['strike', 'tick', 'highlight'].forEach(k => { if (e[k] != null) e[k] = r3(e[k] + dd); }); }
       if (e.items) e.items.forEach(it => { if (it.t != null && it.t < e.appear) it.t = e.appear; });
@@ -424,7 +456,9 @@ function compile(ep, opts = {}) {
       }
       case 'prop': {
         if (!scene) break;
-        scene.props.push({ t: r3(c.t), id: a.id || 'prop' + (++autoId), name: a.name || 'question', at: a.at || 'center', anim: a.anim || 'pop', scale: parseFloat(a.scale) || 1 });
+        // anim=none: already in place (fully drawn) when the shot starts (e.g. the first/last frame of a loop)
+        const still = a.anim === 'none';
+        scene.props.push({ t: still ? r3(scene.tStart - 5) : r3(c.t), id: a.id || 'prop' + (++autoId), name: a.name || 'question', at: a.at || 'center', anim: a.anim || 'pop', scale: parseFloat(a.scale) || 1 });
         break;
       }
       case 'fx': {
@@ -436,6 +470,43 @@ function compile(ep, opts = {}) {
       case 'pin': {
         if (!scene) break;
         scene.pins.push({ t: r3(c.t), id: a.id || 'pin' + (++autoId), at: a.at || '', text: a.text || a.at || '' });
+        break;
+      }
+      case 'cards': {
+        // word-card strip in the current shot; the same id again = new state (cards morph, the verb card jumps)
+        if (!scene) break;
+        scene.strips = scene.strips || [];
+        const id = a.id || 'cards';
+        let st = scene.strips.find(x => x.id === id);
+        const prev = st ? st.states[st.states.length - 1] : null;
+        if (!st) { st = { id, states: [] }; scene.strips.push(st); }
+        const inherit = ['x', 'y', 'size', 'band', 'accent', 'maxw', 'align', 'stair', 'gap', 'label', 'labelColor'];
+        const S = {};
+        inherit.forEach(k => { if (a[k] != null) S[k] = a[k]; else if (prev && prev[k] != null) S[k] = prev[k]; });
+        if (S.label === '' || S.label === 'none') delete S.label;
+        const text = a.text != null ? String(a.text) : (prev ? prev.text : '');
+        S.text = text;
+        S.cards = parseCards(text);
+        S.t = r3(c.t);
+        // in=none: the state is already complete at the shot start (loop first frame)
+        if (!prev && a.in === 'none') { S.t = r3(scene.tStart - 2); S.static = true; }
+        S.mark = a.mark != null ? (a.mark === 'none' ? null : a.mark) : (prev && a.text == null ? prev.mark : null);
+        S.markT = S.mark ? (prev && prev.mark === S.mark && a.mark == null ? prev.markT : S.static ? S.t : r3(S.t + (parseFloat(a.markDelay) || 0))) : null;
+        if (a.join != null) S.join = a.join === 'none' ? null : a.join; else if (prev && a.text == null) S.join = prev.join;
+        // card appear times: sync=words → each new card pops in when its word is spoken; else quick stagger
+        const flat = [].concat(...S.cards);
+        const old = new Map(prev ? [].concat(...prev.cards).map(cd => [cd.key, cd]) : []);
+        const sync = a.sync === 'words';
+        const tt = sync ? timeTokens(flat.map(cd => cd.text.replace(/\s+/g, '')).join(' '), c, S.t) : null;
+        let k = 0;
+        flat.forEach((cd, i) => {
+          const o = old.get(cd.key);
+          if (o && o.t != null) { cd.t = o.t; return; }
+          if (S.static) { cd.t = S.t; return; }
+          cd.t = sync ? r3(Math.max(S.t, tt[i].t)) : r3(S.t + (prev ? 0.12 : 0) + 0.07 * k);
+          k++;
+        });
+        st.states.push(S);
         break;
       }
       case 'camera': {

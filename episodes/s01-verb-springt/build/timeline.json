@@ -1,0 +1,2025 @@
+{
+ "version": 1,
+ "episode": "s01-verb-springt",
+ "fps": 30,
+ "width": 1920,
+ "height": 1080,
+ "duration": 43.311,
+ "partial": false,
+ "audio": "audio/voice.wav",
+ "alignment": "build/alignment.json",
+ "dev": false,
+ "scenes": [
+  {
+   "i": 0,
+   "type": "scene",
+   "layout": "scene",
+   "start": 0,
+   "end": 43.311,
+   "transition": "cut",
+   "tStart": 0,
+   "tEnd": 0,
+   "contentStart": 0.135,
+   "melo": "in-scene:window-seat",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "wide"
+   },
+   "word": 0,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "cafe-window"
+  }
+ ],
+ "elements": [],
+ "camera": [
+  {
+   "t": 0,
+   "shot": "board",
+   "focus": null,
+   "auto": "start"
+  }
+ ],
+ "chapters": [
+  {
+   "t": 0.135,
+   "title": "Loop",
+   "num": null,
+   "label": "Loop",
+   "kind": "section"
+  }
+ ],
+ "melo": [],
+ "quotes": [],
+ "rigWords": [
+  {
+   "i": 0,
+   "text": "Weil",
+   "start": 0.135,
+   "end": 0.32
+  },
+  {
+   "i": 1,
+   "text": "ich",
+   "start": 0.32,
+   "end": 0.52
+  },
+  {
+   "i": 2,
+   "text": "müde",
+   "start": 0.52,
+   "end": 0.92
+  },
+  {
+   "i": 3,
+   "text": "bin",
+   "start": 0.92,
+   "end": 1.385
+  },
+  {
+   "i": 4,
+   "text": "Nicht",
+   "start": 1.76,
+   "end": 2.175
+  },
+  {
+   "i": 5,
+   "text": "weil",
+   "start": 3.18,
+   "end": 3.4
+  },
+  {
+   "i": 6,
+   "text": "ich",
+   "start": 3.4,
+   "end": 3.62
+  },
+  {
+   "i": 7,
+   "text": "bin",
+   "start": 3.73,
+   "end": 3.88
+  },
+  {
+   "i": 8,
+   "text": "müde",
+   "start": 3.88,
+   "end": 4.37
+  },
+  {
+   "i": 9,
+   "text": "Das",
+   "start": 4.84,
+   "end": 4.99
+  },
+  {
+   "i": 10,
+   "text": "ist",
+   "start": 4.99,
+   "end": 5.13
+  },
+  {
+   "i": 11,
+   "text": "der",
+   "start": 5.13,
+   "end": 5.29
+  },
+  {
+   "i": 12,
+   "text": "Fehler",
+   "start": 5.29,
+   "end": 5.59
+  },
+  {
+   "i": 13,
+   "text": "Nummer",
+   "start": 5.59,
+   "end": 5.81
+  },
+  {
+   "i": 14,
+   "text": "eins",
+   "start": 5.81,
+   "end": 6.23
+  },
+  {
+   "i": 15,
+   "text": "auf",
+   "start": 6.23,
+   "end": 6.47
+  },
+  {
+   "i": 16,
+   "text": "B1",
+   "start": 6.47,
+   "end": 7.095
+  },
+  {
+   "i": 17,
+   "text": "Die",
+   "start": 7.675,
+   "end": 7.77
+  },
+  {
+   "i": 18,
+   "text": "Regel",
+   "start": 7.77,
+   "end": 8.11
+  },
+  {
+   "i": 19,
+   "text": "in",
+   "start": 8.11,
+   "end": 8.29
+  },
+  {
+   "i": 20,
+   "text": "zehn",
+   "start": 8.29,
+   "end": 8.53
+  },
+  {
+   "i": 21,
+   "text": "Sekunden",
+   "start": 8.53,
+   "end": 9.14
+  },
+  {
+   "i": 22,
+   "text": "Es",
+   "start": 9.53,
+   "end": 9.65
+  },
+  {
+   "i": 23,
+   "text": "gibt",
+   "start": 9.65,
+   "end": 9.83
+  },
+  {
+   "i": 24,
+   "text": "drei",
+   "start": 9.83,
+   "end": 10.07
+  },
+  {
+   "i": 25,
+   "text": "Gruppen",
+   "start": 10.07,
+   "end": 10.51
+  },
+  {
+   "i": 26,
+   "text": "Eins",
+   "start": 10.915,
+   "end": 11.36
+  },
+  {
+   "i": 27,
+   "text": "und",
+   "start": 11.64,
+   "end": 12.005
+  },
+  {
+   "i": 28,
+   "text": "aber",
+   "start": 12.115,
+   "end": 12.635
+  },
+  {
+   "i": 29,
+   "text": "oder",
+   "start": 12.635,
+   "end": 13.215
+  },
+  {
+   "i": 30,
+   "text": "denn",
+   "start": 13.215,
+   "end": 13.595
+  },
+  {
+   "i": 31,
+   "text": "sondern",
+   "start": 13.595,
+   "end": 14.125
+  },
+  {
+   "i": 32,
+   "text": "Sie",
+   "start": 14.555,
+   "end": 14.64
+  },
+  {
+   "i": 33,
+   "text": "zählen",
+   "start": 14.64,
+   "end": 15
+  },
+  {
+   "i": 34,
+   "text": "nicht",
+   "start": 15,
+   "end": 15.36
+  },
+  {
+   "i": 35,
+   "text": "das",
+   "start": 15.6,
+   "end": 15.72
+  },
+  {
+   "i": 36,
+   "text": "Verb",
+   "start": 15.72,
+   "end": 15.98
+  },
+  {
+   "i": 37,
+   "text": "bleibt",
+   "start": 16.15,
+   "end": 16.34
+  },
+  {
+   "i": 38,
+   "text": "auf",
+   "start": 16.34,
+   "end": 16.5
+  },
+  {
+   "i": 39,
+   "text": "Platz",
+   "start": 16.5,
+   "end": 16.72
+  },
+  {
+   "i": 40,
+   "text": "zwei",
+   "start": 16.72,
+   "end": 17.155
+  },
+  {
+   "i": 41,
+   "text": "denn",
+   "start": 17.585,
+   "end": 17.72
+  },
+  {
+   "i": 42,
+   "text": "ich",
+   "start": 17.72,
+   "end": 17.98
+  },
+  {
+   "i": 43,
+   "text": "bin",
+   "start": 17.98,
+   "end": 18.18
+  },
+  {
+   "i": 44,
+   "text": "müde",
+   "start": 18.18,
+   "end": 18.53
+  },
+  {
+   "i": 45,
+   "text": "Zwei",
+   "start": 19.035,
+   "end": 19.34
+  },
+  {
+   "i": 46,
+   "text": "deshalb",
+   "start": 19.835,
+   "end": 20.255
+  },
+  {
+   "i": 47,
+   "text": "trotzdem",
+   "start": 20.535,
+   "end": 21.215
+  },
+  {
+   "i": 48,
+   "text": "dann",
+   "start": 21.395,
+   "end": 21.65
+  },
+  {
+   "i": 49,
+   "text": "Sie",
+   "start": 22.075,
+   "end": 22.18
+  },
+  {
+   "i": 50,
+   "text": "stehen",
+   "start": 22.18,
+   "end": 22.46
+  },
+  {
+   "i": 51,
+   "text": "selbst",
+   "start": 22.46,
+   "end": 22.82
+  },
+  {
+   "i": 52,
+   "text": "auf",
+   "start": 22.82,
+   "end": 23.02
+  },
+  {
+   "i": 53,
+   "text": "Platz",
+   "start": 23.02,
+   "end": 23.24
+  },
+  {
+   "i": 54,
+   "text": "eins",
+   "start": 23.24,
+   "end": 23.7
+  },
+  {
+   "i": 55,
+   "text": "das",
+   "start": 23.91,
+   "end": 24.04
+  },
+  {
+   "i": 56,
+   "text": "Verb",
+   "start": 24.04,
+   "end": 24.3
+  },
+  {
+   "i": 57,
+   "text": "kommt",
+   "start": 24.3,
+   "end": 24.58
+  },
+  {
+   "i": 58,
+   "text": "sofort",
+   "start": 24.58,
+   "end": 24.96
+  },
+  {
+   "i": 59,
+   "text": "danach",
+   "start": 24.96,
+   "end": 25.5
+  },
+  {
+   "i": 60,
+   "text": "deshalb",
+   "start": 25.91,
+   "end": 26.24
+  },
+  {
+   "i": 61,
+   "text": "trinke",
+   "start": 26.24,
+   "end": 26.62
+  },
+  {
+   "i": 62,
+   "text": "ich",
+   "start": 26.62,
+   "end": 26.78
+  },
+  {
+   "i": 63,
+   "text": "Kaffee",
+   "start": 26.78,
+   "end": 27.145
+  },
+  {
+   "i": 64,
+   "text": "Drei",
+   "start": 27.61,
+   "end": 27.915
+  },
+  {
+   "i": 65,
+   "text": "weil",
+   "start": 28.325,
+   "end": 28.825
+  },
+  {
+   "i": 66,
+   "text": "dass",
+   "start": 28.99,
+   "end": 29.38
+  },
+  {
+   "i": 67,
+   "text": "obwohl",
+   "start": 29.505,
+   "end": 30.13
+  },
+  {
+   "i": 68,
+   "text": "wenn",
+   "start": 30.13,
+   "end": 30.465
+  },
+  {
+   "i": 69,
+   "text": "Hier",
+   "start": 30.86,
+   "end": 31.04
+  },
+  {
+   "i": 70,
+   "text": "springt",
+   "start": 31.04,
+   "end": 31.42
+  },
+  {
+   "i": 71,
+   "text": "das",
+   "start": 31.42,
+   "end": 31.56
+  },
+  {
+   "i": 72,
+   "text": "Verb",
+   "start": 31.56,
+   "end": 31.74
+  },
+  {
+   "i": 73,
+   "text": "ans",
+   "start": 31.74,
+   "end": 31.98
+  },
+  {
+   "i": 74,
+   "text": "Ende",
+   "start": 31.98,
+   "end": 32.395
+  },
+  {
+   "i": 75,
+   "text": "weil",
+   "start": 32.71,
+   "end": 33
+  },
+  {
+   "i": 76,
+   "text": "ich",
+   "start": 33,
+   "end": 33.28
+  },
+  {
+   "i": 77,
+   "text": "müde",
+   "start": 33.28,
+   "end": 33.62
+  },
+  {
+   "i": 78,
+   "text": "bin",
+   "start": 33.62,
+   "end": 33.88
+  },
+  {
+   "i": 79,
+   "text": "Profi-Level",
+   "start": 34.29,
+   "end": 34.985
+  },
+  {
+   "i": 80,
+   "text": "Steht",
+   "start": 35.35,
+   "end": 35.58
+  },
+  {
+   "i": 81,
+   "text": "der",
+   "start": 35.58,
+   "end": 35.7
+  },
+  {
+   "i": 82,
+   "text": "Nebensatz",
+   "start": 35.7,
+   "end": 36.18
+  },
+  {
+   "i": 83,
+   "text": "vorne",
+   "start": 36.18,
+   "end": 36.735
+  },
+  {
+   "i": 84,
+   "text": "treffen",
+   "start": 36.735,
+   "end": 37.02
+  },
+  {
+   "i": 85,
+   "text": "sich",
+   "start": 37.02,
+   "end": 37.26
+  },
+  {
+   "i": 86,
+   "text": "die",
+   "start": 37.26,
+   "end": 37.42
+  },
+  {
+   "i": 87,
+   "text": "Verben",
+   "start": 37.42,
+   "end": 37.785
+  },
+  {
+   "i": 88,
+   "text": "Obwohl",
+   "start": 38.225,
+   "end": 38.6
+  },
+  {
+   "i": 89,
+   "text": "ich",
+   "start": 38.6,
+   "end": 38.76
+  },
+  {
+   "i": 90,
+   "text": "Kaffee",
+   "start": 38.76,
+   "end": 39.1
+  },
+  {
+   "i": 91,
+   "text": "trinke",
+   "start": 39.1,
+   "end": 39.595
+  },
+  {
+   "i": 92,
+   "text": "bin",
+   "start": 39.595,
+   "end": 39.76
+  },
+  {
+   "i": 93,
+   "text": "ich",
+   "start": 39.76,
+   "end": 39.94
+  },
+  {
+   "i": 94,
+   "text": "müde",
+   "start": 39.94,
+   "end": 40.325
+  },
+  {
+   "i": 95,
+   "text": "Und",
+   "start": 40.64,
+   "end": 41.095
+  },
+  {
+   "i": 96,
+   "text": "warum",
+   "start": 41.28,
+   "end": 41.78
+  },
+  {
+   "i": 97,
+   "text": "trinke",
+   "start": 41.78,
+   "end": 42.22
+  },
+  {
+   "i": 98,
+   "text": "ich",
+   "start": 42.22,
+   "end": 42.32
+  },
+  {
+   "i": 99,
+   "text": "so",
+   "start": 42.32,
+   "end": 42.46
+  },
+  {
+   "i": 100,
+   "text": "viel",
+   "start": 42.46,
+   "end": 42.62
+  },
+  {
+   "i": 101,
+   "text": "Kaffee",
+   "start": 42.62,
+   "end": 43.06
+  }
+ ],
+ "assets": {
+  "sets": [
+   "after-work-desk.js",
+   "bakery.js",
+   "bank-counter.js",
+   "bedroom-night.js",
+   "biergarten.js",
+   "breakfast-kitchen.js",
+   "cafe-window.js",
+   "cellar.js",
+   "cinema-front.js",
+   "dinner-table.js",
+   "doctor-office.js",
+   "doorstep.js",
+   "empty-apartment.js",
+   "er-hospital.js",
+   "exam-room.js",
+   "fonts-embed.js",
+   "football-park.js",
+   "gym.js",
+   "job-interview.js",
+   "kit-a.js",
+   "kit-b.js",
+   "kneipe.js",
+   "laptop-email.js",
+   "living-room.js",
+   "map-dach.js",
+   "moving-day.js",
+   "office-hot.js",
+   "office-plain.js",
+   "phone-ad.js",
+   "post-office.js",
+   "quiz-show.js",
+   "sofa-evening.js",
+   "stairwell-door.js",
+   "street-day.js",
+   "sunday-balcony.js",
+   "supermarket-checkout.js",
+   "tram-interior.js",
+   "university.js",
+   "wg-kitchen.js",
+   "winter-room.js"
+  ],
+  "cast": [
+   "cast.js"
+  ]
+ },
+ "readability": {
+  "extended": 0,
+  "merged": 0,
+  "shots": 1,
+  "min": 43.176,
+  "avg": 43.176,
+  "handwritingFixed": 0
+ },
+ "cues": [
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "cafe-window",
+    "melo": "in-scene:window-seat",
+    "in": "cut",
+    "cam": "wide"
+   },
+   "word": 0,
+   "t": 0.135
+  }
+ ],
+ "words": [
+  {
+   "i": 0,
+   "text": "Weil",
+   "start": 0.135,
+   "end": 0.32
+  },
+  {
+   "i": 1,
+   "text": "ich",
+   "start": 0.32,
+   "end": 0.52
+  },
+  {
+   "i": 2,
+   "text": "müde",
+   "start": 0.52,
+   "end": 0.92
+  },
+  {
+   "i": 3,
+   "text": "bin",
+   "start": 0.92,
+   "end": 1.385
+  },
+  {
+   "i": 4,
+   "text": "Nicht",
+   "start": 1.76,
+   "end": 2.175
+  },
+  {
+   "i": 5,
+   "text": "weil",
+   "start": 3.18,
+   "end": 3.4
+  },
+  {
+   "i": 6,
+   "text": "ich",
+   "start": 3.4,
+   "end": 3.62
+  },
+  {
+   "i": 7,
+   "text": "bin",
+   "start": 3.73,
+   "end": 3.88
+  },
+  {
+   "i": 8,
+   "text": "müde",
+   "start": 3.88,
+   "end": 4.37
+  },
+  {
+   "i": 9,
+   "text": "Das",
+   "start": 4.84,
+   "end": 4.99
+  },
+  {
+   "i": 10,
+   "text": "ist",
+   "start": 4.99,
+   "end": 5.13
+  },
+  {
+   "i": 11,
+   "text": "der",
+   "start": 5.13,
+   "end": 5.29
+  },
+  {
+   "i": 12,
+   "text": "Fehler",
+   "start": 5.29,
+   "end": 5.59
+  },
+  {
+   "i": 13,
+   "text": "Nummer",
+   "start": 5.59,
+   "end": 5.81
+  },
+  {
+   "i": 14,
+   "text": "eins",
+   "start": 5.81,
+   "end": 6.23
+  },
+  {
+   "i": 15,
+   "text": "auf",
+   "start": 6.23,
+   "end": 6.47
+  },
+  {
+   "i": 16,
+   "text": "B1",
+   "start": 6.47,
+   "end": 7.095
+  },
+  {
+   "i": 17,
+   "text": "Die",
+   "start": 7.675,
+   "end": 7.77
+  },
+  {
+   "i": 18,
+   "text": "Regel",
+   "start": 7.77,
+   "end": 8.11
+  },
+  {
+   "i": 19,
+   "text": "in",
+   "start": 8.11,
+   "end": 8.29
+  },
+  {
+   "i": 20,
+   "text": "zehn",
+   "start": 8.29,
+   "end": 8.53
+  },
+  {
+   "i": 21,
+   "text": "Sekunden",
+   "start": 8.53,
+   "end": 9.14
+  },
+  {
+   "i": 22,
+   "text": "Es",
+   "start": 9.53,
+   "end": 9.65
+  },
+  {
+   "i": 23,
+   "text": "gibt",
+   "start": 9.65,
+   "end": 9.83
+  },
+  {
+   "i": 24,
+   "text": "drei",
+   "start": 9.83,
+   "end": 10.07
+  },
+  {
+   "i": 25,
+   "text": "Gruppen",
+   "start": 10.07,
+   "end": 10.51
+  },
+  {
+   "i": 26,
+   "text": "Eins",
+   "start": 10.915,
+   "end": 11.36
+  },
+  {
+   "i": 27,
+   "text": "und",
+   "start": 11.64,
+   "end": 12.005
+  },
+  {
+   "i": 28,
+   "text": "aber",
+   "start": 12.115,
+   "end": 12.635
+  },
+  {
+   "i": 29,
+   "text": "oder",
+   "start": 12.635,
+   "end": 13.215
+  },
+  {
+   "i": 30,
+   "text": "denn",
+   "start": 13.215,
+   "end": 13.595
+  },
+  {
+   "i": 31,
+   "text": "sondern",
+   "start": 13.595,
+   "end": 14.125
+  },
+  {
+   "i": 32,
+   "text": "Sie",
+   "start": 14.555,
+   "end": 14.64
+  },
+  {
+   "i": 33,
+   "text": "zählen",
+   "start": 14.64,
+   "end": 15
+  },
+  {
+   "i": 34,
+   "text": "nicht",
+   "start": 15,
+   "end": 15.36
+  },
+  {
+   "i": 35,
+   "text": "das",
+   "start": 15.6,
+   "end": 15.72
+  },
+  {
+   "i": 36,
+   "text": "Verb",
+   "start": 15.72,
+   "end": 15.98
+  },
+  {
+   "i": 37,
+   "text": "bleibt",
+   "start": 16.15,
+   "end": 16.34
+  },
+  {
+   "i": 38,
+   "text": "auf",
+   "start": 16.34,
+   "end": 16.5
+  },
+  {
+   "i": 39,
+   "text": "Platz",
+   "start": 16.5,
+   "end": 16.72
+  },
+  {
+   "i": 40,
+   "text": "zwei",
+   "start": 16.72,
+   "end": 17.155
+  },
+  {
+   "i": 41,
+   "text": "denn",
+   "start": 17.585,
+   "end": 17.72
+  },
+  {
+   "i": 42,
+   "text": "ich",
+   "start": 17.72,
+   "end": 17.98
+  },
+  {
+   "i": 43,
+   "text": "bin",
+   "start": 17.98,
+   "end": 18.18
+  },
+  {
+   "i": 44,
+   "text": "müde",
+   "start": 18.18,
+   "end": 18.53
+  },
+  {
+   "i": 45,
+   "text": "Zwei",
+   "start": 19.035,
+   "end": 19.34
+  },
+  {
+   "i": 46,
+   "text": "deshalb",
+   "start": 19.835,
+   "end": 20.255
+  },
+  {
+   "i": 47,
+   "text": "trotzdem",
+   "start": 20.535,
+   "end": 21.215
+  },
+  {
+   "i": 48,
+   "text": "dann",
+   "start": 21.395,
+   "end": 21.65
+  },
+  {
+   "i": 49,
+   "text": "Sie",
+   "start": 22.075,
+   "end": 22.18
+  },
+  {
+   "i": 50,
+   "text": "stehen",
+   "start": 22.18,
+   "end": 22.46
+  },
+  {
+   "i": 51,
+   "text": "selbst",
+   "start": 22.46,
+   "end": 22.82
+  },
+  {
+   "i": 52,
+   "text": "auf",
+   "start": 22.82,
+   "end": 23.02
+  },
+  {
+   "i": 53,
+   "text": "Platz",
+   "start": 23.02,
+   "end": 23.24
+  },
+  {
+   "i": 54,
+   "text": "eins",
+   "start": 23.24,
+   "end": 23.7
+  },
+  {
+   "i": 55,
+   "text": "das",
+   "start": 23.91,
+   "end": 24.04
+  },
+  {
+   "i": 56,
+   "text": "Verb",
+   "start": 24.04,
+   "end": 24.3
+  },
+  {
+   "i": 57,
+   "text": "kommt",
+   "start": 24.3,
+   "end": 24.58
+  },
+  {
+   "i": 58,
+   "text": "sofort",
+   "start": 24.58,
+   "end": 24.96
+  },
+  {
+   "i": 59,
+   "text": "danach",
+   "start": 24.96,
+   "end": 25.5
+  },
+  {
+   "i": 60,
+   "text": "deshalb",
+   "start": 25.91,
+   "end": 26.24
+  },
+  {
+   "i": 61,
+   "text": "trinke",
+   "start": 26.24,
+   "end": 26.62
+  },
+  {
+   "i": 62,
+   "text": "ich",
+   "start": 26.62,
+   "end": 26.78
+  },
+  {
+   "i": 63,
+   "text": "Kaffee",
+   "start": 26.78,
+   "end": 27.145
+  },
+  {
+   "i": 64,
+   "text": "Drei",
+   "start": 27.61,
+   "end": 27.915
+  },
+  {
+   "i": 65,
+   "text": "weil",
+   "start": 28.325,
+   "end": 28.825
+  },
+  {
+   "i": 66,
+   "text": "dass",
+   "start": 28.99,
+   "end": 29.38
+  },
+  {
+   "i": 67,
+   "text": "obwohl",
+   "start": 29.505,
+   "end": 30.13
+  },
+  {
+   "i": 68,
+   "text": "wenn",
+   "start": 30.13,
+   "end": 30.465
+  },
+  {
+   "i": 69,
+   "text": "Hier",
+   "start": 30.86,
+   "end": 31.04
+  },
+  {
+   "i": 70,
+   "text": "springt",
+   "start": 31.04,
+   "end": 31.42
+  },
+  {
+   "i": 71,
+   "text": "das",
+   "start": 31.42,
+   "end": 31.56
+  },
+  {
+   "i": 72,
+   "text": "Verb",
+   "start": 31.56,
+   "end": 31.74
+  },
+  {
+   "i": 73,
+   "text": "ans",
+   "start": 31.74,
+   "end": 31.98
+  },
+  {
+   "i": 74,
+   "text": "Ende",
+   "start": 31.98,
+   "end": 32.395
+  },
+  {
+   "i": 75,
+   "text": "weil",
+   "start": 32.71,
+   "end": 33
+  },
+  {
+   "i": 76,
+   "text": "ich",
+   "start": 33,
+   "end": 33.28
+  },
+  {
+   "i": 77,
+   "text": "müde",
+   "start": 33.28,
+   "end": 33.62
+  },
+  {
+   "i": 78,
+   "text": "bin",
+   "start": 33.62,
+   "end": 33.88
+  },
+  {
+   "i": 79,
+   "text": "Profi-Level",
+   "start": 34.29,
+   "end": 34.985
+  },
+  {
+   "i": 80,
+   "text": "Steht",
+   "start": 35.35,
+   "end": 35.58
+  },
+  {
+   "i": 81,
+   "text": "der",
+   "start": 35.58,
+   "end": 35.7
+  },
+  {
+   "i": 82,
+   "text": "Nebensatz",
+   "start": 35.7,
+   "end": 36.18
+  },
+  {
+   "i": 83,
+   "text": "vorne",
+   "start": 36.18,
+   "end": 36.735
+  },
+  {
+   "i": 84,
+   "text": "treffen",
+   "start": 36.735,
+   "end": 37.02
+  },
+  {
+   "i": 85,
+   "text": "sich",
+   "start": 37.02,
+   "end": 37.26
+  },
+  {
+   "i": 86,
+   "text": "die",
+   "start": 37.26,
+   "end": 37.42
+  },
+  {
+   "i": 87,
+   "text": "Verben",
+   "start": 37.42,
+   "end": 37.785
+  },
+  {
+   "i": 88,
+   "text": "Obwohl",
+   "start": 38.225,
+   "end": 38.6
+  },
+  {
+   "i": 89,
+   "text": "ich",
+   "start": 38.6,
+   "end": 38.76
+  },
+  {
+   "i": 90,
+   "text": "Kaffee",
+   "start": 38.76,
+   "end": 39.1
+  },
+  {
+   "i": 91,
+   "text": "trinke",
+   "start": 39.1,
+   "end": 39.595
+  },
+  {
+   "i": 92,
+   "text": "bin",
+   "start": 39.595,
+   "end": 39.76
+  },
+  {
+   "i": 93,
+   "text": "ich",
+   "start": 39.76,
+   "end": 39.94
+  },
+  {
+   "i": 94,
+   "text": "müde",
+   "start": 39.94,
+   "end": 40.325
+  },
+  {
+   "i": 95,
+   "text": "Und",
+   "start": 40.64,
+   "end": 41.095
+  },
+  {
+   "i": 96,
+   "text": "warum",
+   "start": 41.28,
+   "end": 41.78
+  },
+  {
+   "i": 97,
+   "text": "trinke",
+   "start": 41.78,
+   "end": 42.22
+  },
+  {
+   "i": 98,
+   "text": "ich",
+   "start": 42.22,
+   "end": 42.32
+  },
+  {
+   "i": 99,
+   "text": "so",
+   "start": 42.32,
+   "end": 42.46
+  },
+  {
+   "i": 100,
+   "text": "viel",
+   "start": 42.46,
+   "end": 42.62
+  },
+  {
+   "i": 101,
+   "text": "Kaffee",
+   "start": 42.62,
+   "end": 43.06
+  }
+ ],
+ "sentences": [
+  {
+   "text": "Weil ich müde bin.",
+   "start": 0.135,
+   "end": 1.385,
+   "words": [
+    0,
+    3
+   ]
+  },
+  {
+   "text": "Nicht: „weil ich bin müde“.",
+   "start": 1.76,
+   "end": 4.37,
+   "words": [
+    4,
+    8
+   ]
+  },
+  {
+   "text": "Das ist der Fehler Nummer eins auf B1.",
+   "start": 4.84,
+   "end": 7.095,
+   "words": [
+    9,
+    16
+   ]
+  },
+  {
+   "text": "Die Regel in zehn Sekunden.",
+   "start": 7.675,
+   "end": 9.14,
+   "words": [
+    17,
+    21
+   ]
+  },
+  {
+   "text": "Es gibt drei Gruppen.",
+   "start": 9.53,
+   "end": 10.51,
+   "words": [
+    22,
+    25
+   ]
+  },
+  {
+   "text": "Eins: und, aber, oder, denn, sondern.",
+   "start": 10.915,
+   "end": 14.125,
+   "words": [
+    26,
+    31
+   ]
+  },
+  {
+   "text": "Sie zählen nicht – das Verb bleibt auf Platz zwei: … denn ich bin müde.",
+   "start": 14.555,
+   "end": 18.53,
+   "words": [
+    32,
+    44
+   ]
+  },
+  {
+   "text": "Zwei: deshalb, trotzdem, dann.",
+   "start": 19.035,
+   "end": 21.65,
+   "words": [
+    45,
+    48
+   ]
+  },
+  {
+   "text": "Sie stehen selbst auf Platz eins – das Verb kommt sofort danach: … deshalb trinke ich Kaffee.",
+   "start": 22.075,
+   "end": 27.145,
+   "words": [
+    49,
+    63
+   ]
+  },
+  {
+   "text": "Drei: weil, dass, obwohl, wenn.",
+   "start": 27.61,
+   "end": 30.465,
+   "words": [
+    64,
+    68
+   ]
+  },
+  {
+   "text": "Hier springt das Verb ans Ende: … weil ich müde bin.",
+   "start": 30.86,
+   "end": 33.88,
+   "words": [
+    69,
+    78
+   ]
+  },
+  {
+   "text": "Profi-Level: Steht der Nebensatz vorne, treffen sich die Verben: Obwohl ich Kaffee trinke, bin ich müde.",
+   "start": 34.29,
+   "end": 40.325,
+   "words": [
+    79,
+    94
+   ]
+  },
+  {
+   "text": "Und warum trinke ich so viel Kaffee?",
+   "start": 40.64,
+   "end": 43.06,
+   "words": [
+    95,
+    101
+   ]
+  }
+ ],
+ "subs": [
+  {
+   "start": 0.135,
+   "end": 2.425,
+   "lines": [
+    [
+     {
+      "text": "Weil",
+      "w": 0
+     },
+     {
+      "text": "ich",
+      "w": 1
+     },
+     {
+      "text": "müde",
+      "w": 2
+     },
+     {
+      "text": "bin.",
+      "w": 3
+     },
+     {
+      "text": "Nicht:",
+      "w": 4
+     }
+    ]
+   ]
+  },
+  {
+   "start": 3.18,
+   "end": 4.62,
+   "lines": [
+    [
+     {
+      "text": "„weil",
+      "w": 5
+     },
+     {
+      "text": "ich",
+      "w": 6
+     },
+     {
+      "text": "bin",
+      "w": 7
+     },
+     {
+      "text": "müde“.",
+      "w": 8
+     }
+    ]
+   ]
+  },
+  {
+   "start": 4.84,
+   "end": 7.345,
+   "lines": [
+    [
+     {
+      "text": "Das",
+      "w": 9
+     },
+     {
+      "text": "ist",
+      "w": 10
+     },
+     {
+      "text": "der",
+      "w": 11
+     },
+     {
+      "text": "Fehler",
+      "w": 12
+     },
+     {
+      "text": "Nummer",
+      "w": 13
+     },
+     {
+      "text": "eins",
+      "w": 14
+     },
+     {
+      "text": "auf",
+      "w": 15
+     },
+     {
+      "text": "B1.",
+      "w": 16
+     }
+    ]
+   ]
+  },
+  {
+   "start": 7.675,
+   "end": 10.76,
+   "lines": [
+    [
+     {
+      "text": "Die",
+      "w": 17
+     },
+     {
+      "text": "Regel",
+      "w": 18
+     },
+     {
+      "text": "in",
+      "w": 19
+     },
+     {
+      "text": "zehn",
+      "w": 20
+     },
+     {
+      "text": "Sekunden.",
+      "w": 21
+     }
+    ],
+    [
+     {
+      "text": "Es",
+      "w": 22
+     },
+     {
+      "text": "gibt",
+      "w": 23
+     },
+     {
+      "text": "drei",
+      "w": 24
+     },
+     {
+      "text": "Gruppen.",
+      "w": 25
+     }
+    ]
+   ]
+  },
+  {
+   "start": 10.915,
+   "end": 14.375,
+   "lines": [
+    [
+     {
+      "text": "Eins:",
+      "w": 26
+     },
+     {
+      "text": "und,",
+      "w": 27
+     },
+     {
+      "text": "aber,",
+      "w": 28
+     },
+     {
+      "text": "oder,",
+      "w": 29
+     },
+     {
+      "text": "denn,",
+      "w": 30
+     },
+     {
+      "text": "sondern.",
+      "w": 31
+     }
+    ]
+   ]
+  },
+  {
+   "start": 14.555,
+   "end": 18.78,
+   "lines": [
+    [
+     {
+      "text": "Sie",
+      "w": 32
+     },
+     {
+      "text": "zählen",
+      "w": 33
+     },
+     {
+      "text": "nicht",
+      "w": 34
+     },
+     {
+      "text": "–",
+      "w": null
+     },
+     {
+      "text": "das",
+      "w": 35
+     },
+     {
+      "text": "Verb",
+      "w": 36
+     },
+     {
+      "text": "bleibt",
+      "w": 37
+     }
+    ],
+    [
+     {
+      "text": "auf",
+      "w": 38
+     },
+     {
+      "text": "Platz",
+      "w": 39
+     },
+     {
+      "text": "zwei:",
+      "w": 40
+     },
+     {
+      "text": "…",
+      "w": null
+     },
+     {
+      "text": "denn",
+      "w": 41
+     },
+     {
+      "text": "ich",
+      "w": 42
+     },
+     {
+      "text": "bin",
+      "w": 43
+     },
+     {
+      "text": "müde.",
+      "w": 44
+     }
+    ]
+   ]
+  },
+  {
+   "start": 19.035,
+   "end": 21.9,
+   "lines": [
+    [
+     {
+      "text": "Zwei:",
+      "w": 45
+     },
+     {
+      "text": "deshalb,",
+      "w": 46
+     },
+     {
+      "text": "trotzdem,",
+      "w": 47
+     },
+     {
+      "text": "dann.",
+      "w": 48
+     }
+    ]
+   ]
+  },
+  {
+   "start": 22.075,
+   "end": 25.75,
+   "lines": [
+    [
+     {
+      "text": "Sie",
+      "w": 49
+     },
+     {
+      "text": "stehen",
+      "w": 50
+     },
+     {
+      "text": "selbst",
+      "w": 51
+     },
+     {
+      "text": "auf",
+      "w": 52
+     },
+     {
+      "text": "Platz",
+      "w": 53
+     },
+     {
+      "text": "eins",
+      "w": 54
+     },
+     {
+      "text": "–",
+      "w": null
+     }
+    ],
+    [
+     {
+      "text": "das",
+      "w": 55
+     },
+     {
+      "text": "Verb",
+      "w": 56
+     },
+     {
+      "text": "kommt",
+      "w": 57
+     },
+     {
+      "text": "sofort",
+      "w": 58
+     },
+     {
+      "text": "danach:",
+      "w": 59
+     },
+     {
+      "text": "…",
+      "w": null
+     }
+    ]
+   ]
+  },
+  {
+   "start": 25.91,
+   "end": 30.715,
+   "lines": [
+    [
+     {
+      "text": "deshalb",
+      "w": 60
+     },
+     {
+      "text": "trinke",
+      "w": 61
+     },
+     {
+      "text": "ich",
+      "w": 62
+     },
+     {
+      "text": "Kaffee.",
+      "w": 63
+     }
+    ],
+    [
+     {
+      "text": "Drei:",
+      "w": 64
+     },
+     {
+      "text": "weil,",
+      "w": 65
+     },
+     {
+      "text": "dass,",
+      "w": 66
+     },
+     {
+      "text": "obwohl,",
+      "w": 67
+     },
+     {
+      "text": "wenn.",
+      "w": 68
+     }
+    ]
+   ]
+  },
+  {
+   "start": 30.86,
+   "end": 34.13,
+   "lines": [
+    [
+     {
+      "text": "Hier",
+      "w": 69
+     },
+     {
+      "text": "springt",
+      "w": 70
+     },
+     {
+      "text": "das",
+      "w": 71
+     },
+     {
+      "text": "Verb",
+      "w": 72
+     },
+     {
+      "text": "ans",
+      "w": 73
+     },
+     {
+      "text": "Ende:",
+      "w": 74
+     },
+     {
+      "text": "…",
+      "w": null
+     }
+    ],
+    [
+     {
+      "text": "weil",
+      "w": 75
+     },
+     {
+      "text": "ich",
+      "w": 76
+     },
+     {
+      "text": "müde",
+      "w": 77
+     },
+     {
+      "text": "bin.",
+      "w": 78
+     }
+    ]
+   ]
+  },
+  {
+   "start": 34.29,
+   "end": 38.035,
+   "lines": [
+    [
+     {
+      "text": "Profi-Level:",
+      "w": 79
+     },
+     {
+      "text": "Steht",
+      "w": 80
+     },
+     {
+      "text": "der",
+      "w": 81
+     },
+     {
+      "text": "Nebensatz",
+      "w": 82
+     }
+    ],
+    [
+     {
+      "text": "vorne,",
+      "w": 83
+     },
+     {
+      "text": "treffen",
+      "w": 84
+     },
+     {
+      "text": "sich",
+      "w": 85
+     },
+     {
+      "text": "die",
+      "w": 86
+     },
+     {
+      "text": "Verben:",
+      "w": 87
+     }
+    ]
+   ]
+  },
+  {
+   "start": 38.225,
+   "end": 40.575,
+   "lines": [
+    [
+     {
+      "text": "Obwohl",
+      "w": 88
+     },
+     {
+      "text": "ich",
+      "w": 89
+     },
+     {
+      "text": "Kaffee",
+      "w": 90
+     },
+     {
+      "text": "trinke,",
+      "w": 91
+     },
+     {
+      "text": "bin",
+      "w": 92
+     },
+     {
+      "text": "ich",
+      "w": 93
+     },
+     {
+      "text": "müde.",
+      "w": 94
+     }
+    ]
+   ]
+  },
+  {
+   "start": 40.64,
+   "end": 43.31,
+   "lines": [
+    [
+     {
+      "text": "Und",
+      "w": 95
+     },
+     {
+      "text": "warum",
+      "w": 96
+     },
+     {
+      "text": "trinke",
+      "w": 97
+     },
+     {
+      "text": "ich",
+      "w": 98
+     },
+     {
+      "text": "so",
+      "w": 99
+     },
+     {
+      "text": "viel",
+      "w": 100
+     },
+     {
+      "text": "Kaffee?",
+      "w": 101
+     }
+    ]
+   ]
+  }
+ ]
+}
