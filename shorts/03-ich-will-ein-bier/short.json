@@ -3,10 +3,16 @@
   "episode": "episodes/01-das-sagt-kein-deutscher",
   "segments": [
     {
-      "from": 292.11,
-      "to": 333.88,
+      "from": 295.75,
+      "to": 309.7,
       "crop_x": 0,
-      "note": "Nr. 7: Biergarten – „Ich will ein Bier.“ → „Ich hätte gern …“; bekommen ≠ become – „Ich will Arzt werden.“"
+      "note": "COLD OPEN on the wrong sentence: „Ich will ein Bier.“ → Vierjähriger/„Ich will ein Eis!“ → Besser: Ich hätte gern / Ich nehme / Für mich ein Bier, bitte."
+    },
+    {
+      "from": 320.02,
+      "to": 333.95,
+      "crop_x": 0,
+      "note": "Achtung: bekommen ≠ become – „Ich will Arzt bekommen?“ → bestellst dir einen Arzt wie eine Pizza → „Ich will Arzt werden.“"
     }
   ],
   "cta": {
@@ -16,7 +22,7 @@
     "note": "Wenn dir das Video geholfen hat, abonnier den Kanal."
   },
   "hook": [
-    "SO NICHT BESTELLEN!",
+    "KLINGT WIE EIN KIND!",
     "„Ich will ein Bier.“"
   ],
   "tag": "DEUTSCH MIT MELO",

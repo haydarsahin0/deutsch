@@ -1,13 +1,14 @@
 # Short #3 – „Ich will ein Bier“ · YouTube-Metadaten
 
-Quelle: Episode 1 (Nr. 7, 4:52–5:34 + CTA). Datei: `out/short.mp4` · Cover: `out/cover.png`. „Ähnliches Video“ = die lange Episode.
+Quelle: Episode 1 (Nr. 7, 4:56–5:10 + 5:20–5:34 + CTA; Cold Open auf dem falschen Satz). Datei: `out/short.mp4` · Cover: `out/cover-v2.png`. „Ähnliches Video“ = die lange Episode.
 
 ## Titel
 ```
-„Ich will ein Bier“? So bestellst du RICHTIG! 🍺 #shorts
+„Ich will ein Bier“ klingt wie ein KIND! 🍺 #shorts
 ```
 
 ### Alternativen
+- „Ich will ein Bier“? So bestellst du RICHTIG! 🍺 #shorts
 - Bekommen ≠ become! „Ich will Arzt bekommen“ 😂 #shorts
 - So bestellst du im Biergarten wie ein Deutscher 🍺 #shorts
 
