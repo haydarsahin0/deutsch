@@ -1,7 +1,7 @@
 # Channel status — Deutsch mit Melo
 Keep this file current: update it whenever something is published, produced or decided (it is how a fresh session knows where we are).
 
-_Last update: 2026-11-11 (evening)_
+_Last update: 2026-11-12_
 
 ## Channel
 - Name „Deutsch mit Melo“, slogan „Deutsch mit Kern“, handle suggestion @deutschmitmelo. Banner/profile: `brand/out/youtube-banner.png`, `brand/out/youtube-profile.png`. Channel texts: `docs/kanal-beschreibung.txt`, `docs/kanal-keywords.txt`.
@@ -19,7 +19,7 @@ _Last update: 2026-11-11 (evening)_
 | 2026-11-12 | Short „Ich bin voll“ | ready, delivered to owner | `shorts/02-ich-bin-voll/` |
 | 2026-11-13 | Short „Ich will ein Bier“ | ready, delivered | `shorts/03-ich-will-ein-bier/` |
 | 2026-11-14 | Short „Doch!“ | ready, delivered | `shorts/05-doch/` |
-| 2026-11-15 | Long #2 „50 Wörter am Tag“ (20-15-10-5-Formel: Wortfamilien, Komposita, Internationalismen, Lückenwörter) | 🎙️ teil-1+2 aligned. Owner feedback on preview: more scene variety (own new sets, story feel), cuts every 5–10 s. Drawing 14 new sets → re-direction → waiting teil-3 → full render | `episodes/02-50-woerter-am-tag/` |
+| 2026-11-15 | Long #2 „50 Wörter am Tag“ (5×10-System) | ✅ rendered (11:50, 110 shots, 14 new sets), sent to owner for review; next: thumbnail, meta chapters, 3 Shorts | `episodes/02-50-woerter-am-tag/` |
 | spare | Short „Tschüss/Servus“ (map) | config only, not rendered | `shorts/04-tschuess-servus/` |
 
 ## Next
