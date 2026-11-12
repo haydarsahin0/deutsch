@@ -142,7 +142,7 @@
     bg += S.shelf(80, 470, 470, '#6b6a64');
     [110, 160, 210, 260, 320, 370, 420].forEach(function (bx, i) { bg += S.bottle(bx, 470, 70 + (i % 2) * 14, [TEAL, ORG, '#efe5cc', P.plum][i % 4], { wr: 0.42, cap: '#2b2b2a' }); });
     bg += S.box(130, 520, 260, 54, '#2b2b2a', { w: 2.2, extra: 2.4, step: 60, hatch: false }) + S.T(260, 557, 'CHECK-IN →', { f: 'Oswald', s: 28, a: 'middle', c: '#8fd0b5', ls: 2 });
-    bg += treadmill(S, 1610, 880, 0.82) + treadmill(S, 1240, 905, 1.0);
+    bg += treadmill(S, 1610, 880, 0.82) + treadmill(S, 1230, 905, 1.15);
     bg += S.clock(1700, 620, 40, 20, 5);
     return { bg: bg, fg: desk(S) };
   }
@@ -151,7 +151,7 @@
     seed: 204, build: build,
     slots: {
       reception: A.slot(250, 960, 0.98, { face: 1, behind: 'desk' }),   // behind the fg reception desk
-      treadmill: A.slot(1390, 872, 0.95, { face: 1 }),                 // standing/running on the front treadmill
+      treadmill: A.slot(1410, 860, 0.95, { face: 1 }),                 // standing/running on the front treadmill
       left:      A.slot(720, 950, 1.0, { face: 1 }),
       center:    A.slot(960, 950, 1.0),
       right:     A.slot(1180, 955, 1.0, { face: -1 })
