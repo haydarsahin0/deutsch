@@ -32,3 +32,6 @@ Title ≤ 60 chars incl. `#shorts`, curiosity hook with the keyword (e.g. „„
 
 ## 6. Deliver
 MP4 (for viewing) + cover PNG + uncompressed ZIP of mp4+cover+meta (for download) → `SendUserFile`. In the message: every text in its own code block, remind to set **"Related video" = the long episode** (only clickable Short→long link) and the publish slot (17:05).
+
+## Hook rule (data, Short #1: only 38.7 % viewed vs 61.3 % swiped)
+The first segment must START on the wrong sentence or the provocative claim (spoken within the first 0.5–1 s, hook text on screen from frame 1). No scene-setting („Juli, 35 Grad …“, „Freitagabend, Biergarten …“) before it; the hook overlay gives the context. Target 30–40 s total. Check the start word with the episode's `build/alignment.json`.

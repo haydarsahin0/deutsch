@@ -11,3 +11,4 @@ Analyses per check-in: `docs/growth/YYYY-MM-DD.md`.
 | 2026-11-12 | day 2 | Long #1 Das sagt KEIN Deutscher! | 14 | ? | 1 comment. Search traffic not started yet (normal). |
 | 2026-11-12 | day 2 | Short #2 „Ich bin voll“ | 6–7 (3 in last 60 min) | ? | Published today with new v2 cover. Still in the seed phase. |
 | 2026-11-12 | day 2 | Long #2 50 Wörter am Tag | scheduled 13.11 | ? | Scheduled for 13.11 (plan said 15.11). Thumbnail A is set. |
+| 2026-11-12 | day 2 | Short #1 engagement | 457 engaged | ? | 38.7 % viewed / 61.3 % swiped; avg 0:29 of 0:53; 4.1 h watch. Hook too slow. |
