@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Thumbnail Vergleich</title>
-<!-- node tools/render.js episodes/01-das-sagt-kein-deutscher/thumb/compare.html episodes/01-das-sagt-kein-deutscher/out/thumbnail-compare.png 1280 860 -->
+<!-- node tools/render.js episodes/02-50-woerter-am-tag/thumb/compare.html episodes/02-50-woerter-am-tag/out/compare.png 1280 860 -->
 <style>
   @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
   @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../../../brand/fonts/oswald-latin-500-normal.woff2') format('woff2'); }
@@ -37,8 +37,8 @@
 <div class="row search" id="search"></div>
 <script>
   var V = [['A', 'thumbnail.png'], ['B', 'thumbnail-b.png'], ['C', 'thumbnail-c.png']];
-  var TITLE = 'Das sagt KEIN Deutscher! 12 Sätze, die dich sofort verraten';
-  function th(f, cls) { return '<div class="th ' + (cls || '') + '"><img src="../out/' + f + '"><span class="dur">14:52</span></div>'; }
+  var TITLE = '50 Wörter am Tag? Die EHRLICHE Methode, die wirklich klappt';
+  function th(f, cls) { return '<div class="th ' + (cls || '') + '"><img src="../out/' + f + '"><span class="dur">11:50</span></div>'; }
   document.getElementById('big').innerHTML = V.map(function (v) { return '<div>' + th(v[1]) + '<div class="lbl">Variante ' + v[0] + '</div></div>'; }).join('');
   document.getElementById('feed').innerHTML = V.map(function (v) {
     return '<div class="card">' + th(v[1]) + '<div class="meta"><div class="av"></div><div><div class="t">' + TITLE + '</div><div class="sub">Deutsch mit Melo · 1.234 Aufrufe · vor 2 Tagen <span class="tag">· ' + v[0] + '</span></div></div></div></div>';
