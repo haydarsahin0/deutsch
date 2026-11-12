@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Thumbnail Ep. 2</title>
+<!-- Thumbnail for episode 2 („50 Wörter am Tag?“). Variant via hash: #a (main) | #b | #c ; append g (#ag) for the badge-zone overlay.
+     node tools/render.js "episodes/02-50-woerter-am-tag/thumb/thumb.html#a" out.png 1280 720 [scale] -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../../brand/fonts/caveat-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #0b1020; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+</head>
+<body>
+<svg id="stage" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+<script>
+(async function () {
+  await Promise.all(['400 100px Anton', '700 100px Oswald', '700 100px Caveat'].map(function (f) { return document.fonts.load(f, 'AÖ50?–ö'); }));
+  var HH = (location.hash || '#a').slice(1).split('~'), H = HH[0], V = H[0], MASK = HH[1];
+  var INK = '#14110d', RED = '#E5302A', YEL = '#FFC83A';
+  var S = new SceneInk(V === 'a' ? 5 : V === 'b' ? 9 : 14), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  function rr(a, b) { return a + (b - a) * rnd(); }
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="glowSh" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/><feGaussianBlur in="d" stdDeviation="16"/>' +
+    '<feOffset dx="10" dy="14"/><feComponentTransfer><feFuncA type="linear" slope=".75"/></feComponentTransfer></filter>' +
+    '<filter id="tblur" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>' +
+    '<filter id="dof" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.6"/></filter>' +
+    '<filter id="distress" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.4 0 0 0 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>' +
+    '<filter id="rim" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="10" result="d"/><feOffset dx="-6" dy="-7"/><feGaussianBlur stdDeviation="1.5" result="o"/><feFlood flood-color="#fff3c4"/><feComposite in2="o" operator="in"/></filter>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="6" dy="10"/><feComponentTransfer><feFuncA type="linear" slope=".6"/></feComponentTransfer></filter>';
+
+  // ── helpers (from ep. 1 C3) ──────────────────────────────
+  var glN = 0;
+  function glow(g, clip) {
+    var id = 'gl' + (glN++);
+    defs += '<radialGradient id="' + id + '" cx="' + g.x + '" cy="' + g.y + '" r="' + g.r + '" gradientUnits="userSpaceOnUse">' +
+      '<stop offset="0" stop-color="' + g.c + '" stop-opacity="' + (g.o || 1) + '"/><stop offset=".45" stop-color="' + g.c + '" stop-opacity="' + ((g.o || 1) * 0.45) + '"/><stop offset="1" stop-color="' + g.c + '" stop-opacity="0"/></radialGradient>';
+    return '<rect width="1280" height="720" fill="url(#' + id + ')"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  function rays(cx, cy, n, color, op) {
+    var d = '';
+    for (var i = 0; i < n; i++) {
+      var a0 = i / n * Math.PI * 2, a1 = a0 + Math.PI / n * 0.9;
+      d += 'M' + cx + ' ' + cy + 'L' + U.f1(cx + 1600 * Math.cos(a0)) + ' ' + U.f1(cy + 1600 * Math.sin(a0)) + 'L' + U.f1(cx + 1600 * Math.cos(a1)) + ' ' + U.f1(cy + 1600 * Math.sin(a1)) + 'Z';
+    }
+    return '<path d="' + d + '" fill="' + color + '" opacity="' + op + '"/>';
+  }
+  // big outlined poster word, fitted to width w (font size capped by maxSize). anchor: start|middle|end
+  function word(t, x, y, w, maxSize, fill, o) {
+    o = o || {};
+    var size = Math.min(maxSize, maxSize * w / measure(t, '400 ' + maxSize + 'px Anton'));
+    var sw = size * (o.sw || 0.1), sh = size * 0.055;
+    var attrs = 'x="' + x + '" y="' + y + '" font-family="Anton" font-size="' + U.f1(size) + '" text-anchor="' + (o.anchor || 'start') + '"';
+    var esc = t.replace(/&/g, '&amp;');
+    var g = '<g data-k="text" data-t="' + esc + '"' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" opacity=".75" filter="url(#tblur)" transform="translate(' + U.f1(sh * 1.6) + ' ' + U.f1(sh * 2.4) + ')">' + esc + '</text>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + U.f1(sh * 0.8) + ' ' + U.f1(sh) + ')">' + esc + '</text>';
+    g += '<text ' + attrs + ' fill="' + fill + '" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + esc + '</text>';
+    return g + '</g>';
+  }
+  // Melo with soft shadow, warm rim light and heavy black silhouette. hx,hy = skull centre on canvas, hh = skull height in px
+  function melo(opts, hx, hy, hh) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh;
+    var vb = [-hx * u, -388 - hy * u, 1280 * u, 720 * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="1280" height="720" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#rim)">' + m + '</g><g filter="url(#sil)" data-k="melosil">' + m + '</g><g data-k="melo">' + m + '</g>';
+  }
+  function brushLine(pts, w, color, smooth) { return S.line(pts, { w: w, ta: 0.15, tb: 0.2, min: 0.5, jit: 0.15, smooth: smooth || 0 }, color); }
+  function loop(cx, cy, rx, ry, w, color, rot) {
+    var pts = [], n = 46, a0 = -2.2;
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (Math.PI * 2 + 0.55) * i / n, k = 1 + 0.05 * Math.sin(i * 0.5) + i * 0.0012;
+      pts.push([cx + rx * k * Math.cos(a), cy + ry * k * Math.sin(a)]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + cx + ' ' + cy + ')">' + S.line(pts, { w: w, ta: 0.08, tb: 0.25, min: 0.45, jit: 0.1 }, color) + '</g>';
+  }
+  function badge(x, y, t, bgc, fg, size, rot) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.8, h = size * 1.35;
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + (rot || 0) + ')">' +
+      S.shape(S.rect(0, 0, w, h, 20, 1.2), bgc, { w: 3.5, extra: 2 }) +
+      '<text x="' + (w / 2) + '" y="' + (h * 0.76) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" fill="' + fg + '" text-anchor="middle">' + t + '</text></g>';
+  }
+  // index card (Karteikarte), centred at cx,cy: cream paper, red header rule, faint blue lines, ink label
+  function fcard(cx, cy, w, h, rot, fill, label, fs, o) {
+    o = o || {};
+    var g = '<g transform="translate(' + U.f1(cx) + ' ' + U.f1(cy) + ') rotate(' + U.f1(rot) + ') translate(' + U.f1(-w / 2) + ' ' + U.f1(-h / 2) + ')"' +
+      (o.op != null ? ' opacity="' + o.op + '"' : '') + (o.filter ? ' filter="url(#' + o.filter + ')"' : '') + ' data-k="' + (o.k || 'card') + '"' + '>';
+    if (!o.noShadow) g += '<rect width="' + U.f1(w) + '" height="' + U.f1(h) + '" fill="#000" filter="url(#soft)"/>';
+    g += S.shape(S.rect(0, 0, w, h, Math.max(14, w / 8), o.jit || 1.3), fill, { w: o.lw || 3, extra: 2 });
+    var hy = h * 0.27;
+    g += '<line x1="' + U.f1(w * 0.06) + '" y1="' + U.f1(hy) + '" x2="' + U.f1(w * 0.94) + '" y2="' + U.f1(hy) + '" stroke="#c9463c" stroke-width="' + U.f1(Math.max(1.5, h * 0.022)) + '" opacity=".85"/>';
+    for (var i = 1; i <= 3; i++) {
+      var ly = hy + i * (h - hy) / 4;
+      g += '<line x1="' + U.f1(w * 0.06) + '" y1="' + U.f1(ly) + '" x2="' + U.f1(w * 0.94) + '" y2="' + U.f1(ly) + '" stroke="#6f9fc8" stroke-width="' + U.f1(Math.max(1, h * 0.012)) + '" opacity=".4"/>';
+    }
+    g += S.hatch(S.rect(0, 0, w, h, 60, 0), { ang: 45, gap: 8, w: 1.1, op: 0.13, cond: function (X, Y) { return X + Y > w + h * 0.5; } });
+    if (label) {
+      var f = Math.min(fs, fs * w * 0.86 / measure(label, '700 ' + fs + 'px Caveat'));
+      g += '<text x="' + U.f1(w / 2) + '" y="' + U.f1(h * 0.78) + '" font-family="Caveat" font-weight="700" font-size="' + U.f1(f) + '" fill="' + INK + '" text-anchor="middle">' + label + '</text>';
+      if (o.underline) g += brushLine([[w * 0.14, h * 0.88], [w * 0.5, h * 0.86], [w * 0.86, h * 0.84]], h * 0.05, RED);
+    }
+    return g + '</g>';
+  }
+  var PAPER = ['#f4ecd8', '#f4ecd8', '#efe2c2', '#f7dc86', '#dbe7f0', '#f2cdc2', '#f4ecd8', '#e3efd3'];
+  var WORDS = ['die Miete', 'möbliert', 'kündigen', 'die Frist', 'der Vermieter', 'die Nebenkosten', 'provisionsfrei', 'die Besichtigung', 'der Nachmieter', 'die Kaltmiete', 'die Warmmiete'];
+  // mound of index cards: rows back→front; x range clamped to [xmin,xmax] (card centres)
+  function pile(cx, yTop, rows, hw0, dhw, xmin, xmax, cw) {
+    var g = '', wi = 0;
+    for (var r = 0; r < rows; r++) {
+      var y = yTop + r * 32, hw = hw0 + r * dhw, n = 3 + r;
+      for (var i = 0; i < n; i++) {
+        var x = cx - hw + 2 * hw * (i + rr(0.15, 0.85)) / n;
+        x = Math.max(xmin, Math.min(xmax, x));
+        var w = cw * rr(0.9, 1.08), h = w * 0.62;
+        var lab = (r >= rows - 3 && rnd() < 0.6) ? WORDS[(wi++) % WORDS.length] : '';
+        g += fcard(x, y + rr(-8, 8), w, h, rr(-30, 30), PAPER[Math.floor(rnd() * PAPER.length)], lab, h * 0.36, { k: 'pile' });
+      }
+    }
+    return g;
+  }
+  function sparks(cx, cy, r0, r1, angs, w, color) {
+    return angs.map(function (a) {
+      var t = a * Math.PI / 180;
+      return S.line([[cx + r0 * Math.cos(t), cy + r0 * Math.sin(t)], [cx + r1 * Math.cos(t), cy + r1 * Math.sin(t)]], { w: w, ta: 0.3, tb: 0.3, min: 0.4 }, color);
+    }).join('');
+  }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+  // ── A / C: Melo waist-deep in a pile of flashcards, holding up „die Kaution“ ──
+  if (V === 'a' || V === 'c') {
+    s += '<rect width="1280" height="720" fill="#0d0a24"/>';
+    s += glow({ x: 800, y: 300, r: 650, c: '#ff7a1a', o: 0.95 });
+    s += glow({ x: 110, y: 650, r: 560, c: '#3b2bd6', o: 0.5 });
+    s += glow({ x: 1240, y: 60, r: 420, c: '#d62b7a', o: 0.3 });
+    s += rays(800, 300, 24, '#000', 0.13);
+    // flying cards (depth of field)
+    s += fcard(615, 205, 112, 70, -26, '#efe2c2', '', 0, { filter: 'dof', op: 0.7, noShadow: 1 });
+    s += fcard(1190, 470, 128, 80, 21, '#dbe7f0', '', 0, { filter: 'dof', op: 0.7, noShadow: 1 });
+    s += fcard(1035, 82, 96, 60, -14, '#f7dc86', '', 0, { filter: 'dof', op: 0.6, noShadow: 1 });
+    s += fcard(600, 470, 92, 58, 34, '#f2cdc2', '', 0, { filter: 'dof', op: 0.55, noShadow: 1 });
+    // held card (before Melo, so the fist overlaps its lower edge)
+    s += sparks(1112, 252, 175, 215, [-150, -120, -90, -60, -30, 0], 7, YEL);
+    s += fcard(1112, 252, 280, 176, 7, '#f6eed9', 'die Kaution', 80, { lw: 4.5, underline: 1, k: 'held' });
+    var hold = clone(MeloB._POSES.idle);
+    hold.b = { sh: [13, -272], el: [76, -300], wr: [112, -364], hand: { g: 'fist', ang: -80, flip: 0 } };
+    s += melo({ view: 'full', poseParams: hold, expression: 'smirk', look: [-0.75, 0.1], headTilt: -3 }, 800, 300, 330);
+    seed = 7;
+    s += pile(790, 548, 6, 70, 28, 650, 892, 150);
+    if (V === 'a') {
+      s += word('50', 34, 312, 440, 300, YEL, { rot: -3, sw: 0.08 });
+      s += word('WÖRTER', 40, 517, 440, 190, '#ffffff', { rot: -3 });
+      s += word('AM TAG?', 44, 664, 420, 190, '#ffffff', { rot: -3 });
+    } else {
+      s += word('EHRLICH', 34, 300, 480, 230, '#ffffff', { rot: -4 });
+      s += word('GERECHNET', 40, 458, 500, 230, YEL, { rot: -4 });
+      s += '<g filter="url(#distress)" data-k="text">' + badge(70, 545, 'KEIN TRICK!', '#f6eed9', RED, 52, -6) + '</g>';
+    }
+  }
+
+  // ── B: split „today 50 / tomorrow 3“, Melo in the seam pointing at the 3 ──
+  if (V === 'b') {
+    s += '<rect width="1280" height="720" fill="#071330"/>';
+    var SEAM = 'M0 0H710L570 720H0Z';
+    defs += '<clipPath id="leftH"><path d="' + SEAM + '"/></clipPath><clipPath id="rightH"><path d="M710 0H1280V720H570Z"/></clipPath>';
+    s += '<path d="' + SEAM + '" fill="#3a1606"/>';
+    s += glow({ x: 250, y: 300, r: 620, c: '#ff8a1a', o: 0.9 }, 'leftH');
+    s += glow({ x: 1060, y: 280, r: 580, c: '#2f6bff', o: 0.6 }, 'rightH');
+    s += S.line([[712, -10], [640, 360], [568, 730]], { w: 13, ta: 0, tb: 0, min: 1 }, '#000');
+    s += rays(640, 392, 24, '#000', 0.10);
+    defs += '<radialGradient id="halo" cx="640" cy="392" r="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".7"/><stop offset=".5" stop-color="#ffb347" stop-opacity=".28"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>';
+    s += '<rect width="1280" height="720" fill="url(#halo)"/>';
+    // the big pile (today) bottom-left
+    seed = 3;
+    s += pile(255, 545, 6, 120, 34, 95, 430, 140);
+    // three lonely cards (tomorrow) bottom-right, left of the badge zone
+    s += fcard(785, 652, 118, 74, -14, '#dbe7f0', 'die Miete', 26);
+    s += fcard(905, 634, 118, 74, 9, '#f4ecd8', 'die Kaution', 26);
+    s += fcard(850, 690, 118, 74, -3, '#efe2c2', 'kündigen', 26);
+    var pt = clone(MeloB._POSES.point);
+    pt.b = { sh: [13, -272], el: [70, -292], wr: [128, -334], hand: { g: 'point', ang: -24, flip: 0 } };
+    s += melo({ view: 'full', poseParams: pt, expression: 'smirk', look: [0.5, 0.05], headTilt: -4 }, 640, 392, 390);
+    s += word('HEUTE', 36, 150, 330, 120, '#ffffff', { rot: -3 });
+    s += word('50', 40, 436, 380, 275, YEL, { rot: -3, sw: 0.08 });
+    s += word('MORGEN', 1250, 150, 360, 120, '#ffffff', { anchor: 'end', rot: 3 });
+    s += word('3', 1196, 436, 300, 275, '#ffffff', { anchor: 'end', rot: 3, sw: 0.08 });
+    s += loop(1128, 318, 110, 140, 13, RED, 6);
+  }
+
+  s += badge(574, 18, 'B1–C1', YEL, INK, 34, 0);
+  // grain + vignette
+  defs += '<radialGradient id="vig" cx="640" cy="360" r="820" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>';
+  s += '<rect width="1280" height="720" fill="url(#vig)"/>';
+  s += '<rect width="1280" height="720" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
+  if (/g/.test(H.slice(1))) s += '<rect x="998" y="590" width="282" height="130" fill="#f0f" opacity=".5"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+  if (MASK) {
+    var st = document.createElement('style');
+    st.textContent = 'html,body{background:#fff!important} #stage > :not(defs):not([data-k=' + MASK + ']){display:none} [data-k=' + MASK + '] *{fill:#000!important;stroke:#000!important}';
+    document.head.appendChild(st);
+  }
+  window.__done = true;
+})();
+</script>
+</body>
+</html>

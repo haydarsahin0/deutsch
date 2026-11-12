@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Thumbnail Vergleich</title>
+<!-- node tools/render.js episodes/01-das-sagt-kein-deutscher/thumb/compare.html episodes/01-das-sagt-kein-deutscher/out/thumbnail-compare.png 1280 860 -->
+<style>
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Oswald'; font-weight: 500; src: url('../../../brand/fonts/oswald-latin-500-normal.woff2') format('woff2'); }
+  html, body { margin: 0; background: #0f0f0f; color: #f1f1f1; font-family: Roboto, Arial, sans-serif; width: 1280px; height: 860px; overflow: hidden; }
+  h2 { font: 500 15px Oswald, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #aaa; margin: 18px 16px 10px; }
+  .row { display: flex; gap: 16px; padding: 0 16px; }
+  .th { position: relative; border-radius: 12px; overflow: hidden; flex: none; background: #222; }
+  .th img { width: 100%; height: 100%; display: block; }
+  .th .dur { position: absolute; right: 4px; bottom: 4px; background: rgba(0,0,0,.8); color: #fff; font-size: 12px; font-weight: 600; padding: 1px 4px; border-radius: 4px; }
+  .th.s .dur { font-size: 10px; right: 3px; bottom: 3px; border-radius: 3px; }
+  .big .th { width: 405px; height: 228px; }
+  .big .lbl { font: 700 22px Oswald; margin: 6px 2px 0; }
+  .feed .card { width: 360px; margin-right: 34px; }
+  .feed .th { width: 360px; height: 202px; }
+  .meta { display: flex; gap: 10px; margin-top: 10px; }
+  .av { width: 36px; height: 36px; border-radius: 50%; background: url('../../../brand/out/youtube-profile.png') center/cover; flex: none; }
+  .t { font-size: 15px; font-weight: 600; line-height: 1.35; }
+  .sub { font-size: 12.5px; color: #aaa; margin-top: 3px; }
+  .search .item { display: flex; gap: 8px; width: 400px; }
+  .search .th { width: 168px; height: 94px; border-radius: 8px; }
+  .search .t { font-size: 13px; }
+  .tag { font: 700 13px Oswald; color: #FFC83A; }
+</style>
+</head>
+<body>
+<h2>Volle Breite (1280 px, verkleinert nebeneinander)</h2>
+<div class="row big" id="big"></div>
+<h2>Startseite / Feed – 360 × 202</h2>
+<div class="row feed" id="feed"></div>
+<h2>Suche / Seitenleiste – 168 × 94</h2>
+<div class="row search" id="search"></div>
+<script>
+  var V = [['A', 'thumbnail.png'], ['B', 'thumbnail-b.png'], ['C', 'thumbnail-c.png']];
+  var TITLE = 'Das sagt KEIN Deutscher! 12 Sätze, die dich sofort verraten';
+  function th(f, cls) { return '<div class="th ' + (cls || '') + '"><img src="../out/' + f + '"><span class="dur">14:52</span></div>'; }
+  document.getElementById('big').innerHTML = V.map(function (v) { return '<div>' + th(v[1]) + '<div class="lbl">Variante ' + v[0] + '</div></div>'; }).join('');
+  document.getElementById('feed').innerHTML = V.map(function (v) {
+    return '<div class="card">' + th(v[1]) + '<div class="meta"><div class="av"></div><div><div class="t">' + TITLE + '</div><div class="sub">Deutsch mit Melo · 1.234 Aufrufe · vor 2 Tagen <span class="tag">· ' + v[0] + '</span></div></div></div></div>';
+  }).join('');
+  document.getElementById('search').innerHTML = V.map(function (v) {
+    return '<div class="item">' + th(v[1], 's') + '<div><div class="t">' + TITLE + '</div><div class="sub">Deutsch mit Melo<br>1.234 Aufrufe <span class="tag">· ' + v[0] + '</span></div></div></div>';
+  }).join('');
+</script>
+</body>
+</html>
