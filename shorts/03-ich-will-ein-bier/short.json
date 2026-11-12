@@ -32,14 +32,15 @@
     "sub": "Ganzes Video auf dem Kanal"
   },
   "cover": {
-    "headline": "BIER ODER ARZT?!",
-    "wrong": "„Ich will Arzt bekommen.“",
-    "right": "„Ich will Arzt werden.“",
+    "headline": "KLINGT WIE EIN KIND!",
+    "wrong": "„Ich will ein Bier.“",
+    "right": "„Ich hätte gern ein Bier.“",
     "cast": "kellner",
     "castExpr": "skeptical",
     "castPose": "hold",
     "meloExpr": "smirk",
-    "badge": "B1–C1"
+    "badge": "B1–C1",
+    "note": "final cover is hand-made: cover/cover.html → out/cover-v2.png"
   },
   "pad": 0.15,
   "max_duration": 59,

@@ -17,7 +17,7 @@ _Last update: 2026-11-12_
 | 2026-11-11 | Long #1 „Das sagt KEIN Deutscher! 12 Sätze, die dich sofort verraten“ | ✅ published (thumbnail C3 = `thumbnail-c3-4k.jpg`) | `episodes/01-das-sagt-kein-deutscher/` |
 | 2026-11-11 | Short #1 „Ich bin heiß“ | ✅ published (940 views first hours) | `shorts/01-ich-bin-heiss/` |
 | 2026-11-12 | Short „Ich bin voll“ | ready, delivered to owner | `shorts/02-ich-bin-voll/` |
-| 2026-11-13 | Short „Ich will ein Bier“ | ready, delivered | `shorts/03-ich-will-ein-bier/` |
+| 2026-11-13 | Short „Ich will ein Bier“ | ✅ re-cut v2 (cold open, 32 s) + new cover, delivered | `shorts/03-ich-will-ein-bier/` |
 | 2026-11-14 | Short „Doch!“ | ready, delivered | `shorts/05-doch/` |
 | 2026-11-15 | Long #2 „50 Wörter am Tag“ (5×10-System) | ✅ rendered (11:50, 110 shots, 14 new sets), owner approved; meta + chapters ✅, thumbnails A/B/C ✅ (B recommended, A/B test); next: 3 Shorts | `episodes/02-50-woerter-am-tag/` |
 | spare | Short „Tschüss/Servus“ (map) | config only, not rendered | `shorts/04-tschuess-servus/` |

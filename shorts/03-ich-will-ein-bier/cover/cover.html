@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Cover Short 03 v2</title>
+<!-- Shorts cover v2 for 03-ich-will-ein-bier („Ich will ein Bier“ klingt wie ein Kind → „Ich hätte gern ein Bier“).
+     Bavarian blue-hour Biergarten world, centred "mirror" composition: headline on top (red ink loop on KIND!),
+     big quote „Ich will ein Bier.“ pointing to Melo (right, pointing at a giant Maßkrug), cherry kid (left) whining „Ich will ein Eis!“;
+     chestnut leaves, blue-white Rauten bunting and string lights above, Biergarten table + Brezn below.
+     Append #g to overlay the Shorts safe zones.
+     node tools/render.js shorts/03-ich-will-ein-bier/cover/cover.html shorts/03-ich-will-ein-bier/out/cover-v2.png 1080 1920 -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #081028; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+<script src="../../../engine/cast/cast.js"></script>
+</head>
+<body>
+<svg id="stage" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+(async function () {
+  await Promise.all(['400 100px Anton', '700 100px Oswald'].map(function (f) { return document.fonts.load(f, 'AÖẞ„“!?–'); }));
+  var W = 1080, H = 1920, HASH = (location.hash || '').slice(1);
+  var INK = '#14110d', RED = '#E5302A', YEL = '#FFC83A', BLUE = '#2a62b8';
+  var S = new SceneInk(33), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  function f1(v) { return U.f1(v); }
+  var rnd = 7; function R() { rnd = (rnd * 16807) % 2147483647; return (rnd - 1) / 2147483646; }
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="6"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="8" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="glowSh" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="8" result="d"/><feGaussianBlur in="d" stdDeviation="18"/>' +
+    '<feOffset dx="10" dy="16"/><feComponentTransfer><feFuncA type="linear" slope=".75"/></feComponentTransfer></filter>' +
+    '<filter id="tblur" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>' +
+    '<filter id="bulb" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="14"/></filter>' +
+    '<filter id="distress" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.4 0 0 0 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>' +
+    '<filter id="rim" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="11" result="d"/><feOffset dx="7" dy="-8"/><feGaussianBlur stdDeviation="1.5" result="o"/><feFlood flood-color="#ffe2a0"/><feComposite in2="o" operator="in"/></filter>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="9"/><feOffset dx="7" dy="11"/><feComponentTransfer><feFuncA type="linear" slope=".6"/></feComponentTransfer></filter>' +
+    '<filter id="heat" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3"/></filter>';
+
+  // ── helpers (pattern: shorts 01/02, ep. 2 B) ─────────────
+  var glN = 0;
+  function glow(g, clip) {
+    var id = 'gl' + (glN++);
+    defs += '<radialGradient id="' + id + '" cx="' + g.x + '" cy="' + g.y + '" r="' + g.r + '" gradientUnits="userSpaceOnUse">' +
+      '<stop offset="0" stop-color="' + g.c + '" stop-opacity="' + (g.o || 1) + '"/><stop offset=".45" stop-color="' + g.c + '" stop-opacity="' + ((g.o || 1) * 0.45) + '"/><stop offset="1" stop-color="' + g.c + '" stop-opacity="0"/></radialGradient>';
+    return '<rect width="' + W + '" height="' + H + '" fill="url(#' + id + ')"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  function fit(t, w, maxSize) { return Math.min(maxSize, maxSize * w / measure(t, '400 ' + maxSize + 'px Anton')); }
+  function word(t, x, y, w, maxSize, fill, o) {
+    o = o || {};
+    var size = fit(t, w, maxSize);
+    var sw = size * (o.sw || 0.1), sh = size * 0.055;
+    var attrs = 'x="' + x + '" y="' + y + '" font-family="Anton" font-size="' + f1(size) + '" text-anchor="' + (o.anchor || 'start') + '"';
+    var g = '<g' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" opacity=".75" filter="url(#tblur)" transform="translate(' + f1(sh * 1.6) + ' ' + f1(sh * 2.4) + ')">' + t + '</text>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + f1(sh * 0.8) + ' ' + f1(sh) + ')">' + t + '</text>';
+    g += '<text ' + attrs + ' fill="' + fill + '" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + (o.inner || t) + '</text>';
+    return g + '</g>';
+  }
+  // Melo; hx,hy = skull centre, hh = skull height px; flip mirrors him around hx
+  function melo(opts, hx, hy, hh, flip) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh;
+    var vb = [-hx * u, -388 - hy * u, W * u, H * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    var g = '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#rim)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+    return flip ? '<g transform="translate(' + (2 * hx) + ' 0) scale(-1 1)">' + g + '</g>' : g;
+  }
+  function cast(id, o, x, y, r, rot) {
+    var f0 = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: 1 }, o));
+    var k = r / (f0.anchors.headCenter[1] - f0.anchors.headTop[1]);
+    var fr = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: k }, o)), hc = fr.anchors.headCenter;
+    var g = '<g transform="translate(' + f1(x - hc[0]) + ' ' + f1(y - hc[1]) + ') rotate(' + (rot || 0) + ' ' + f1(hc[0]) + ' ' + f1(hc[1]) + ')">' + fr.svg + '</g>';
+    return '<g filter="url(#glowSh)">' + g + '</g><g filter="url(#rim)">' + g + '</g><g filter="url(#sil)">' + g + '</g>' + g;
+  }
+  function loop(cx, cy, rx, ry, w, color, rot) {
+    var pts = [], n = 56, a0 = -2.4;
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (Math.PI * 2 + 0.6) * i / n, k = 1 + 0.05 * Math.sin(i * 0.5) + i * 0.0014;
+      pts.push([cx + rx * k * Math.cos(a), cy + ry * k * Math.sin(a)]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + cx + ' ' + cy + ')">' + S.line(pts, { w: w, ta: 0.08, tb: 0.25, min: 0.45, jit: 0.1 }, color) + '</g>';
+  }
+  function badge(x, y, t, bgc, fg, size, rot) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.8, h = size * 1.35;
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + (rot || 0) + ')">' +
+      S.shape(S.rect(0, 0, w, h, 20, 1.2), bgc, { w: 3.5, extra: 2 }) +
+      '<text x="' + (w / 2) + '" y="' + (h * 0.76) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" fill="' + fg + '" text-anchor="middle">' + t + '</text></g>';
+  }
+  function catenary(x0, y0, x1, y1, sag, n) {
+    var pts = [];
+    for (var i = 0; i <= n; i++) { var t = i / n; pts.push([x0 + (x1 - x0) * t, y0 + (y1 - y0) * t + sag * 4 * t * (1 - t)]); }
+    return pts;
+  }
+  // chestnut leaf: palmate, 5–7 leaflets from (x,y), angle a (deg), size L
+  function chestnut(x, y, a, L, fill, n) {
+    n = n || 7; var g = '<g transform="translate(' + x + ' ' + y + ') rotate(' + a + ')">';
+    for (var i = 0; i < n; i++) {
+      var ang = (-70 + 140 * i / (n - 1)) * Math.PI / 180, len = L * (1 - 0.42 * Math.pow(Math.abs(i - (n - 1) / 2) / ((n - 1) / 2), 1.6));
+      var dx = Math.sin(ang), dy = -Math.cos(ang), px = -dy, py = dx, wd = len * 0.2;
+      var pts = [[0, 0], [dx * len * 0.3 + px * wd * 0.6, dy * len * 0.3 + py * wd * 0.6], [dx * len * 0.7 + px * wd, dy * len * 0.7 + py * wd], [dx * len, dy * len], [dx * len * 0.7 - px * wd, dy * len * 0.7 - py * wd], [dx * len * 0.3 - px * wd * 0.6, dy * len * 0.3 - py * wd * 0.6]];
+      var lf = U.catmull(pts, 4, true);
+      g += S.shape(lf, fill, { w: 3, extra: 1.5 });
+      g += S.line([[dx * len * 0.1, dy * len * 0.1], [dx * len * 0.92, dy * len * 0.92]], { w: 2, ta: 0.1, tb: 0.4, min: 0.4 }, '#000');
+      g += S.hatch(lf, { ang: a + 30, gap: 7, w: 1.2, op: 0.35, cond: function (X, Y) { return (X * px + Y * py) > 0; } });
+    }
+    return g + '</g>';
+  }
+
+  // ── background: Bavarian blue-hour sky over the Biergarten ─────
+  defs += '<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1500" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#060c22"/><stop offset=".55" stop-color="#14306e"/><stop offset="1" stop-color="#2a4f98"/></linearGradient>';
+  s += '<rect width="' + W + '" height="' + H + '" fill="url(#sky)"/>';
+  s += glow({ x: 540, y: 1340, r: 760, c: '#ffae3a', o: 0.55 });
+  s += glow({ x: 540, y: 700, r: 640, c: '#6f9cff', o: 0.30 });
+  // far tree line (chestnut crowns) behind the garden
+  var crowns = '', cx = -60;
+  while (cx < W + 80) {
+    var rr = 110 + R() * 70, cy = 1150 - R() * 120;
+    crowns += S.shape(S.ellipse(cx, cy, rr, rr * 0.8, 40, 0.06), '#0b1a40', { w: 3, extra: 1.5 });
+    cx += rr * 1.1;
+  }
+  s += '<g opacity=".95">' + crowns + '<rect x="0" y="1150" width="' + W + '" height="400" fill="#0b1a40"/></g>';
+  s += '<g opacity=".5">' + S.hatch(S.rect(0, 980, W, 560, 200, 0), { ang: 70, gap: 11, w: 1.3, op: 0.3 }) + '</g>';
+  // distant lamp glow dots in the tree line
+  for (var i = 0; i < 12; i++) { var lx = 40 + i * 92 + R() * 30, ly = 1110 + R() * 60; s += '<circle cx="' + f1(lx) + '" cy="' + f1(ly) + '" r="16" fill="#ffc35a" opacity=".55" filter="url(#bulb)"/><circle cx="' + f1(lx) + '" cy="' + f1(ly) + '" r="4" fill="#ffe7a8" opacity=".9"/>'; }
+
+  // ── top decor (0–400): blue-white Rauten bunting + chestnut leaves + string lights ─────
+  var bunt = catenary(-30, 70, W + 30, 50, 90, 26), fl = '';
+  for (var i = 0; i < bunt.length - 1; i++) {
+    var a = bunt[i], b = bunt[i + 1], mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+    var tri = [[a[0] + 3, a[1]], [b[0] - 3, b[1]], [mx, my + 74]];
+    fl += S.shape(tri, i % 2 ? '#f3efe4' : BLUE, { w: 3, extra: 1.5 });
+    // tiny Rauten lozenges on the blue ones
+    if (!(i % 2)) fl += '<path d="M' + f1(mx) + ' ' + f1(my + 10) + 'l13 16l-13 16l-13 -16Z" fill="#f3efe4" opacity=".85"/>';
+    else fl += '<path d="M' + f1(mx) + ' ' + f1(my + 10) + 'l13 16l-13 16l-13 -16Z" fill="' + BLUE + '" opacity=".9"/>';
+  }
+  s += S.line(bunt, { w: 4, ta: 0, tb: 0, min: 1 }, '#000') + fl;
+  // chestnut leaves hanging into the top corners
+  s += chestnut(-30, -40, 150, 230, '#173d2a') + chestnut(150, -70, 175, 200, '#1f4a30', 7) + chestnut(1110, -30, -150, 240, '#173d2a') + chestnut(930, -80, -172, 190, '#1f4a30', 7);
+  s += chestnut(-60, 300, 105, 190, '#12301f', 5) + chestnut(1140, 280, -105, 190, '#12301f', 5);
+  // string lights
+  function lights(pts, step, r) {
+    var g = S.line(pts, { w: 4, ta: 0, tb: 0, min: 1 }, '#000'), k = 0;
+    for (var i = 1; i < pts.length - 1; i += step) {
+      var p = pts[i];
+      g += '<circle cx="' + f1(p[0]) + '" cy="' + f1(p[1] + r + 6) + '" r="' + (r * 3.2) + '" fill="#ffb84a" opacity=".55" filter="url(#bulb)"/>';
+      g += S.line([[p[0], p[1]], [p[0], p[1] + 8]], { w: 6, ta: 0, tb: 0, min: 1 }, '#000');
+      g += S.shape(S.ellipse(p[0], p[1] + r + 7, r * 0.8, r, 18, 0.03), (k++ % 3 === 1) ? '#ffd27a' : '#fff1c6', { w: 2.6, extra: 1 });
+    }
+    return g;
+  }
+  s += lights(catenary(-20, 160, W + 20, 140, 220, 30), 2, 11);
+  s += '<g opacity=".7">' + lights(catenary(-20, 980, W + 20, 1000, 80, 40), 3, 6) + '</g>';
+
+  // ── headline ──
+  var hs = fit('EIN KIND!', 940, 262), wEin = measure('EIN ', '400 ' + hs + 'px Anton'), wKind = measure('KIND!', '400 ' + hs + 'px Anton'), wAll = measure('EIN KIND!', '400 ' + hs + 'px Anton');
+  s += word('KLINGT WIE', 540, 588, 700, 150, '#ffffff', { anchor: 'middle', rot: -2 });
+  s += word('EIN KIND!', 540, 838, 940, 262, YEL, { anchor: 'middle', rot: -2, sw: 0.085 });
+  var kx = 540 - wAll / 2 + wEin + wKind / 2;
+  s += '<g transform="rotate(-2 540 838)">' + loop(kx + 2, 838 - hs * 0.41, wKind * 0.62, hs * 0.6, 15, RED, -5) + '</g>';
+
+  // ── characters ──
+  // cherry kid (left), whining, pointing at the beer
+  s += cast('kind', { expr: 'annoyed', pose: 'point', prop: 'none' }, 186, 1252, 96, 4);
+  // Melo (right), pointing at the giant mug, talking
+  s += melo({ view: 'full', pose: 'point', expression: 'talking', look: [0.6, 0.05], headTilt: -4 }, 842, 1150, 214, true);
+
+  // table (occludes bodies): wooden Biergarten table in perspective
+  var TE = 1488;
+  s += '<rect x="0" y="' + (TE - 16) + '" width="' + W + '" height="34" fill="#000" opacity=".45" filter="url(#heat)"/>';
+  defs += '<linearGradient id="wood" x1="0" y1="' + TE + '" x2="0" y2="' + H + '" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b9772f"/><stop offset="1" stop-color="#5a3414"/></linearGradient>';
+  s += '<path d="M0 ' + TE + 'H' + W + 'V' + H + 'H0Z" fill="url(#wood)"/>';
+  var VX = 540, VY = -600, pk = '';
+  for (var i = -6; i <= 6; i++) {
+    var xa = VX + i * 150 * (TE - VY) / 2000, xd = VX + i * 150 * (H - VY) / 2000;
+    pk += S.line([[xa, TE], [xd, H]], { w: 5, ta: 0, tb: 0, min: 1, jit: 0.2 }, '#2a1606');
+  }
+  s += '<g opacity=".8">' + pk + '</g>' + '<g opacity=".55">' + S.hatch(S.rect(0, TE, W, H - TE, 200, 0), { ang: 84, gap: 9, w: 1.3, op: 0.3 }) + '</g>';
+  s += glow({ x: 540, y: TE + 60, r: 520, c: '#ffd27a', o: 0.35 });
+  s += S.line([[-10, TE + 2], [W / 2, TE - 2], [W + 10, TE + 3]], { w: 12, ta: 0, tb: 0, min: 1 }, '#000');
+
+  // giant Maßkrug (centre, on the table)
+  function mass(cx, by, w, h, rot) {
+    var x0 = cx - w / 2, x1 = cx + w / 2, y0 = by - h;
+    var g = '<g transform="rotate(' + rot + ' ' + cx + ' ' + by + ')">';
+    g += '<ellipse cx="' + (cx + 14) + '" cy="' + (by + 6) + '" rx="' + (w * 0.62) + '" ry="22" fill="#000" opacity=".55" filter="url(#soft)"/>';
+    var hd = U.catmull([[x1 - 4, y0 + h * 0.18], [x1 + w * 0.36, y0 + h * 0.2], [x1 + w * 0.42, y0 + h * 0.52], [x1 + w * 0.32, y0 + h * 0.8], [x1 - 4, y0 + h * 0.8]], 6, false);
+    g += S.line(hd, { w: 40, ta: 0, tb: 0, min: 1 }, '#000') + S.line(hd, { w: 24, ta: 0, tb: 0, min: 1 }, '#e9f0ea');
+    defs += '<linearGradient id="beer" x1="' + x0 + '" y1="0" x2="' + x1 + '" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd85a"/><stop offset=".5" stop-color="#f4a21c"/><stop offset="1" stop-color="#b65c06"/></linearGradient>';
+    var body = S.poly([[x0, y0], [x1, y0], [x1 - 6, by], [x0 + 6, by]], 40, 1.2);
+    g += S.shape(body, 'url(#beer)', { w: 8, extra: 3 });
+    // dimpled glass (Maßkrug facets)
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 3; c++) {
+      var ex = x0 + w * (0.2 + c * 0.3), ey = y0 + h * (0.24 + r * 0.19);
+      g += '<ellipse cx="' + f1(ex) + '" cy="' + f1(ey) + '" rx="' + f1(w * 0.12) + '" ry="' + f1(h * 0.075) + '" fill="#fff3c0" opacity=".28" stroke="#7a3e05" stroke-width="3"/>';
+    }
+    g += S.line([[x0 + 18, y0 + 30], [x0 + 14, by - 20]], { w: 9, ta: 0.2, tb: 0.2, min: 0.5 }, '#fff6d4');
+    [[0.3, 0.8, 7], [0.55, 0.6, 5], [0.72, 0.85, 6], [0.4, 0.4, 4], [0.62, 0.3, 5]].forEach(function (b) { g += '<circle cx="' + f1(x0 + w * b[0]) + '" cy="' + f1(y0 + h * b[1]) + '" r="' + b[2] + '" fill="none" stroke="#fff6d0" stroke-width="2.5"/>'; });
+    g += S.hatch(body, { ang: 45, gap: 9, w: 1.6, op: 0.28, cond: function (X) { return X > x0 + w * 0.68; } });
+    // foam crown with drips
+    var top = [];
+    for (var i = 0; i <= 18; i++) { var t = i / 18, xx = x0 - 24 + (w + 48) * t; top.push([xx, y0 - 30 - 34 * Math.sin(Math.PI * t) - 14 * Math.abs(Math.sin(t * 13))]); }
+    var drips = [[x0 + w * 0.2, 80], [x0 + w * 0.62, 120], [x1 - 8, 60]], bot = [];
+    for (var i = 18; i >= 0; i--) {
+      var t = i / 18, xx = x0 - 24 + (w + 48) * t, yy = y0 + 22 + 6 * Math.sin(t * 20);
+      drips.forEach(function (d) { var dx = Math.abs(xx - d[0]); if (dx < 22) yy += d[1] * Math.cos(dx / 22 * Math.PI / 2); });
+      bot.push([xx, yy]);
+    }
+    var foam = top.concat([[x1 + 28, y0 + 8]], bot, [[x0 - 28, y0 + 8]]);
+    g += S.shape(foam, '#fbf4e2', { w: 6, extra: 3 });
+    g += S.hatch(foam, { ang: -40, gap: 9, w: 1.3, op: 0.22, cond: function (X, Y) { return Y > y0 + 4; } });
+    [[0.22, -22, 10], [0.48, -44, 13], [0.74, -28, 9], [0.9, -6, 7]].forEach(function (b) { g += '<circle cx="' + f1(x0 + w * b[0]) + '" cy="' + f1(y0 + b[1]) + '" r="' + b[2] + '" fill="none" stroke="#14110d" stroke-width="2.5" opacity=".55"/>'; });
+    return g + '</g>';
+  }
+  s += mass(506, 1532, 250, 350, 3);
+
+  // Brezn (bottom-left decor) + Bierdeckel (bottom-right decor)
+  function brezn(cx, cy, sc, rot) {
+    var P = [[0, 70], [-40, 20], [-95, -10], [-110, -55], [-80, -95], [-25, -85], [10, -30], [30, 40], [55, 75], [70, 40], [30, -30], [5, -10]];
+    var knot = U.catmull([[-78, 60], [-60, 20], [-100, -20], [-108, -70], [-60, -100], [-10, -70], [8, -20], [30, 30], [70, 60]], 8, false);
+    var knot2 = U.catmull([[78, 60], [60, 20], [100, -20], [108, -70], [60, -100], [10, -70], [-8, -20], [-30, 30], [-70, 60]], 8, false);
+    var bar = U.catmull([[-95, 64], [0, 50], [95, 64]], 6, false);
+    var g = '<g transform="translate(' + cx + ' ' + cy + ') rotate(' + rot + ') scale(' + sc + ')">';
+    [knot, knot2, bar].forEach(function (k, i) { g += S.line(k, { w: 50, ta: 0.06, tb: 0.06, min: 0.7 }, '#000'); g += S.line(k, { w: 38, ta: 0.08, tb: 0.08, min: 0.65 }, i === 2 ? '#8a4a16' : '#9c5418'); g += S.line(k.map(function (p) { return [p[0] - 5, p[1] - 6]; }), { w: 9, ta: 0.2, tb: 0.2, min: 0.4 }, '#d58a3e'); });
+    for (var i = 0; i < 26; i++) { var k = [knot, knot2][i % 2], p = k[Math.floor(R() * k.length)]; g += '<rect x="' + f1(p[0] + R() * 16 - 8) + '" y="' + f1(p[1] + R() * 16 - 8) + '" width="6" height="5" fill="#fffaf0" transform="rotate(' + f1(R() * 90) + ' ' + f1(p[0]) + ' ' + f1(p[1]) + ')"/>'; }
+    return g + '</g>';
+  }
+  s += brezn(170, 1690, 1.15, -12);
+  var dk = S.ellipse(890, 1700, 120, 52, 50, 0.01);
+  s += '<ellipse cx="900" cy="1712" rx="120" ry="52" fill="#000" opacity=".5" filter="url(#soft)"/>' + S.shape(dk, '#f2ead6', { w: 5, extra: 2 }) +
+    S.line(S.ellipse(890, 1700, 96, 40, 50, 0), { w: 4, ta: 0, tb: 0, min: 1 }, BLUE);
+  for (var i = 0; i < 4; i++) s += S.line([[848 + i * 22, 1680 + (i % 2) * 6], [858 + i * 22, 1712]], { w: 4, ta: 0.2, tb: 0.2, min: 0.5 }, BLUE);
+
+  // ── quotes ──
+  // kid's small bubble (left)
+  var kb = S.ellipse(232, 1066, 196, 56, 46, 0.02);
+  s += '<ellipse cx="240" cy="1078" rx="196" ry="56" fill="#000" opacity=".5" filter="url(#soft)"/>';
+  s += S.shape([[150, 1110], [196, 1112], [176, 1160]], '#f6eed9', { w: 4, extra: 1.5 }) + S.shape(kb, '#f6eed9', { w: 5, extra: 2 }) +
+    '<path d="M152 1104L198 1106" stroke="#f6eed9" stroke-width="10"/>' +
+    '<text x="232" y="1083" font-family="Oswald" font-weight="700" font-size="46" fill="' + INK + '" text-anchor="middle" transform="rotate(-3 232 1083)">„Ich will ein Eis!“</text>';
+  // the big quote → Melo
+  s += S.line([[880, 985], [900, 1010], [918, 1040]], { w: 26, ta: 0.05, tb: 0.9, min: 0.15, jit: 0.1 }, '#000');
+  s += S.line([[880, 985], [900, 1010], [918, 1040]], { w: 16, ta: 0.05, tb: 0.9, min: 0.15, jit: 0.1 }, YEL);
+  s += word('„Ich will ein Bier.“', 540, 975, 900, 150, '#ffffff', { anchor: 'middle', rot: -2, sw: 0.09 });
+
+  s += badge(58, 196, 'B1–C1', YEL, INK, 40, -3);
+  defs += '<radialGradient id="vig" cx="540" cy="960" r="1150" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>';
+  s += '<rect width="' + W + '" height="' + H + '" fill="url(#vig)"/>';
+  s += '<rect width="' + W + '" height="' + H + '" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
+  if (HASH === 'g') s += '<rect width="1080" height="180" fill="#f0f" opacity=".45"/><rect y="1500" width="1080" height="420" fill="#f0f" opacity=".45"/><rect y="420" width="1080" height="1080" fill="none" stroke="#0ff" stroke-width="6"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+  window.__done = true;
+})();
+</script>
+</body>
+</html>
