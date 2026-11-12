@@ -29,22 +29,21 @@ Ich bin Melo, und das ist Deutsch mit Melo: Deutsch lernen nur auf Deutsch, Nive
 
 ⏱ Kapitel
 0:00 50 Wörter gelernt – und am Morgen nur noch 3
-0:xx Intro: Das 5×10-System
-x:xx 1 · Wörter mit Adresse
-x:xx 2 · Das Paket: eine Wohnungsanzeige
-x:xx Kernfrage 1: Wie hoch ist die Warmmiete?
-x:xx Kaution, kündigen, Kündigungsfrist, Besichtigung, Vermieter
-x:xx 3 · Die 4 Spuren
-x:xx 4 · Die Abruf-Leiter
-x:xx Kernfrage 2: Der 10-Minuten-Test
-x:xx 5 · Die Notaufnahme & der Morgen-Check
-x:xx 6 · Rechne ehrlich: Sprint und Erhaltungsmodus
-x:xx 7 · Die 7-Tage-Regel
-x:xx 8 · Der Sonntag
-x:xx Kernfrage 3: Der Abschlusstest
-x:xx Der Kern der Sache – alles in einer Minute
-x:xx Hausaufgabe & Tschüss
-(Zeiten nach dem Audio mit `python3 tools/chapters.py episodes/02-50-woerter-am-tag` eintragen.)
+0:17 Intro: Das 5×10-System
+0:54 1 · Wörter mit Adresse
+1:52 2 · Das Paket: eine Wohnungsanzeige
+3:01 Kernfrage 1: Wie hoch ist die Warmmiete?
+3:19 Kaution, kündigen, Kündigungsfrist, Besichtigung, Vermieter
+4:17 3 · Die 4 Spuren
+6:06 4 · Die Abruf-Leiter
+6:45 Kernfrage 2: Der 10-Minuten-Test
+7:11 5 · Die Notaufnahme & der Morgen-Check
+7:50 6 · Rechne ehrlich: Sprint und Erhaltungsmodus
+8:25 7 · Die 7-Tage-Regel
+8:56 8 · Der Sonntag
+9:16 Kernfrage 3: Der Abschlusstest
+10:43 Der Kern der Sache – alles in einer Minute
+11:19 Hausaufgabe & Tschüss
 
 📚 Das lernst du in diesem Video (Deutsch B1, Deutsch B2, Deutsch C1)
 • Vokabeln lernen mit Kontext: Wörter mit Adresse
@@ -66,7 +65,7 @@ x:xx Hausaufgabe & Tschüss
 ## Tags
 Jeder Tag kommt wörtlich im Titel oder in der Beschreibung vor. Reihenfolge = Priorität. Prüfen mit `python3 tools/check-long-meta.py episodes/02-50-woerter-am-tag/meta.md`.
 ```
-50 Wörter am Tag, Vokabeln lernen, Deutsch lernen, Wortschatz erweitern, deutsche Vokabeln lernen, Lernmethode, Deutsch B1, Deutsch B2, Deutsch C1, Deutsch für Fortgeschrittene, Wohnungssuche, Wohnungsanzeige, Kaution, Kaltmiete, Nebenkosten, Warmmiete, Vermieter, Kündigungsfrist, Abruf-Leiter, Wiederholung mit Abständen, Goethe-Zertifikat B2, telc B1, learn German, German vocabulary, Deutsch mit Melo
+50 Wörter am Tag, Vokabeln lernen, Deutsch lernen, Wortschatz erweitern, deutsche Vokabeln lernen, Lernmethode, Deutsch B1, Deutsch B2, Deutsch C1, Deutsch für Fortgeschrittene, Wohnungssuche, Wohnungsanzeige, Kaution, Kaltmiete, Nebenkosten, Warmmiete, Vermieter, Kündigungsfrist, Abruf-Leiter, Wiederholung mit Abständen, Wortschatz, Besichtigung, Nachmieter, Goethe-Zertifikat B2, telc B1, TestDaF, DSH, Deutsch lernen nur auf Deutsch, learn German, German vocabulary, Deutsch mit Melo
 ```
 
 ## Angepinnter Kommentar
