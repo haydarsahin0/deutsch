@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Thumbnail Ep. 3</title>
+<!-- Thumbnail for episode 3 („Deutsch lernen mit KI: 30 Tage getestet“). Variant via hash: #a (main) | #b | #c ; append g (#ag) for the badge-zone overlay.
+     Colour world: cold laptop-blue / cyan night glow vs. hot red error ink (new vs. ep1 red/green and ep2 orange/blue).
+     Backgrounds are the episode's own sets (chat-space, ki-desk-night, calendar-wall), embedded as nested SVGs.
+     node tools/render.js "episodes/03-ki-als-deutschlehrer/thumb/thumb.html#a" out.png 1280 720 [scale] -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../../brand/fonts/caveat-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #050c1c; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+<script src="../../../engine/sets/fonts-embed.js"></script>
+<script src="../../../engine/sets/sets.js"></script>
+<script src="../../../engine/sets/kit-b.js"></script>
+<script src="../../../engine/sets/kit-a.js"></script>
+<script src="../../../engine/sets/ki-desk-night.js"></script>
+<script src="../../../engine/sets/calendar-wall.js"></script>
+<script src="../../../engine/sets/chat-space.js"></script>
+</head>
+<body>
+<svg id="stage" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+<script>
+(async function () {
+  await Promise.all(['400 100px Anton', '700 100px Oswald', '700 100px Caveat'].map(function (f) { return document.fonts.load(f, 'AÖÜ11?–„“'); }));
+  var HH = (location.hash || '#a').slice(1).split('~'), H = HH[0], V = H[0], MASK = HH[1];
+  var INK = '#14110d', RED = '#E5302A', YEL = '#FFC83A', CYAN = '#7fe3ff';
+  var S = new SceneInk(V === 'a' ? 31 : V === 'b' ? 37 : 41), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  var f1 = U.f1;
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="glowSh" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/><feGaussianBlur in="d" stdDeviation="16"/>' +
+    '<feOffset dx="10" dy="14"/><feComponentTransfer><feFuncA type="linear" slope=".75"/></feComponentTransfer></filter>' +
+    '<filter id="tblur" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>' +
+    '<filter id="bgblur" x="0" y="0" width="100%" height="100%"><feGaussianBlur stdDeviation="2.2"/></filter>' +
+    '<filter id="distress" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.4 0 0 0 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="9"/><feOffset dx="8" dy="12"/><feComponentTransfer><feFuncA type="linear" slope=".65"/></feComponentTransfer></filter>' +
+    '<filter id="cglow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>';
+  function rimFilter(id, color) {
+    defs += '<filter id="' + id + '" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="10" result="d"/><feOffset dx="-7" dy="-6"/><feGaussianBlur stdDeviation="1.5" result="o"/><feFlood flood-color="' + color + '"/><feComposite in2="o" operator="in"/></filter>';
+  }
+  rimFilter('rimC', '#9ff0ff'); rimFilter('rimR', '#ff6a5a');
+
+  var glN = 0;
+  function glow(g, clip) {
+    var id = 'gl' + (glN++);
+    defs += '<radialGradient id="' + id + '" cx="' + g.x + '" cy="' + g.y + '" r="' + g.r + '" gradientUnits="userSpaceOnUse">' +
+      '<stop offset="0" stop-color="' + g.c + '" stop-opacity="' + (g.o || 1) + '"/><stop offset=".45" stop-color="' + g.c + '" stop-opacity="' + ((g.o || 1) * 0.45) + '"/><stop offset="1" stop-color="' + g.c + '" stop-opacity="0"/></radialGradient>';
+    return '<rect width="1280" height="720" fill="url(#' + id + ')"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  function rays(cx, cy, n, color, op, clip) {
+    var d = '';
+    for (var i = 0; i < n; i++) {
+      var a0 = i / n * Math.PI * 2, a1 = a0 + Math.PI / n * 0.9;
+      d += 'M' + cx + ' ' + cy + 'L' + f1(cx + 1600 * Math.cos(a0)) + ' ' + f1(cy + 1600 * Math.sin(a0)) + 'L' + f1(cx + 1600 * Math.cos(a1)) + ' ' + f1(cy + 1600 * Math.sin(a1)) + 'Z';
+    }
+    return '<path d="' + d + '" fill="' + color + '" opacity="' + op + '"' + (clip ? ' clip-path="url(#' + clip + ')"' : '') + '/>';
+  }
+  // big outlined poster word fitted to width w
+  function word(t, x, y, w, maxSize, fill, o) {
+    o = o || {};
+    var size = Math.min(maxSize, maxSize * w / measure(t, '400 ' + maxSize + 'px Anton'));
+    var sw = size * (o.sw || 0.1), sh = size * 0.055;
+    var attrs = 'x="' + x + '" y="' + y + '" font-family="Anton" font-size="' + f1(size) + '" text-anchor="' + (o.anchor || 'start') + '"';
+    var esc = t.replace(/&/g, '&amp;');
+    var g = '<g data-k="text"' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    if (!o.noShadow) g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" opacity=".75" filter="url(#tblur)" transform="translate(' + f1(sh * 1.6) + ' ' + f1(sh * 2.4) + ')">' + esc + '</text>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + f1(sh * 0.8) + ' ' + f1(sh) + ')">' + esc + '</text>';
+    g += '<text ' + attrs + ' fill="' + fill + '" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + esc + '</text>';
+    return g + '</g>';
+  }
+  // Melo: soft shadow, coloured rim light, heavy black silhouette. hx,hy = skull centre, hh = skull height (px)
+  function melo(opts, hx, hy, hh, rim) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh;
+    var vb = [-hx * u, -388 - hy * u, 1280 * u, 720 * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="1280" height="720" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#' + (rim || 'rimC') + ')">' + m + '</g><g filter="url(#sil)">' + m + '</g><g data-k="melo">' + m + '</g>';
+  }
+  function brushLine(pts, w, color, smooth) { return S.line(pts, { w: w, ta: 0.15, tb: 0.2, min: 0.5, jit: 0.15, smooth: smooth || 0 }, color); }
+  function loop(cx, cy, rx, ry, w, color, rot) {
+    var pts = [], n = 46, a0 = -2.2;
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (Math.PI * 2 + 0.55) * i / n, k = 1 + 0.05 * Math.sin(i * 0.5) + i * 0.0012;
+      pts.push([cx + rx * k * Math.cos(a), cy + ry * k * Math.sin(a)]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + cx + ' ' + cy + ')">' + S.line(pts, { w: w, ta: 0.08, tb: 0.25, min: 0.45, jit: 0.1 }, color) + '</g>';
+  }
+  function badge(x, y, t, bgc, fg, size, rot) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.8, h = size * 1.35;
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + (rot || 0) + ')">' +
+      S.shape(S.rect(0, 0, w, h, 20, 1.2), bgc, { w: 3.5, extra: 2 }) +
+      '<text x="' + (w / 2) + '" y="' + (h * 0.76) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" fill="' + fg + '" text-anchor="middle">' + t + '</text></g>';
+  }
+  // rounded rectangle (+ optional tail at the bottom: tx = tail root x offset, tdx/tdy = tip offset) as one polygon
+  function bubblePts(x, y, w, h, r, tail) {
+    var pts = [];
+    function arc(cx, cy, a0, a1) { for (var i = 0; i <= 8; i++) { var a = a0 + (a1 - a0) * i / 8; pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); } }
+    arc(x + r, y + r, Math.PI, Math.PI * 1.5);
+    arc(x + w - r, y + r, -Math.PI / 2, 0);
+    arc(x + w - r, y + h - r, 0, Math.PI / 2);
+    if (tail) { pts.push([x + tail.tx + tail.tw, y + h]); pts.push([x + tail.tx + tail.tdx, y + h + tail.tdy]); pts.push([x + tail.tx, y + h]); }
+    arc(x + r, y + h - r, Math.PI / 2, Math.PI);
+    // subdivide for wobble
+    var out = [];
+    for (var i = 0; i < pts.length; i++) {
+      var a = pts[i], b = pts[(i + 1) % pts.length], L = Math.hypot(b[0] - a[0], b[1] - a[1]), k = Math.max(1, Math.round(L / 28));
+      for (var j = 0; j < k; j++) out.push([a[0] + (b[0] - a[0]) * j / k + (j ? (S.r() - 0.5) * 1.4 : 0), a[1] + (b[1] - a[1]) * j / k + (j ? (S.r() - 0.5) * 1.4 : 0)]);
+    }
+    return out;
+  }
+  function star(cx, cy, r, fill) {
+    var pts = [];
+    for (var i = 0; i < 10; i++) { var a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.45 : r; pts.push([cx + rr * Math.cos(a), cy + rr * Math.sin(a)]); }
+    return S.shape(pts, fill, { w: 3, extra: 1.5 });
+  }
+  // embed an episode set (1920×1080 artwork); vb = crop rectangle in set coordinates
+  function setArt(name, variant, x, y, w, h, vb, extra) {
+    var r = Sets.render(name, { t: 0.4, seed: 0, variant: variant || '' });
+    var b = r.still || r;
+    return '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" viewBox="' + vb + '" preserveAspectRatio="xMidYMid slice" overflow="hidden"' + (extra || '') + '>' + b.bg + b.fg + '</svg>';
+  }
+  // red ink stamp (double ring rectangle) with Anton-ish label
+  function stamp(cx, cy, t, size, rot, color) {
+    var w = measure(t, '400 ' + size + 'px Anton') + size * 0.9, h = size * 1.45;
+    var g = '<g transform="translate(' + cx + ' ' + cy + ') rotate(' + rot + ')" filter="url(#distress)" data-k="text">';
+    g += S.shape(S.rect(-w / 2, -h / 2, w, h, 18, 2.5), 'rgba(20,4,4,.35)', { w: size * 0.09, extra: 2, color: color });
+    g += S.shape(S.rect(-w / 2 + size * 0.17, -h / 2 + size * 0.17, w - size * 0.34, h - size * 0.34, 18, 2), null, { w: size * 0.04, extra: 1, color: color });
+    g += '<text x="0" y="' + f1(size * 0.36) + '" font-family="Anton" font-size="' + size + '" fill="' + color + '" text-anchor="middle" letter-spacing="2">' + t + '</text>';
+    return g + '</g>';
+  }
+  // handwritten line on paper with red corrections. segs = [[text, mark]] mark: 0 plain, 1 strike + red fix above, 2 red underline
+  function handLine(x, y, segs, fs) {
+    var g = '', cx = x;
+    segs.forEach(function (sg) {
+      var t = sg[0], w = measure(t, '700 ' + fs + 'px Caveat');
+      g += '<text x="' + f1(cx) + '" y="' + f1(y) + '" font-family="Caveat" font-weight="700" font-size="' + fs + '" fill="#2b3a55">' + t + '</text>';
+      if (sg[1] === 1) {
+        g += brushLine([[cx - 3, y - fs * 0.28], [cx + w * 0.5, y - fs * 0.33], [cx + w + 3, y - fs * 0.26]], fs * 0.12, RED);
+        if (sg[2]) g += '<text x="' + f1(cx + w * 0.1) + '" y="' + f1(y - fs * 0.78) + '" font-family="Caveat" font-weight="700" font-size="' + f1(fs * 0.8) + '" fill="' + RED + '" transform="rotate(-4 ' + f1(cx) + ' ' + f1(y) + ')">' + sg[2] + '</text>';
+      } else if (sg[1] === 2) {
+        g += brushLine([[cx, y + fs * 0.14], [cx + w * 0.5, y + fs * 0.2], [cx + w, y + fs * 0.12]], fs * 0.1, RED, 0);
+      } else if (sg[1] === 3) { // caret + insertion
+        g += brushLine([[cx - 10, y + 4], [cx - 2, y - fs * 0.3], [cx + 6, y + 4]], fs * 0.08, RED);
+        g += '<text x="' + f1(cx - 14) + '" y="' + f1(y - fs * 0.75) + '" font-family="Caveat" font-weight="700" font-size="' + f1(fs * 0.8) + '" fill="' + RED + '">' + sg[2] + '</text>';
+      }
+      cx += w + fs * 0.28;
+    });
+    return g;
+  }
+  // laptop seen from behind (lid back, no logo), screen light spilling over the top edge
+  function laptopBack(x, y, w, h, lean) {
+    var g = '';
+    var lid = [[x + lean, y], [x + w - lean, y], [x + w, y + h], [x, y + h]];
+    g += '<path d="' + U.polyD(lid, true) + '" fill="none" stroke="' + CYAN + '" stroke-width="22" opacity=".7" filter="url(#cglow)"/>';
+    defs += '<linearGradient id="lidG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5d78"/><stop offset="1" stop-color="#1c2433"/></linearGradient>';
+    g += S.shape(S.poly(lid, 26, 1.2), 'url(#lidG)', { w: 5, extra: 3 });
+    g += S.hatch(S.poly(lid, 60, 0), { ang: 60, gap: 10, w: 1.2, op: 0.25, cond: function (X, Y) { return Y > y + h * 0.35; } });
+    g += brushLine([[x + lean + 8, y + 6], [x + w / 2, y + 4], [x + w - lean - 8, y + 6]], 6, '#d9fbff');
+    g += brushLine([[x + lean - 2, y + 10], [x + 2, y + h - 6]], 4, '#9fe8ff');
+    g += brushLine([[x + w - lean + 2, y + 10], [x + w - 2, y + h - 6]], 4, '#9fe8ff');
+    return g;
+  }
+  function vignette(op) {
+    defs += '<radialGradient id="vig" cx="640" cy="360" r="820" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="' + op + '"/></radialGradient>';
+    return '<rect width="1280" height="720" fill="url(#vig)"/>';
+  }
+  function deadpanBrow() {
+    var e = clone(MeloB._EXPR.deadpan);
+    e.browR = { dy: -9, ang: 13, arch: 7.5 }; e.browL = { dy: 2.5, ang: -5, arch: 1 };
+    e.eyeR.up = 5.4; e.mouth = { l: [-15, 1.5], r: [15, -1.5], u: [0.4, 0.6], d: [0.4, 0.6], lowerLip: 1, tickR: 1 };
+    return e;
+  }
+
+  // ════════ A: „TOLLER TEXT!“ (green AI bubble, night-blue) vs. the same text bleeding red, huge circled 11 ════════
+  if (V === 'a') {
+    var SEAM = 'M0 0H604L840 720H0Z';
+    defs += '<clipPath id="lA"><path d="' + SEAM + '"/></clipPath><clipPath id="rA"><path d="M604 0H1280V720H840Z"/></clipPath>';
+    s += '<rect width="1280" height="720" fill="#061633"/>';
+    s += '<g clip-path="url(#lA)" opacity=".85">' + setArt('chat-space', '', 0, 0, 1280, 720, '0 0 1920 1080') + '</g>';
+    s += glow({ x: 300, y: 560, r: 640, c: '#19b8ff', o: 0.55 }, 'lA');
+    s += '<path d="M604 0H1280V720H840Z" fill="#3d0507"/>';
+    s += glow({ x: 960, y: 300, r: 640, c: '#ff2a1f', o: 0.85 }, 'rA');
+    s += rays(960, 300, 26, '#000', 0.16, 'rA');
+    s += S.line([[602, -10], [722, 360], [842, 730]], { w: 14, ta: 0, tb: 0, min: 1 }, '#000');
+    // the corrected paper (right)
+    var PX = 690, PY = 58, PW = 540, PH = 520;
+    s += '<g transform="rotate(4 960 320)">';
+    s += '<rect x="' + PX + '" y="' + PY + '" width="' + PW + '" height="' + PH + '" fill="#000" filter="url(#soft)"/>';
+    s += S.shape(S.rect(PX, PY, PW, PH, 40, 1.4), '#f3ecd9', { w: 4, extra: 2 });
+    for (var li = 0; li < 9; li++) s += '<line x1="' + (PX + 20) + '" x2="' + (PX + PW - 20) + '" y1="' + (PY + 70 + li * 52) + '" y2="' + (PY + 70 + li * 52) + '" stroke="#7aa5cf" stroke-width="2" opacity=".45"/>';
+    s += '<line x1="' + (PX + 58) + '" x2="' + (PX + 58) + '" y1="' + PY + '" y2="' + (PY + PH) + '" stroke="#c9463c" stroke-width="2.5" opacity=".6"/>';
+    var L = [
+      [['Gestern', 0], ['ich bin', 1, 'bin ich'], ['nach Hause', 0], ['gegeht', 1, 'gegangen']],
+      [['weil ich', 0], ['habe', 1], ['viel gearbeitet', 0], ['habe.', 3, '']],
+      [['Ich', 0], ['habe', 0], ['eine', 1, 'einen'], ['Brief', 0], ['geschreibt', 1, 'geschrieben']],
+      [['an', 0], ['meine', 0], ['Vermieter', 1, 'meinen'], ['wegen', 0], ['die', 1, 'der'], ['Miete.', 0]],
+      [['Ich', 0], ['freue', 0], ['mich', 0], ['für', 1, 'auf'], ['das', 0], ['Wochenende', 0]],
+      [['und', 0], ['ich', 0], ['gehe', 0], ['in', 0], ['dem', 1, 'den'], ['Park', 0], ['morgen.', 2]],
+      [['Das', 0], ['ist', 0], ['sehr', 0], ['wichtig', 0], ['für', 0], ['mir.', 1, 'mich']]
+    ];
+    L.forEach(function (segs, i) { s += handLine(PX + 74, PY + 62 + i * 52 + 52, segs, 34); });
+    s += S.hatch(S.rect(PX, PY, PW, PH, 60, 0), { ang: 45, gap: 9, w: 1.1, op: 0.12, cond: function (X, Y) { return X - PX + Y - PY > PW * 0.9; } });
+    s += '</g>';
+    // Melo bottom-left, peeking over the laptop lid, deadpan, one brow up, eyes on the 11
+    var pA = clone(MeloB._POSES.chin);
+    s += melo({ view: 'full', poseParams: pA, exprParams: deadpanBrow(), look: [0.95, -0.55], headTilt: 4 }, 300, 482, 392, 'rimC');
+    s += laptopBack(60, 668, 520, 80, 20);
+    // AI bubble top-left
+    var bp = bubblePts(26, 34, 540, 236, 46, { tx: 70, tw: 70, tdx: -30, tdy: 52 });
+    s += '<path d="' + U.polyD(bp, true) + '" fill="#000" filter="url(#soft)"/>';
+    s += S.shape(bp, '#22a865', { w: 5, extra: 3 });
+    s += S.hatch(bp, { ang: 45, gap: 10, w: 1.3, op: 0.16, cond: function (X, Y) { return X + Y > 560; } });
+    s += star(470, 72, 19, YEL) + star(507, 66, 19, YEL) + star(544, 72, 19, YEL);
+    s += word('„TOLLER', 56, 150, 390, 128, '#ffffff', { rot: -2, noShadow: 1 });
+    s += word('TEXT!“', 62, 258, 320, 128, YEL, { rot: -2, noShadow: 1 });
+    // 11 FEHLER
+    s += word('11', 958, 368, 330, 300, '#ffffff', { anchor: 'middle', rot: 4, sw: 0.075 });
+    s += loop(972, 240, 172, 176, 15, RED, 6);
+    s += word('FEHLER', 958, 540, 460, 172, YEL, { anchor: 'middle', rot: 4 });
+  }
+
+  // ════════ B: 30 TAGE KI-LEHRER — night desk, calendar full of crosses, verdict stamp ════════
+  if (V === 'b') {
+    s += '<rect width="1280" height="720" fill="#071226"/>';
+    s += '<g filter="url(#bgblur)" opacity=".75">' + setArt('ki-desk-night', 'tag30', 0, 0, 1280, 720, '120 0 1680 945') + '</g>';
+    s += '<rect width="1280" height="720" fill="#04122b" opacity=".55"/>';
+    s += glow({ x: 860, y: 600, r: 560, c: '#21c4ff', o: 0.55 });
+    s += glow({ x: 200, y: 260, r: 520, c: '#0a1f55', o: 0.7 });
+    // calendar (from calendar-wall, tag30), pinned top-right, behind Melo
+    s += '<g transform="rotate(5 1070 210)">';
+    s += '<rect x="880" y="40" width="380" height="250" fill="#000" filter="url(#soft)"/>';
+    s += setArt('calendar-wall', 'tag30', 880, 40, 380, 250, '430 90 1060 698', ' preserveAspectRatio="none"');
+    s += '<rect x="880" y="40" width="380" height="250" fill="#0b2a55" opacity=".18"/>';
+    s += '</g>';
+    var pB = clone(MeloB._POSES.idle);
+    pB.a = { sh: [-13, -272], el: [-26, -212], wr: [26, -214], hand: { g: 'fist', ang: -15, flip: 1 } };
+    pB.b = { sh: [13, -272], el: [34, -214], wr: [20, -282], hand: { g: 'chin', ang: -100, flip: 1 } };
+    s += melo({ view: 'full', poseParams: pB, expression: 'smirk', look: [-0.8, 0.15], headTilt: -3 }, 888, 408, 372, 'rimC');
+    s += laptopBack(726, 644, 272, 100, 14);
+    s += word('30 TAGE', 40, 236, 560, 220, YEL, { rot: -3, sw: 0.085 });
+    s += word('KI-LEHRER', 46, 420, 560, 190, '#ffffff', { rot: -3 });
+    s += stamp(270, 548, 'EHRLICH?', 82, -7, '#ff3b2f');
+  }
+
+  // ════════ C: DIE KI LAG FALSCH — the wrong rule in the AI's chat bubble, struck in red ════════
+  if (V === 'c') {
+    s += '<rect width="1280" height="720" fill="#2a0306"/>';
+    s += glow({ x: 900, y: 260, r: 760, c: '#ff2a1f', o: 0.75 });
+    s += glow({ x: 230, y: 520, r: 520, c: '#1aa8ff', o: 0.55 });
+    s += rays(300, 430, 22, '#000', 0.14);
+    // Melo left, unimpressed side-eye, pointing at the bubble
+    var pC = clone(MeloB._POSES.point);
+    pC.b = { sh: [13, -272], el: [72, -270], wr: [128, -300], hand: { g: 'point', ang: -18, flip: 0 } };
+    s += melo({ view: 'full', poseParams: pC, expression: 'unimpressed', look: [0.9, 0.35], headTilt: 2 }, 270, 400, 360, 'rimC');
+    // headline top-right
+    s += word('DIE KI', 1236, 196, 520, 190, '#ffffff', { anchor: 'end', rot: 2 });
+    s += word('LAG FALSCH', 1236, 372, 640, 190, YEL, { anchor: 'end', rot: 2 });
+    // the AI's bubble with the wrong rule (cold glow), struck through in red
+    var cp = bubblePts(560, 418, 620, 150, 38, { tx: 470, tw: 60, tdx: 80, tdy: 36 });
+    s += '<path d="' + U.polyD(cp, true) + '" fill="' + CYAN + '" opacity=".6" filter="url(#cglow)"/>';
+    s += S.shape(cp, '#dff6ff', { w: 5, extra: 3 });
+    s += '<text x="600" y="476" font-family="Caveat" font-weight="700" font-size="50" fill="#1d3557">Bei Bewegung immer</text>';
+    s += '<text x="600" y="540" font-family="Caveat" font-weight="700" font-size="58" fill="#1d3557">Akkusativ!</text>';
+    s += '<text x="868" y="540" font-family="Caveat" font-weight="700" font-size="44" fill="#1d3557" opacity=".75">✓ ganz sicher.</text>';
+    s += brushLine([[584, 470], [800, 456], [1010, 446]], 13, RED);
+    s += brushLine([[592, 532], [740, 528], [860, 518]], 13, RED);
+    s += stamp(1112, 424, 'FALSCH!', 44, 8, '#ff3b2f');
+  }
+
+  s += badge(576, 14, 'B1–C1', YEL, INK, 32, 0);
+  s += vignette(0.5);
+  s += '<rect width="1280" height="720" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
+  if (/g/.test(H.slice(1))) s += '<rect x="998" y="590" width="282" height="130" fill="#f0f" opacity=".5"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+  if (MASK) {
+    var st = document.createElement('style');
+    st.textContent = 'html,body{background:#fff!important} #stage > :not(defs):not([data-k=' + MASK + ']){display:none} [data-k=' + MASK + '] *{fill:#000!important;stroke:#000!important}';
+    document.head.appendChild(st);
+  }
+  window.__done = true;
+})();
+</script>
+</body>
+</html>
