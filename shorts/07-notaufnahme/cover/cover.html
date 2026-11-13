@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Cover Short 07 v2</title>
+<!-- Shorts cover v2 for 07-notaufnahme (forgotten words go to the „Notaufnahme“: next morning new picture + new sentence,
+     Morgen-Check, then repeat on day 4 · 7 · 14 · 30).
+     Own colour world: clinical white tiles + emergency red + a blue siren light (the only bright/cold cover so far).
+     Own layout: red brush-painted sign band with „VERGESSEN?“, then „Ab in die Notaufnahme!“; scene row = coconut doctor
+     with clipboard · the bandaged flashcard „die Kaution“ on a stretcher · shocked Melo; then a strip of 4 calendar
+     pages TAG 4 · 7 · 14 · 30; ECG line + linoleum floor as bottom decoration.
+     Key content in the central 1080×1080 (y 420–1500). Append #g to overlay the safe zones.
+     node tools/render.js shorts/07-notaufnahme/cover/cover.html shorts/07-notaufnahme/out/cover-v2.png 1080 1920 -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-weight: 900; src: url('../../../brand/fonts/fraunces-latin-900-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-weight: 900; src: url('../../../brand/fonts/fraunces-latin-ext-900-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #e6ebe9; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+<script src="../../../engine/cast/cast.js"></script>
+</head>
+<body>
+<svg id="stage" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+(async function () {
+  await Promise.all(['400 100px Anton', '700 100px Oswald', '900 100px Fraunces'].map(function (f) { return document.fonts.load(f, 'AÖẞ„“!?…–Kaution'); }));
+  var W = 1080, H = 1920, HASH = (location.hash || '').slice(1);
+  var INK = '#14110d', RED = '#d42b26', DRED = '#9e1c1a', YEL = '#FFC83A', PAPER = '#f6efdc', BLUE = '#2f7bff', TILE = '#e3e9e7';
+  var S = new SceneInk(77), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  function f1(v) { return U.f1(v); }
+  function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function R(a, b) { return S.rand(a, b); }
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="8"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .45  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="30"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="drop" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="9"/><feOffset dx="9" dy="13"/><feComponentTransfer><feFuncA type="linear" slope=".38"/></feComponentTransfer></filter>' +
+    '<radialGradient id="wall" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#f3f6f3"/><stop offset=".7" stop-color="#dbe3e0"/><stop offset="1" stop-color="#b9c6c2"/></radialGradient>' +
+    '<linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ea79c"/><stop offset="1" stop-color="#5d7369"/></linearGradient>' +
+    '<radialGradient id="vig" cx="50%" cy="48%" r="75%"><stop offset=".62" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".42"/></radialGradient>';
+
+  function word(t, x, y, size, fill, o) {
+    o = o || {};
+    var sw = size * 0.08, sh = size * 0.06;
+    var a = 'x="' + x + '" y="' + y + '" font-family="Anton" font-size="' + size + '" text-anchor="' + (o.anchor || 'middle') + '"' + (o.ls ? ' letter-spacing="' + o.ls + '"' : '');
+    var g = '<g' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    g += '<text ' + a + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + f1(sh) + ' ' + f1(sh * 1.2) + ')">' + esc(t) + '</text>';
+    g += '<text ' + a + ' fill="' + fill + '" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + esc(t) + '</text>';
+    return g + '</g>';
+  }
+  function brush(pts, w, color, smooth) { return S.line(pts, { w: w, ta: 0.12, tb: 0.25, min: 0.45, jit: 0.2, smooth: smooth || 0 }, color); }
+  function tag(x, y, t, bg, fg, size, rot, ls) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.9 + (ls || 0) * t.length, h = size * 1.42;
+    return '<g transform="translate(' + f1(x) + ' ' + f1(y) + ') rotate(' + (rot || 0) + ')">' + S.shape(S.rect(-w / 2, -h / 2, w, h, 30, 1.2), bg, { w: 3.5, extra: 2 }) +
+      '<text x="0" y="' + f1(size * 0.36) + '" font-family="Oswald" font-weight="700" font-size="' + size + '"' + (ls ? ' letter-spacing="' + ls + '"' : '') + ' text-anchor="middle" fill="' + fg + '">' + esc(t) + '</text></g>';
+  }
+  function melo(opts, hx, hy, hh) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh;
+    var vb = [-hx * u, -388 - hy * u, W * u, H * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#drop)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+  }
+  function cast(id, o, x, y, r, rot) {
+    var f0 = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: 1 }, o));
+    var k = r / (f0.anchors.headCenter[1] - f0.anchors.headTop[1]);
+    var fr = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: k }, o)), hc = fr.anchors.headCenter;
+    var g = '<g transform="translate(' + f1(x - hc[0]) + ' ' + f1(y - hc[1]) + ') rotate(' + (rot || 0) + ' ' + f1(hc[0]) + ' ' + f1(hc[1]) + ')">' + fr.svg + '</g>';
+    return '<g filter="url(#drop)">' + g + '</g><g filter="url(#sil)">' + g + '</g>' + g;
+  }
+
+  // ── clinical tiled wall ───────────────────────────────
+  s += '<rect width="1080" height="1920" fill="url(#wall)"/>';
+  var grout = [];
+  for (var gx = -10; gx <= 1090; gx += 108) grout.push([[gx + R(-2, 2), 0], [gx + R(-2, 2), 1240]]);
+  for (var gy = 20; gy <= 1240; gy += 108) grout.push([[0, gy + R(-2, 2)], [1080, gy + R(-2, 2)]]);
+  s += S.lines(grout, { w: 3, ta: 0.05, tb: 0.05, min: 0.6, jit: 0.3 }, '#9fb0ab', ' opacity=".55"');
+  s += S.hatch(S.rect(0, 0, 1080, 1240, 200, 0), { ang: -30, gap: 15, w: 1.1, op: 0.07 });
+  // red guide stripe along the wall (hospital corridor)
+  s += S.shape(S.poly([[-20, 1150], [1100, 1138], [1100, 1182], [-20, 1194]], 40, 1.2), RED, { w: 3, extra: 1 });
+  // floor
+  s += '<path d="M-20 1236 L1100 1226 L1100 1940 L-20 1940Z" fill="url(#floor)"/>';
+  s += brush([[-20, 1238], [1100, 1226]], 8, INK);
+  var fl = [];
+  for (var k = -6; k < 14; k++) fl.push([[540 + k * 140 - 40, 1236], [540 + (k - 6.5) * 330, 1940]]);
+  for (var j = 0; j < 6; j++) { var yy = 1236 + Math.pow(j / 6, 1.6) * 700; fl.push([[-20, yy], [1100, yy - 8]]); }
+  s += S.lines(fl, { w: 2.2, ta: 0.05, tb: 0.05, min: 0.6, jit: 0.3 }, '#2f3f38', ' opacity=".4"');
+  s += S.hatch(S.rect(0, 1236, 1080, 700, 200, 0), { ang: 28, gap: 13, w: 1.2, op: 0.18 });
+
+  // ── top decoration: blue siren light + B1–C1 ─────────
+  s += '<circle cx="900" cy="96" r="190" fill="' + BLUE + '" opacity=".55" filter="url(#glow)"/>';
+  for (var i = 0; i < 9; i++) { var a0 = Math.PI * (0.05 + i * 0.11), a1 = a0 + 0.05; s += '<path d="M900 104 L' + f1(900 + 900 * Math.cos(a0)) + ' ' + f1(104 + 900 * Math.sin(a0)) + ' L' + f1(900 + 900 * Math.cos(a1)) + ' ' + f1(104 + 900 * Math.sin(a1)) + 'Z" fill="#7fb0ff" opacity=".13"/>'; }
+  var dome = [[836, 112]].concat(S.ellipse(900, 112, 64, 74, 30, 0.01, Math.PI, Math.PI * 2)).concat([[964, 112]]);
+  s += S.shape(dome, '#4d92ff', { w: 5, extra: 2 }) + brush([[864, 72], [878, 52], [902, 44]], 9, '#d5e6ff', 3);
+  s += S.shape(S.rect(818, 108, 164, 34, 30, 1.2), '#3a3d42', { w: 4.5, extra: 2 });
+  s += '<g transform="translate(64 96) rotate(-3)">' + S.shape(S.rect(0, 0, 150, 62, 30, 1.2), YEL, { w: 3.5, extra: 2 }) +
+    '<text x="75" y="46" font-family="Oswald" font-weight="700" font-size="38" text-anchor="middle" fill="' + INK + '">B1–C1</text></g>';
+  // red cross disc (left, decoration)
+  s += S.shape(S.ellipse(330, 120, 50, 50, 30, 0.04), '#fff', { w: 5, extra: 2 }) +
+    '<path d="M318 88h24v20h20v24h-20v20h-24v-20h-20v-24h20z" fill="' + RED + '" stroke="' + INK + '" stroke-width="3"/>';
+
+  // ── headline: red brush-painted sign band „VERGESSEN?“ ──
+  var band = S.poly([[-30, 222], [1110, 196], [1110, 452], [-30, 474]], 40, 5);
+  s += '<g filter="url(#drop)">' + S.fillOnly(band, RED) + '</g>' + S.shape(band, RED, { w: 6, extra: 3 });
+  s += S.hatch(band, { ang: -12, gap: 9, w: 1.4, color: DRED, op: 0.5 });
+  s += word('VERGESSEN?', 540, 420, 212, '#ffffff', { rot: -2 });
+  s += word('Ab in die', 82, 600, 116, '#ffffff', { anchor: 'start', rot: -3 });
+  s += word('Notaufnahme!', 540, 770, 168, YEL, { rot: -3 });
+
+  // ── scene: doctor · stretcher with bandaged flashcard · Melo ──
+  // stretcher (behind the characters' fronts but in front of the wall)
+  var SX0 = 300, SX1 = 790, ST = 1112;
+  var str = '';
+  str += brush([[SX0 + 40, ST + 40], [SX0 + 30, 1222]], 10, '#555b60') + brush([[SX1 - 40, ST + 40], [SX1 - 30, 1222]], 10, '#555b60');
+  str += brush([[SX0 + 30, 1190], [SX1 - 30, 1190]], 8, '#555b60');
+  [[SX0 + 30, 1232], [SX1 - 30, 1232]].forEach(function (w) { str += S.shape(S.ellipse(w[0], w[1], 22, 22, 20, 0.03), '#2b2e33', { w: 4 }) + '<circle cx="' + w[0] + '" cy="' + w[1] + '" r="7" fill="#9aa1a8"/>'; });
+  var mat = S.poly([[SX0 - 10, ST], [SX1 + 10, ST - 6], [SX1 + 4, ST + 42], [SX0 - 4, ST + 46]], 30, 1.2);
+  str += S.shape(mat, '#f2f4f2', { w: 5, extra: 3 }) + S.hatch(mat, { ang: 10, gap: 9, w: 1.1, op: 0.25 });
+  str += S.shape(S.rect(SX0 - 22, ST + 34, SX1 - SX0 + 44, 18, 30, 1), '#8d959c', { w: 4, extra: 1 });
+  // pillow on the right end
+  str += S.shape(S.poly([[SX1 - 130, ST - 6], [SX1 - 116, ST - 52], [SX1 - 4, ST - 58], [SX1 + 6, ST - 8]], 20, 2), '#ffffff', { w: 4.5, extra: 2 });
+  // blanket (red-check) at the left end
+  var bl = S.poly([[SX0 - 6, ST - 18], [SX0 + 190, ST - 30], [SX0 + 206, ST + 30], [SX0 - 6, ST + 40]], 24, 2);
+  str += S.shape(bl, '#b8d5cf', { w: 4.5, extra: 2 }) + S.hatch(bl, { ang: 80, gap: 14, w: 2, color: '#6f9c92', op: 0.8 });
+  s += '<g filter="url(#drop)">' + str + '</g>' + str;
+
+  // the patient: flashcard „die Kaution“ propped on the pillow, bandaged
+  var CX = 548, CY = 1004, CT = 'die Kaution', CF = 64;
+  var cw = measure(CT, '900 ' + CF + 'px Fraunces') + 60, ch = 150;
+  var card = '<g transform="translate(' + CX + ' ' + CY + ') rotate(-7)">';
+  card += '<rect x="' + f1(-cw / 2 + 10) + '" y="' + f1(-ch / 2 + 14) + '" width="' + f1(cw) + '" height="' + ch + '" rx="16" fill="#000" opacity=".28"/>';
+  card += S.shape(S.rect(-cw / 2, -ch / 2, cw, ch, 30, 1.4), PAPER, { w: 5, extra: 3 });
+  card += brush([[-cw / 2 + 24, -ch / 2 + 28], [cw / 2 - 24, -ch / 2 + 26]], 3, '#c43d33');
+  card += '<text x="0" y="' + f1(CF * 0.36 + 12) + '" font-family="Fraunces" font-weight="900" font-size="' + CF + '" text-anchor="middle" fill="' + INK + '">' + CT + '</text>';
+  // crossed plasters on the top-left corner
+  function plaster(x, y, rot) {
+    var p = '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' + S.shape(S.rect(-70, -18, 140, 36, 20, 0.8), '#e7c99a', { w: 3.5, extra: 1 }) +
+      S.shape(S.rect(-22, -15, 44, 30, 20, 0.6), '#f3e2c2', { w: 2, extra: 0 });
+    for (var d = 0; d < 6; d++) p += '<circle cx="' + (-56 + (d % 3) * 8 + (d > 2 ? 86 : 0)) + '" cy="' + (d % 2 ? 6 : -6) + '" r="2.2" fill="#a07a4c"/>';
+    return p + '</g>';
+  }
+  card += plaster(-cw / 2 + 30, -ch / 2 + 22, 40) + plaster(-cw / 2 + 30, -ch / 2 + 22, -40);
+  // thermometer sticking out at the right corner
+  card += '<g transform="translate(' + f1(cw / 2 - 20) + ' ' + f1(-ch / 2 + 8) + ') rotate(32)">' + S.shape(S.rect(-8, -86, 16, 92, 20, 0.5), '#ffffff', { w: 3.5, extra: 1 }) +
+    '<rect x="-3.5" y="-60" width="7" height="62" fill="' + RED + '"/>' + S.shape(S.ellipse(0, 8, 13, 13, 18, 0.02), RED, { w: 3.5, extra: 1 }) + '</g>';
+  card += '</g>';
+  s += card;
+  // dizzy marks above the card
+  s += brush([[CX - 90, CY - 128], [CX - 70, CY - 152], [CX - 46, CY - 130], [CX - 26, CY - 152]], 6, INK, 4) + brush([[CX + 40, CY - 140], [CX + 58, CY - 162], [CX + 80, CY - 142]], 6, INK, 4);
+
+  // doctor (left) with clipboard
+  s += cast('arzt', { expr: 'skeptical', pose: 'idle', prop: 'clipboard' }, 160, 962, 80, -2);
+  // Melo (right), shocked shrug
+  s += melo({ view: 'full', pose: 'shrug', expression: 'surprised', look: [-0.7, 0.1], headTilt: -6 }, 918, 908, 162);
+
+  // ── calendar strip: TAG 4 · 7 · 14 · 30 ───────────────
+  var DAYS = ['4', '7', '14', '30'], CW = 186, CH = 186;
+  s += tag(272, 1290, 'WIEDERHOLEN AM TAG', INK, YEL, 34, -2, 2);
+  s += tag(808, 1290, '+ MORGEN-CHECK', '#ffffff', INK, 32, 3, 1);
+  DAYS.forEach(function (d, i) {
+    var cx = 186 + i * 236, cy = 1424, rot = [-4, 3, -2, 4][i];
+    var g = '<g transform="translate(' + cx + ' ' + cy + ') rotate(' + rot + ')">';
+    var page = S.rect(-CW / 2, -CH / 2, CW, CH, 30, 1.2);
+    g += '<rect x="' + (-CW / 2 + 9) + '" y="' + (-CH / 2 + 13) + '" width="' + CW + '" height="' + CH + '" rx="8" fill="#000" opacity=".35"/>';
+    g += S.shape(page, '#fbf7ec', { w: 5, extra: 3 });
+    g += S.shape(S.rect(-CW / 2, -CH / 2, CW, 50, 30, 1), RED, { w: 4, extra: 1 });
+    g += '<text x="0" y="' + (-CH / 2 + 38) + '" font-family="Oswald" font-weight="700" font-size="32" letter-spacing="4" text-anchor="middle" fill="#fff">TAG</text>';
+    g += '<text x="0" y="' + (CH / 2 - 24) + '" font-family="Anton" font-size="' + (d.length > 1 ? 104 : 112) + '" text-anchor="middle" fill="' + INK + '">' + d + '</text>';
+    [-50, 50].forEach(function (rx) { g += '<rect x="' + (rx - 6) + '" y="' + (-CH / 2 - 16) + '" width="12" height="30" rx="6" fill="#4a4f55" stroke="' + INK + '" stroke-width="3"/>'; });
+    g += '</g>';
+    s += g;
+    if (i < 3) s += brush([[cx + 100, cy - 6], [cx + 136, cy - 14]], 9, INK) + brush([[cx + 124, cy - 26], [cx + 140, cy - 14], [cx + 122, cy + 2]], 8, INK);
+  });
+
+  // ── bottom decoration: ECG line ───────────────────────
+  var ecg = [[-20, 1640], [180, 1640], [210, 1612], [240, 1640], [300, 1640], [330, 1690], [370, 1536], [410, 1712], [440, 1640], [520, 1640], [550, 1616], [590, 1640], [700, 1640], [730, 1690], [770, 1536], [810, 1712], [840, 1640], [1100, 1640]];
+  s += S.line(ecg, { w: 16, ta: 0.02, tb: 0.02, min: 0.9, jit: 0.1 }, '#000', ' opacity=".35" transform="translate(5 7)"');
+  s += S.line(ecg, { w: 11, ta: 0.02, tb: 0.02, min: 0.9, jit: 0.1 }, RED);
+
+  s += '<rect width="1080" height="1920" fill="url(#vig)"/><rect width="1080" height="1920" filter="url(#grain)" opacity=".22" style="mix-blend-mode:multiply"/>';
+  if (HASH === 'g') s += '<rect x="0" y="420" width="1080" height="1080" fill="none" stroke="#0f0" stroke-width="4" stroke-dasharray="20 12"/><rect x="0" y="1500" width="1080" height="420" fill="#f00" opacity=".18"/><rect x="0" y="0" width="1080" height="180" fill="#f00" opacity=".18"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+})();
+</script>
+</body>
+</html>
