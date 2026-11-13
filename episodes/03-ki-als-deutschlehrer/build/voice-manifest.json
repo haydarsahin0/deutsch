@@ -15,6 +15,14 @@
    "trim_start": 0.0,
    "trim_end": 290.5861,
    "offset": 264.1606
+  },
+  {
+   "file": "audio/teil-3.mp3",
+   "sha1": "db513c4598f9f7c8f33f8b357987a1269e8ed3e5",
+   "source_duration": 285.649,
+   "trim_start": 0.0,
+   "trim_end": 285.649,
+   "offset": 555.0968
   }
  ],
  "gap": 0.35,
@@ -26,15 +34,29 @@
    "pause_s": 5.0,
    "word": 666,
    "gap_before": 0.55
+  },
+  {
+   "at": 755.43,
+   "dur": 4.52,
+   "pause_s": 5.0,
+   "word": 1830,
+   "gap_before": 0.48
+  },
+  {
+   "at": 765.995,
+   "dur": 4.525,
+   "pause_s": 5.0,
+   "word": 1851,
+   "gap_before": 0.475
   }
  ],
  "loudness": {
-  "input_lufs": -20.26,
+  "input_lufs": -20.36,
   "input_true_peak": -1.18,
-  "gain_db": 4.26,
+  "gain_db": 4.36,
   "limiter": true,
   "target_lufs": -16.0
  },
- "voice_sha1": "cafd3d8e5768ac5da5e4d86de466e3fb59d58fcb",
- "duration": 559.197
+ "voice_sha1": "80753445839a2076fdf6cc7163f38220ba3edf8b",
+ "duration": 854.241
 }
