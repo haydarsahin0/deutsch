@@ -3,10 +3,22 @@
   "episode": "episodes/01-das-sagt-kein-deutscher",
   "segments": [
     {
-      "from": 568.21,
-      "to": 620.56,
+      "from": 568.15,
+      "to": 571.3,
       "crop_x": 0,
-      "note": "Nr. 12: „Hast du keinen Hunger?“ – „Ja!“ → „Doch!“ … Also perfekt für mich."
+      "note": "Claim hook: „Das Wort, bei dem sogar Leute mit C1 noch stolpern.“"
+    },
+    {
+      "from": 574.8,
+      "to": 611.2,
+      "crop_x": 0,
+      "note": "„Hast du keinen Hunger?“ – „Ja!“ → nur eine Pizza für sich → Regel: Frage mit nicht/kein + Widerspruch = „Doch!“ → auch bei Aussagen."
+    },
+    {
+      "from": 615.05,
+      "to": 618.4,
+      "crop_x": 0,
+      "note": "„Kurz, klar – und ein kleines bisschen rechthaberisch.“"
     }
   ],
   "cta": {
