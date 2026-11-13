@@ -366,7 +366,13 @@ def main():
         inp += ['-loop', '1', '-framerate', FPS, '-t', f'{total:.3f}', '-i', build / 'top.png']
     else:
         inp += ['-framerate', FPS, '-i', build / 'top' / 'f_%04d.png']
-    fc.append(f'[0:v][vid]overlay=0:{SLOT_Y}:shortest=0[c1]')
+    if cfg.get('bg') == 'blur':   # full-screen vertical look: the same video, zoomed + blurred + darkened, fills the whole 9:16 frame behind the panel
+        fc.append('[vid]split[vfg][vsrc]')
+        fc.append('[vsrc]scale=-2:1920:flags=bilinear,crop=1080:1920,boxblur=24:2,eq=brightness=-0.22:saturation=0.85[vbg]')
+        fc.append(f'[0:v][vbg]overlay=0:0:shortest=0[b0]')
+        fc.append(f'[b0][vfg]overlay=0:{SLOT_Y}:shortest=0[c1]')
+    else:
+        fc.append(f'[0:v][vid]overlay=0:{SLOT_Y}:shortest=0[c1]')
     fc.append(f'[c1][{i_top}:v]overlay=0:0:eof_action=repeat:format=auto[c2]')
     fonts_dir = str(FONTS).replace(':', r'\:')
     fc.append(f"[c2]subtitles='{ass}':fontsdir='{fonts_dir}'[c3]")

@@ -1,0 +1,64 @@
+{
+  "id": "08-warmmiete",
+  "episode": "episodes/02-50-woerter-am-tag",
+  "segments": [
+    {
+      "from": 182.6,
+      "to": 195.4,
+      "crop_x": 0,
+      "note": "Cold open = Mitmach-Quiz + full 5 s countdown + „Achthundertdreißig Euro.“"
+    },
+    {
+      "from": 195.72,
+      "to": 199.45,
+      "crop_x": 0,
+      "note": "„Wenn jemand sagt ‚830 warm‘, meint er genau das.“"
+    },
+    {
+      "from": 157.65,
+      "to": 164.0,
+      "crop_x": 0,
+      "note": "Kaltmiete = ohne Heizung, Wasser, Müll"
+    },
+    {
+      "from": 166.75,
+      "to": 170.05,
+      "crop_x": 0,
+      "note": "= Nebenkosten"
+    },
+    {
+      "from": 173.75,
+      "to": 180.62,
+      "crop_x": 0,
+      "note": "Kalt + Nebenkosten = Warmmiete = was du wirklich zahlst"
+    }
+  ],
+  "cta": {
+    "from": 695.85,
+    "to": 699.8,
+    "hold": 0.6,
+    "note": "Wenn du Deutsch lieber ehrlich als bequem lernen willst, abonnier den Kanal."
+  },
+  "hook": [
+    "WIE VIEL ZAHLST DU?",
+    "650 € kalt + 180 € = ?"
+  ],
+  "tag": "DEUTSCH MIT MELO",
+  "endcard": {
+    "line1": "GEFÄLLT'S DIR?",
+    "line2": "LIKE & ABONNIEREN!",
+    "sub": "Ganzes Video auf dem Kanal"
+  },
+  "pad": 0.15,
+  "max_duration": 59,
+  "fit": "full",
+  "subtitle_style": {
+    "lines": 1,
+    "size": 110,
+    "x": 540,
+    "y": 1375,
+    "max_width": 760
+  },
+  "subtitle_max_words": 3,
+  "bg": "blur"
+}
