@@ -1,5 +1,5 @@
 /* tandem-cafe — a language café („Sprachcafé") in the evening: exposed brick + deep teal walls, warm string lights
- * (ambient twinkle), chalkboard „Sprachcafé · Tandem · heute 19 Uhr · Deutsch · Türkisch · Englisch · Spanisch",
+ * (ambient twinkle), chalkboard „Sprachcafé · Tandem · heute 19 Uhr · Deutsch · Französisch · Englisch · Spanisch",
  * a window to the night street, another tandem pair as soft low-contrast silhouettes at a back table, counter with
  * an espresso machine on the right. fg = small round table for two with a cloth (two cups, open notebook; slots
  * `table-left` / `table-right`) + the counter (slot `counter` = behind it). Free table top: x 900–1020, y ≈ 600–660.
@@ -46,7 +46,7 @@
     bg += S.T(C.x + C.w / 2, C.y + 66, 'Sprachcafé', { f: 'Caveat', s: 60, c: '#f4eedf', a: 'middle' });
     bg += S.seg(C.x + 70, C.y + 84, C.x + C.w - 70, C.y + 86, 2, '#e9b85c');
     bg += S.T(C.x + C.w / 2, C.y + 140, 'Tandem', { f: 'Kalam', s: 40, c: '#e9b85c', a: 'middle' }) + S.T(C.x + C.w / 2, C.y + 188, 'heute 19 Uhr', { f: 'Kalam', s: 34, c: '#f4eedf', a: 'middle' });
-    bg += S.T(C.x + C.w / 2, C.y + 250, 'Deutsch · Türkisch', { f: 'Kalam', s: 24, c: '#cfd8c8', a: 'middle' }) + S.T(C.x + C.w / 2, C.y + 282, 'Englisch · Spanisch', { f: 'Kalam', s: 24, c: '#cfd8c8', a: 'middle' });
+    bg += S.T(C.x + C.w / 2, C.y + 250, 'Deutsch · Französisch', { f: 'Kalam', s: 24, c: '#cfd8c8', a: 'middle' }) + S.T(C.x + C.w / 2, C.y + 282, 'Englisch · Spanisch', { f: 'Kalam', s: 24, c: '#cfd8c8', a: 'middle' });
     bg += S.lines([U.catmull(S.ellipse(C.x + 50, C.y + 150, 26, 18, 8, 0.1), 3, true), [[C.x + 40, C.y + 166], [C.x + 32, C.y + 182]], U.catmull(S.ellipse(C.x + C.w - 50, C.y + 150, 26, 18, 8, 0.1), 3, true)], { w: 2, ta: 0.1, tb: 0.1 }, '#f4eedf', ' opacity=".8"');
 
     // ── window to the night street ──
