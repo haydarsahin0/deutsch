@@ -13,8 +13,8 @@ until = float(args[args.index('--until') + 1]) if '--until' in args else None
 shotlist = args[args.index('--shotlist') + 1] if '--shotlist' in args else None
 
 VOCAB = {'scene', 'camera', 'melo', 'draw', 'next', 'strike', 'highlight', 'tick', 'erase', 'quiz', 'reveal',
-         'voice', 'pause', 'sfx', 'shot', 'cast', 'say', 'prop', 'fx', 'pin'}
-SHOT_TYPES = {'scene', 'text', 'split', 'board', 'list', 'map', 'chapter', 'melo', 'quiz'}
+         'voice', 'pause', 'sfx', 'shot', 'cast', 'say', 'prop', 'fx', 'pin', 'cards'}
+SHOT_TYPES = {'scene', 'text', 'split', 'board', 'list', 'map', 'chapter', 'melo', 'quiz', 'cards'}
 SETS = set('office-hot dinner-table cellar winter-room living-room cinema-front football-park biergarten '
            'supermarket-checkout doctor-office doorstep quiz-show kneipe job-interview bakery after-work-desk '
            'park-bench university laptop-email wg-kitchen exam-room map-dach board office-plain street-day'.split())
@@ -27,13 +27,13 @@ MELO_EXPR = set('deadpan smirk talking surprised unimpressed annoyed laughing'.s
 MELO_POSE = set('idle finger point explain crossed chin shrug'.split())
 FX = set('shake flash zoom-punch sweat steam hearts question-marks sparkle record-scratch'.split())
 IN = set('cut ink whip slide zoom'.split())
-CAM = set('wide push pan-left pan-right tilt'.split())
+CAM = set('wide push pan-left pan-right tilt static'.split())
 CAMSHOT = set('wide melo board close'.split()) | CAM
 DRAW = set('title wrong right word sentence note bubble list icon'.split())
 TEXT_STYLES = set('wrong right big question stack'.split())
 MELO_MODES = re.compile(r'^(off|corner-left|corner-right|side-left|side-right|in-scene:[\w-]+)$')
 EVENT = {'shot', 'draw', 'say', 'prop', 'fx', 'cast', 'camera', 'next', 'strike', 'tick', 'highlight', 'erase',
-         'pin', 'reveal', 'quiz'}
+         'pin', 'reveal', 'quiz', 'cards'}
 
 al = json.load(open(alj))
 sc = align.parse_script(script)
