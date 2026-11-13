@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Cover Short 08 v2</title>
+<!-- Shorts cover v2 for 08-warmmiete (quiz: Kaltmiete 650 € + Nebenkosten 180 € = Warmmiete ?).
+     Own colour world: icy night-blue (left) vs. glowing oxblood/ember (right) — the first cold-vs-warm cover.
+     Own layout: steep vertical seam (the owner's favourite ep2 thumb B split, turned upright): headline across the top,
+     „KALT 650 €“ with a snowflake disc on the cold side, „WARM ?“ with a flame disc + red ink loop on the warm side,
+     a torn rent receipt „NEBENKOSTEN + 180 €“ pinned on the seam; below: Melo thinking on the cold side (snowdrift),
+     a hot radiator with heat waves on the warm side. Icicles / embers as top decoration.
+     Key content in the central 1080×1080 (y 420–1500). Append #g to overlay the safe zones.
+     node tools/render.js shorts/08-warmmiete/cover/cover.html shorts/08-warmmiete/out/cover-v2.png 1080 1920 -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #081a30; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+</head>
+<body>
+<svg id="stage" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+(async function () {
+  await Promise.all(['400 100px Anton', '700 100px Oswald'].map(function (f) { return document.fonts.load(f, 'AÄ€?+=0123456789'); }));
+  var W = 1080, H = 1920, HASH = (location.hash || '').slice(1);
+  var INK = '#14110d', RED = '#e3342b', YEL = '#FFC83A', PAPER = '#f6efdc', ICE = '#d9f2ff', NAVY = '#123e6e';
+  var S = new SceneInk(808), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+  function f1(v) { return U.f1(v); }
+  function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function R(a, b) { return S.rand(a, b); }
+  // seam: steep diagonal from (660,0) to (420,1920)
+  function seamX(y) { return 660 - 240 * y / 1920; }
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="5"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .45  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="40"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="drop" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="9"/><feOffset dx="9" dy="13"/><feComponentTransfer><feFuncA type="linear" slope=".45"/></feComponentTransfer></filter>' +
+    '<clipPath id="coldC"><path d="M0 0H660L420 1920H0Z"/></clipPath><clipPath id="warmC"><path d="M660 0H1080V1920H420Z"/></clipPath>' +
+    '<linearGradient id="coldG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a2748"/><stop offset=".55" stop-color="#0f3a66"/><stop offset="1" stop-color="#071a31"/></linearGradient>' +
+    '<linearGradient id="warmG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c0806"/><stop offset=".55" stop-color="#6a1409"/><stop offset="1" stop-color="#2a0705"/></linearGradient>' +
+    '<radialGradient id="vig" cx="50%" cy="48%" r="75%"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>';
+
+  function word(t, x, y, size, fill, o) {
+    o = o || {};
+    var sw = size * (o.sw || 0.075), sh = size * 0.055;
+    var a = 'x="' + x + '" y="' + y + '" font-family="Anton" font-size="' + size + '" text-anchor="' + (o.anchor || 'middle') + '"' + (o.ls ? ' letter-spacing="' + o.ls + '"' : '');
+    var g = '<g' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    g += '<text ' + a + ' fill="#000" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + f1(sh) + ' ' + f1(sh * 1.2) + ')">' + esc(t) + '</text>';
+    g += '<text ' + a + ' fill="' + fill + '" stroke="#000" stroke-width="' + f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + esc(t) + '</text>';
+    return g + '</g>';
+  }
+  function fit(t, size, maxW, font) { var w = measure(t, (font || '400 ') + size + 'px Anton'); return w > maxW ? size * maxW / w : size; }
+  function brush(pts, w, color, smooth) { return S.line(pts, { w: w, ta: 0.12, tb: 0.25, min: 0.45, jit: 0.2, smooth: smooth || 0 }, color); }
+  function loop(cx, cy, rx, ry, w, color, rot) {
+    var pts = [], n = 46, a0 = -2.2;
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (Math.PI * 2 + 0.55) * i / n, k = 1 + 0.05 * Math.sin(i * 0.5) + i * 0.0012;
+      pts.push([cx + rx * k * Math.cos(a), cy + ry * k * Math.sin(a)]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + cx + ' ' + cy + ')">' + S.line(pts, { w: w, ta: 0.08, tb: 0.25, min: 0.45, jit: 0.1 }, color) + '</g>';
+  }
+  function melo(opts, hx, hy, hh) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh;
+    var vb = [-hx * u, -388 - hy * u, W * u, H * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#drop)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+  }
+  // snowflake glyph (6 spokes with twigs)
+  function flake(cx, cy, r, color, w) {
+    var L = [];
+    for (var i = 0; i < 6; i++) {
+      var a = Math.PI / 6 + i * Math.PI / 3, c = Math.cos(a), sn = Math.sin(a);
+      L.push([[cx, cy], [cx + r * c, cy + r * sn]]);
+      [0.45, 0.72].forEach(function (k, j) {
+        var bx = cx + r * k * c, by = cy + r * k * sn, bl = r * (j ? 0.24 : 0.3);
+        [-0.75, 0.75].forEach(function (d) { L.push([[bx, by], [bx + bl * Math.cos(a + d), by + bl * Math.sin(a + d)]]); });
+      });
+    }
+    return S.lines(L, { w: w, ta: 0.1, tb: 0.2, min: 0.6, jit: 0.15 }, color);
+  }
+  function flame(cx, cy, h) {
+    function tongue(x, y, hh, ww, c) {
+      var p = 'M' + f1(x) + ' ' + f1(y) + ' C' + f1(x - ww) + ' ' + f1(y - hh * 0.25) + ' ' + f1(x - ww * 0.7) + ' ' + f1(y - hh * 0.7) + ' ' + f1(x + ww * 0.05) + ' ' + f1(y - hh) +
+        ' C' + f1(x + ww * 0.1) + ' ' + f1(y - hh * 0.62) + ' ' + f1(x + ww * 0.75) + ' ' + f1(y - hh * 0.6) + ' ' + f1(x + ww * 0.55) + ' ' + f1(y - hh * 0.92) +
+        ' C' + f1(x + ww * 1.15) + ' ' + f1(y - hh * 0.55) + ' ' + f1(x + ww) + ' ' + f1(y - hh * 0.1) + ' ' + f1(x) + ' ' + f1(y) + 'Z';
+      return '<path d="' + p + '" fill="' + c + '" stroke="' + INK + '" stroke-width="4.5" stroke-linejoin="round"/>';
+    }
+    return tongue(cx, cy + h * 0.5, h, h * 0.52, '#e8401f') + tongue(cx + 2, cy + h * 0.5, h * 0.66, h * 0.33, '#ff9a1f') + tongue(cx + 3, cy + h * 0.5, h * 0.36, h * 0.17, '#ffe08a');
+  }
+  function disc(cx, cy, r, fill) {
+    return '<g filter="url(#drop)">' + S.fillOnly(S.ellipse(cx, cy, r, r, 40, 0.03), fill) + '</g>' + S.shape(S.ellipse(cx, cy, r, r, 40, 0.03), fill, { w: 6, extra: 3 });
+  }
+
+  // ── background split ─────────────────────────────────
+  s += '<rect width="1080" height="1920" fill="url(#coldG)" clip-path="url(#coldC)"/>';
+  s += '<rect width="1080" height="1920" fill="url(#warmG)" clip-path="url(#warmC)"/>';
+  s += '<g clip-path="url(#coldC)"><circle cx="230" cy="860" r="430" fill="#4fb8ff" opacity=".42" filter="url(#glow)"/>' +
+    '<circle cx="120" cy="300" r="260" fill="#9fd8ff" opacity=".18" filter="url(#glow)"/></g>';
+  s += '<g clip-path="url(#warmC)"><circle cx="860" cy="930" r="440" fill="#ff7a1a" opacity=".55" filter="url(#glow)"/>' +
+    '<circle cx="860" cy="1500" r="330" fill="#ff5a14" opacity=".45" filter="url(#glow)"/></g>';
+  // ink hatching: cold = steep cross-hatch, warm = soft diagonal
+  s += '<g clip-path="url(#coldC)">' + S.hatch(S.rect(0, 0, 680, 1920, 300, 0), { ang: 62, gap: 15, w: 1.2, op: 0.13 }) + '</g>';
+  s += '<g clip-path="url(#warmC)">' + S.hatch(S.rect(400, 0, 680, 1920, 300, 0), { ang: -28, gap: 14, w: 1.2, op: 0.14 }) + '</g>';
+  // rays from the seam centre
+  var rc = '';
+  for (var i = 0; i < 18; i++) { var a0 = i * Math.PI / 9, a1 = a0 + 0.07; rc += '<path d="M548 920 L' + f1(548 + 1600 * Math.cos(a0)) + ' ' + f1(920 + 1600 * Math.sin(a0)) + ' L' + f1(548 + 1600 * Math.cos(a1)) + ' ' + f1(920 + 1600 * Math.sin(a1)) + 'Z" fill="#fff"/>'; }
+  s += '<g opacity=".045">' + rc + '</g>';
+
+  // falling snow (cold) and embers (warm) — small, background only
+  var sn = '';
+  for (var k = 0; k < 70; k++) { var x = R(10, 650), y = R(10, 1900); if (x > seamX(y) - 20) continue; sn += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(R(2.5, 7)) + '" fill="#e8f6ff" opacity="' + f1(R(0.3, 0.7)) + '"/>'; }
+  for (var k2 = 0; k2 < 10; k2++) { var x2 = R(30, 560), y2 = R(150, 1600); if (x2 > seamX(y2) - 60) continue; sn += '<g opacity=".35">' + flake(x2, y2, R(12, 20), '#e8f6ff', 2.4) + '</g>'; }
+  for (var k3 = 0; k3 < 45; k3++) { var x3 = R(430, 1070), y3 = R(10, 1900); if (x3 < seamX(y3) + 20) continue; sn += '<circle cx="' + f1(x3) + '" cy="' + f1(y3) + '" r="' + f1(R(2, 5.5)) + '" fill="' + (k3 % 3 ? '#ffb347' : '#ffe08a') + '" opacity="' + f1(R(0.35, 0.8)) + '"/>'; }
+  s += sn;
+
+  // seam ink line
+  s += S.line([[662, -10], [548, 920], [418, 1930]], { w: 14, ta: 0, tb: 0, min: 1 }, '#000');
+
+  // ── top decoration: roof gutter with icicles (cold) · heat haze (warm) · B1–C1 ──
+  var gut = S.poly([[-20, 0], [652, 0], [648, 34], [-20, 40]], 40, 1.5);
+  s += S.shape(gut, '#2c5a86', { w: 5, extra: 2 });
+  var ic = '';
+  for (var gx = 18; gx < 620; gx += R(34, 58)) {
+    var len = R(50, 150), wd = R(14, 24);
+    var pt = [[gx - wd / 2, 34], [gx + wd / 2, 34], [gx + R(-3, 3), 34 + len]];
+    ic += S.shape(S.poly(pt, 30, 1), ICE, { w: 3.5, extra: 1 }) + brush([[gx - wd / 5, 42], [gx - 1, 30 + len * 0.6]], 3, '#ffffff');
+  }
+  s += ic;
+  var hz = '';
+  for (var h = 0; h < 4; h++) {
+    var hx = 760 + h * 82, pts = [];
+    for (var t = 0; t <= 10; t++) pts.push([hx + 16 * Math.sin(t * 1.1 + h), 170 - t * 14]);
+    hz += brush(pts, 7, '#ff9a3c', 2);
+  }
+  s += '<g opacity=".7">' + hz + '</g>';
+  s += '<g transform="translate(470 92) rotate(-2)">' + S.shape(S.rect(0, 0, 150, 62, 30, 1.2), YEL, { w: 3.5, extra: 2 }) +
+    '<text x="75" y="46" font-family="Oswald" font-weight="700" font-size="38" text-anchor="middle" fill="' + INK + '">B1–C1</text></g>';
+
+  // ── headline across both halves ─────────────────────
+  var h1 = fit('WIE VIEL', 200, 820), h2 = fit('ZAHLST DU?', 200, 980);
+  s += word('WIE VIEL', 540, 400, h1, '#ffffff', { rot: -3 });
+  s += word('ZAHLST DU?', 540, 600, h2, YEL, { rot: -3 });
+
+  // ── cold side: snowflake disc · KALT · 650 € ───────
+  s += disc(118, 738, 66, ICE) + flake(118, 738, 46, NAVY, 6.5);
+  s += word('KALT', 206, 790, 128, '#ffffff', { anchor: 'start', rot: -3 });
+  var nk = fit('650 €', 196, 470);
+  s += word('650 €', 270, 1000, nk, YEL, { rot: -3 });
+
+  // ── warm side: flame disc · WARM · ? in red ink loop ──
+  s += disc(650, 726, 66, PAPER) + flame(650, 730, 92);
+  s += word('WARM', 736, 778, 128, '#ffffff', { anchor: 'start', rot: 3 });
+  s += word('?', 790, 1052, 300, YEL, { rot: 4, sw: 0.06 });
+  s += word('€', 935, 1018, 140, '#ffffff', { rot: 4 });
+  s += loop(842, 940, 178, 156, 22, '#000', 8) + loop(842, 940, 178, 156, 13, RED, 8);
+
+  // ── receipt on the seam: NEBENKOSTEN + 180 € ─────────
+  var RX = 540, RY = 1156, RW = 380, RH = 168;
+  var rp = [], zz = 14;
+  for (var zx = -RW / 2; zx <= RW / 2 + 0.1; zx += RW / zz) rp.push([zx, -RH / 2 + ((Math.round((zx + RW / 2) / (RW / zz)) % 2) ? -9 : 0)]);
+  for (var zx2 = RW / 2; zx2 >= -RW / 2 - 0.1; zx2 -= RW / zz) rp.push([zx2, RH / 2 + ((Math.round((zx2 + RW / 2) / (RW / zz)) % 2) ? 9 : 0)]);
+  var rc2 = '<g transform="translate(' + RX + ' ' + RY + ') rotate(-5)">';
+  rc2 += '<g filter="url(#drop)">' + S.fillOnly(rp, PAPER) + '</g>' + S.shape(rp, PAPER, { w: 4.5, extra: 2 });
+  rc2 += S.hatch(rp, { ang: 20, gap: 10, w: 1, op: 0.12 });
+  rc2 += '<text x="0" y="-34" font-family="Oswald" font-weight="700" font-size="34" letter-spacing="3" text-anchor="middle" fill="#7a2a1a">NEBENKOSTEN</text>';
+  rc2 += brush([[-RW / 2 + 28, -18], [RW / 2 - 28, -20]], 2.5, '#7a2a1a');
+  rc2 += '<text x="0" y="62" font-family="Anton" font-size="92" text-anchor="middle" fill="' + INK + '">+ 180 €</text>';
+  // pin
+  rc2 += '<circle cx="0" cy="' + (-RH / 2 + 4) + '" r="15" fill="' + RED + '" stroke="' + INK + '" stroke-width="4"/><circle cx="-4" cy="' + (-RH / 2) + '" r="4.5" fill="#ffd2c8"/>';
+  rc2 += '</g>';
+  s += rc2;
+
+  // ── floor: snowdrift (cold) · warm floorboards (warm) ──
+  var FY = 1640;
+  s += '<g clip-path="url(#warmC)">' + S.shape(S.poly([[380, FY], [1100, FY - 10], [1100, 1940], [380, 1940]], 40, 1.5), '#3d1309', { w: 6, extra: 2 }) +
+    S.lines([[[420, 1720], [1100, 1708]], [[420, 1810], [1100, 1796]]], { w: 3, ta: 0.05, tb: 0.05, min: 0.6, jit: 0.3 }, '#000', ' opacity=".55"') +
+    S.hatch(S.rect(380, FY, 720, 300, 200, 0), { ang: 8, gap: 11, w: 1.2, op: 0.25 }) + '</g>';
+  var drift = [[-20, FY - 30]];
+  for (var dx = 0; dx <= 620; dx += 40) drift.push([dx, FY - 34 - 46 * Math.sin(dx / 620 * Math.PI) + R(-6, 6)]);
+  drift = drift.concat([[640, FY + 40], [560, 1940], [-20, 1940]]);
+  s += '<g clip-path="url(#coldC)">' + S.shape(drift, '#cfe9fb', { w: 6, extra: 2 }) + S.hatch(drift, { ang: -20, gap: 12, w: 1.3, color: '#4d7fae', op: 0.45 }) + '</g>';
+
+  // ── radiator (warm side) with heat waves ─────────────
+  var RAX = 650, RAY = 1330, FIN = 7, FW = 50, RAH = 300;
+  var rad = '';
+  rad += S.shape(S.rect(RAX - 16, RAY + 30, FIN * FW + 32, 22, 30, 0.8), '#e9dcc4', { w: 4, extra: 1 });
+  rad += S.shape(S.rect(RAX - 16, RAY + RAH - 54, FIN * FW + 32, 22, 30, 0.8), '#e9dcc4', { w: 4, extra: 1 });
+  for (var fi = 0; fi < FIN; fi++) {
+    var fx = RAX + fi * FW;
+    var fin = S.rect(fx + 3, RAY, FW - 8, RAH, 30, 0.8);
+    rad += S.shape(fin, '#f2e6cf', { w: 4.5, extra: 1 }) + '<rect x="' + (fx + 8) + '" y="' + (RAY + 10) + '" width="10" height="' + (RAH - 20) + '" fill="#fff" opacity=".55"/>';
+    rad += '<rect x="' + (fx + 30) + '" y="' + (RAY + 6) + '" width="9" height="' + (RAH - 12) + '" fill="#c99a6a" opacity=".45"/>';
+  }
+  // feet + thermostat knob „5“
+  rad += brush([[RAX + 20, RAY + RAH], [RAX + 20, FY + 4]], 12, '#4a3a2c') + brush([[RAX + FIN * FW - 26, RAY + RAH], [RAX + FIN * FW - 26, FY - 2]], 12, '#4a3a2c');
+  rad += S.shape(S.rect(RAX + FIN * FW - 4, RAY + 150, 34, 24, 20, 0.6), '#cfc3ad', { w: 4 }) + S.shape(S.ellipse(RAX + FIN * FW + 44, RAY + 162, 30, 30, 26, 0.03), '#ffffff', { w: 4.5, extra: 1 }) +
+    '<text x="' + (RAX + FIN * FW + 44) + '" y="' + (RAY + 176) + '" font-family="Oswald" font-weight="700" font-size="38" text-anchor="middle" fill="' + RED + '">5</text>';
+  s += '<circle cx="' + (RAX + FIN * FW / 2) + '" cy="' + (RAY + RAH / 2) + '" r="260" fill="#ff6a00" opacity=".35" filter="url(#glow)"/>';
+  s += '<g filter="url(#drop)">' + rad + '</g>' + rad;
+  s += S.hatch(S.rect(RAX, RAY, FIN * FW, RAH, 100, 0), { ang: 70, gap: 9, w: 1, op: 0.12 });
+  var hw = '';
+  for (var wv = 0; wv < 4; wv++) {
+    var wx = RAX + 50 + wv * 82, wp = [];
+    for (var tt = 0; tt <= 8; tt++) wp.push([wx + 14 * Math.sin(tt * 1.15 + wv * 1.3), RAY - 22 - tt * 13]);
+    hw += brush(wp, 8, '#ffb347', 2);
+  }
+  s += hw;
+
+  // ── Melo on the cold side, thinking, looking up at the „?“ ──
+  s += melo({ view: 'full', pose: 'chin', expression: 'skeptical', look: [0.75, -0.55], headTilt: 6 }, 232, 1296, 168);
+  // shiver marks next to Melo
+  s += brush([[96, 1262], [84, 1286], [98, 1310], [86, 1334]], 5, '#e8f6ff', 3) + brush([[382, 1250], [394, 1274], [380, 1298], [392, 1322]], 5, '#e8f6ff', 3);
+
+  s += '<rect width="1080" height="1920" fill="url(#vig)"/><rect width="1080" height="1920" filter="url(#grain)" opacity=".22" style="mix-blend-mode:overlay"/>';
+  if (HASH === 'g') s += '<rect x="0" y="420" width="1080" height="1080" fill="none" stroke="#0f0" stroke-width="4" stroke-dasharray="20 12"/><rect x="0" y="1500" width="1080" height="420" fill="#f00" opacity=".18"/><rect x="0" y="0" width="1080" height="180" fill="#f00" opacity=".18"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+  window.__done = true;
+})();
+</script>
+</body>
+</html>
