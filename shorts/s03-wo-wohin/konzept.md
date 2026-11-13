@@ -5,8 +5,8 @@ Loop: the end „Und wo liegt es jetzt?“ leads into the start „Auf dem Tisch
 Auf dem Tisch.
 Oder „auf den Tisch“? Beides ist richtig. Aber nur eins passt.
 Die Regel in zehn Sekunden. Frag immer: Wo oder wohin?
-Wohin? Da ist Bewegung, ein Ziel. Das heißt: Akkusativ. Ich lege das Handy auf den Tisch.
-Wo? Keine Bewegung, nur ein Ort. Das heißt: Dativ. Das Handy liegt auf dem Tisch.
+Wohin? Da gibt es ein Ziel. Das heißt: Akkusativ. Ich lege das Handy auf den Tisch.
+Wo? Kein Ziel, nur ein Ort. Das heißt: Dativ. Das Handy liegt auf dem Tisch. Auch mit Bewegung: Ich jogge im Park.
 Die Verben verraten es dir: legen, stellen, setzen – wohin. Liegen, stehen, sitzen – wo.
 Das gilt für neun Präpositionen: an, auf, hinter, in, neben, über, unter, vor, zwischen.
 Profi-Level: Ich gehe in die Küche. Ich koche in der Küche.

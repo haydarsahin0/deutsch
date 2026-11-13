@@ -1,0 +1,57 @@
+[quietly, late at night] Tag dreißig. Ich frage meine KI: Wie gut ist dieser Text?
+
+[overly cheerful] „Wow, toller Text! Nur ein paar Kleinigkeiten.“
+
+[deadpan] In diesem Text sind elf Fehler. Ich weiß das genau. … Ich habe sie selbst eingebaut.
+
+[conspiratorial] Und heute zeige ich dir den einen Satz, mit dem dieselbe KI plötzlich ehrlich wird.
+
+[cheerful] Hi, ich bin Melo. Hier gibt's Deutsch mit Kern. Und ja, mein Kopf ist eine Wassermelone. Die KI hat das in dreißig Tagen kein einziges Mal kommentiert. … [dry] Sehr höflich.
+
+Das Experiment: Dreißig Tage lang habe ich einen Deutschschüler auf B1 gespielt – mit genau den Fehlern, die fast alle auf diesem Niveau machen. Jeden Tag zwanzig Minuten. Mein Lehrer: eine KI.
+
+Welche KI? Egal. Die Probleme, die du gleich siehst, sind typisch für Chatbots. [matter-of-fact] Keine Werbung, kein Sponsor – nur ein ehrlicher Test.
+
+Woche eins: Die KI ist mein Gesprächspartner. Woche zwei: Sie korrigiert meine Texte. Woche drei: Sie erklärt mir Grammatik. Woche vier: Sie trainiert mich für die Prüfung.
+
+Einmal hat sie mir eine Grammatikregel erklärt – ganz sicher, ganz freundlich. Die Regel war falsch. Und am Ende hast du fünf Prompts, die wirklich funktionieren. Zum Kopieren.
+
+Woche eins. Ehrlich: Das Erste, was mich umgehauen hat, war die Uhrzeit. Sonntag, dreiundzwanzig Uhr – und mein Lehrer hat Zeit. Keine Termine, keine schlechte Laune. Und kein Seufzen, wenn ich etwas zum dritten Mal frage.
+
+Meine erste Nachricht: „Seit drei Jahren ich wohne in Berlin.“ … [overly cheerful] Und die KI: „Wie schön! Berlin ist eine tolle Stadt! Was gefällt dir am besten? Die Museen, die Parks, das Essen …“
+
+[deadpan] Und dann noch zehn Sätze über Berlin. Ich schreibe einen Satz, die KI schreibt einen Roman. Und wer übt dann eigentlich? … Sie.
+
+Und mein Fehler? Kein Wort dazu. Richtig wäre: Seit drei Jahren wohne ich in Berlin. Im Hauptsatz steht das Verb auf Platz zwei. Auch wenn Platz eins drei Wörter lang ist.
+
+Ab Tag drei habe ich die Regeln geändert. [slowly, clearly] Prompt Nummer eins: „Stell mir zehn Fragen zum Thema Wohnen. Warte nach jeder Frage auf meine Antwort. Korrigiere danach kurz meinen größten Fehler.“
+
+Und schon ist es ein echtes Gespräch. Frage eins: „Wie sieht deine Wohnung aus?“ Ich antworte. Sie sagt kurz, ob es stimmt – und stellt die nächste Frage.
+
+Plötzlich schreibe ich achtzig Prozent und die KI zwanzig. So herum stimmt es. Und das Thema kannst du jeden Tag tauschen: Arbeit, Arzt, Urlaub – was du diese Woche wirklich brauchst.
+
+Und Sprechen? Ich habe auch mit der KI gesprochen, laut, an der Bushaltestelle. Im Regen. Sie hat mich gut verstanden. Aber genau das ist das Problem: Sie versteht dich auch dann, wenn du falsch klingst.
+
+Zu meiner Aussprache hat sie kein einziges Wort gesagt. [dry] Die Leute an der Haltestelle schon. Eine Wassermelone, die im Regen mit ihrem Handy Deutsch spricht? Die hatten eine Meinung.
+
+Woche zwei: Texte korrigieren. Jeden Tag zehn Minuten schreiben, dann rein in den Chat. Und das ist wirklich praktisch: Die Korrektur dauert drei Sekunden, nicht drei Tage.
+
+Mein Satz: „Gestern war ich echt fertig, weil ich habe zu lange gearbeitet.“ … [overly formal] Die KI: „Gestern war ich äußerst erschöpft, da ich übermäßig lange gearbeitet hatte.“
+
+Der Fehler ist weg. … Mein Satz aber auch. Aus „echt fertig“ wird „äußerst erschöpft“. [deadpan] Ich klinge jetzt wie ein Brief vom Finanzamt.
+
+Und das Schlimmste: Die KI hat nicht gesagt, was falsch war. Ich bekomme einen schönen Satz – und lerne nichts.
+
+Dabei war es nur ein Fehler: „weil ich habe“. Nach „weil“ springt das Verb ans Ende: weil ich zu lange gearbeitet habe.
+
+Also, Tag neun, neue Regel. [slowly, clearly] Prompt Nummer zwei: „Korrigiere nur Fehler, nicht meinen Stil. Markiere jeden Fehler und erkläre ihn in einem Satz.“
+
+Und auf einmal: ein Fehler, ein Satz Erklärung. Mein Satz bleibt mein Satz. Und ich sehe endlich, wo das Problem ist.
+
+Und wenn du Stil lernen willst? Dann frag danach – in einem zweiten Schritt: [curious] „Wie würde man das im Alltag natürlicher sagen?“ Erst die Fehler, dann der Stil. Nicht beides gleichzeitig.
+
+Ach, und noch was: Jeder Text war „super“. Wirklich jeder. [mischievously] Dazu kommen wir noch.
+
+[excited] Kurze Kernfrage! Welcher Satz ist richtig? Fünf Sekunden.
+
+B: weil ich keine Zeit habe. Das Verb wartet bis zum Schluss. Wie ich auf den Bus.

@@ -26,7 +26,7 @@ From 2026-11-13: 3-day cycle (see CLAUDE.md). Day 1 = long video at 17:05 with n
 | 2026-11-15 12:05 | ? (Abruf-Leiter dropped) | todo | – |
 | 2026-11-15 17:05 | Loop #3 | todo: script → owner TTS | – |
 | 2026-11-15 19:05 | Ep2 Short „10 Wörter für die Wohnungssuche“ | todo | – |
-| 2026-11-16 17:05 | Long #3 „Deutsch lernen mit KI: Ich habe eine KI 30 Tage als Deutschlehrer getestet“ (FIXED by owner, 2026-11-12) | todo: script (15+ min, first-person, real AI examples) | – |
+| 2026-11-16 17:05 | Long #3 „Deutsch lernen mit KI: Ich habe eine KI 30 Tage als Deutschlehrer getestet“ (FIXED by owner, 2026-11-12) | script ✅ (2,026 words ≈ 16 min, 3 TTS parts) → waiting for owner TTS; then direction/render | `episodes/03-ki-als-deutschlehrer/` |
 | spare | „10 Wörter für die Wohnungssuche“ (ep2), „Tschüss/Servus“ (ep1) | – | – |
 
 ## Next
