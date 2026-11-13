@@ -20,10 +20,10 @@ From 2026-11-13: 3-day cycle (see CLAUDE.md). Day 1 = long video at 17:05 with n
 | 2026-11-12 17:05 | Loop „Wo steht das Verb?“ | ✅ ready, the owner posts it today | `shorts/s01-verb-springt/` |
 | 2026-11-12 19:05 | Short „Ich will ein Bier“ (v2) | ✅ ready, the owner posts it today | `shorts/03-ich-will-ein-bier/` |
 | 2026-11-13 17:05 | Long #2 „50 Wörter am Tag“ | ✅ scheduled by the owner (thumbnail B main) | `episodes/02-50-woerter-am-tag/` |
-| 2026-11-14 12:05 | Ep2 Short „Die Abruf-Leiter“ | todo | – |
-| 2026-11-14 17:05 | Loop #2 | todo: script → owner TTS | – |
-| 2026-11-14 19:05 | Short „Doch!“ (ep1) | ready (check hook) | `shorts/05-doch/` |
-| 2026-11-15 12:05 | Ep2 Short „Die Notaufnahme für Wörter“ | todo | – |
+| 2026-11-14 12:05 | Ep2 Short „Die Abruf-Leiter“ | ✅ ready, delivered (47 s, cover v2) | `shorts/06-abruf-leiter/` |
+| 2026-11-14 17:05 | Loop #2 „Auf dem Tisch“ (wo/wohin) | waiting for owner TTS (script in `shorts/s03-wo-wohin/konzept.md`) | – |
+| 2026-11-14 19:05 | Ep2 Short „Die Notaufnahme für Wörter“ | ✅ ready, delivered (44 s, cover v2) | `shorts/07-notaufnahme/` |
+| 2026-11-15 12:05 | Short „Doch!“ (ep1) | ready (check hook, needs a new cover) | `shorts/05-doch/` |
 | 2026-11-15 17:05 | Loop #3 | todo: script → owner TTS | – |
 | 2026-11-15 19:05 | Ep2 Short „10 Wörter für die Wohnungssuche“ | todo | – |
 | 2026-11-16 17:05 | Long #3 „Deutsch lernen mit KI: Ich habe eine KI 30 Tage als Deutschlehrer getestet“ (FIXED by owner, 2026-11-12) | todo: script (15+ min, first-person, real AI examples) | – |
