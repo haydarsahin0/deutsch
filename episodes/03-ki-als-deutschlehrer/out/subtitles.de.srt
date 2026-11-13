@@ -1,0 +1,410 @@
+1
+00:00:00,115 --> 00:00:04,750
+Tag dreißig. Ich frage meine KI:
+Wie gut ist dieser Text?
+
+2
+00:00:04,840 --> 00:00:07,985
+„Wow, toller Text!
+Nur ein paar Kleinigkeiten.“
+
+3
+00:00:08,080 --> 00:00:11,150
+In diesem Text sind elf Fehler.
+Ich weiß das genau.
+
+4
+00:00:11,345 --> 00:00:12,900
+Ich habe sie selbst eingebaut.
+
+5
+00:00:13,095 --> 00:00:15,145
+Und heute zeige ich dir den einen Satz,
+
+6
+00:00:15,185 --> 00:00:18,000
+mit dem dieselbe KI
+plötzlich ehrlich wird.
+
+7
+00:00:18,160 --> 00:00:21,040
+Hi, ich bin Melo.
+Hier gibt's Deutsch mit Kern.
+
+8
+00:00:21,095 --> 00:00:23,565
+Und ja, mein Kopf ist eine Wassermelone.
+
+9
+00:00:23,660 --> 00:00:27,405
+Die KI hat das in dreißig Tagen
+kein einziges Mal kommentiert.
+
+10
+00:00:27,580 --> 00:00:28,310
+Sehr höflich.
+
+11
+00:00:28,350 --> 00:00:29,005
+Das
+
+12
+00:00:29,045 --> 00:00:33,945
+Experiment: Dreißig Tage lang habe
+ich einen Deutschschüler auf B1 gespielt –
+
+13
+00:00:33,985 --> 00:00:37,175
+mit genau den Fehlern, die fast
+alle auf diesem Niveau machen.
+
+14
+00:00:37,310 --> 00:00:39,225
+Jeden Tag zwanzig Minuten.
+
+15
+00:00:39,310 --> 00:00:41,075
+Mein Lehrer: eine KI.
+
+16
+00:00:41,385 --> 00:00:46,300
+Welche KI? Egal. Die Probleme, die du
+gleich siehst, sind typisch für Chatbots.
+
+17
+00:00:46,340 --> 00:00:49,710
+Keine Werbung, kein Sponsor –
+nur ein ehrlicher Test.
+
+18
+00:00:49,915 --> 00:00:52,925
+Woche eins: Die KI ist
+mein Gesprächspartner.
+
+19
+00:00:53,045 --> 00:00:55,510
+Woche zwei: Sie korrigiert meine Texte.
+
+20
+00:00:55,615 --> 00:00:57,885
+Woche drei: Sie erklärt mir Grammatik.
+
+21
+00:00:58,015 --> 00:01:00,480
+Woche vier: Sie trainiert
+mich für die Prüfung.
+
+22
+00:01:00,685 --> 00:01:04,920
+Einmal hat sie mir eine Grammatikregel
+erklärt – ganz sicher, ganz freundlich.
+
+23
+00:01:05,075 --> 00:01:06,565
+Die Regel war falsch.
+
+24
+00:01:06,650 --> 00:01:10,645
+Und am Ende hast du fünf Prompts,
+die wirklich funktionieren. Zum Kopieren.
+
+25
+00:01:10,880 --> 00:01:15,555
+Woche eins. Ehrlich: Das Erste,
+was mich umgehauen hat, war die Uhrzeit.
+
+26
+00:01:15,680 --> 00:01:19,445
+Sonntag, dreiundzwanzig Uhr –
+und mein Lehrer hat Zeit.
+
+27
+00:01:19,525 --> 00:01:21,710
+Keine Termine, keine schlechte Laune.
+
+28
+00:01:21,785 --> 00:01:24,850
+Und kein Seufzen,
+wenn ich etwas zum dritten Mal frage.
+
+29
+00:01:24,995 --> 00:01:28,490
+Meine erste Nachricht:
+„Seit drei Jahren ich wohne in Berlin.“
+
+30
+00:01:28,585 --> 00:01:30,285
+Und die KI: „Wie schön!
+
+31
+00:01:30,325 --> 00:01:31,940
+Berlin ist eine tolle Stadt!
+
+32
+00:01:31,980 --> 00:01:35,705
+Was gefällt dir am besten?
+Die Museen, die Parks, das Essen …“
+
+33
+00:01:35,800 --> 00:01:37,820
+Und dann noch zehn Sätze über Berlin.
+
+34
+00:01:37,990 --> 00:01:42,835
+Ich schreibe einen Satz, die KI schreibt
+einen Roman. Und wer übt dann eigentlich?
+
+35
+00:01:42,940 --> 00:01:43,590
+Sie.
+
+36
+00:01:43,630 --> 00:01:45,785
+Und mein Fehler? Kein Wort dazu.
+
+37
+00:01:45,890 --> 00:01:49,125
+Richtig wäre: Seit drei
+Jahren wohne ich in Berlin.
+
+38
+00:01:49,195 --> 00:01:51,615
+Im Hauptsatz steht
+das Verb auf Platz zwei.
+
+39
+00:01:51,685 --> 00:01:53,955
+Auch wenn Platz eins drei Wörter lang ist.
+
+40
+00:01:54,055 --> 00:01:56,360
+Ab Tag drei habe ich die Regeln geändert.
+
+41
+00:01:56,505 --> 00:02:00,275
+Prompt Nummer eins: „Stell mir
+zehn Fragen zum Thema Wohnen.
+
+42
+00:02:00,365 --> 00:02:02,735
+Warte nach jeder Frage auf meine Antwort.
+
+43
+00:02:02,825 --> 00:02:05,555
+Korrigiere danach kurz
+meinen größten Fehler.“
+
+44
+00:02:05,695 --> 00:02:07,860
+Und schon ist es ein echtes Gespräch.
+
+45
+00:02:08,020 --> 00:02:10,485
+Frage eins: „Wie sieht deine Wohnung aus?“
+
+46
+00:02:10,560 --> 00:02:14,600
+Ich antworte. Sie sagt kurz, ob es
+stimmt – und stellt die nächste Frage.
+
+47
+00:02:14,725 --> 00:02:18,455
+Plötzlich schreibe ich achtzig
+Prozent und die KI zwanzig.
+
+48
+00:02:18,540 --> 00:02:19,780
+So herum stimmt es.
+
+49
+00:02:19,820 --> 00:02:23,675
+Und das Thema kannst du jeden
+Tag tauschen: Arbeit, Arzt,
+
+50
+00:02:23,715 --> 00:02:26,715
+Urlaub – was du diese
+Woche wirklich brauchst.
+
+51
+00:02:27,035 --> 00:02:32,095
+Und Sprechen? Ich habe auch mit der KI
+gesprochen, laut, an der Bushaltestelle.
+
+52
+00:02:32,185 --> 00:02:34,680
+Im Regen. Sie hat mich gut verstanden.
+
+53
+00:02:34,870 --> 00:02:38,210
+Aber genau das ist das Problem:
+Sie versteht dich auch dann,
+
+54
+00:02:38,250 --> 00:02:39,675
+wenn du falsch klingst.
+
+55
+00:02:39,800 --> 00:02:43,315
+Zu meiner Aussprache hat
+sie kein einziges Wort gesagt.
+
+56
+00:02:43,435 --> 00:02:45,340
+Die Leute an der Haltestelle schon.
+
+57
+00:02:45,575 --> 00:02:49,155
+Eine Wassermelone, die im Regen
+mit ihrem Handy Deutsch spricht?
+
+58
+00:02:49,240 --> 00:02:50,570
+Die hatten eine Meinung.
+
+59
+00:02:51,290 --> 00:02:53,755
+Woche zwei: Texte korrigieren.
+
+60
+00:02:53,985 --> 00:02:57,600
+Jeden Tag zehn Minuten schreiben,
+dann rein in den Chat.
+
+61
+00:02:57,755 --> 00:02:59,350
+Und das ist wirklich praktisch:
+
+62
+00:02:59,410 --> 00:03:02,665
+Die Korrektur dauert drei
+Sekunden, nicht drei Tage.
+
+63
+00:03:02,975 --> 00:03:07,720
+Mein Satz: „Gestern war ich echt fertig,
+weil ich habe zu lange gearbeitet.“
+
+64
+00:03:07,875 --> 00:03:10,670
+Die KI: „Gestern war
+ich äußerst erschöpft,
+
+65
+00:03:10,710 --> 00:03:13,205
+da ich übermäßig lange gearbeitet hatte.“
+
+66
+00:03:13,380 --> 00:03:14,580
+Der Fehler ist weg.
+
+67
+00:03:14,740 --> 00:03:16,145
+Mein Satz aber auch.
+
+68
+00:03:16,330 --> 00:03:19,760
+Aus „echt fertig“ wird
+„äußerst erschöpft“.
+
+69
+00:03:19,880 --> 00:03:22,290
+Ich klinge jetzt
+wie ein Brief vom Finanzamt.
+
+70
+00:03:22,495 --> 00:03:26,230
+Und das Schlimmste: Die KI hat
+nicht gesagt, was falsch war.
+
+71
+00:03:26,345 --> 00:03:29,405
+Ich bekomme einen schönen
+Satz – und lerne nichts.
+
+72
+00:03:29,485 --> 00:03:32,690
+Dabei war es nur ein Fehler:
+„weil ich habe“.
+
+73
+00:03:32,865 --> 00:03:37,605
+Nach „weil“ springt das Verb ans Ende:
+weil ich zu lange gearbeitet habe.
+
+74
+00:03:37,760 --> 00:03:40,230
+Also, Tag neun, neue Regel.
+
+75
+00:03:40,390 --> 00:03:44,805
+Prompt Nummer zwei: „Korrigiere
+nur Fehler, nicht meinen Stil.
+
+76
+00:03:44,940 --> 00:03:48,400
+Markiere jeden Fehler
+und erkläre ihn in einem Satz.“
+
+77
+00:03:48,555 --> 00:03:51,870
+Und auf einmal: ein Fehler,
+ein Satz Erklärung.
+
+78
+00:03:51,980 --> 00:03:53,865
+Mein Satz bleibt mein Satz.
+
+79
+00:03:53,920 --> 00:03:56,405
+Und ich sehe endlich, wo das Problem ist.
+
+80
+00:03:56,510 --> 00:03:59,395
+Und wenn du Stil lernen willst?
+Dann frag danach –
+
+81
+00:03:59,435 --> 00:04:03,410
+in einem zweiten Schritt: „Wie würde
+man das im Alltag natürlicher sagen?“
+
+82
+00:04:03,590 --> 00:04:05,710
+Erst die Fehler, dann der Stil.
+
+83
+00:04:05,790 --> 00:04:07,390
+Nicht beides gleichzeitig.
+
+84
+00:04:07,510 --> 00:04:10,890
+Ach, und noch was: Jeder Text war „super“.
+
+85
+00:04:10,955 --> 00:04:12,320
+Wirklich jeder.
+
+86
+00:04:12,440 --> 00:04:13,725
+Dazu kommen wir noch.
+
+87
+00:04:13,940 --> 00:04:15,190
+Kurze Kernfrage!
+
+88
+00:04:15,245 --> 00:04:17,945
+Welcher Satz ist richtig? Fünf Sekunden.
+
+89
+00:04:22,695 --> 00:04:24,895
+B: weil ich keine Zeit habe.
+
+90
+00:04:24,960 --> 00:04:26,925
+Das Verb wartet bis zum Schluss.
+
+91
+00:04:26,965 --> 00:04:28,275
+Wie ich auf den Bus.
