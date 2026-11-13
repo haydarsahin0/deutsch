@@ -38,18 +38,18 @@ Und nach der Korrektur: „Ist das ein echter Fehler – oder nur Stil?“
 
 ⏱ Kapitel
 0:00 „Wow, toller Text!“ – bei 11 Fehlern
-0:xx Intro: das 30-Tage-Experiment
-x:xx Woche 1: Die KI als Sprechpartner
-x:xx Woche 2: Texte korrigieren lassen
-x:xx Kernfrage 1: Wo steht das Verb nach „weil“?
-x:xx Woche 3: Grammatik erklären lassen – die falsche Regel
-x:xx Woche 4: Prüfungstraining – gemeinsam etwas planen
-x:xx Tag 30: die ehrliche Antwort
-x:xx Die 5 Prompts, die wirklich funktionieren
-x:xx Ehrlich gerechnet: Was die KI ersetzt – und was nicht
-x:xx Kernfrage 2 und 3: Finde den KI-Fehler
-x:xx Der Kern der Sache
-x:xx Deine Frage & Tschüss
+0:18 Intro: das 30-Tage-Experiment
+1:10 Woche 1: Die KI als Sprechpartner
+2:51 Woche 2: Texte korrigieren lassen
+4:13 Kernfrage 1: Wo steht das Verb nach „weil“?
+4:37 Woche 3: Grammatik erklären lassen – die falsche Regel
+7:01 Woche 4: Prüfungstraining – gemeinsam etwas planen
+8:29 Tag 30: die ehrliche Antwort
+10:06 Die 5 Prompts, die wirklich funktionieren
+10:44 Ehrlich gerechnet: Was die KI ersetzt – und was nicht
+12:28 Kernfrage 2 und 3: Finde den KI-Fehler
+13:06 Der Kern der Sache
+13:46 Deine Frage & Tschüss
 
 📚 Das lernst du in diesem Video (Deutsch B1, Deutsch B2, Deutsch C1)
 • mit KI Deutsch lernen: 5 Prompts für Chatbots auf Deutsch
