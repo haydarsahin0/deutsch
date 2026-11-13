@@ -755,6 +755,8 @@ function compile(ep, opts = {}) {
     sentences: (AL.sentences || []).filter(s => s.start <= duration),
     subs: AL.subtitles && AL.subtitles.length ? subsFromAlignment(AL.subtitles, words, duration) : buildSubs(words.filter(w => w.start <= duration))
   };
+  // `format: vertical` in the script front matter → 1080×1920 portrait render (Shorts)
+  if (fs.existsSync(scriptPath) && /^---[\s\S]*?^format:\s*["']?vertical\b[\s\S]*?^---/m.test(fs.readFileSync(scriptPath, 'utf8'))) Object.assign(TL, { format: 'vertical', width: 1080, height: 1920 });
   fs.writeFileSync(path.join(build, 'timeline.json'), JSON.stringify(TL, null, 1));
   fs.writeFileSync(path.join(build, 'timeline.js'), 'window.TIMELINE = ' + JSON.stringify({ ...TL, envelope }) + ';\n');
   console.log(`  timeline: ${scenes.length} scenes, ${elements.length} elements, ${camera.length} camera keys, ${chapters.length} chapters, ${TL.subs.length} subtitle cues, ${TL.duration.toFixed(1)} s${TL.partial ? ' (partial)' : ''} → ${path.join(build, 'timeline.json')}`);

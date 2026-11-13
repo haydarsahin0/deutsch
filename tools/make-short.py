@@ -13,6 +13,9 @@ brand TTFs in brand/fonts/ttf) → ffmpeg compose (visual hard cuts, 40 ms audio
 (H.264 high crf 20, 30 fps, AAC 192k, +faststart). See shorts/README.md for the config fields.
 Loop Shorts: "loop": true (static hook title from frame 1, no audio fade-out), no "cta"/end card,
 optional "sticker": {"text", "from", "to", "x", "y", "rot", "size"} (small save/subscribe sticker mid-video).
+Native vertical: "fit": "native" renders the episode with the engine's 1080×1920 portrait mode (--vertical) and
+takes it 1:1 (no panel, no background); the hook title sits on top (dark fade), karaoke subs per
+"subtitle_style". "output": "short-vertical" → out/short-vertical.mp4 (+ -cover.png / -contact.jpg).
 """
 import argparse, hashlib, json, math, os, shutil, subprocess, sys
 from pathlib import Path
@@ -255,13 +258,14 @@ def html_frames(params, out, frames=1, transparent=False, build=None, t0=None):
 
 
 def base_params(cfg):
-    return {'slot': {'y': SLOT_Y, 'h': SLOT_H}, 'hook': cfg.get('hook', []), 'tag': cfg.get('tag', 'DEUTSCH MIT MELO')}
+    return {'slot': {'y': SLOT_Y, 'h': SLOT_H}, 'hook': cfg.get('hook', []), 'tag': cfg.get('tag', 'DEUTSCH MIT MELO'),
+            'native': cfg.get('fit') == 'native'}
 
 
-def make_cover(cfg, sdir, build):
+def make_cover(cfg, sdir, build, name='short'):
     c = dict({'headline': 'SAG DAS NIE!', 'cast': 'kollegin', 'castExpr': 'shocked', 'castPose': 'hands-up',
               'meloExpr': 'smirk', 'badge': 'B1–C1'}, **cfg.get('cover', {}))
-    html_frames(dict(base_params(cfg), mode='cover', cover=c), sdir / 'out' / 'cover.png', build=build)
+    html_frames(dict(base_params(cfg), mode='cover', cover=c), sdir / 'out' / ('cover.png' if name == 'short' else f'{name}-cover.png'), build=build)
 
 
 def apply_fit(cfg):
@@ -272,7 +276,9 @@ def apply_fit(cfg):
     SUB_X = st.get('x', SUB_X); SUB_Y = st.get('y', SUB_Y)
     SUB_SIZE = st.get('size', SUB_SIZE); SUB_MAXW = st.get('max_width', SUB_MAXW)
     MAX_LINES = st.get('lines', MAX_LINES)
-    if cfg.get('fit') == 'full':
+    if cfg.get('fit') == 'native':   # engine renders 1080×1920 itself (--vertical): take it 1:1
+        SLOT_Y, SLOT_H, SCALED_W = 0, H, W
+    elif cfg.get('fit') == 'full':
         SLOT_H, SCALED_W = 608, 1080
         SLOT_Y = 676          # centred in the former 600–1360 video area
 
@@ -306,15 +312,17 @@ def main():
         return
     ensure_fonts()
     if o.cover:
-        make_cover(cfg, sdir, build); return
+        make_cover(cfg, sdir, build, cfg.get('output', 'short')); return
 
     # 1. engine renders (no subtitles), cached by time range
+    native = cfg.get('fit') == 'native'
+    name = cfg.get('output', 'short')
     for s in segs:
-        f = build / f"seg-{s['a']:.3f}-{s['b']:.3f}.mp4"
+        f = build / f"{'vseg' if native else 'seg'}-{s['a']:.3f}-{s['b']:.3f}.mp4"
         s['file'] = f
         if not f.exists():
             run(['node', 'tools/render-video.js', cfg['episode'], '--from', f"{s['a']:.4f}", '--to', f"{s['b']:.4f}",
-                 '--no-subs', '--workers', o.workers, '--out', f])
+                 '--no-subs', '--workers', o.workers, '--out', f] + (['--vertical'] if native else []))
         else:
             print(f'  cached {f.name}')
 
@@ -342,7 +350,7 @@ def main():
         html_frames(dict(base_params(cfg), mode='endcard', endcard=ec, bg='file://' + str(bg_panel),
                          mouth=mouth_env(wav, cta['a'], cta['dur'] + hold)), build / 'endcard', frames=n_ec,
                     transparent=True, build=build)
-    make_cover(cfg, sdir, build)
+    make_cover(cfg, sdir, build, name)
 
     # 3. subtitles
     ass = build / 'subs.ass'
@@ -369,8 +377,7 @@ def main():
     if cfg.get('bg') == 'blur':   # full-screen vertical look: the same video, zoomed + blurred + darkened, fills the whole 9:16 frame behind the panel
         fc.append('[vid]split[vfg][vsrc]')
         fc.append('[vsrc]scale=-2:1920:flags=bilinear,crop=1080:1920,boxblur=24:2,eq=brightness=-0.22:saturation=0.85[vbg]')
-        fc.append(f'[0:v][vbg]overlay=0:0:shortest=0[b0]')
-        fc.append(f'[b0][vfg]overlay=0:{SLOT_Y}:shortest=0[c1]')
+        fc.append(f'[vbg][vfg]overlay=0:{SLOT_Y}[c1]')   # split→blur→overlay on itself (no looped-image branch: that deadlocked)
     else:
         fc.append(f'[0:v][vid]overlay=0:{SLOT_Y}:shortest=0[c1]')
     fc.append(f'[c1][{i_top}:v]overlay=0:0:eof_action=repeat:format=auto[c2]')
@@ -392,13 +399,14 @@ def main():
         last = '[c5]'
     fc.append(f'{last}format=yuv420p[vout]')
     # audio: each segment cut from voice.wav, internal joins extended by XFADE/2 and cross-faded (centred on the cut)
-    i_wav = len([x for x in inp if x == '-i'])
-    inp += ['-i', wav]
+    # one seeked wav input per segment (a shared input + atrim deadlocks when segments are not in time order)
     al_ = []
     for k, s in enumerate(segs):
         a = s['a'] - (XFADE / 2 if k > 0 else 0)
         b = s['b'] + (XFADE / 2 if k < nseg - 1 else 0)
-        fc.append(f'[{i_wav}:a]atrim={a:.4f}:{b:.4f},asetpts=PTS-STARTPTS,aresample=48000[a{k}]')
+        i_wav = len([x for x in inp if x == '-i'])
+        inp += ['-ss', f'{a:.4f}', '-t', f'{b - a:.4f}', '-i', wav]
+        fc.append(f'[{i_wav}:a]asetpts=PTS-STARTPTS,aresample=48000[a{k}]')
         al_.append(f'[a{k}]')
     cur = al_[0]
     for k in range(1, nseg):
@@ -407,7 +415,7 @@ def main():
     fo = 0.03 if loop else 0.35   # loop: no audible fade, the end flows straight into the start
     fc.append(f'{cur}afade=t=in:d=0.02,apad=whole_dur={total:.3f},afade=t=out:st={total - fo:.3f}:d={fo}[aout]')
 
-    mp4 = out / 'short.mp4'
+    mp4 = out / f'{name}.mp4'
     run(['ffmpeg', '-y', '-v', 'error', *inp, '-filter_complex', ';'.join(fc), '-map', '[vout]', '-map', '[aout]',
          '-t', f'{total:.3f}', '-r', FPS, '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'medium', '-crf', '20',
          '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', mp4])
@@ -419,7 +427,7 @@ def main():
         n = 12
         sel = '+'.join(f'eq(n\\,{int((i + 0.5) * dur * FPS / n)})' for i in range(n))
         run(['ffmpeg', '-y', '-v', 'error', '-i', mp4, '-vf', f"select='{sel}',scale=270:480,tile=6x2", '-frames:v', '1',
-             '-q:v', '4', out / 'contact.jpg'])
+             '-q:v', '4', out / ('contact.jpg' if name == 'short' else f'{name}-contact.jpg')])
 
 
 if __name__ == '__main__':

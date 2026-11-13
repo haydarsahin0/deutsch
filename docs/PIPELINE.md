@@ -82,6 +82,16 @@ Additive fields (backward compatible, details in `tools/ALIGN.md`): `partial`, `
 ## Rendering
 `node tools/build.js episodes/<ep>` runs: sprechtext → align → envelope → timeline → render → mux. The renderer is a self-contained HTML page with `window.renderFrame(t)`; Playwright captures frames in parallel workers and pipes them to ffmpeg. `--from/--to` seconds for partial renders, `--preview` for 960×540 fast drafts.
 
+### Vertical mode (native 9:16 Shorts, 1080×1920)
+Switch on with `format: vertical` in the script front matter (timeline gets `format`, renders are portrait by default) or per render with `--vertical` (`node tools/render-video.js episodes/<ep> --vertical` → `out/video-vertical.mp4`; `build.js` passes the flag through). Same script, same cues — 16:9 renders are untouched. What changes (all in `engine/js/engine.js`, constants `VS`):
+- **Scene / melo shots**: the 1920×1080 set is shown as a full-height portrait crop (set scaled ×1.78) around the shot's **focus x**: `focus=<x|slot|castId|melo>` on the `[[shot]]`, else the keyed camera, else Melo-in-scene/cast (centroid when they are < 420 apart, else Melo / the first cast), else the centre; pans/drift/shake still move the crop. Camera zoom is damped (×0.35 of the 16:9 zoom); `vzoom=1.1` sets it explicitly.
+- **`[[cards]]`**: centred at x 540, rows wrap into balanced stacked lines (≤ 940 px), the font shrinks until the strip fits between the hook title and the karaoke line (min 70 px; card shots: y 490–1310, over sets: y 490–1030 so the characters below stay visible). Verb jumps, `stair`, `join`, `mark` keep working (a jump to another line is an arc too). Per-state overrides: `vx= vy= vsize= vmaxw=` (the 16:9 `x= y= size= maxw=` are ignored in portrait except `size`).
+- **text / chapter shots** lay out in the centre column; **corner/side/peek Melo** is small at the bottom corner (head ≈ y 1600); **bubbles** stay inside the crop.
+- **split, list, map, board, quiz, title** have no portrait layout: they are letterboxed (16:9 in the middle, blurred cover of itself behind). Avoid them in vertical Shorts — use `cards`/`text` instead.
+- **Subtitles** (engine, when not `--no-subs`): ONE big karaoke line at y ≈ 1400 (chunks of the cue that fit). Shorts use make-short's ASS subtitles instead.
+- Safe zones: top ~490 px = hook title (+ YouTube UI), y ≈ 1350–1450 = karaoke line, bottom ~380 px = YouTube UI — no key text there.
+- Shorts: `tools/make-short.py` with `"fit": "native"` takes the vertical render 1:1 and adds the static hook title (dark top fade) + ASS karaoke + sticker. Example `shorts/s01-verb-springt/short-vertical.json`.
+
 ---
 
 # Visual flow v2 (owner feedback 2026-11-11 — supersedes the "board-centric" look)

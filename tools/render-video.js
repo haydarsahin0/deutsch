@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Usage: node tools/render-video.js episodes/<ep> [--from s] [--to s] [--preview] [--workers N] [--no-subs]
 //                                   [--out file.mp4] [--crf 18] [--preset fast] [--stills t1,t2,… --stills-dir dir]
+//                                   [--vertical]  (1080×1920 portrait; default when script.md has `format: vertical`)
 // Renders engine/player.html frame by frame with Playwright Chromium in N parallel browsers (contiguous
 // chunks) → ffmpeg libx264 yuv420p 30 fps → concat → mux audio (timeline.audio, normally audio/voice.wav)
 // as AAC 192k → out/video.mp4 (or out/preview.mp4 with --preview = 960×540).
@@ -23,13 +24,13 @@ function args() {
   return o;
 }
 
-async function openPage(ep, scale, subs) {
+async function openPage(ep, scale, subs, vertical) {
   const browser = await chromium.launch({ args: ['--allow-file-access-from-files', '--disable-web-security', '--force-color-profile=srgb', '--disable-gpu-vsync'] });
-  const W = Math.round(1920 * scale), H = Math.round(1080 * scale);
+  const W = Math.round((vertical ? 1080 : 1920) * scale), H = Math.round((vertical ? 1920 : 1080) * scale);
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') { const s = m.text(); if (!/layout: scene|MeloIcons/.test(s) || process.env.VERBOSE) console.log('  [page]', s); } });
   page.on('pageerror', e => console.log('  [page error]', e.message, (e.stack || '').split('\n').slice(1, 2).join(' ')));
-  const url = 'file://' + path.resolve(__dirname, '..', 'engine', 'player.html') + `?ep=${encodeURIComponent(path.basename(path.resolve(ep)))}&scale=${scale}&subs=${subs ? 1 : 0}&t=-1`;
+  const url = 'file://' + path.resolve(__dirname, '..', 'engine', 'player.html') + `?ep=${encodeURIComponent(path.basename(path.resolve(ep)))}&scale=${scale}&subs=${subs ? 1 : 0}${vertical ? '&vertical=1' : ''}&t=-1`;
   await page.goto(url);
   await page.waitForFunction(() => window.__ready || window.__error, null, { timeout: 120000 });
   const err = await page.evaluate(() => window.__error);
@@ -43,7 +44,7 @@ async function grab(page, t, type) {
 }
 
 async function renderChunk(ep, opts, i, f0, f1, file, progress) {
-  const { browser, page } = await openPage(ep, opts.scale, opts.subs);
+  const { browser, page } = await openPage(ep, opts.scale, opts.subs, opts.vertical);
   const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-c:v', 'mjpeg', '-framerate', '30', '-i', '-',
     '-c:v', 'libx264', '-preset', opts.preset, '-crf', String(opts.crf), '-pix_fmt', 'yuv420p', '-r', '30', '-threads', '2', file], { stdio: ['pipe', 'inherit', 'inherit'] });
   const done = new Promise((res, rej) => ff.on('close', c => c === 0 ? res() : rej(new Error('ffmpeg exit ' + c))));
@@ -63,13 +64,14 @@ async function main() {
   const tlFile = path.join(ep, 'build', 'timeline.json');
   if (!fs.existsSync(tlFile)) { console.error('missing ' + tlFile + ' – run node tools/timeline.js ' + ep); process.exit(1); }
   const TL = JSON.parse(fs.readFileSync(tlFile, 'utf8'));
-  const opts = { scale: o.preview ? 0.5 : 1, subs: !o['no-subs'] && o.subs !== '0', crf: +(o.crf || (o.preview ? 23 : 20)), preset: o.preset || (o.preview ? 'veryfast' : 'fast') };
+  const opts = { scale: o.preview ? 0.5 : 1, subs: !o['no-subs'] && o.subs !== '0', crf: +(o.crf || (o.preview ? 23 : 20)), preset: o.preset || (o.preview ? 'veryfast' : 'fast'),
+    vertical: !!o.vertical || TL.format === 'vertical' };
 
   // stills mode
   if (o.stills) {
     const dir = o['stills-dir'] || path.join(__dirname, '..', 'engine', 'dev', 'stills');
     fs.mkdirSync(dir, { recursive: true });
-    const { browser, page } = await openPage(ep, opts.scale, opts.subs);
+    const { browser, page } = await openPage(ep, opts.scale, opts.subs, opts.vertical);
     for (const spec of String(o.stills).split(',')) {
       const [ts, name] = spec.split(':'), t = parseFloat(ts);
       const t0 = Date.now(), buf = await grab(page, t, 'png');
@@ -86,9 +88,9 @@ async function main() {
   if (N <= 0) { console.error('nothing to render'); process.exit(1); }
   const workers = Math.max(1, Math.min(+(o.workers || Math.max(1, os.cpus().length)), Math.ceil(N / 30)));
   const outDir = path.join(ep, 'out'); fs.mkdirSync(outDir, { recursive: true });
-  const out = o.out || path.join(outDir, o.preview ? 'preview.mp4' : 'video.mp4');
+  const out = o.out || path.join(outDir, (o.preview ? 'preview' : 'video') + (o.vertical && TL.format !== 'vertical' ? '-vertical' : '') + '.mp4');
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'melo-render-'));
-  console.log(`render ${from.toFixed(2)}–${to.toFixed(2)} s (${N} frames) · ${workers} workers · ${opts.scale === 1 ? '1920×1080' : '960×540'} · subs ${opts.subs ? 'on' : 'off'} → ${out}`);
+  console.log(`render ${from.toFixed(2)}–${to.toFixed(2)} s (${N} frames) · ${workers} workers · ${opts.vertical ? (opts.scale === 1 ? '1080×1920' : '540×960') : opts.scale === 1 ? '1920×1080' : '960×540'} · subs ${opts.subs ? 'on' : 'off'} → ${out}`);
   const t0 = Date.now(), counts = new Array(workers).fill(0);
   let last = 0;
   const progress = (i) => {

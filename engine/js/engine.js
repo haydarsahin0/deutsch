@@ -12,6 +12,16 @@
   var ARTICLE = { der: CHALK.b, die: CHALK.r, das: CHALK.g };
   var HAND = 'Kalam', NOTE = 'Caveat';
   var CREAM = '#f3ead3', MUSTARD = '#e0a93b', INK = COL.INK, RED = COL.RED;
+  // ── vertical mode (1080×1920 Shorts, script front matter `format: vertical` or player ?vertical=1):
+  // world stays 1920×1080; a shot's 16:9 camera frame is shown as a full-height portrait crop around the shot's
+  // focus x; screen-space layers (cards, overlay Melo, subtitles) use a 1080×1920 screen. Shot types without a
+  // portrait layout (split, list, map, board, quiz, title) are letterboxed over a blurred cover of themselves.
+  // VS = portrait safe zones: hook title above `top`, karaoke line around `sub`, YouTube UI below ~1540;
+  // cards over an illustrated set stay above `sceneBottom` so the characters (lower half) stay visible.
+  var VS = { top: 490, bottom: 1310, sceneBottom: 1030, cardCy: 905, sceneCy: 740, sub: 1400, zoomK: 0.35 };
+  function V() { return !!(E.V && !E.hm); }
+  function sw() { return V() ? 1080 : 1920; }
+  function sh() { return V() ? 1920 : 1080; }
 
   // ───────────────────────── utils ─────────────────────────
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
@@ -689,13 +699,13 @@
   async function drawMelo(ctx, t, M, cam, opts) {
     opts = opts || {};
     // visible part only (camera frame → character coords)
-    var fh = cam.w * 9 / 16, fx0 = cam.cx - cam.w / 2, fy0 = cam.cy - fh / 2;
-    var vx0 = Math.max(BB.x0, (fx0 - M.x) / M.s), vx1 = Math.min(BB.x1, (fx0 + cam.w - M.x) / M.s);
+    var CV = camView(cam), fh = CV.h, fx0 = CV.x0, fy0 = CV.y0;
+    var vx0 = Math.max(BB.x0, (fx0 - M.x) / M.s), vx1 = Math.min(BB.x1, (fx0 + CV.w - M.x) / M.s);
     var vy0 = Math.max(BB.y0, (fy0 - M.y) / M.s), vy1 = Math.min(BB.y1, (fy0 + fh - M.y) / M.s);
     if (vx1 <= vx0 || vy1 <= vy0) return null;
     var fr = E.rig.render(t, { boardSide: opts.boardSide || 'right', board: opts.board != null ? opts.board : !opts.title, visible: [vx0, vy0, vx1, vy1] });
     var g = fr.svg;
-    var zoom = 1920 / cam.w * E.scale, ps = M.s * zoom;
+    var zoom = CV.z, ps = M.s * zoom;
     var pw = Math.ceil((vx1 - vx0) * ps), ph = Math.ceil((vy1 - vy0) * ps);
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + pw + '" height="' + ph + '" viewBox="' + vx0.toFixed(2) + ' ' + vy0.toFixed(2) + ' ' + (pw / ps).toFixed(2) + ' ' + (ph / ps).toFixed(2) + '">' + g + '</svg>';
     var img = await svgImage(svg);
@@ -828,11 +838,11 @@
   }
 
   // ───────────────────────── title card ─────────────────────────
-  function titleLayout(el) {
+  function titleLayout(el, maxW0, fs0) {
     var txt = String(el.text || ''), m = txt.match(/^(Nummer|Nr\.?)\s*(\d+)\s*$/i);
     if (m) return { number: m[2], kicker: 'NUMMER' };
-    var words = txt.toUpperCase().split(/\s+/), maxW = 1000, fs = 190, lines;
-    for (; fs > 70; fs -= 6) {
+    var words = txt.toUpperCase().split(/\s+/), maxW = maxW0 || 1000, fs = fs0 || 190, lines;
+    for (; fs > (fs0 ? fs0 * 0.37 : 70); fs -= (fs0 ? fs0 / 32 : 6)) {
       lines = []; var cur = '';
       words.forEach(function (w) { var tr = cur ? cur + ' ' + w : w; if (cur && measure(tr, '400 ' + fs + 'px Anton') > maxW) { lines.push(cur); cur = w; } else cur = tr; });
       lines.push(cur);
@@ -934,6 +944,7 @@
     var subs = E.tl.subs || [], s = null;
     for (var i = 0; i < subs.length; i++) if (subs[i].start <= t && t < subs[i].end) { s = subs[i]; break; }
     if (!s) return;
+    if (V()) return drawSubsV(ctx, t, s);
     var words = E.tl.words, fs = 60, font = '500 ' + fs + 'px Oswald', lh = fs * 1.22, sp = measure(' ', font);
     var a = sat(Math.min((t - s.start) / 0.12, (s.end - t) / 0.12));
     var widths = s.lines.map(function (line) { return line.reduce(function (acc, tok) { return acc + measure(tok.text, font); }, 0) + sp * (line.length - 1); });
@@ -956,6 +967,25 @@
         if (w && state === 1.5) { ctx.fillStyle = MUSTARD; ctx.fillRect(x, y + 9, tw, 5); }
         x += tw + sp;
       });
+    });
+    ctx.restore();
+  }
+
+  // vertical: ONE big karaoke line around VS.sub (above the YouTube caption/UI zone); the cue's words are
+  // chunked into lines that fit, the chunk holding the current word is shown
+  function drawSubsV(ctx, t, s) {
+    var words = E.tl.words, fs = 78, font = '700 ' + fs + 'px Oswald', sp = measure(' ', font), maxW = 860, toks = [].concat.apply([], s.lines);
+    var chunks = [], cur = [], cw = 0;
+    toks.forEach(function (tok) { var w = measure(tok.text, font); if (cur.length && cw + sp + w > maxW) { chunks.push({ toks: cur, w: cw }); cur = []; cw = 0; } cw += (cur.length ? sp : 0) + w; cur.push(tok); });
+    if (cur.length) chunks.push({ toks: cur, w: cw });
+    var k = 0; chunks.forEach(function (c, i) { var f = c.toks.filter(function (tk) { return tk.w != null; })[0]; if (i && f && t >= words[f.w].start - 0.04) k = i; });
+    var c = chunks[k], a = sat(Math.min((t - s.start) / 0.12, (s.end - t) / 0.12)), padX = 28, y = VS.sub, bh = fs * 1.38, x = 540 - c.w / 2;
+    ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = 'rgba(16,11,8,.86)'; ctx.beginPath(); ctx.roundRect(x - padX, y - bh * 0.62, c.w + padX * 2, bh, 16); ctx.fill();
+    ctx.font = font; ctx.textBaseline = 'alphabetic';
+    c.toks.forEach(function (tok) {
+      var w = tok.w != null ? words[tok.w] : null, tw = measure(tok.text, font), on = w && t >= w.start && t < w.end + 0.08;
+      ctx.fillStyle = on ? MUSTARD : (!w || t >= w.start) ? '#f6eedb' : 'rgba(246,238,219,.6)';
+      ctx.fillText(tok.text, x, y + fs * 0.34); x += tw + sp;
     });
     ctx.restore();
   }
@@ -1169,11 +1199,11 @@
   }
   async function drawFigure(ctx, svgG, bb, pos, cam) {
     // pos {x,y,s,flip}; rasterise only the visible part of the figure's bbox
-    var fh = cam.w * 9 / 16, fx0 = cam.cx - cam.w / 2, fy0 = cam.cy - fh / 2, s = pos.s, fl = pos.flip ? -1 : 1;
+    var CV = camView(cam), fh = CV.h, fx0 = CV.x0, fy0 = CV.y0, s = pos.s, fl = pos.flip ? -1 : 1;
     var X0 = pos.x + (fl > 0 ? bb.x0 : -bb.x1) * s, X1 = pos.x + (fl > 0 ? bb.x1 : -bb.x0) * s;
-    var vx0 = Math.max(X0, fx0), vx1 = Math.min(X1, fx0 + cam.w), vy0 = Math.max(pos.y + bb.y0 * s, fy0), vy1 = Math.min(pos.y + bb.y1 * s, fy0 + fh);
+    var vx0 = Math.max(X0, fx0), vx1 = Math.min(X1, fx0 + CV.w), vy0 = Math.max(pos.y + bb.y0 * s, fy0), vy1 = Math.min(pos.y + bb.y1 * s, fy0 + fh);
     if (vx1 <= vx0 || vy1 <= vy0) return;
-    var zoom = 1920 / cam.w * E.scale, pw = Math.ceil((vx1 - vx0) * zoom), ph = Math.ceil((vy1 - vy0) * zoom);
+    var zoom = CV.z, pw = Math.ceil((vx1 - vx0) * zoom), ph = Math.ceil((vy1 - vy0) * zoom);
     // world rect → character coords
     var cx0 = fl > 0 ? (vx0 - pos.x) / s : -(vx1 - pos.x) / s, cy0 = (vy0 - pos.y) / s, cw = (vx1 - vx0) / s, ch = (vy1 - vy0) / s;
     var inner = fl > 0 ? svgG : '<g transform="scale(-1 1)">' + svgG + '</g>';
@@ -1218,21 +1248,22 @@
     // newest per speaker, at most 2
     var by = {}; says.forEach(function (q) { by[q.who] = q; });
     var list = Object.keys(by).map(function (k) { return by[k]; }).sort(function (a, b) { return a.t - b.t; }).slice(-2);
-    var placedB = [];
+    var placedB = [], BX0 = 50, BX1 = 1870, BY0 = 40, BY1 = 1080 - 210, MX = 960, bmax = 760;
+    if (V()) { var bv = camView(shotCam(sc, t)), bz = bv.z / E.scale; BX0 = bv.x0 + 30 / bz; BX1 = bv.x0 + bv.w - 30 / bz; BY0 = bv.y0 + VS.top / bz; BY1 = bv.y0 + VS.bottom / bz; MX = bv.x0 + bv.w / 2; bmax = Math.min(760, bv.w - 130); }
     list.forEach(function (q, qi) {
-      var fs = 60, font = '700 ' + fs + 'px ' + HAND, maxW = 760, lines = wrap(q.text, font, maxW), lh = fs * 1.15;
+      var fs = 60, font = '700 ' + fs + 'px ' + HAND, maxW = bmax, lines = wrap(q.text, font, maxW), lh = fs * 1.15;
       var tw = Math.max.apply(0, lines.map(function (l) { return measure(l, font); })), bw = tw + 70, bh = lines.length * lh + 44;
       var head = E.heads[q.who], mouth = E.mouths[q.who] || head, hr = E.headR[q.who] || 120;
       var bx, by2;
-      if (head) { bx = head[0] - bw / 2 + (head[0] < 960 ? 120 : -120); by2 = head[1] - hr - 70 - bh; }
-      else { bx = 960 - bw / 2; by2 = 160; }
-      bx = clamp(bx, 50, 1870 - bw); by2 = clamp(by2, 40, 1080 - 210 - bh);
+      if (head) { bx = head[0] - bw / 2 + (head[0] < MX ? 120 : -120); by2 = head[1] - hr - 70 - bh; }
+      else { bx = MX - bw / 2; by2 = 160; }
+      bx = clamp(bx, BX0, BX1 - bw); by2 = clamp(by2, BY0, BY1 - bh);
       // keep bubbles from overlapping each other: move up, else down, else sideways
       placedB.forEach(function (o) {
         if (bx < o.x + o.w + 16 && bx + bw + 16 > o.x && by2 < o.y + o.h + 16 && by2 + bh + 16 > o.y) {
-          if (o.y - bh - 24 >= 30) by2 = o.y - bh - 24;
-          else if (o.y + o.h + 24 + bh <= 1080 - 200) by2 = o.y + o.h + 24;
-          else bx = o.x + o.w / 2 < 960 ? Math.min(1870 - bw, o.x + o.w + 24) : Math.max(50, o.x - bw - 24);
+          if (o.y - bh - 24 >= BY0 - 10) by2 = o.y - bh - 24;
+          else if (o.y + o.h + 24 + bh <= BY1 + 10) by2 = o.y + o.h + 24;
+          else bx = o.x + o.w / 2 < MX ? Math.min(BX1 - bw, o.x + o.w + 24) : Math.max(BX0, o.x - bw - 24);
         }
       });
       placedB.push({ x: bx, y: by2, w: bw, h: bh });
@@ -1373,11 +1404,11 @@
   function drawScreenFx(ctx, sc, t) {
     (sc.fx || []).forEach(function (f) {
       var a = t - f.t;
-      if (f.name === 'flash' && a >= 0 && a < 0.25) { ctx.save(); ctx.fillStyle = '#fff8e6'; ctx.globalAlpha = 0.85 * (1 - a / 0.25); ctx.fillRect(0, 0, 1920, 1080); ctx.restore(); }
+      if (f.name === 'flash' && a >= 0 && a < 0.25) { ctx.save(); ctx.fillStyle = '#fff8e6'; ctx.globalAlpha = 0.85 * (1 - a / 0.25); ctx.fillRect(0, 0, sw(), sh()); ctx.restore(); }
       var D = f.dur || 0.9;
       if (f.name === 'record-scratch' && a >= 0 && a < D) {
         // brief desaturate pulse (everything keeps moving) + vinyl-scratch graphic
-        ctx.save(); ctx.globalCompositeOperation = 'saturation'; ctx.fillStyle = '#808080'; ctx.globalAlpha = 0.6 * sat(a / 0.05) * (1 - smooth((a - 0.05) / 0.4)); ctx.fillRect(0, 0, 1920, 1080); ctx.restore();
+        ctx.save(); ctx.globalCompositeOperation = 'saturation'; ctx.fillStyle = '#808080'; ctx.globalAlpha = 0.6 * sat(a / 0.05) * (1 - smooth((a - 0.05) / 0.4)); ctx.fillRect(0, 0, sw(), sh()); ctx.restore();
         ctx.save(); ctx.globalAlpha = sat(a / 0.06) * sat((D - a) / 0.15); ctx.translate(1730, 720); ctx.rotate(-a * 6);
         ctx.fillStyle = '#17130f'; ctx.beginPath(); ctx.arc(0, 0, 110, 0, 7); ctx.fill();
         ctx.strokeStyle = 'rgba(243,234,211,.25)'; ctx.lineWidth = 2; for (var rr = 40; rr < 105; rr += 9) { ctx.beginPath(); ctx.arc(0, 0, rr, 0, 7); ctx.stroke(); }
@@ -1403,6 +1434,13 @@
 
   // ── Melo overlay modes (corner / side / peek / walk-in) in screen space
   function overlayMelo(sc) {
+    var o = overlayMelo0(sc);
+    if (!o || !V()) return o;
+    // vertical: small, bottom corner below the karaoke line (head ≈ y 1600), keeps the card area free
+    var left = o.x < 960;
+    return { x: o.anim === 'peek' ? (left ? 20 : 1060) : left ? 175 : 905, y: 1920 + 40, s: o.anim === 'peek' ? 0.95 : 0.82, side: o.side, anim: o.anim, from: o.from, rot: o.rot };
+  }
+  function overlayMelo0(sc) {
     var m = sc.melo || 'off';
     if (/^corner-left|walk-in-left|walk-in$/.test(m)) return { x: 210, y: 1080 + 120, s: 0.96, side: 'right', anim: m.indexOf('walk') === 0 ? 'walk' : 'slide', from: -1 };
     if (/^corner-right|walk-in-right/.test(m)) return { x: 1710, y: 1080 + 120, s: 0.96, side: 'left', anim: m.indexOf('walk') === 0 ? 'walk' : 'slide', from: 1 };
@@ -1418,14 +1456,14 @@
     var prev = E.scenes[j], same = prev && prev.melo === sc.melo;
     var a = t - sc.tStart, x = o.x, y = o.y;
     if (!same) {
-      if (o.anim === 'walk') { var pw = ease(a / 1.2); x = lerp(o.from < 0 ? -260 : 2180, o.x, pw); y -= Math.abs(Math.sin(pw * Math.PI * 4)) * 14 * (1 - pw); }
+      if (o.anim === 'walk') { var pw = ease(a / 1.2); x = lerp(o.from < 0 ? -260 : sw() + 260, o.x, pw); y -= Math.abs(Math.sin(pw * Math.PI * 4)) * 14 * (1 - pw); }
       else if (o.anim === 'peek') { x = o.x - o.from * 220 * (1 - easeOutBack(a / 0.5)); }
       else y += (1 - easeOutBack(a / 0.4)) * 420;
     }
     y += 3 * Math.sin(t * 1.7);
     ctx.save();
     if (o.rot) { ctx.translate(x, y); ctx.rotate(o.rot); ctx.translate(-x, -y); }
-    await drawMeloFig(ctx, t, { x: x, y: y, s: o.s }, FULL, { boardSide: o.side, board: true });
+    await drawMeloFig(ctx, t, { x: x, y: y, s: o.s }, screenCam(), { boardSide: o.side, board: true });
     ctx.restore();
   }
 
@@ -1437,14 +1475,14 @@
   function darkBg(ctx, t, col) {
     if (col) { ctx.fillStyle = col; ctx.fillRect(-60, -60, 2040, 1200); }
     else ctx.drawImage(E.titleBg, -60, -40, 2040, 1160);
-    ctx.save(); ctx.translate(1300, 470); ctx.rotate(t * 0.035); ctx.globalCompositeOperation = col ? 'soft-light' : 'screen'; ctx.globalAlpha = col ? 0.6 : 0.5;
+    ctx.save(); if (V()) ctx.translate(960, 600); else ctx.translate(1300, 470); ctx.rotate(t * 0.035); ctx.globalCompositeOperation = col ? 'soft-light' : 'screen'; ctx.globalAlpha = col ? 0.6 : 0.5;
     ctx.drawImage(E.rays, -1500, -1500, 3000, 3000); ctx.restore();
     if (col) { ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.drawImage(E.vigTex, -60, -60, 2040, 1200); ctx.restore(); }
   }
 
   // ── kinetic typography
-  function fitWords(tokens, lineOf, maxW, maxH, fam, nLines) {
-    for (var fs = 210; fs >= 64; fs -= 6) {
+  function fitWords(tokens, lineOf, maxW, maxH, fam, nLines, fsMax) {
+    for (var fs = fsMax || 210; fs >= 64; fs -= 6) {
       var font = '900 ' + fs + 'px ' + fam, lines = [], cur = [], curW = 0, sp = measure(' ', font);
       tokens.forEach(function (tk, i) {
         var w = measure(tk.text, font);
@@ -1473,10 +1511,16 @@
     var sideProps = (sc.props || []).some(function (p) { return /left|right/.test(p.at); });
     var topProp = (sc.props || []).some(function (p) { return !/left|right|^\d/.test(p.at); });
     // keep clear of a corner/side Melo: narrower text, shifted away from him
-    var om = overlayMelo(sc), cx0 = 960, maxW = sideProps ? 1100 : 1500;
-    if (om) { maxW = Math.min(maxW, 1260); cx0 = om.x < 960 ? 1060 : 860; }
-    var L = fitWords(toks, stack, maxW, (sc.args.sub ? 520 : 640) - (topProp ? 90 : 0), fam, stack ? 5 : 3);
-    var lh = L.fs * 1.08, top = 540 - (L.lines.length * lh) / 2 - (a.sub ? 70 : 20) + L.fs * 0.8 + (topProp ? 60 : 0);
+    var om = overlayMelo(sc), cx0 = 960, maxW = sideProps ? 1100 : 1500, cyT = 540, L;
+    if (V()) {  // portrait: words in the crop's centre column, between hook title and karaoke line
+      var cv = camView(cam), zp = cv.z / E.scale;
+      cx0 = cv.x0 + cv.w / 2; cyT = cv.y0 + (VS.top + VS.bottom) / 2 / zp;
+      L = fitWords(toks, stack, cv.w * 0.86, (VS.bottom - VS.top - (a.sub ? 150 : 40)) / zp - (topProp ? 90 : 0), fam, stack ? 7 : 5, 150);
+    } else {
+      if (om) { maxW = Math.min(maxW, 1260); cx0 = om.x < 960 ? 1060 : 860; }
+      L = fitWords(toks, stack, maxW, (sc.args.sub ? 520 : 640) - (topProp ? 90 : 0), fam, stack ? 5 : 3);
+    }
+    var lh = L.fs * 1.08, top = cyT - (L.lines.length * lh) / 2 - (a.sub ? 70 : 20) + L.fs * 0.8 + (topProp ? 60 : 0);
     var colMain = dark ? CREAM : INK, colAcc = dark ? MUSTARD : (style === 'wrong' ? RED : style === 'right' ? '#3f7d2f' : '#b5402f');
     var lastT = toks.length ? toks[toks.length - 1].t : sc.tStart, ends = [];
     L.lines.forEach(function (line, li) {
@@ -1511,7 +1555,8 @@
     }
     if (style === 'question') {
       var pq = sat((t - (toks.length ? toks[0].t : sc.tStart)) / 0.4);
-      ctx.save(); ctx.translate(1680, 300); ctx.rotate(0.15 + 0.05 * Math.sin(t * 2)); ctx.scale(easeOutBack(pq), easeOutBack(pq));
+      ctx.save(); if (V()) { ctx.translate(cx0 + 200, top - L.fs * 1.1); ctx.scale(0.5, 0.5); } else ctx.translate(1680, 300);
+      ctx.rotate(0.15 + 0.05 * Math.sin(t * 2)); ctx.scale(easeOutBack(pq), easeOutBack(pq));
       ctx.font = '900 300px Fraunces'; ctx.textAlign = 'center'; ctx.fillStyle = dark ? 'rgba(0,0,0,.4)' : 'rgba(214,160,60,.5)'; ctx.fillText('?', 12, 110); ctx.fillStyle = dark ? MUSTARD : RED; ctx.fillText('?', 0, 100); ctx.restore();
     }
     if (a.sub) {
@@ -1569,6 +1614,7 @@
     var cam = { cx: 960 + 8 * Math.sin(t * 0.4), cy: 540, w: 1920 / z }; camTransform(ctx, cam);
     darkBg(ctx, t);
     var t0 = sc.contentStart || sc.tStart;
+    if (V()) return drawChapterV(ctx, t, sc, cam, t0), cam;
     if (a.num != null && a.num !== '') {
       drawSlam(ctx, 'NR.', 150, 470, '400 150px Anton', CREAM, (t - t0 + 0.1) / 0.25, 'left');
       drawSlam(ctx, String(a.num), 150, 860, '400 440px Anton', MUSTARD, (t - t0 + 0.05) / 0.3, 'left');
@@ -1587,6 +1633,28 @@
       });
     }
     return cam;
+  }
+
+  // vertical chapter card: NR. + number, title below (left column); or the title words stacked
+  function drawChapterV(ctx, t, sc, cam, t0) {
+    var a = sc.args || {}, v = camView(cam), zp = v.z / E.scale, X = v.x0 + 90 / zp, Y = function (py) { return v.y0 + py / zp; };
+    var maxW = (1080 - 180) / zp, tl = String(a.title || ''), fs, font, lines, y;
+    if (a.num != null && a.num !== '') {
+      drawSlam(ctx, 'NR.', X, Y(700), '400 ' + (130 / zp) + 'px Anton', CREAM, (t - t0 + 0.1) / 0.25, 'left');
+      drawSlam(ctx, String(a.num), X, Y(1070), '400 ' + (400 / zp) + 'px Anton', MUSTARD, (t - t0 + 0.05) / 0.3, 'left');
+      for (fs = 120 / zp; fs > 56 / zp; fs -= 4 / zp) { font = '900 ' + fs + 'px Fraunces'; lines = wrap(tl, font, maxW); if (lines.length <= 2 && lines.every(function (l) { return measure(l, font) <= maxW; })) break; }
+      font = '900 ' + fs + 'px Fraunces'; lines = wrap(tl, font, maxW); y = Y(1190);
+      lines.forEach(function (l, i) { drawSlam(ctx, l, X, y + i * fs * 1.1, font, CREAM, (t - t0 - 0.1 - i * 0.06) / 0.25, 'left'); });
+      if (t > t0 + 0.35) { ctx.save(); ctx.globalAlpha = sat((t - t0 - 0.35) * 5); underlineInk(ctx, X, y + (lines.length - 1) * fs * 1.1 + fs * 0.3, Math.min(maxW, Math.max.apply(0, lines.map(function (l) { return measure(l, font); }))), 77); ctx.restore(); }
+      return;
+    }
+    var L = sc.titleLV || (sc.titleLV = titleLayout({ text: tl }, maxW, 190 / zp)), wi = 0, nW = tl.split(/\s+/).length, st = Math.min(0.14, 0.25 / Math.max(1, nW));
+    if (L.number) L = { lines: [L.kicker, L.number], fs: 200 / zp };
+    y = Y((VS.top + VS.bottom) / 2) - (L.lines.length - 1) * L.fs * 0.51 + L.fs * 0.35;
+    L.lines.forEach(function (line, li) {
+      var x = X; String(line).split(' ').forEach(function (w) { drawSlam(ctx, w, x, y, '400 ' + L.fs + 'px Anton', li === L.lines.length - 1 ? MUSTARD : CREAM, (t - t0 - wi * st) / 0.25, 'left'); x += measure(w + ' ', '400 ' + L.fs + 'px Anton'); wi++; });
+      y += L.fs * 1.02;
+    });
   }
 
   // ── list (notebook page)
@@ -1708,44 +1776,68 @@
     var cx = S.x != null ? +S.x : scene ? 1230 : om ? (om.x < 960 ? 1090 : 830) : 960;
     var cy = S.y != null ? +S.y : scene ? 300 : 530;
     var maxW = S.maxw != null ? +S.maxw : scene ? 1300 : om ? 1300 : 1720;
-    var fs = S.size != null ? +S.size : 112, L;
-    for (var pass = 0; pass < 3; pass++) {
-      L = cardsPlace(S, fs);
-      if (L.w <= maxW) break;
-      fs = Math.floor(fs * maxW / L.w);
+    var fs = S.size != null ? +S.size : 112, L, top = 0, bot = 1080, wrapW = 0;
+    if (V()) {  // portrait: centred, rows wrap into stacked lines, between hook title and karaoke line (vx= vy= vsize= vmaxw=)
+      cx = S.vx != null ? +S.vx : 540; cy = S.vy != null ? +S.vy : scene ? VS.sceneCy : VS.cardCy;
+      maxW = S.vmaxw != null ? +S.vmaxw : 940; fs = S.vsize != null ? +S.vsize : scene ? Math.min(fs, 100) : fs;
+      top = VS.top; bot = scene ? VS.sceneBottom : VS.bottom;
+    }
+    for (var pass = 0, np = V() ? 8 : 3; pass < np; pass++) {
+      if (V()) wrapW = Math.min(maxW, 1080 - 2 * (fs * 0.42 + 30));
+      L = cardsPlace(S, fs, wrapW);
+      var hgt = L.y1 - L.y0 + (S.label ? fs * 0.95 : 0), maxH = bot - top - 2 * (fs * 0.42 + 30);
+      if (L.w <= maxW && (!V() || hgt <= maxH || fs <= 70)) break;
+      fs = Math.max(V() ? 70 : 0, Math.floor(fs * Math.min(1, maxW / L.w) * (V() && hgt > maxH ? Math.max(0.85, Math.sqrt(maxH / hgt)) : 1)));
     }
     var dx = cx - (L.x0 + L.x1) / 2, dy = cy - (L.y0 + L.y1) / 2, m = L.fs * 0.42 + 30;
     // keep the strip (+ its paper sheet and label) inside the frame
-    dx = clamp(dx, m - L.x0, 1920 - m - L.x1);
-    dy = clamp(dy, m + (S.label ? L.fs * 0.95 : 0) - L.y0, 1080 - m - L.y1);
+    dx = clamp(dx, m - L.x0, sw() - m - L.x1);
+    dy = clamp(dy, top + m + (S.label ? L.fs * 0.95 : 0) - L.y0, bot - m - L.y1);
     L.cards.forEach(function (c) { c.x += dx; c.y += dy; });
     L.rows.forEach(function (r) { r.x0 += dx; r.x1 += dx; r.y += dy; });
     L.box = { x0: L.x0 + dx, y0: L.y0 + dy, x1: L.x1 + dx, y1: L.y1 + dy };
     L.map = {}; L.cards.forEach(function (c) { L.map[c.key] = c; });
     return (S._L = L);
   }
-  function cardsPlace(S, fs) {
+  // rows = visual lines, lrows = the script's rows (` | `); wrapW > 0 (vertical) breaks a row into several lines
+  function cardsPlace(S, fs, wrapW) {
     var font = '900 ' + fs + 'px Fraunces', pad = fs * 0.3, gap = fs * 0.2, h = fs * 1.32;
-    var rowGap = (S.gap != null ? +S.gap : 0.42) * fs, cards = [], rows = [], y = 0, xs = 0, X0 = 1e9, X1 = -1e9;
+    var rowGap = (S.gap != null ? +S.gap : 0.42) * fs, cards = [], rows = [], lrows = [], y = 0, xs = 0, X0 = 1e9, X1 = -1e9;
     (S.cards || []).forEach(function (row, ri) {
       var x = null, hasNum = row.some(function (c) { return c.num != null; });
-      if (S.stair) x = ri > 0 && rows[ri - 1].last ? rows[ri - 1].last.x - rows[ri - 1].last.w / 2 : 0;
-      var rc = [], cur = 0;
-      row.forEach(function (cd, i) {
-        var w = cd.kind === 'slot' ? fs * 1.7 : measure(cd.text, font) + pad * 2;
-        if (i > 0) cur += cd.joinPrev ? 0 : gap;
-        rc.push({ key: cd.key, text: cd.text, kind: cd.kind, color: cd.color, num: cd.num, joinPrev: cd.joinPrev, t: cd.t, w: w, h: h, x: cur + w / 2, y: y + h / 2, row: ri, fs: fs });
-        cur += w;
+      if (S.stair) x = ri > 0 && lrows[ri - 1].last ? lrows[ri - 1].last.x - lrows[ri - 1].last.w / 2 : 0;
+      var ws = row.map(function (cd) { return cd.kind === 'slot' ? fs * 1.7 : measure(cd.text, font) + pad * 2; }), lines, cur, lw;
+      var fill = function (lim) {
+        lines = [[]]; cur = 0; lw = [];
+        row.forEach(function (cd, i) {
+          var w = ws[i], line = lines[lines.length - 1];
+          if (lim && line.length && cur + (cd.joinPrev ? 0 : gap) + w > lim) { lw.push(cur); line = []; lines.push(line); cur = 0; }
+          if (line.length) cur += cd.joinPrev ? 0 : gap;
+          line.push({ key: cd.key, text: cd.text, kind: cd.kind, color: cd.color, num: cd.num, joinPrev: cd.joinPrev, t: cd.t, w: w, h: h, x: cur + w / 2, y: 0, row: 0, fs: fs });
+          cur += w;
+        });
+        lw.push(cur);
+      };
+      fill(wrapW);
+      if (lines.length > 1) {  // balance the lines (no lonely last word)
+        var n = lines.length, tot = lw.reduce(function (a, b) { return a + b; }, 0) + gap * (n - 1);
+        for (var lim = tot / n; lim < wrapW; lim += fs * 0.25) { fill(lim); if (lines.length <= n) break; }
+        if (lines.length > n) fill(wrapW);
+      }
+      var all = [];
+      lines.forEach(function (rc, k) {
+        var off = x == null ? -lw[k] / 2 : wrapW ? Math.max(0, Math.min(x, wrapW - lw[k])) : x;
+        rc.forEach(function (c) { c.x += off; c.y = y + h / 2; c.row = rows.length; });
+        rows.push({ x0: off, x1: off + lw[k], y: y + h / 2, last: rc[rc.length - 1], first: rc[0] });
+        X0 = Math.min(X0, off); X1 = Math.max(X1, off + lw[k]);
+        all = all.concat(rc);
+        y += h + rowGap + (hasNum ? fs * 0.6 : 0);
       });
-      var off = x == null ? -cur / 2 : x;
-      rc.forEach(function (c) { c.x += off; });
-      rows.push({ x0: off, x1: off + cur, y: y + h / 2, last: rc[rc.length - 1], first: rc[0] });
-      X0 = Math.min(X0, off); X1 = Math.max(X1, off + cur);
-      cards = cards.concat(rc);
-      y += h + rowGap + (hasNum ? fs * 0.6 : 0);
+      lrows.push({ first: all[0], last: all[all.length - 1] });
+      cards = cards.concat(all);
     });
     var yEnd = y - rowGap;
-    return { fs: fs, cards: cards, rows: rows, x0: X0, x1: X1, y0: 0, y1: Math.max(h, yEnd), w: X1 - X0 };
+    return { fs: fs, cards: cards, rows: rows, lrows: lrows, x0: X0, x1: X1, y0: 0, y1: Math.max(h, yEnd), w: X1 - X0 };
   }
   function drawCard(ctx, c, S, x, y, w, fs, text, alpha, sc, rot, t, glow) {
     if (alpha <= 0) return;
@@ -1845,7 +1937,7 @@
       // join: two cards that touch (verb meets verb)
       if (S.join) {
         var pair = null;
-        if (S.stair && L.rows.length > 1) pair = [L.rows[0].last, L.rows[1].first];
+        if (S.stair && L.lrows.length > 1) pair = [L.lrows[0].last, L.lrows[1].first];
         else L.cards.forEach(function (c, i) { if (!pair && c.joinPrev) pair = [L.cards[i - 1], c]; });
         var ja = sat((t - S.t - 0.6) / 0.35);
         if (pair && ja > 0) {
@@ -1853,7 +1945,8 @@
           ctx.save(); ctx.globalAlpha = ja;
           ctx.strokeStyle = MUSTARD; ctx.lineWidth = L.fs * 0.1; ctx.beginPath(); ctx.arc(jx, jy, L.fs * (0.62 + 0.06 * Math.sin(t * 5)), 0, 7); ctx.stroke();
           ctx.font = '700 ' + Math.round(Math.max(72, L.fs * 1.0)) + 'px Caveat'; ctx.fillStyle = dark ? MUSTARD : RED;
-          if (S.stair) { ctx.textAlign = 'right'; ctx.fillText(S.join + ' →', jx - L.fs * 0.8, b0.y + L.fs * 0.3); }
+          if (S.stair && V() && jx - L.fs * 0.8 - measure(S.join + ' →', ctx.font) < 20) { ctx.textAlign = 'center'; ctx.fillText('↑ ' + S.join, (L.box.x0 + L.box.x1) / 2, L.box.y1 + L.fs * 1.15); }
+          else if (S.stair) { ctx.textAlign = 'right'; ctx.fillText(S.join + ' →', jx - L.fs * 0.8, b0.y + L.fs * 0.3); }
           else { ctx.textAlign = 'center'; ctx.fillText(S.join, jx, a0.y + L.fs * 1.45); }
           ctx.restore();
         }
@@ -1864,12 +1957,12 @@
         if (S.mark === 'wrong') {
           L.rows.forEach(function (r, i) { brushStroke(ctx, [[r.x0 - 25, r.y + F * 0.12], [r.x1 + 25, r.y - F * 0.1]], F * 0.13, RED, sat((mp - i * 0.12) / 0.3), 41 + i); });
           var xx = B.x1 + F * 0.95, yy = (B.y0 + B.y1) / 2, R = F * 0.62;
-          if (xx + R > 1890) { xx = B.x1 - F * 0.2; yy = B.y0 - F * 0.55; }
+          if (xx + R > sw() - 30) { xx = B.x1 - F * 0.2; yy = B.y0 - F * 0.55; }
           brushStroke(ctx, [[xx - R, yy - R], [xx + R, yy + R]], F * 0.2, RED, sat((mp - 0.25) / 0.2), 51);
           brushStroke(ctx, [[xx + R, yy - R], [xx - R, yy + R]], F * 0.2, RED, sat((mp - 0.42) / 0.2), 53);
         } else if (S.mark === 'right') {
           var tx = B.x1 + F * 0.45, ty = (B.y0 + B.y1) / 2 + F * 0.3, T2 = F * 1.1;
-          if (tx + T2 > 1890) { tx = B.x1 - F * 0.6; ty = B.y0 - F * 0.1; }
+          if (tx + T2 > sw() - 30) { tx = B.x1 - F * 0.6; ty = B.y0 - F * 0.1; }
           brushStroke(ctx, [[tx, ty - T2 * 0.38], [tx + T2 * 0.25, ty - T2 * 0.05], [tx + T2 * 0.8, ty - T2 * 0.95]], F * 0.17, '#3f7d2f', sat(mp / 0.35), 61);
         }
       }
@@ -1923,7 +2016,7 @@
 
   // ── transitions between shots
   function composite(ctx, sc, t) {
-    var b = E.buf, p = (t - sc.tStart) / Math.max(0.01, sc.tEnd - sc.tStart), S = E.scale, W2 = 1920 * S, H2 = 1080 * S;
+    var b = E.buf, p = (t - sc.tStart) / Math.max(0.01, sc.tEnd - sc.tStart), S = E.scale, W2 = sw() * S, H2 = sh() * S, SW = sw(), SH = sh();
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
     switch (sc.transition) {
       case 'whip': {
@@ -1953,12 +2046,12 @@
       }
       case 'flash': { ctx.drawImage(b, 0, 0); ctx.fillStyle = '#fff8e6'; ctx.globalAlpha = 1 - p; ctx.fillRect(0, 0, W2, H2); break; }
       default: { // ink-brush wipe
-        var edge = lerp(-500, 2400, ease(p)), r = rng(sc.i * 31 + 7), pts = [];
+        var edge = lerp(-500, SW + 480, ease(p)), r = rng(sc.i * 31 + 7), pts = [];
         ctx.setTransform(S, 0, 0, S, 0, 0);
         var poly = new Path2D(), band = new Path2D();
         poly.moveTo(-10, -10);
-        for (var y = -20; y <= 1100; y += 30) pts.push([edge - (y - 540) * 0.35 + (r() - 0.5) * 36, y]);
-        pts.forEach(function (q) { poly.lineTo(q[0], q[1]); }); poly.lineTo(-10, 1100); poly.closePath();
+        for (var y = -20; y <= SH + 20; y += 30) pts.push([edge - (y - SH / 2) * 0.35 + (r() - 0.5) * 36, y]);
+        pts.forEach(function (q) { poly.lineTo(q[0], q[1]); }); poly.lineTo(-10, SH + 20); poly.closePath();
         ctx.save(); ctx.clip(poly); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(b, 0, 0); ctx.restore();
         band.moveTo(pts[0][0] - 150, pts[0][1]);
         pts.forEach(function (q) { band.lineTo(q[0] + 8, q[1]); });
@@ -1971,7 +2064,47 @@
   }
 
   // ───────────────────────── frame ─────────────────────────
+  // vertical: the visible world rect of a 16:9 camera = full-height portrait crop around the shot's focus x.
+  // Zoom is damped (sets already fill 1920 px height at ×1.78); `vzoom=` on the shot sets it explicitly.
+  function vView(cam) {
+    if (cam._v) return cam._v;
+    var sc = E.vShot, A = (sc && sc.args) || {}, zh = 1920 / cam.w;
+    var zv = A.vzoom != null ? Math.max(1, parseFloat(A.vzoom) || 1) : 1 + Math.max(0, zh - 1) * VS.zoomK;
+    var h = 1080 / zv, cy = clamp(cam.cy, h / 2, 1080 - h / 2), z = 1920 / h, cw = 1080 / z;
+    var fx = clamp(vFocus(sc, cam), cw / 2, 1920 - cw / 2);
+    return { x0: fx - cw / 2, y0: cy - h / 2, w: cw, h: h, z: z * E.scale };
+  }
+  // focus x of a shot in vertical mode: focus=<x|slot|melo|castId> → keyed camera → Melo/cast in the set → centre;
+  // plus the camera's own motion (pan, drift, shake)
+  function vFocus(sc, cam) {
+    if (!sc) return cam.cx;
+    var A = sc.args || {}, base = A.cam === 'static' && A.cx != null ? +A.cx : 960, f = A.focus;
+    if (f != null && f !== '') {
+      if (/^-?\d+(\.\d+)?$/.test(String(f))) return +f + cam.cx - base;
+      if (f === 'melo') f = String(sc.melo || '').split(':')[1] || 'center';
+      var cm = (sc.cast || []).filter(function (m) { return m.id === f; })[0];
+      var sl = slotsOf(sc)[cm ? cm.slot : f]; if (sl) return sl.x + cam.cx - base;
+    }
+    if (sc.cams && sc.cams.length) return cam.cx;
+    if (sc.type === 'melo') { var right = sc.i % 2 === 1; return (A.framing === 'wide' ? (right ? 1320 : 600) : (right ? 1300 : 620)) + cam.cx - base; }
+    if (sc.type !== 'scene') return cam.cx;
+    var mm = String(sc.melo || ''), xs = [], mx = null;
+    if (mm.indexOf('in-scene') === 0) { mx = slotPos(sc, mm.split(':')[1] || 'center').x; xs.push(mx); }
+    (sc.cast || []).forEach(function (m) { xs.push(slotPos(sc, m.slot).x); });
+    if (!xs.length) return cam.cx;
+    var lo = Math.min.apply(0, xs), hi = Math.max.apply(0, xs);
+    var fx = hi - lo < 420 ? (lo + hi) / 2 : mx != null ? mx : xs[0];
+    return fx + cam.cx - base;
+  }
+  // visible world rect + pixels per world unit of a camera (horizontal: the 16:9 frame itself)
+  function camView(cam) {
+    if (V()) return vView(cam);
+    var fh = cam.w * 9 / 16;
+    return { x0: cam.cx - cam.w / 2, y0: cam.cy - fh / 2, w: cam.w, h: fh, z: 1920 / cam.w * E.scale };
+  }
+  function screenCam() { return V() ? { cx: 540, cy: 960, w: 1080, _v: { x0: 0, y0: 0, w: 1080, h: 1920, z: E.scale } } : FULL; }
   function camTransform(ctx, cam) {
+    if (V()) { var v = vView(cam); ctx.setTransform(v.z, 0, 0, v.z, -v.x0 * v.z, -v.y0 * v.z); return; }
     var z = 1920 / cam.w * E.scale, h = cam.w * 9 / 16;
     ctx.setTransform(z, 0, 0, z, -(cam.cx - cam.w / 2) * z, -(cam.cy - h / 2) * z);
   }
@@ -1987,7 +2120,23 @@
     if (M) await drawMelo(ctx, t, M, cam, { boardSide: sc.melo === 'side-right' ? 'left' : 'right' });
     ctx.restore();
   }
+  // vertical: shot types with a portrait layout render natively, the rest letterboxed over a blurred cover
+  function vNative(sc) { return !!(sc && sc.isShot && sc.layout !== 'title' && /^(scene|cards|text|melo|chapter)$/.test(sc.type)); }
+  async function renderLetterbox(ctx, t, mode) {
+    E.hm = true;
+    try { await renderInto(E.hctx, t, mode); } finally { E.hm = false; }
+    var hb = E.hbuf, Wc = ctx.canvas.width, Hc = ctx.canvas.height, tiny = E.hTiny || (E.hTiny = mk(64, 36));
+    tiny.getContext('2d').drawImage(hb, 0, 0, 64, 36);
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    var cwid = Hc * 16 / 9; ctx.drawImage(tiny, (Wc - cwid) / 2, 0, cwid, Hc);
+    ctx.fillStyle = 'rgba(16,11,8,.35)'; ctx.fillRect(0, 0, Wc, Hc);
+    var fh = Wc * 9 / 16, y = (VS.top + VS.bottom) / 2 * E.scale - fh / 2;
+    ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(10 * E.scale, y + 16 * E.scale, Wc, fh);
+    ctx.drawImage(hb, 0, y, Wc, fh);
+  }
   async function renderInto(ctx, t, mode) {
+    E.vShot = mode;
+    if (E.V && !E.hm && !vNative(mode)) return renderLetterbox(ctx, t, mode);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = '#e9dfc4'; ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     if (mode.layout === 'title') await drawTitleCard(ctx, t, mode);
@@ -2046,10 +2195,12 @@
   async function init(tl, opts) {
     opts = opts || {};
     E.tl = tl; E.scale = opts.scale || 1; E.subs = opts.subs !== false; E.BS = opts.scale && opts.scale < 1 ? 1.25 : 2;
+    E.V = !!(opts.vertical || tl.format === 'vertical'); E.hm = false;
     var fonts = ['700 40px Kalam', '400 40px Kalam', '700 40px Caveat', '400 40px Anton', '500 40px Oswald', '700 40px Oswald', '900 40px Fraunces'];
     await Promise.all(fonts.map(function (f) { return document.fonts.load(f, 'AaÄßü„“'); }));
     var cv = opts.canvas || document.getElementById('frame');
-    cv.width = W * E.scale; cv.height = H * E.scale;
+    cv.width = (E.V ? H : W) * E.scale; cv.height = (E.V ? W : H) * E.scale;
+    if (E.V) { E.hbuf = mk(W * E.scale, H * E.scale); E.hctx = E.hbuf.getContext('2d'); }
     E.ctx = cv.getContext('2d');
     E.buf = mk(cv.width, cv.height); E.bufCtx = E.buf.getContext('2d');
     // static set (2× for camera zooms)
@@ -2063,6 +2214,7 @@
     rg.globalCompositeOperation = 'destination-in'; var rgr = rg.createRadialGradient(0, 0, 60, 0, 0, 700); rgr.addColorStop(0, 'rgba(0,0,0,.9)'); rgr.addColorStop(1, 'rgba(0,0,0,0)'); rg.fillStyle = rgr; rg.fillRect(-700, -700, 1400, 1400);
     E.rays = rc;
     var gi = await svgImage(MeloSet.grainSvg()); E.grain = mk(W * E.scale, H * E.scale); E.grain.getContext('2d').drawImage(gi, 0, 0, W * E.scale, H * E.scale);
+    if (E.V) { var gv = mk(cv.width, cv.height), gvc = gv.getContext('2d'); gvc.translate(cv.width, 0); gvc.rotate(Math.PI / 2); gvc.drawImage(E.grain, 0, 0); E.grain = gv; }
     var sp = await svgImage(MeloSet.spongeSvg()); E.sponge = mk(170 * 2, 74 * 2); E.sponge.getContext('2d').drawImage(sp, 0, 0, 340, 148);
     // chalk grain pattern
     var gc = mk(256, 256), gg = gc.getContext('2d'), r = rng(99);
@@ -2091,6 +2243,7 @@
     E.quotesBy = {}; (tl.quotes || []).forEach(function (q) { (E.quotesBy[q.who] = E.quotesBy[q.who] || []).push(q); });
     E.heads = {}; E.mouths = {}; E.headR = {}; E.warned = {}; E.setCache = {}; E.surfs = {};
     E.SS2 = Math.min(1.3, 1.15 * E.scale + 0.0001) || 1;
+    if (E.V) E.SS2 = Math.min(1.8, 1.7 * E.scale + 0.0001);   // portrait crops show sets at ×1.78
     E.buf2 = mk(cv.width, cv.height);
     await initTextures();
     E.chapters = tl.chapters || [];

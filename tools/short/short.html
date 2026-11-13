@@ -142,11 +142,15 @@
   }
   function hookTitle(t) {
     // channel tag + two hook lines (white / yellow), each popping in
-    var s = '', L = P.hook || [];
-    var kt = outBack((t - 0.0) / 0.3);
-    s += pop(badge(540, 118, P.tag || 'DEUTSCH MIT MELO', MUST, INK, 40, -2), 540, 155, 0.6 + 0.4 * kt, clamp(t / 0.2));
-    if (L[0]) { var a = word(L[0], 540, 360, 900, 200, '#ffffff', { anchor: 'middle', rot: -3 }); s += pop(a.svg, 540, 300, outBack((t - 0.05) / 0.32)); }
-    if (L[1]) { var b = word(L[1], 540, 535, 960, 150, YEL, { anchor: 'middle', rot: -3 }); s += pop(b.svg, 540, 480, outBack((t - 0.2) / 0.32)); }
+    var s = '', L = P.hook || [], N = !!P.native;   // native: full-screen vertical video below → compact, on a soft dark fade
+    var kt = outBack((t - 0.0) / 0.3), y1 = N ? 300 : 360, y2 = N ? 438 : 535;
+    if (N) {
+      defs += '<linearGradient id="hookFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0806" stop-opacity=".62"/><stop offset=".62" stop-color="#0b0806" stop-opacity=".38"/><stop offset="1" stop-color="#0b0806" stop-opacity="0"/></linearGradient>';
+      s += '<rect width="' + W + '" height="600" fill="url(#hookFade)"/>';
+    }
+    s += pop(badge(540, N ? 112 : 118, P.tag || 'DEUTSCH MIT MELO', MUST, INK, N ? 34 : 40, -2), 540, 155, 0.6 + 0.4 * kt, clamp(t / 0.2));
+    if (L[0]) { var a = word(L[0], 540, y1, N ? 940 : 900, N ? 150 : 200, '#ffffff', { anchor: 'middle', rot: -3 }); s += pop(a.svg, 540, y1 - 60, outBack((t - 0.05) / 0.32)); }
+    if (L[1]) { var b = word(L[1], 540, y2, N ? 940 : 960, N ? 118 : 150, YEL, { anchor: 'middle', rot: -3 }); s += pop(b.svg, 540, y2 - 55, outBack((t - 0.2) / 0.32)); }
     return s;
   }
   function slotFrame() {
@@ -277,7 +281,7 @@
 
   function build(t) {
     S = new SceneInk(7); defs = DEFS;
-    var s = MODE === 'bg' ? bgSvg() : MODE === 'top' ? hookTitle(t) + slotFrame() : MODE === 'endcard' ? endcardSvg(t) : MODE === 'sticker' ? stickerSvg() : coverSvg();
+    var s = MODE === 'bg' ? bgSvg() : MODE === 'top' ? hookTitle(t) + (P.native ? '' : slotFrame()) : MODE === 'endcard' ? endcardSvg(t) : MODE === 'sticker' ? stickerSvg() : coverSvg();
     document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
   }
   window.renderFrame = function (t) { build(t); };

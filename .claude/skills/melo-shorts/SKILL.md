@@ -33,6 +33,13 @@ Title ≤ 60 chars incl. `#shorts`, curiosity hook with the keyword (e.g. „„
 ## 6. Deliver
 MP4 (for viewing) + cover PNG + uncompressed ZIP of mp4+cover+meta (for download) → `SendUserFile`. In the message: every text in its own code block, remind to set **"Related video" = the long episode** (only clickable Short→long link) and the publish slot (17:05).
 
+## Native vertical loop Short (preferred for the 17:05 loop Shorts; data: 16:9 panel = 39–52 % viewed)
+The engine renders 1080×1920 itself — no 16:9 panel, no empty areas. Same script format as `episodes/s01-verb-springt/script.md` (scene + `[[shot type=cards]]` + `[[cards]]`), plus:
+1. script front matter `format: vertical` (or render with `--vertical`). Write cards for portrait: ≤ ~3 cards per line read best, rows wrap automatically; over a set give `focus=` (x or slot) if Melo/cast aren't the subject. Don't use split/list/map/board/quiz shots (letterboxed fallback).
+2. `short.json`: copy `shorts/s01-verb-springt/short-vertical.json` → `"fit": "native"`, `"loop": true`, `"output"` name, `"subtitle_style": {"lines":1,"size":104,"x":520,"y":1400,"max_width":840}`, sticker at the bottom right (`"x":940,"y":1515`).
+3. `python3 tools/make-short.py shorts/<id>/short-vertical.json --sheet` → `out/<output>.mp4` + `<output>-contact.jpg` (≈ 2–3 min for 43 s with 4 workers). Check the sheet once + first frame vs last frame (loop).
+Details/safe zones: `docs/PIPELINE.md` → „Vertical mode“.
+
 ## Hook rule (data, Short #1: only 38.7 % viewed vs 61.3 % swiped)
 The first segment must START on the wrong sentence or the provocative claim (spoken within the first 0.5–1 s, hook text on screen from frame 1). No scene-setting („Juli, 35 Grad …“, „Freitagabend, Biergarten …“) before it; the hook overlay gives the context. Target 30–40 s total. Check the start word with the episode's `build/alignment.json`.
 

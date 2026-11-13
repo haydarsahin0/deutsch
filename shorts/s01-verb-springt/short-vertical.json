@@ -1,0 +1,44 @@
+{
+  "id": "s01-verb-springt",
+  "episode": "episodes/s01-verb-springt",
+  "segments": [
+    {
+      "from": 0.14,
+      "to": 43.06,
+      "note": "NATIVE VERTICAL test of the loop Short (engine --vertical, fit: native). ORIGINAL loop Short: the whole audio. Ends on „Und warum trinke ich so viel Kaffee?“ → starts on the answer „Weil ich müde bin.“ (same café framing at both ends)."
+    }
+  ],
+  "loop": true,
+  "hook": [
+    "FEHLER NR. 1 AUF B1",
+    "Wo steht das Verb?"
+  ],
+  "tag": "DEUTSCH MIT MELO",
+  "sticker": {
+    "text": "Speichern & abonnieren",
+    "from": 19.3,
+    "to": 27.3,
+    "x": 940,
+    "y": 1515,
+    "rot": -3,
+    "size": 40
+  },
+  "cover": {
+    "headline": "FEHLER NR. 1 AUF B1",
+    "wrong": "„weil ich bin müde“",
+    "right": "„weil ich müde bin“",
+    "note": "final cover is hand-made: cover/cover.html → out/cover-v2.png"
+  },
+  "pad": 0.15,
+  "max_duration": 59,
+  "fit": "native",
+  "subtitle_style": {
+    "lines": 1,
+    "size": 140,
+    "x": 520,
+    "y": 1400,
+    "max_width": 860
+  },
+  "subtitle_max_words": 4,
+  "output": "short-vertical"
+}

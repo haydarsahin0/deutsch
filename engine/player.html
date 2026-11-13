@@ -5,7 +5,8 @@
 <title>Melo Player</title>
 <!--
   Deutsch mit Melo – frame renderer.
-  player.html?ep=01-das-sagt-kein-deutscher[&scale=0.5][&subs=0][&dev=1]
+  player.html?ep=01-das-sagt-kein-deutscher[&scale=0.5][&subs=0][&dev=1][&vertical=1]
+  vertical=1 (or timeline format "vertical"): 1080×1920 portrait frames (Shorts), see docs/PIPELINE.md.
   Loads ../episodes/<ep>/build/timeline.js (window.TIMELINE), exposes window.renderFrame(t) (async).
   dev=1: scrubber + audio preview.
 -->
@@ -67,7 +68,7 @@
     var tl = window.TIMELINE;
     if (!tl) { document.title = 'no timeline'; console.error('no TIMELINE (build/timeline.js) for ep=' + ep); return; }
     if (!window.__assetsLoaded) { window.__assetsLoaded = true; return loadAssets(tl, start); }
-    MeloEngine.init(tl, { scale: parseFloat(q.get('scale') || '1'), subs: q.get('subs') !== '0' }).then(function (info) {
+    MeloEngine.init(tl, { scale: parseFloat(q.get('scale') || '1'), subs: q.get('subs') !== '0', vertical: q.get('vertical') === '1' }).then(function (info) {
       window.__ready = true; window.__info = info;
       if (q.get('dev')) dev(tl); else renderFrame(parseFloat(q.get('t') || '0'));
     }).catch(function (e) { console.error(e); window.__error = String(e && e.stack || e); });
