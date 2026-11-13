@@ -1,0 +1,39 @@
+{
+  "id": "07-notaufnahme",
+  "episode": "episodes/02-50-woerter-am-tag",
+  "segments": [
+    {
+      "from": 431.12,
+      "to": 469.95,
+      "crop_x": 0,
+      "note": "Hook question „Und was passiert mit den Wörtern, die du nicht weißt?“ → Notaufnahme, Morgen-Check, Tag 4 · 7 · 14 · 30."
+    }
+  ],
+  "cta": {
+    "from": 695.85,
+    "to": 699.8,
+    "hold": 0.6,
+    "note": "Wenn du Deutsch lieber ehrlich als bequem lernen willst, abonnier den Kanal."
+  },
+  "hook": [
+    "VERGESSEN?",
+    "Ab in die Notaufnahme!"
+  ],
+  "tag": "DEUTSCH MIT MELO",
+  "endcard": {
+    "line1": "GEFÄLLT'S DIR?",
+    "line2": "LIKE & ABONNIEREN!",
+    "sub": "Ganzes Video auf dem Kanal"
+  },
+  "pad": 0.15,
+  "max_duration": 59,
+  "fit": "full",
+  "subtitle_style": {
+    "lines": 1,
+    "size": 110,
+    "x": 540,
+    "y": 1375,
+    "max_width": 760
+  },
+  "subtitle_max_words": 3
+}

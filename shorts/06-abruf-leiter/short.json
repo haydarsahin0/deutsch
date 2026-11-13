@@ -1,0 +1,51 @@
+{
+  "id": "06-abruf-leiter",
+  "episode": "episodes/02-50-woerter-am-tag",
+  "segments": [
+    {
+      "from": 368.2,
+      "to": 405.05,
+      "crop_x": 0,
+      "note": "Cold open on the claim: „Die meisten wiederholen so …“ Wiedererkennen vs. Abrufen, die Abruf-Leiter (10 min / 1 h / vor dem Schlafen)."
+    },
+    {
+      "from": 415.25,
+      "to": 420.6,
+      "crop_x": 0,
+      "note": "Mitmach-Frage: „Die Person, die nach dir in die Wohnung zieht. Fünf Sekunden.“ (countdown shortened)"
+    },
+    {
+      "from": 424.15,
+      "to": 425.45,
+      "crop_x": 0,
+      "note": "Auflösung: „Der Nachmieter.“"
+    }
+  ],
+  "cta": {
+    "from": 695.85,
+    "to": 699.8,
+    "hold": 0.6,
+    "note": "Wenn du Deutsch lieber ehrlich als bequem lernen willst, abonnier den Kanal."
+  },
+  "hook": [
+    "DU LERNST FALSCH!",
+    "„Ah ja, kenne ich …“"
+  ],
+  "tag": "DEUTSCH MIT MELO",
+  "endcard": {
+    "line1": "GEFÄLLT'S DIR?",
+    "line2": "LIKE & ABONNIEREN!",
+    "sub": "Ganzes Video auf dem Kanal"
+  },
+  "pad": 0.15,
+  "max_duration": 59,
+  "fit": "full",
+  "subtitle_style": {
+    "lines": 1,
+    "size": 110,
+    "x": 540,
+    "y": 1375,
+    "max_width": 760
+  },
+  "subtitle_max_words": 3
+}
