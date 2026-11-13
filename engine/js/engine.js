@@ -360,21 +360,33 @@
         if (t < T0) return null;
         paperTag(ctx, x + 175, y + 38, 320, 78, -4, MUSTARD, 'KERNFRAGE', '700 48px Oswald', INK, (t - T0) / 0.35); return null;
       } });
-      var fq = 80, fontq = '700 ' + fq + 'px ' + HAND, qs = wrap(el.q, fontq, cw - 40);
+      // auto-fit: question ≤ 2 lines; options must end left of the countdown ring
+      var fq = 80; while (fq > 56 && wrap(el.q, '700 ' + fq + 'px ' + HAND, cw - 40).length > 2) fq -= 4;
+      var fontq = '700 ' + fq + 'px ' + HAND, qs = wrap(el.q, fontq, cw - 40);
       var ql = textLines(qs, fontq, x + 10, y + 165, fq * 1.12);
-      var t = T0 + 0.35, dq = Math.min(2.2, 0.25 + el.q.length * 0.045);
-      parts.push(TextPart(ql, fontq, CHALK.w, t, dq)); t += dq + 0.2;
-      var oy = ql[ql.length - 1].y + 130, fo = 80, fonto = '700 ' + fo + 'px ' + HAND, rows = [];
+      var availO = cw - 52 - 72 - (2 * R + 70), fo = 80;
+      var longest = el.options.reduce(function (m, o) { return Math.max(m, measure(o, '700 80px ' + HAND)); }, 0);
+      if (longest > availO) fo = Math.max(50, Math.floor(80 * availO / longest));
+      var rowH = Math.max(96, 118 * fo / 80);
+      // writing must finish before the countdown starts: compress timings if needed
+      var natural = Math.min(2.2, 0.25 + el.q.length * 0.045) + 0.2;
+      el.options.forEach(function (o) { natural += 0.6 + Math.min(1.2, o.length * 0.05); });
+      var avail = (el.countdown != null ? el.countdown : Infinity) - 0.4 - (T0 + 0.35);
+      var sp = natural > avail ? Math.max(0.3, avail / natural) : 1;
+      var t = T0 + 0.35, dq = Math.min(2.2, 0.25 + el.q.length * 0.045) * sp;
+      parts.push(TextPart(ql, fontq, CHALK.w, t, dq)); t += dq + 0.2 * sp;
+      var oy = ql[ql.length - 1].y + 130 * Math.max(0.85, fo / 80), fonto = '700 ' + fo + 'px ' + HAND, rows = [];
       el.options.forEach(function (o, i) {
-        var cy = oy + i * 118, cx = x + 52;
+        var cy = oy + i * rowH, cx = x + 52;
         var circle = []; for (var q = 0; q <= 30; q++) { var a = -1.7 + q / 30 * 6.5; circle.push([cx + 40 * Math.cos(a), cy - 26 + 40 * Math.sin(a)]); }
         parts.push(StrokePart(circle, 4.5, CHALK.y, t, 0.3, sd + i * 3));
         var lt = textLines(['ABC'[i] || String(i + 1)], '700 52px Oswald', cx - 15, cy - 7, 52);
         parts.push(TextPart(lt, '700 52px Oswald', CHALK.y, t + 0.15, 0.15));
         var ot = textLines([o], fonto, cx + 72, cy, fo);
-        parts.push(TextPart(ot, fonto, CHALK.w, t + 0.25, Math.min(1.2, 0.2 + o.length * 0.05)));
-        rows.push({ x: cx - 50, y: cy - 80, w: 90 + 72 + ot[0].w + 20, h: 110, cy: cy, tx: cx + 72, tw: ot[0].w, written: t + 0.25 + Math.min(1.2, 0.2 + o.length * 0.05) });
-        t += 0.6 + Math.min(1.2, o.length * 0.05);
+        var od = Math.min(1.2, 0.2 + o.length * 0.05) * sp;
+        parts.push(TextPart(ot, fonto, CHALK.w, t + 0.25 * sp, od));
+        rows.push({ x: cx - 50, y: cy - 80, w: 90 + 72 + ot[0].w + 20, h: 110, cy: cy, tx: cx + 72, tw: ot[0].w, written: t + 0.25 * sp + od });
+        t += (0.6 + Math.min(1.2, o.length * 0.05)) * sp;
       });
       // countdown ring
       var cs = el.countdown, ce = el.countdownEnd || (cs + el.seconds);
