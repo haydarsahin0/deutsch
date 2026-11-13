@@ -326,7 +326,8 @@ def main():
     for d in ('top', 'endcard'):
         shutil.rmtree(build / d, ignore_errors=True)
     loop = bool(cfg.get('loop'))
-    if loop:   # loop Short: hook title already in place on frame 1 (last frame == first frame)
+    static_title = loop or cfg.get('static_title', True)   # data (Shorts swipe rate): the hook must be readable on frame 1, no pop-in
+    if static_title:   # hook title already in place on frame 1 (loop: last frame == first frame)
         html_frames(dict(base_params(cfg), mode='top'), build / 'top.png', transparent=True, build=build, t0=0.8)
     else:
         html_frames(dict(base_params(cfg), mode='top'), build / 'top', frames=21, transparent=True, build=build)
@@ -361,7 +362,7 @@ def main():
     nseg = len(segs)
     fc.append(''.join(vl) + f'concat=n={nseg}:v=1:a=0,tpad=stop_mode=clone:stop_duration={hold + 0.1:.3f}[vid]')
     i_top = nseg + 1
-    if loop:
+    if static_title:
         inp += ['-loop', '1', '-framerate', FPS, '-t', f'{total:.3f}', '-i', build / 'top.png']
     else:
         inp += ['-framerate', FPS, '-i', build / 'top' / 'f_%04d.png']

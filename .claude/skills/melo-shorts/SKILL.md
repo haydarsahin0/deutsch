@@ -35,3 +35,9 @@ MP4 (for viewing) + cover PNG + uncompressed ZIP of mp4+cover+meta (for download
 
 ## Hook rule (data, Short #1: only 38.7 % viewed vs 61.3 % swiped)
 The first segment must START on the wrong sentence or the provocative claim (spoken within the first 0.5–1 s, hook text on screen from frame 1). No scene-setting („Juli, 35 Grad …“, „Freitagabend, Biergarten …“) before it; the hook overlay gives the context. Target 30–40 s total. Check the start word with the episode's `build/alignment.json`.
+
+## First-frame rule (data: Short #1 viewed 38.6 %, „Doch!“ 51.6 %)
+- The hook title is visible on FRAME 1. `make-short.py` now defaults to `static_title` (no pop-in). Before this change, frame 0 of episode-cut Shorts showed an empty orange sunburst.
+- The first spoken line is a provocative claim or the wrong sentence („Das Wort, bei dem sogar C1 stolpert“ beat „Juli, 35 Grad …“).
+- Never open on a chapter/number card or an empty set. If the claim falls over a chapter card, prefer starting on the next scene.
+- Target is 60–65 % viewed. 70 %+ probably needs native 9:16 loop Shorts (card engine at 1080×1920), see `docs/growth/`.
