@@ -7,6 +7,14 @@
    "trim_start": 0.0,
    "trim_end": 263.8106,
    "offset": 0.0
+  },
+  {
+   "file": "audio/teil-2.mp3",
+   "sha1": "a56fe79bf11dea5374babedfab364581818ecfa1",
+   "source_duration": 290.586,
+   "trim_start": 0.0,
+   "trim_end": 290.5861,
+   "offset": 264.1606
   }
  ],
  "gap": 0.35,
@@ -21,12 +29,12 @@
   }
  ],
  "loudness": {
-  "input_lufs": -20.24,
+  "input_lufs": -20.26,
   "input_true_peak": -1.18,
-  "gain_db": 4.24,
+  "gain_db": 4.26,
   "limiter": true,
   "target_lufs": -16.0
  },
- "voice_sha1": "0f031e787ac6c6b796df044df8629c8730618820",
- "duration": 268.261
+ "voice_sha1": "cafd3d8e5768ac5da5e4d86de466e3fb59d58fcb",
+ "duration": 559.197
 }
