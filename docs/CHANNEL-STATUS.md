@@ -1,7 +1,7 @@
 # Channel status — Deutsch mit Melo
 Keep this file current: update it whenever something is published, produced or decided (it is how a fresh session knows where we are).
 
-_Last update: 2026-11-12_
+_Last update: 2026-11-14_
 
 ## Channel
 - Name „Deutsch mit Melo“, slogan „Deutsch mit Kern“, handle suggestion @deutschmitmelo. Banner/profile: `brand/out/youtube-banner.png`, `brand/out/youtube-profile.png`. Channel texts: `docs/kanal-beschreibung.txt`, `docs/kanal-keywords.txt`.
@@ -22,6 +22,7 @@ From 2026-11-13: 3-day cycle (see CLAUDE.md). Day 1 = long video at 17:05 with n
 | 2026-11-13 17:05 | Long #2 „50 Wörter am Tag“ | ✅ scheduled by the owner (thumbnail B main) | `episodes/02-50-woerter-am-tag/` |
 | 2026-11-14 12:05 | Short „Doch!“ (ep1, re-cut v2 47 s + pizzeria cover) | ✅ delivered (owner replaced Abruf-Leiter, which he disliked) | `shorts/05-doch/` |
 | 2026-11-14 17:05 | Loop #2 „Auf dem Tisch“ (wo/wohin) | waiting for owner TTS (script in `shorts/s03-wo-wohin/konzept.md`) | – |
+| 2026-11-14 | Loop #4 „Beim Arzt auf Deutsch: Nur 4 Sätze“ (native vertical, 41.9 s, hand-made cover, meta ✅) | ✅ rendered and delivered; slot to be chosen by the owner | `shorts/s05-beim-arzt/`, `episodes/s05-beim-arzt/` |
 | 2026-11-14 19:05 | Ep2 Short „Die Notaufnahme für Wörter“ | ✅ ready, delivered (44 s, cover v2) | `shorts/07-notaufnahme/` |
 | 2026-11-15 12:05 | ? (Abruf-Leiter dropped) | todo | – |
 | 2026-11-15 17:05 | Loop #3 | todo: script → owner TTS | – |

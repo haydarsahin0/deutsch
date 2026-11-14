@@ -440,7 +440,8 @@ function compile(ep, opts = {}) {
       }
       case 'cast': {
         if (!scene) break;
-        scene.castCues.push({ t: r3(c.t), id: a.id, expr: a.expr || null, pose: a.pose || null, talk: a.talk || null, flip: a.flip || null });
+        // cast cues before/at the first spoken word of the first shot hold from frame 0 (loop first frame), like melo cues
+        scene.castCues.push({ t: r3(scene.i === 0 && c.t <= scene.contentStart ? 0 : c.t), id: a.id, expr: a.expr || null, pose: a.pose || null, talk: a.talk || null, flip: a.flip || null });
         if (!scene.cast.some(m => m.id === a.id)) warn(`cast: "${a.id}" is not in the current shot's cast`);
         break;
       }
@@ -480,7 +481,7 @@ function compile(ep, opts = {}) {
         let st = scene.strips.find(x => x.id === id);
         const prev = st ? st.states[st.states.length - 1] : null;
         if (!st) { st = { id, states: [] }; scene.strips.push(st); }
-        const inherit = ['x', 'y', 'size', 'band', 'accent', 'maxw', 'align', 'stair', 'gap', 'label', 'labelColor'];
+        const inherit = ['x', 'y', 'size', 'band', 'accent', 'maxw', 'align', 'stair', 'gap', 'label', 'labelColor', 'vx', 'vy', 'vsize', 'vmaxw'];  // v* = portrait overrides (engine cardsLayout)
         const S = {};
         inherit.forEach(k => { if (a[k] != null) S[k] = a[k]; else if (prev && prev[k] != null) S[k] = prev[k]; });
         if (S.label === '' || S.label === 'none') delete S.label;

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Thumbnail Ep. 1 – v2</title>
+<!-- Thumbnail v2 for episode 1 (CTR redesign). Variant via hash: v2-thumb.html#a | #b | #c (append g for the badge-zone overlay)
+     node tools/render.js episodes/01-das-sagt-kein-deutscher/thumb/v2-thumb.html#a out.png 1280 720 -->
+<style>
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url('../../../brand/fonts/anton-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: 'Oswald'; font-weight: 700; src: url('../../../brand/fonts/oswald-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../../brand/fonts/caveat-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Kalam'; font-weight: 700; src: url('../../../brand/fonts/kalam-latin-700-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #0b1020; }
+  svg { display: block; }
+</style>
+<script src="../../../brand/concepts/b/melo-b.js"></script>
+<script src="../../../brand/channel/scene-ink.js"></script>
+<script src="../../../engine/cast/cast.js"></script>
+<script src="../../../engine/sets/fonts-embed.js"></script>
+<script src="../../../engine/sets/sets.js"></script>
+<script src="../../../engine/sets/kit-b.js"></script>
+<script src="../../../engine/sets/kit-a.js"></script>
+<script src="../../../engine/sets/office-hot.js"></script>
+<script src="../../../engine/sets/biergarten.js"></script>
+</head>
+<body>
+<svg id="stage" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+<script>
+(async function () {
+  await document.fonts.load('400 100px Anton', 'ẞ');
+  await Promise.all(['400 100px Anton', '700 100px Oswald', '700 100px Caveat', '700 100px Kalam'].map(function (f) { return document.fonts.load(f); }));
+  var H = (location.hash || '#a').slice(1), V = H[0];
+  var INK = '#14110d', RED = '#E5302A', YEL = '#FFC83A', GREEN = '#2FAE4E';
+  var S = new SceneInk(V === 'a' ? 3 : V === 'b' ? 8 : 13), U = MeloB._util;
+  var defs = '', s = '';
+  var cv = document.createElement('canvas').getContext('2d');
+  function measure(t, font) { cv.font = font; return cv.measureText(t).width; }
+
+  defs += '<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/>' +
+    '<feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 -1.6 .8"/></filter>' +
+    '<filter id="sil" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>' +
+    '<feFlood flood-color="#000"/><feComposite in2="d" operator="in"/></filter>' +
+    '<filter id="glowSh" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/><feGaussianBlur in="d" stdDeviation="16"/>' +
+    '<feOffset dx="10" dy="14"/><feComponentTransfer><feFuncA type="linear" slope=".75"/></feComponentTransfer></filter>' +
+    '<filter id="tblur" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>' +
+    '<filter id="distress" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.4 0 0 0 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>' +
+    '<filter id="rim" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="10" result="d"/><feOffset dx="-6" dy="-7"/><feGaussianBlur stdDeviation="1.5" result="o"/><feFlood flood-color="#fff3c4"/><feComposite in2="o" operator="in"/></filter>' +
+    '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dx="8" dy="12"/><feComponentTransfer><feFuncA type="linear" slope=".6"/></feComponentTransfer></filter>';
+
+  // ── helpers ──────────────────────────────────────────────
+  function bg(glows, base) {
+    var o = '<rect width="1280" height="720" fill="' + base + '"/>';
+    glows.forEach(function (g, i) {
+      defs += '<radialGradient id="gl' + i + '" cx="' + g.x + '" cy="' + g.y + '" r="' + g.r + '" gradientUnits="userSpaceOnUse">' +
+        '<stop offset="0" stop-color="' + g.c + '" stop-opacity="' + (g.o || 1) + '"/><stop offset=".45" stop-color="' + g.c + '" stop-opacity="' + ((g.o || 1) * 0.45) + '"/><stop offset="1" stop-color="' + g.c + '" stop-opacity="0"/></radialGradient>';
+      o += '<rect width="1280" height="720" fill="url(#gl' + i + ')"/>';
+    });
+    return o;
+  }
+  function rays(cx, cy, n, color, op) {
+    var d = '';
+    for (var i = 0; i < n; i++) {
+      var a0 = i / n * Math.PI * 2, a1 = a0 + Math.PI / n * 0.9;
+      d += 'M' + cx + ' ' + cy + 'L' + U.f1(cx + 1600 * Math.cos(a0)) + ' ' + U.f1(cy + 1600 * Math.sin(a0)) + 'L' + U.f1(cx + 1600 * Math.cos(a1)) + ' ' + U.f1(cy + 1600 * Math.sin(a1)) + 'Z';
+    }
+    return '<path d="' + d + '" fill="' + color + '" opacity="' + op + '"/>';
+  }
+  // big outlined poster word, fitted to width w (font size capped by maxSize). anchor: start|middle|end
+  function word(t, x, y, w, maxSize, fill, o) {
+    o = o || {};
+    var font = o.font || 'Anton', weight = o.weight || 400;
+    var size = Math.min(maxSize, maxSize * w / measure(t, weight + ' ' + maxSize + 'px ' + font));
+    var sw = size * (o.sw || 0.075), sh = size * 0.055;
+    var attrs = 'x="' + x + '" y="' + y + '" font-family="' + font + '" font-weight="' + weight + '" font-size="' + U.f1(size) + '" text-anchor="' + (o.anchor || 'start') + '" letter-spacing="' + (o.ls || 0) + '"';
+    var esc = t.replace(/&/g, '&amp;');
+    var g = '<g' + (o.rot ? ' transform="rotate(' + o.rot + ' ' + x + ' ' + y + ')"' : '') + '>';
+    if (o.soft) g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" opacity=".75" filter="url(#tblur)" transform="translate(' + U.f1(sh * 1.6) + ' ' + U.f1(sh * 2.4) + ')">' + esc + '</text>';
+    g += '<text ' + attrs + ' fill="#000" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" transform="translate(' + U.f1(sh * 0.8) + ' ' + U.f1(sh) + ')">' + esc + '</text>';
+    g += '<text ' + attrs + ' fill="' + fill + '" stroke="#000" stroke-width="' + U.f1(sw * 2) + '" stroke-linejoin="round" paint-order="stroke fill">' + esc + '</text>';
+    return { svg: g + '</g>', size: size };
+  }
+  // Melo with a heavy black silhouette outline + soft shadow. hx,hy = skull centre on canvas, hh = skull height in px
+  function melo(opts, hx, hy, hh) {
+    var m = MeloB.svg(Object.assign({ seed: 11 }, opts));
+    var u = 196 / hh, cx = 0, cy = -388;
+    var vb = [cx - hx * u, cy - hy * u, 1280 * u, 720 * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="1280" height="720" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+    return '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+  }
+  function brushLine(pts, w, color, smooth) { return S.line(pts, { w: w, ta: 0.15, tb: 0.2, min: 0.5, jit: 0.15, smooth: smooth || 0 }, color); }
+  // hand-drawn ink ellipse loop (slightly overshooting), for red circles
+  function loop(cx, cy, rx, ry, w, color, rot) {
+    var pts = [], n = 46, a0 = -2.2;
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (Math.PI * 2 + 0.55) * i / n, k = 1 + 0.05 * Math.sin(i * 0.5) + i * 0.0012;
+      pts.push([cx + rx * k * Math.cos(a), cy + ry * k * Math.sin(a)]);
+    }
+    return '<g transform="rotate(' + (rot || 0) + ' ' + cx + ' ' + cy + ')">' + S.line(pts, { w: w, ta: 0.08, tb: 0.25, min: 0.45, jit: 0.1 }, color) + '</g>';
+  }
+  function arrow(pts, w, color) {
+    var a = pts[pts.length - 2], b = pts[pts.length - 1], ang = Math.atan2(b[1] - a[1], b[0] - a[0]), L = w * 3.6;
+    var h1 = [b[0] - L * Math.cos(ang - 0.55), b[1] - L * Math.sin(ang - 0.55)], h2 = [b[0] - L * Math.cos(ang + 0.55), b[1] - L * Math.sin(ang + 0.55)];
+    return S.line(pts, { w: w, ta: 0.1, tb: 0.02, min: 0.7, jit: 0.1, smooth: 8 }, color) +
+      S.line([h1, b], { w: w, ta: 0.2, tb: 0.05, min: 0.7 }, color) + S.line([h2, b], { w: w, ta: 0.2, tb: 0.05, min: 0.7 }, color);
+  }
+  // paper card (rotated group), returns svg; content drawn in local coords (0,0)-(w,h)
+  function card(x, y, w, h, rot, fill, inner) {
+    var pts = S.rect(0, 0, w, h, 26, 2.2);
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' +
+      '<rect x="0" y="0" width="' + w + '" height="' + h + '" fill="#000" filter="url(#soft)"/>' +
+      S.shape(pts, fill, { w: 4.5, extra: 3 }) +
+      S.hatch(S.rect(0, 0, w, h, 60, 0), { ang: 45, gap: 9, w: 1.3, op: 0.12, cond: function (X, Y) { return X + Y > w + h * 0.55; } }) +
+      inner + '</g>';
+  }
+  function badge(x, y, t, bgc, fg, size, rot) {
+    var w = measure(t, '700 ' + size + 'px Oswald') + size * 0.8, h = size * 1.35;
+    return '<g transform="translate(' + x + ' ' + y + ') rotate(' + (rot || 0) + ')">' +
+      S.shape(S.rect(0, 0, w, h, 20, 1.2), bgc, { w: 3.5, extra: 2 }) +
+      '<text x="' + (w / 2) + '" y="' + (h * 0.76) + '" font-family="Oswald" font-weight="700" font-size="' + size + '" fill="' + fg + '" text-anchor="middle">' + t + '</text></g>';
+  }
+  function stampX(cx, cy, r, color) {
+    return '<g transform="translate(' + cx + ' ' + cy + ') rotate(-8)">' +
+      S.line([[-r, -r], [-r * 0.1, -r * 0.08], [r, r]], { w: r * 0.36, ta: 0.08, tb: 0.15, min: 0.6, jit: 0.2 }, color) +
+      S.line([[r * 0.95, -r * 1.02], [0, 0.05 * r], [-r * 0.98, r * 0.95]], { w: r * 0.36, ta: 0.08, tb: 0.15, min: 0.6, jit: 0.2 }, color) + '</g>';
+  }
+  function check(cx, cy, r, color) {
+    return '<g transform="translate(' + cx + ' ' + cy + ')">' +
+      S.line([[-r, -r * 0.05], [-r * 0.55, r * 0.35], [-r * 0.2, r * 0.75], [r * 0.25, r * 0.05], [r * 1.05, -r * 1.0]], { w: r * 0.38, ta: 0.15, tb: 0.1, min: 0.55, jit: 0.15, smooth: 6 }, color) + '</g>';
+  }
+
+  // ── shared v2 helpers ────────────────────────────────────
+  function bubble(bx, by, bw, bh, tail, fill) {   // tail = [[x0,y],[tipx,tipy],[x1,y]] on the bottom or right edge
+    var rr = 40, o = '<g filter="url(#soft)"><rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="40"/></g>';
+    o += '<path d="M' + tail[0][0] + ' ' + tail[0][1] + 'L' + tail[1][0] + ' ' + tail[1][1] + 'L' + tail[2][0] + ' ' + tail[2][1] + 'Z" fill="' + fill + '" stroke="#000" stroke-width="9" stroke-linejoin="round"/>';
+    o += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="' + rr + '" fill="' + fill + '" stroke="#000" stroke-width="9"/>';
+    o += '<path d="M' + tail[0][0] + ' ' + tail[0][1] + 'L' + tail[1][0] + ' ' + tail[1][1] + 'L' + tail[2][0] + ' ' + tail[2][1] + 'Z" fill="' + fill + '"/>';
+    return o;
+  }
+  function castFig(id, o, cx, cy, rot) {   // head centre at cx,cy
+    var kf = Cast.render(id, Object.assign({ t: 0, seed: 3, scale: 1, flip: false }, o)), hc = kf.anchors.headCenter;
+    var g = '<g transform="translate(' + (cx - hc[0]) + ' ' + (cy - hc[1]) + ') rotate(' + (rot || 0) + ' ' + hc[0] + ' ' + hc[1] + ')">' + kf.svg + '</g>';
+    return '<g filter="url(#glowSh)">' + g + '</g><g filter="url(#sil)">' + g + '</g>' + g;
+  }
+  function flag(op) {
+    var FW = 1700, FH = 1000, lam = 620, A = 34, cols = ['#000000', '#DD0000', '#FFCE00'];
+    function yb(k, x) { return k * FH / 3 + A * Math.sin(2 * Math.PI * x / lam + 0.6) + 10 * Math.sin(2 * Math.PI * x / 230 + k); }
+    var fl = '';
+    for (var k = 0; k < 3; k++) {
+      var top = [], bot = [];
+      for (var x = 0; x <= FW; x += 20) { top.push([x, yb(k, x)]); bot.push([x, yb(k + 1, x)]); }
+      fl += '<path d="' + U.polyD(top.concat(bot.reverse()), true) + '" fill="' + cols[k] + '"/>';
+    }
+    var st = '';
+    for (var i = 0; i <= 40; i++) { var xx = i / 40, v = Math.cos(2 * Math.PI * xx * FW / lam + 0.6); st += '<stop offset="' + xx.toFixed(3) + '" stop-color="' + (v > 0 ? '#fff' : '#000') + '" stop-opacity="' + (Math.abs(v) * 0.42).toFixed(2) + '"/>'; }
+    defs += '<linearGradient id="fold" x1="0" y1="0" x2="' + FW + '" y2="0" gradientUnits="userSpaceOnUse">' + st + '</linearGradient>';
+    var outline = [];
+    for (var x = 0; x <= FW; x += 20) outline.push([x, yb(0, x)]);
+    for (var x = FW; x >= 0; x -= 20) outline.push([x, yb(3, x)]);
+    defs += '<clipPath id="flagc"><path d="' + U.polyD(outline, true) + '"/></clipPath>';
+    fl += '<rect x="0" y="-80" width="' + FW + '" height="' + (FH + 160) + '" fill="url(#fold)" clip-path="url(#flagc)"/>';
+    return '<g transform="translate(-180 -190) rotate(-13 850 500)" opacity="' + op + '" style="mix-blend-mode:hard-light">' + fl + '</g>';
+  }
+  var O = { sw: 0.1, soft: 1 };
+
+  // ── variants ─────────────────────────────────────────────
+  if (V === 'a') {
+    // A · story moment: Melo says the sentence, the colleague is shocked – no correction shown
+    s += bg([{ x: 960, y: 300, r: 700, c: '#ff6a14', o: 0.95 }, { x: 120, y: 660, r: 560, c: '#d11f1f', o: 0.55 }], '#1c0605');
+    s += rays(960, 320, 22, '#000', 0.13);
+    s += melo({ view: 'full', pose: 'idle', expression: 'talking', look: [-0.5, 0.1], headTilt: 5 }, 1040, 330, 400);
+    s += word('SAG DAS', 40, 196, 520, 150, '#ffffff', Object.assign({ rot: -4 }, O)).svg;
+    s += word('NIE!', 44, 402, 400, 226, YEL, Object.assign({ rot: -4 }, O)).svg;
+    var bx = 30, by = 474, bw = 500, bh = 150;
+    s += bubble(bx, by, bw, bh, [[bx + bw - 150, by + 6], [860, 440], [bx + bw - 50, by + 6]], '#fbf6ea');
+    s += '<text x="' + (bx + 40) + '" y="' + (by + 108) + '" font-family="Caveat" font-weight="700" font-size="104" fill="' + INK + '">„Ich bin heiß.“</text>';
+    var vx = bx + 40 + measure('„Ich bin ', '700 104px Caveat'), vw = measure('heiß', '700 104px Caveat');
+    s += loop(vx + vw / 2, by + 80, vw / 2 + 20, 56, 11, RED, -6);
+    s += castFig('kollegin', { expr: 'shocked', pose: 'idle', scale: 1.55 }, 782, 672, -5);
+    s += badge(1140, 26, 'B1–C1', YEL, INK, 38, 3);
+  }
+
+  if (V === 'b') {
+    // B · accusation: "do you say this too?" – Melo's raised brow, the sentence circled, flag behind
+    s += bg([{ x: 300, y: 330, r: 640, c: '#2f6bff', o: 0.95 }, { x: 1120, y: 620, r: 520, c: '#ff7a1a', o: 0.3 }], '#060a1b');
+    s += flag(0.32);
+    s += rays(300, 330, 22, '#000', 0.13);
+    var pt = JSON.parse(JSON.stringify(MeloB._POSES.point));
+    pt.b = { sh: [13, -272], el: [70, -262], wr: [132, -268], hand: { g: 'point', ang: -4, flip: 0 } };
+    var mm = MeloB.svg({ seed: 11, view: 'full', poseParams: pt, expression: 'unimpressed', look: [0.6, 0.1], headTilt: -5 });
+    var hh = 430, u = 196 / hh, hx = 292, hy = 340;
+    var vb = [-hx * u, -388 - hy * u, 1280 * u, 720 * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+    mm = mm.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="1280" height="720" preserveAspectRatio="none"');
+    s += '<g filter="url(#glowSh)">' + mm + '</g><g filter="url(#rim)">' + mm + '</g><g filter="url(#sil)">' + mm + '</g>' + mm;
+    s += word('SAGST DU', 1240, 176, 560, 150, '#ffffff', Object.assign({ anchor: 'end', rot: 3 }, O)).svg;
+    s += word('DAS AUCH?', 1242, 372, 660, 178, YEL, Object.assign({ anchor: 'end', rot: 3 }, O)).svg;
+    var cw = measure('„Ich bin voll.“', '700 118px Caveat') + 80;
+    var inner = '<text x="40" y="122" font-family="Caveat" font-weight="700" font-size="118" fill="' + INK + '">„Ich bin voll.“</text>';
+    var wx = 40 + measure('„Ich bin ', '700 118px Caveat'), ww = measure('voll', '700 118px Caveat');
+    inner += loop(wx + ww / 2, 88, ww / 2 + 22, 62, 11, RED, -6);
+    s += card(1240 - cw - 40, 420, cw, 160, 3, '#f4ecd8', inner);
+    s += '<g filter="url(#distress)">' + badge(690, 612, 'FALSCH!', '#f6eed9', RED, 50, -7).replace(/fill="#17130f"/g, 'fill="' + RED + '"') + '</g>';
+    s += badge(28, 22, 'B1–C1', YEL, INK, 38, -3);
+  }
+
+  if (V === 'c') {
+    // C · corrected test paper: red pen, "12 FEHLER", struck-out sentences, Melo as the strict corrector
+    s += bg([{ x: 1010, y: 340, r: 600, c: '#ffb23a', o: 0.9 }, { x: 200, y: 200, r: 600, c: '#1f7a55', o: 0.35 }], '#0c1712');
+    s += rays(1010, 340, 22, '#000', 0.12);
+    var PW = 760, PH = 640, ink2 = '#1d2a55';
+    var p = '';
+    for (var i = 0; i < 4; i++) p += '<line x1="20" y1="' + (318 + i * 100) + '" x2="' + (PW - 20) + '" y2="' + (318 + i * 100) + '" stroke="#7fa3c9" stroke-width="2.5" opacity=".65"/>';
+    p += '<line x1="96" y1="14" x2="96" y2="' + (PH - 14) + '" stroke="' + RED + '" stroke-width="3" opacity=".55"/>';
+    // header: 12 FEHLER (red marker)
+    var hsz = 168;
+    p += '<g transform="rotate(-3 120 190)"><text x="118" y="204" font-family="Anton" font-size="' + hsz + '" fill="' + RED + '" stroke="#000" stroke-width="10" stroke-linejoin="round" paint-order="stroke fill">12 FEHLER</text></g>';
+    var w12 = measure('12', '400 ' + hsz + 'px Anton');
+    p += loop(118 + w12 / 2, 140, w12 / 2 + 30, 92, 12, RED, -8);
+    var lines = ['„Ich bin heiß.“', '„Ich habe 25 Jahre.“', '„Ich warte für dich.“'];
+    lines.forEach(function (t, i) {
+      var y = 310 + i * 100, w = measure(t, '700 86px Caveat');
+      p += '<text x="120" y="' + y + '" font-family="Caveat" font-weight="700" font-size="86" fill="' + ink2 + '">' + t + '</text>';
+      p += brushLine([[112, y - 22 + (i % 2 ? 4 : -2)], [120 + w * 0.5, y - 30], [128 + w, y - 26 + (i % 2 ? -6 : 4)]], 11, RED);
+      p += stampX(60, y - 26, 20, RED);
+    });
+    p += '<g transform="rotate(-5 420 600)"><text x="150" y="612" font-family="Caveat" font-weight="700" font-size="96" fill="' + RED + '">… und du?</text></g>';
+    s += card(34, 46, PW, PH, -3, '#f6eedb', p);
+    var nope = JSON.parse(JSON.stringify(MeloB._POSES.finger));
+    nope.b = { sh: [14, -270], el: [66, -248], wr: [98, -318], hand: { g: 'point', ang: -78, flip: 0 } };
+    s += melo({ view: 'full', poseParams: nope, expression: 'unimpressed', look: [-1, 0.25], headTilt: -6, pencil: true }, 1012, 372, 392);
+    s += badge(1140, 26, 'B1–C1', YEL, INK, 38, 3);
+  }
+
+  if (V === 'd') {
+    // D · before/after split (bright, illustrated scenes): the embarrassing moment (dark) vs. sounding native (sunny)
+    function setArt(name, x, y, w, h, vb) {
+      var r = Sets.render(name, { t: 0.4, seed: 0, variant: '' }), bb = r.still || r;
+      return '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" viewBox="' + vb + '" preserveAspectRatio="xMidYMid slice" overflow="hidden">' + bb.bg + (bb.fg || '') + '</svg>';
+    }
+    function meloP(opts, hx, hy, hh) {   // like melo() but with a white rim for bright backgrounds
+      var m = MeloB.svg(Object.assign({ seed: 11 }, opts)), u = 196 / hh;
+      var vb = [-hx * u, -388 - hy * u, 1280 * u, 720 * u].map(function (v) { return Math.round(v * 100) / 100; }).join(' ');
+      m = m.replace(/viewBox="[^"]*"/, 'viewBox="' + vb + '" x="0" y="0" width="1280" height="720" preserveAspectRatio="none"').replace(/ width="\d+" height="\d+"(?= class)/, '');
+      return '<g filter="url(#glowSh)">' + m + '</g><g filter="url(#wrim)">' + m + '</g><g filter="url(#sil)">' + m + '</g>' + m;
+    }
+    function pill(cx, cy, t, fill, size, rot, mark) {
+      var tw = measure(t, '400 ' + size + 'px Anton'), w = tw + size * 1.9, h = size * 1.5, r = h / 2;
+      var g = '<g transform="translate(' + cx + ' ' + cy + ') rotate(' + rot + ')">';
+      g += '<rect x="' + (-w / 2 + 6) + '" y="' + (-h / 2 + 9) + '" width="' + w + '" height="' + h + '" rx="' + r + '" fill="#000" opacity=".55"/>';
+      g += '<rect x="' + (-w / 2) + '" y="' + (-h / 2) + '" width="' + w + '" height="' + h + '" rx="' + r + '" fill="' + fill + '" stroke="#000" stroke-width="9"/>';
+      g += '<rect x="' + (-w / 2 + 9) + '" y="' + (-h / 2 + 9) + '" width="' + (w - 18) + '" height="' + (h - 18) + '" rx="' + (r - 9) + '" fill="none" stroke="#fff" stroke-width="4" opacity=".9"/>';
+      g += '<text x="' + (size * 0.42) + '" y="' + (size * 0.37) + '" font-family="Anton" font-size="' + size + '" fill="#fff" stroke="#000" stroke-width="' + (size * 0.13) + '" stroke-linejoin="round" paint-order="stroke fill" text-anchor="middle">' + t + '</text>';
+      g += '<g transform="translate(' + (-w / 2 + size * 0.72) + ' 0)">' + mark + '</g>';
+      return g + '</g>';
+    }
+    defs += '<filter id="wrim" x="-20%" y="-20%" width="140%" height="140%"><feMorphology in="SourceAlpha" operator="dilate" radius="13" result="d"/><feFlood flood-color="#fff"/><feComposite in2="d" operator="in"/></filter>';
+    defs += '<filter id="gloom" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values=".55"/><feColorMatrix type="matrix" values=".25 0 0 0 .0  0 .29 0 0 .01  0 0 .46 0 .07  0 0 0 1 0"/></filter>';
+    defs += '<filter id="sunny" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="1.7"/><feComponentTransfer><feFuncR type="linear" slope="1.12" intercept=".03"/><feFuncG type="linear" slope="1.12" intercept=".03"/><feFuncB type="linear" slope="1.16" intercept=".05"/></feComponentTransfer></filter>';
+    var SPL = [[700, 0], [585, 720]];
+    defs += '<clipPath id="cL"><path d="M0 0H' + SPL[0][0] + 'L' + SPL[1][0] + ' 720H0Z"/></clipPath><clipPath id="cR"><path d="M' + SPL[0][0] + ' 0H1280V720H' + SPL[1][0] + 'Z"/></clipPath>';
+    // scenes
+    s += '<g clip-path="url(#cL)"><g filter="url(#gloom)">' + setArt('office-hot', -70, -40, 800, 800, '250 60 1020 1020') + '</g>';
+    defs += '<radialGradient id="redg" cx="300" cy="380" r="520" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff3b2f" stop-opacity=".16"/><stop offset=".6" stop-color="#b3140f" stop-opacity=".22"/><stop offset="1" stop-color="#7a0707" stop-opacity=".62"/></radialGradient>';
+    s += '<rect width="720" height="720" fill="url(#redg)"/></g>';
+    s += '<g clip-path="url(#cR)"><g filter="url(#sunny)">' + setArt('biergarten', 560, -30, 760, 760, '560 0 1000 1000') + '</g>';
+    defs += '<radialGradient id="sung" cx="960" cy="300" r="520" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff6c4" stop-opacity=".55"/><stop offset="1" stop-color="#fff6c4" stop-opacity="0"/></radialGradient>';
+    defs += '<linearGradient id="skyb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f8fff" stop-opacity=".92"/><stop offset=".30" stop-color="#58b8ff" stop-opacity=".78"/><stop offset=".50" stop-color="#9fd8ff" stop-opacity=".35"/><stop offset=".60" stop-color="#9fd8ff" stop-opacity="0"/></linearGradient>';
+    s += '<rect x="560" width="720" height="720" fill="url(#skyb)"/><rect x="560" width="720" height="720" fill="url(#sung)"/></g>';
+    // sad Melo (left): hands on the head, frown, sweat
+    var SAD = { browL: { dy: -6, ang: -17, arch: 3 }, browR: { dy: -6, ang: -17, arch: 3 },
+      eyeL: { up: 5.6, lo: 4.6, px: 0.6, py: 1.6, crease: 1, bag: 1 }, eyeR: { up: 5.6, lo: 4.6, px: 0.6, py: 1.6, crease: 1, bag: 1 },
+      mouth: { l: [-13, 6], r: [13, 6.5], u: [-5.5, -5.5], d: [-4, -4], lowerLip: 1 }, tilt: 5 };
+    var OHNO = JSON.parse(JSON.stringify(MeloB._POSES.idle));
+    OHNO.a = { sh: [-14, -270], el: [-96, -296], wr: [-100, -384], hand: { g: 'palm', ang: -60, flip: 0 } };
+    OHNO.b = { sh: [14, -270], el: [96, -296], wr: [100, -384], hand: { g: 'palm', ang: -120, flip: 1 } };
+    OHNO.tilt = 3;
+    s += meloP({ view: 'full', poseParams: OHNO, exprParams: SAD, expression: 'deadpan', look: [0, 0.4], headTilt: 6 }, 286, 388, 284);
+    // sweat drops + tear
+    function drop(x, y, sc, rot, col) { return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + sc + ')"><path d="M0 -22C10 -6 14 4 14 10A14 14 0 0 1 -14 10C-14 4 -10 -6 0 -22Z" fill="' + col + '" stroke="#000" stroke-width="4" stroke-linejoin="round"/><ellipse cx="-5" cy="8" rx="3" ry="6" fill="#fff" opacity=".8"/></g>'; }
+    s += drop(112, 268, 1.6, -24, '#7fd2ff') + drop(82, 352, 1.15, -30, '#7fd2ff') + drop(462, 276, 1.4, 26, '#7fd2ff');
+    // happy Melo (right): arms up
+    var YAY = JSON.parse(JSON.stringify(MeloB._POSES.idle));
+    YAY.a = { sh: [-14, -270], el: [-84, -306], wr: [-128, -398], hand: { g: 'fist', ang: -100, flip: 0 } };
+    YAY.b = { sh: [14, -270], el: [84, -306], wr: [128, -398], hand: { g: 'fist', ang: -80, flip: 1 } };
+    YAY.tilt = -2;
+    s += meloP({ view: 'full', poseParams: YAY, expression: 'laughing', look: [0, 0], headTilt: -4 }, 968, 392, 284);
+    // divider
+    s += '<path d="M' + SPL[0][0] + ' -10L' + SPL[1][0] + ' 730" stroke="#000" stroke-width="22"/><path d="M' + SPL[0][0] + ' -10L' + SPL[1][0] + ' 730" stroke="#fff" stroke-width="10"/>';
+    // title band
+    defs += '<linearGradient id="topf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".62"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>';
+    s += '<rect width="1280" height="210" fill="url(#topf)"/>';
+    var TT = 'DAS SAGT KEIN DEUTSCHER!';
+    s += word(TT, 640, 126, 1150, 124, '#ffffff', { anchor: 'middle', rot: -1.5, sw: 0.1, soft: 1 }).svg;
+    // pills
+    var X = '<g transform="rotate(-8)">' + '<path d="M-17 -17L17 17M17 -17L-17 17" stroke="#000" stroke-width="17" stroke-linecap="round"/><path d="M-17 -17L17 17M17 -17L-17 17" stroke="#fff" stroke-width="9" stroke-linecap="round"/></g>';
+    var CK = '<path d="M-19 0L-6 15L20 -18" fill="none" stroke="#000" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/><path d="M-19 0L-6 15L20 -18" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>';
+    s += pill(286, 632, '„ICH BIN HEIẞ“', '#e3262b', 64, -2, X);
+    s += pill(800, 632, '„MIR IST HEIẞ“', '#1fae4b', 58, -2, CK);
+  }
+
+  // grain + vignette
+  defs += '<radialGradient id="vig" cx="640" cy="360" r="820" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>';
+  var BR = V === 'd';
+  s += '<rect width="1280" height="720" fill="url(#vig)" opacity="' + (BR ? 0.35 : 1) + '"/>';
+  s += '<rect width="1280" height="720" filter="url(#grain)" opacity="' + (BR ? 0.08 : 0.22) + '" style="mix-blend-mode:overlay"/>';
+  if (/g/.test(H.slice(1))) s += '<rect x="998" y="590" width="282" height="130" fill="#f0f" opacity=".5"/>';
+  document.getElementById('stage').innerHTML = '<defs>' + defs + S.defs + '</defs>' + s;
+})();
+</script>
+</body>
+</html>

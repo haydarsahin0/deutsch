@@ -1,0 +1,3968 @@
+{
+ "version": 1,
+ "episode": "s05-beim-arzt",
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "duration": 42.449,
+ "partial": false,
+ "audio": "audio/voice.wav",
+ "alignment": "build/alignment.json",
+ "dev": false,
+ "scenes": [
+  {
+   "i": 0,
+   "type": "scene",
+   "layout": "scene",
+   "start": 0,
+   "end": 5.235,
+   "transition": "cut",
+   "tStart": 0,
+   "tEnd": 0,
+   "contentStart": 0.6,
+   "melo": "in-scene:patient",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 0,
+   "cast": [
+    {
+     "id": "arzt",
+     "slot": "right",
+     "expr": "neutral",
+     "pose": null
+    }
+   ],
+   "castCues": [
+    {
+     "t": 0,
+     "id": "arzt",
+     "expr": null,
+     "pose": "idle",
+     "talk": null,
+     "flip": "0"
+    },
+    {
+     "t": 4.83,
+     "id": "arzt",
+     "expr": "confused",
+     "pose": null,
+     "talk": null,
+     "flip": null
+    }
+   ],
+   "says": [],
+   "props": [],
+   "fx": [
+    {
+     "t": 4.83,
+     "name": "question-marks",
+     "who": null,
+     "dur": null
+    }
+   ],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "doctor-office",
+   "strips": [
+    {
+     "id": "a",
+     "states": [
+      {
+       "size": "96",
+       "vy": "670",
+       "text": "Ich habe | green:Kopfschmerzen.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.4
+         },
+         {
+          "key": "habe#1",
+          "text": "habe",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.4
+         }
+        ],
+        [
+         {
+          "key": "kopfschmerzen#1",
+          "text": "Kopfschmerzen.",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": -1.4
+         }
+        ]
+       ],
+       "t": -1.4,
+       "static": true,
+       "mark": "right",
+       "markT": -1.4
+      },
+      {
+       "size": "96",
+       "label": "nicht:",
+       "vy": "670",
+       "text": "Ich habe | red:Schmerz im_Kopf.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.4
+         },
+         {
+          "key": "habe#1",
+          "text": "habe",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.4
+         }
+        ],
+        [
+         {
+          "key": "schmerz#1",
+          "text": "Schmerz",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 2.9
+         },
+         {
+          "key": "imkopf#1",
+          "text": "im Kopf.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 2.97
+         }
+        ]
+       ],
+       "t": 2.78,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "96",
+       "label": "nicht:",
+       "vy": "670",
+       "text": "Ich habe | red:Schmerz im_Kopf.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.4
+         },
+         {
+          "key": "habe#1",
+          "text": "habe",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": -1.4
+         }
+        ],
+        [
+         {
+          "key": "schmerz#1",
+          "text": "Schmerz",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 2.9
+         },
+         {
+          "key": "imkopf#1",
+          "text": "im Kopf.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 2.97
+         }
+        ]
+       ],
+       "t": 4.83,
+       "mark": "wrong",
+       "markT": 4.83
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "type": "cards",
+   "layout": "cards",
+   "start": 5.235,
+   "end": 8.88,
+   "transition": "cut",
+   "tStart": 5.235,
+   "tEnd": 5.235,
+   "contentStart": 5.235,
+   "melo": "off",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 9,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "f",
+     "states": [
+      {
+       "size": "140",
+       "text": "Das versteht jeder, | aber so sagt es | !kein_Deutscher.",
+       "cards": [
+        [
+         {
+          "key": "das#1",
+          "text": "Das",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 5.235
+         },
+         {
+          "key": "versteht#1",
+          "text": "versteht",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 5.31
+         },
+         {
+          "key": "jeder#1",
+          "text": "jeder,",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 5.69
+         }
+        ],
+        [
+         {
+          "key": "aber#1",
+          "text": "aber",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 6.445
+         },
+         {
+          "key": "so#1",
+          "text": "so",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 6.65
+         },
+         {
+          "key": "sagt#1",
+          "text": "sagt",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 7.07
+         },
+         {
+          "key": "es#1",
+          "text": "es",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 7.39
+         }
+        ],
+        [
+         {
+          "key": "keindeutscher#1",
+          "text": "kein Deutscher.",
+          "kind": "badge",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 7.57
+         }
+        ]
+       ],
+       "t": 5.235,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "type": "cards",
+   "layout": "cards",
+   "start": 8.88,
+   "end": 13.365,
+   "transition": "cut",
+   "tStart": 8.88,
+   "tEnd": 8.88,
+   "contentStart": 8.88,
+   "melo": "corner-left",
+   "args": {
+    "type": "cards",
+    "bg": "paper",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 18,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "r",
+     "states": [
+      {
+       "size": "130",
+       "text": "Beim_Arzt: | nur mustard:4_Sätze",
+       "cards": [
+        [
+         {
+          "key": "beimarzt#1",
+          "text": "Beim Arzt:",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 8.88
+         }
+        ],
+        [
+         {
+          "key": "nur#1",
+          "text": "nur",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 9.77
+         },
+         {
+          "key": "4sätze#1",
+          "text": "4 Sätze",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 9.95
+         }
+        ]
+       ],
+       "t": 8.88,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "130",
+       "label": "Nr. 4 = der wichtigste",
+       "text": "Beim_Arzt: nur mustard:4_Sätze | grey:1 grey:2 grey:3 red:4",
+       "cards": [
+        [
+         {
+          "key": "beimarzt#1",
+          "text": "Beim Arzt:",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 8.88
+         },
+         {
+          "key": "nur#1",
+          "text": "nur",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 9.77
+         },
+         {
+          "key": "4sätze#1",
+          "text": "4 Sätze",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 9.95
+         }
+        ],
+        [
+         {
+          "key": "1#1",
+          "text": "1",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 11.355
+         },
+         {
+          "key": "2#1",
+          "text": "2",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 11.425
+         },
+         {
+          "key": "3#1",
+          "text": "3",
+          "kind": "color",
+          "color": "grey",
+          "num": null,
+          "joinPrev": false,
+          "t": 11.495
+         },
+         {
+          "key": "4#1",
+          "text": "4",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 11.565
+         }
+        ]
+       ],
+       "t": 11.235,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "type": "scene",
+   "layout": "scene",
+   "start": 13.365,
+   "end": 19.125,
+   "transition": "cut",
+   "tStart": 13.365,
+   "tEnd": 13.365,
+   "contentStart": 13.365,
+   "melo": "in-scene:patient",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 30,
+   "cast": [
+    {
+     "id": "arzt",
+     "slot": "right",
+     "expr": "neutral",
+     "pose": null
+    }
+   ],
+   "castCues": [
+    {
+     "t": 13.365,
+     "id": "arzt",
+     "expr": null,
+     "pose": "idle",
+     "talk": null,
+     "flip": "0"
+    }
+   ],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "doctor-office",
+   "strips": [
+    {
+     "id": "s1",
+     "states": [
+      {
+       "size": "88",
+       "vy": "650",
+       "text": "mustard:1 der_Schmerz",
+       "cards": [
+        [
+         {
+          "key": "1#1",
+          "text": "1",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 13.365
+         },
+         {
+          "key": "derschmerz#1",
+          "text": "der Schmerz",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 13.435
+         }
+        ]
+       ],
+       "t": 13.365,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "88",
+       "label": "1 · der Schmerz",
+       "vy": "650",
+       "text": "Ich habe | green:Halsschmerzen.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.28
+         },
+         {
+          "key": "habe#1",
+          "text": "habe",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 15.33
+         }
+        ],
+        [
+         {
+          "key": "halsschmerzen#1",
+          "text": "Halsschmerzen.",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 15.55
+         }
+        ]
+       ],
+       "t": 15.28,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "88",
+       "label": "1 · der Schmerz",
+       "vy": "650",
+       "text": "Mir tut | green:der_Bauch weh.",
+       "cards": [
+        [
+         {
+          "key": "mir#1",
+          "text": "Mir",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 16.905
+         },
+         {
+          "key": "tut#1",
+          "text": "tut",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 16.975
+         }
+        ],
+        [
+         {
+          "key": "derbauch#1",
+          "text": "der Bauch",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 17.045
+         },
+         {
+          "key": "weh#1",
+          "text": "weh.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 17.115
+         }
+        ]
+       ],
+       "t": 16.785,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "type": "scene",
+   "layout": "scene",
+   "start": 19.125,
+   "end": 23.22,
+   "transition": "cut",
+   "tStart": 19.125,
+   "tEnd": 19.125,
+   "contentStart": 19.125,
+   "melo": "in-scene:bed",
+   "args": {
+    "type": "scene",
+    "set": "bedroom-night",
+    "melo": "in-scene:bed",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1640"
+   },
+   "word": 42,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [
+    {
+     "t": 19.125,
+     "id": "th",
+     "name": "thermometer",
+     "at": "1500,600",
+     "anim": "pop",
+     "scale": 0.6
+    }
+   ],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "bedroom-night",
+   "strips": [
+    {
+     "id": "s2",
+     "states": [
+      {
+       "size": "90",
+       "vy": "650",
+       "text": "mustard:2 seit_wann?",
+       "cards": [
+        [
+         {
+          "key": "2#1",
+          "text": "2",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 19.125
+         },
+         {
+          "key": "seitwann#1",
+          "text": "seit wann?",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 19.195
+         }
+        ]
+       ],
+       "t": 19.125,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "90",
+       "label": "2 · seit wann",
+       "vy": "650",
+       "text": "Ich habe mustard:seit_3_Tagen | Fieber.",
+       "cards": [
+        [
+         {
+          "key": "ich#1",
+          "text": "Ich",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 20.96
+         },
+         {
+          "key": "habe#1",
+          "text": "habe",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 21.01
+         },
+         {
+          "key": "seit3tagen#1",
+          "text": "seit 3 Tagen",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 21.19
+         }
+        ],
+        [
+         {
+          "key": "fieber#1",
+          "text": "Fieber.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 22.09
+         }
+        ]
+       ],
+       "t": 20.96,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "type": "cards",
+   "layout": "cards",
+   "start": 23.22,
+   "end": 27.79,
+   "transition": "cut",
+   "tStart": 23.22,
+   "tEnd": 23.22,
+   "contentStart": 23.22,
+   "melo": "corner-left",
+   "args": {
+    "type": "cards",
+    "bg": "blue",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 51,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "s3",
+     "states": [
+      {
+       "size": "118",
+       "text": "mustard:3 das_Gefühl",
+       "cards": [
+        [
+         {
+          "key": "3#1",
+          "text": "3",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 23.22
+         },
+         {
+          "key": "dasgefühl#1",
+          "text": "das Gefühl",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 23.29
+         }
+        ]
+       ],
+       "t": 23.22,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "118",
+       "label": "3 · das Gefühl",
+       "text": "green:Mir_ist übel.",
+       "cards": [
+        [
+         {
+          "key": "mirist#1",
+          "text": "Mir ist",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 25.285
+         },
+         {
+          "key": "übel#1",
+          "text": "übel.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 25.355
+         }
+        ]
+       ],
+       "t": 25.165,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "118",
+       "label": "3 · das Gefühl",
+       "text": "green:Mir_ist übel. | green:Mir_ist schwindelig.",
+       "cards": [
+        [
+         {
+          "key": "mirist#1",
+          "text": "Mir ist",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 25.285
+         },
+         {
+          "key": "übel#1",
+          "text": "übel.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 25.355
+         }
+        ],
+        [
+         {
+          "key": "mirist#2",
+          "text": "Mir ist",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 26.45
+         },
+         {
+          "key": "schwindelig#1",
+          "text": "schwindelig.",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 26.52
+         }
+        ]
+       ],
+       "t": 26.33,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "type": "cards",
+   "layout": "cards",
+   "start": 27.79,
+   "end": 29.95,
+   "transition": "cut",
+   "tStart": 27.79,
+   "tEnd": 27.79,
+   "contentStart": 27.79,
+   "melo": "corner-left",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 60,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "s3x",
+     "states": [
+      {
+       "size": "116",
+       "label": "nicht:",
+       "vy": "760",
+       "text": "red:Ich_bin_übel!",
+       "cards": [
+        [
+         {
+          "key": "ichbinübel#1",
+          "text": "Ich bin übel!",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 27.79
+         }
+        ]
+       ],
+       "t": 27.79,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "116",
+       "label": "nicht:",
+       "vy": "760",
+       "text": "red:Ich_bin_übel!",
+       "cards": [
+        [
+         {
+          "key": "ichbinübel#1",
+          "text": "Ich bin übel!",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 27.79
+         }
+        ]
+       ],
+       "t": 28.92,
+       "mark": "wrong",
+       "markT": 28.92
+      }
+     ]
+    },
+    {
+     "id": "s3y",
+     "states": [
+      {
+       "size": "96",
+       "vy": "1090",
+       "text": "!=_„Ich_bin_böse.“",
+       "cards": [
+        [
+         {
+          "key": "=ichbinböse#1",
+          "text": "= „Ich bin böse.“",
+          "kind": "badge",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 28.92
+         }
+        ]
+       ],
+       "t": 28.92,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "type": "scene",
+   "layout": "scene",
+   "start": 29.95,
+   "end": 33.71,
+   "transition": "cut",
+   "tStart": 29.95,
+   "tEnd": 29.95,
+   "contentStart": 29.95,
+   "melo": "in-scene:patient",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 64,
+   "cast": [
+    {
+     "id": "arzt",
+     "slot": "right",
+     "expr": "neutral",
+     "pose": null
+    }
+   ],
+   "castCues": [
+    {
+     "t": 29.95,
+     "id": "arzt",
+     "expr": null,
+     "pose": "hold",
+     "talk": null,
+     "flip": "0"
+    },
+    {
+     "t": 32.51,
+     "id": "arzt",
+     "expr": "happy",
+     "pose": null,
+     "talk": null,
+     "flip": null
+    }
+   ],
+   "says": [],
+   "props": [],
+   "fx": [
+    {
+     "t": 32.51,
+     "name": "sparkle",
+     "who": null,
+     "dur": null
+    }
+   ],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "doctor-office",
+   "strips": [
+    {
+     "id": "s4",
+     "states": [
+      {
+       "size": "88",
+       "vy": "650",
+       "text": "red:4 der_wichtigste",
+       "cards": [
+        [
+         {
+          "key": "4#1",
+          "text": "4",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 29.95
+         },
+         {
+          "key": "derwichtigste#1",
+          "text": "der wichtigste",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 30.02
+         }
+        ]
+       ],
+       "t": 29.95,
+       "mark": null,
+       "markT": null
+      },
+      {
+       "size": "88",
+       "label": "4 · der wichtigste",
+       "vy": "650",
+       "text": "Können_Sie mich_bitte | green:krankschreiben?",
+       "cards": [
+        [
+         {
+          "key": "könnensie#1",
+          "text": "Können Sie",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.815
+         },
+         {
+          "key": "michbitte#1",
+          "text": "mich bitte",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 31.995
+         }
+        ],
+        [
+         {
+          "key": "krankschreiben#1",
+          "text": "krankschreiben?",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 32.46
+         }
+        ]
+       ],
+       "t": 31.815,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 8,
+   "type": "cards",
+   "layout": "cards",
+   "start": 33.71,
+   "end": 40.635,
+   "transition": "cut",
+   "tStart": 33.71,
+   "tEnd": 33.71,
+   "contentStart": 33.71,
+   "melo": "off",
+   "args": {
+    "type": "cards",
+    "bg": "dark",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 72,
+   "cast": [],
+   "castCues": [],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "strips": [
+    {
+     "id": "p",
+     "states": [
+      {
+       "size": "86",
+       "label": "Profi-Level",
+       "vy": "680",
+       "text": "Was mustard:fehlt Ihnen?",
+       "cards": [
+        [
+         {
+          "key": "was#1",
+          "text": "Was",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 34.76
+         },
+         {
+          "key": "fehlt#1",
+          "text": "fehlt",
+          "kind": "color",
+          "color": "mustard",
+          "num": null,
+          "joinPrev": false,
+          "t": 34.98
+         },
+         {
+          "key": "ihnen#1",
+          "text": "Ihnen?",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 35.3
+         }
+        ]
+       ],
+       "t": 33.71,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    },
+    {
+     "id": "p2",
+     "states": [
+      {
+       "size": "86",
+       "label": "heißt nicht:",
+       "vy": "1060",
+       "text": "red:Was_vermissen_Sie?",
+       "cards": [
+        [
+         {
+          "key": "wasvermissensie#1",
+          "text": "Was vermissen Sie?",
+          "kind": "color",
+          "color": "red",
+          "num": null,
+          "joinPrev": false,
+          "t": 36
+         }
+        ]
+       ],
+       "t": 36,
+       "mark": "wrong",
+       "markT": 36
+      },
+      {
+       "size": "86",
+       "label": "heißt:",
+       "vy": "1060",
+       "text": "green:Was_haben_Sie | green:für_Beschwerden?",
+       "cards": [
+        [
+         {
+          "key": "washabensie#1",
+          "text": "Was haben Sie",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 38.33
+         }
+        ],
+        [
+         {
+          "key": "fürbeschwerden#1",
+          "text": "für Beschwerden?",
+          "kind": "color",
+          "color": "green",
+          "num": null,
+          "joinPrev": false,
+          "t": 38.4
+         }
+        ]
+       ],
+       "t": 38.21,
+       "mark": "right",
+       "markT": 38.21
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "i": 9,
+   "type": "scene",
+   "layout": "scene",
+   "start": 40.635,
+   "end": 42.449,
+   "transition": "cut",
+   "tStart": 40.635,
+   "tEnd": 40.635,
+   "contentStart": 40.635,
+   "melo": "in-scene:patient",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 88,
+   "cast": [
+    {
+     "id": "arzt",
+     "slot": "right",
+     "expr": "neutral",
+     "pose": null
+    }
+   ],
+   "castCues": [
+    {
+     "t": 40.635,
+     "id": "arzt",
+     "expr": null,
+     "pose": "point",
+     "talk": "on",
+     "flip": "0"
+    }
+   ],
+   "says": [],
+   "props": [],
+   "fx": [],
+   "pins": [],
+   "isShot": true,
+   "cams": [],
+   "set": "doctor-office",
+   "strips": [
+    {
+     "id": "q",
+     "states": [
+      {
+       "size": "96",
+       "vy": "670",
+       "text": "Was fehlt | Ihnen?",
+       "cards": [
+        [
+         {
+          "key": "was#1",
+          "text": "Was",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 41.28
+         },
+         {
+          "key": "fehlt#1",
+          "text": "fehlt",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 41.48
+         }
+        ],
+        [
+         {
+          "key": "ihnen#1",
+          "text": "Ihnen?",
+          "kind": "plain",
+          "color": null,
+          "num": null,
+          "joinPrev": false,
+          "t": 41.78
+         }
+        ]
+       ],
+       "t": 40.635,
+       "mark": null,
+       "markT": null
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "elements": [],
+ "camera": [
+  {
+   "t": 0,
+   "shot": "board",
+   "focus": null,
+   "auto": "start"
+  }
+ ],
+ "chapters": [
+  {
+   "t": 0.6,
+   "title": "Loop",
+   "num": null,
+   "label": "Loop",
+   "kind": "section"
+  }
+ ],
+ "melo": [
+  {
+   "t": 0.6,
+   "args": {
+    "expr": "annoyed",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 2.78,
+   "args": {
+    "expr": "deadpan",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 8.88,
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 11.235,
+   "args": {
+    "expr": "smirk",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 13.365,
+   "args": {
+    "expr": "annoyed",
+    "pose": "explain",
+    "look": "left"
+   }
+  },
+  {
+   "t": 16.785,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "point",
+    "look": "left"
+   }
+  },
+  {
+   "t": 19.125,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 23.22,
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 27.79,
+   "args": {
+    "expr": "surprised",
+    "pose": "finger",
+    "look": "viewer"
+   }
+  },
+  {
+   "t": 29.95,
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "left"
+   }
+  },
+  {
+   "t": 40.635,
+   "args": {
+    "expr": "annoyed",
+    "pose": "idle",
+    "look": "viewer"
+   }
+  }
+ ],
+ "quotes": [],
+ "rigWords": [
+  {
+   "i": 0,
+   "text": "Ich",
+   "start": 0.6,
+   "end": 0.92
+  },
+  {
+   "i": 1,
+   "text": "habe",
+   "start": 0.92,
+   "end": 1.12
+  },
+  {
+   "i": 2,
+   "text": "Kopfschmerzen",
+   "start": 1.12,
+   "end": 2.13
+  },
+  {
+   "i": 3,
+   "text": "Nicht",
+   "start": 2.78,
+   "end": 3.205
+  },
+  {
+   "i": 4,
+   "text": "Ich",
+   "start": 3.48,
+   "end": 3.58
+  },
+  {
+   "i": 5,
+   "text": "habe",
+   "start": 3.58,
+   "end": 3.78
+  },
+  {
+   "i": 6,
+   "text": "Schmerz",
+   "start": 3.78,
+   "end": 4.26
+  },
+  {
+   "i": 7,
+   "text": "im",
+   "start": 4.26,
+   "end": 4.635
+  },
+  {
+   "i": 8,
+   "text": "Kopf",
+   "start": 4.83,
+   "end": 4.89
+  },
+  {
+   "i": 9,
+   "text": "Das",
+   "start": 5.235,
+   "end": 5.36
+  },
+  {
+   "i": 10,
+   "text": "versteht",
+   "start": 5.36,
+   "end": 5.74
+  },
+  {
+   "i": 11,
+   "text": "jeder",
+   "start": 5.74,
+   "end": 6.16
+  },
+  {
+   "i": 12,
+   "text": "aber",
+   "start": 6.495,
+   "end": 6.7
+  },
+  {
+   "i": 13,
+   "text": "so",
+   "start": 6.7,
+   "end": 7.12
+  },
+  {
+   "i": 14,
+   "text": "sagt",
+   "start": 7.12,
+   "end": 7.44
+  },
+  {
+   "i": 15,
+   "text": "es",
+   "start": 7.44,
+   "end": 7.58
+  },
+  {
+   "i": 16,
+   "text": "kein",
+   "start": 7.58,
+   "end": 7.84
+  },
+  {
+   "i": 17,
+   "text": "Deutscher",
+   "start": 7.84,
+   "end": 8.35
+  },
+  {
+   "i": 18,
+   "text": "Beim",
+   "start": 8.88,
+   "end": 9.02
+  },
+  {
+   "i": 19,
+   "text": "Arzt",
+   "start": 9.02,
+   "end": 9.375
+  },
+  {
+   "i": 20,
+   "text": "brauchst",
+   "start": 9.375,
+   "end": 9.72
+  },
+  {
+   "i": 21,
+   "text": "du",
+   "start": 9.72,
+   "end": 9.82
+  },
+  {
+   "i": 22,
+   "text": "nur",
+   "start": 9.82,
+   "end": 10
+  },
+  {
+   "i": 23,
+   "text": "vier",
+   "start": 10,
+   "end": 10.36
+  },
+  {
+   "i": 24,
+   "text": "Sätze",
+   "start": 10.36,
+   "end": 10.84
+  },
+  {
+   "i": 25,
+   "text": "Der",
+   "start": 11.235,
+   "end": 11.36
+  },
+  {
+   "i": 26,
+   "text": "vierte",
+   "start": 11.36,
+   "end": 11.78
+  },
+  {
+   "i": 27,
+   "text": "ist",
+   "start": 11.78,
+   "end": 12.04
+  },
+  {
+   "i": 28,
+   "text": "der",
+   "start": 12.04,
+   "end": 12.2
+  },
+  {
+   "i": 29,
+   "text": "wichtigste",
+   "start": 12.2,
+   "end": 12.8
+  },
+  {
+   "i": 30,
+   "text": "Eins",
+   "start": 13.365,
+   "end": 13.8
+  },
+  {
+   "i": 31,
+   "text": "der",
+   "start": 14.105,
+   "end": 14.2
+  },
+  {
+   "i": 32,
+   "text": "Schmerz",
+   "start": 14.2,
+   "end": 14.84
+  },
+  {
+   "i": 33,
+   "text": "Ich",
+   "start": 15.28,
+   "end": 15.38
+  },
+  {
+   "i": 34,
+   "text": "habe",
+   "start": 15.38,
+   "end": 15.6
+  },
+  {
+   "i": 35,
+   "text": "Halsschmerzen",
+   "start": 15.6,
+   "end": 16.435
+  },
+  {
+   "i": 36,
+   "text": "Oder",
+   "start": 16.785,
+   "end": 17.09
+  },
+  {
+   "i": 37,
+   "text": "Mir",
+   "start": 17.51,
+   "end": 17.62
+  },
+  {
+   "i": 38,
+   "text": "tut",
+   "start": 17.62,
+   "end": 17.78
+  },
+  {
+   "i": 39,
+   "text": "der",
+   "start": 17.78,
+   "end": 17.94
+  },
+  {
+   "i": 40,
+   "text": "Bauch",
+   "start": 17.94,
+   "end": 18.26
+  },
+  {
+   "i": 41,
+   "text": "weh",
+   "start": 18.26,
+   "end": 18.47
+  },
+  {
+   "i": 42,
+   "text": "Zwei",
+   "start": 19.125,
+   "end": 19.485
+  },
+  {
+   "i": 43,
+   "text": "seit",
+   "start": 19.895,
+   "end": 20.14
+  },
+  {
+   "i": 44,
+   "text": "wann",
+   "start": 20.14,
+   "end": 20.48
+  },
+  {
+   "i": 45,
+   "text": "Ich",
+   "start": 20.96,
+   "end": 21.06
+  },
+  {
+   "i": 46,
+   "text": "habe",
+   "start": 21.06,
+   "end": 21.26
+  },
+  {
+   "i": 47,
+   "text": "seit",
+   "start": 21.26,
+   "end": 21.48
+  },
+  {
+   "i": 48,
+   "text": "drei",
+   "start": 21.48,
+   "end": 21.74
+  },
+  {
+   "i": 49,
+   "text": "Tagen",
+   "start": 21.74,
+   "end": 22.14
+  },
+  {
+   "i": 50,
+   "text": "Fieber",
+   "start": 22.14,
+   "end": 22.675
+  },
+  {
+   "i": 51,
+   "text": "Drei",
+   "start": 23.22,
+   "end": 23.54
+  },
+  {
+   "i": 52,
+   "text": "das",
+   "start": 23.97,
+   "end": 24.11
+  },
+  {
+   "i": 53,
+   "text": "Gefühl",
+   "start": 24.11,
+   "end": 24.62
+  },
+  {
+   "i": 54,
+   "text": "Mir",
+   "start": 25.165,
+   "end": 25.3
+  },
+  {
+   "i": 55,
+   "text": "ist",
+   "start": 25.3,
+   "end": 25.5
+  },
+  {
+   "i": 56,
+   "text": "übel",
+   "start": 25.5,
+   "end": 26.085
+  },
+  {
+   "i": 57,
+   "text": "Mir",
+   "start": 26.33,
+   "end": 26.46
+  },
+  {
+   "i": 58,
+   "text": "ist",
+   "start": 26.46,
+   "end": 26.64
+  },
+  {
+   "i": 59,
+   "text": "schwindelig",
+   "start": 26.64,
+   "end": 27.395
+  },
+  {
+   "i": 60,
+   "text": "Nicht",
+   "start": 27.79,
+   "end": 28.27
+  },
+  {
+   "i": 61,
+   "text": "Ich",
+   "start": 28.44,
+   "end": 28.63
+  },
+  {
+   "i": 62,
+   "text": "bin",
+   "start": 28.745,
+   "end": 28.92
+  },
+  {
+   "i": 63,
+   "text": "übel",
+   "start": 28.92,
+   "end": 29.44
+  },
+  {
+   "i": 64,
+   "text": "Vier",
+   "start": 29.95,
+   "end": 30.305
+  },
+  {
+   "i": 65,
+   "text": "der",
+   "start": 30.56,
+   "end": 30.66
+  },
+  {
+   "i": 66,
+   "text": "wichtigste",
+   "start": 30.66,
+   "end": 31.3
+  },
+  {
+   "i": 67,
+   "text": "Können",
+   "start": 31.815,
+   "end": 32.05
+  },
+  {
+   "i": 68,
+   "text": "Sie",
+   "start": 32.05,
+   "end": 32.15
+  },
+  {
+   "i": 69,
+   "text": "mich",
+   "start": 32.15,
+   "end": 32.31
+  },
+  {
+   "i": 70,
+   "text": "bitte",
+   "start": 32.31,
+   "end": 32.51
+  },
+  {
+   "i": 71,
+   "text": "krankschreiben",
+   "start": 32.51,
+   "end": 33.29
+  },
+  {
+   "i": 72,
+   "text": "Profi-Level",
+   "start": 33.71,
+   "end": 34.465
+  },
+  {
+   "i": 73,
+   "text": "Was",
+   "start": 34.81,
+   "end": 35.03
+  },
+  {
+   "i": 74,
+   "text": "fehlt",
+   "start": 35.03,
+   "end": 35.35
+  },
+  {
+   "i": 75,
+   "text": "Ihnen",
+   "start": 35.35,
+   "end": 35.72
+  },
+  {
+   "i": 76,
+   "text": "heißt",
+   "start": 36,
+   "end": 36.265
+  },
+  {
+   "i": 77,
+   "text": "nicht",
+   "start": 36.265,
+   "end": 36.645
+  },
+  {
+   "i": 78,
+   "text": "Was",
+   "start": 36.845,
+   "end": 37.07
+  },
+  {
+   "i": 79,
+   "text": "vermissen",
+   "start": 37.07,
+   "end": 37.55
+  },
+  {
+   "i": 80,
+   "text": "Sie",
+   "start": 37.55,
+   "end": 37.825
+  },
+  {
+   "i": 81,
+   "text": "Es",
+   "start": 38.21,
+   "end": 38.37
+  },
+  {
+   "i": 82,
+   "text": "heißt",
+   "start": 38.37,
+   "end": 38.67
+  },
+  {
+   "i": 83,
+   "text": "Was",
+   "start": 38.965,
+   "end": 39.15
+  },
+  {
+   "i": 84,
+   "text": "haben",
+   "start": 39.15,
+   "end": 39.39
+  },
+  {
+   "i": 85,
+   "text": "Sie",
+   "start": 39.39,
+   "end": 39.55
+  },
+  {
+   "i": 86,
+   "text": "für",
+   "start": 39.55,
+   "end": 39.71
+  },
+  {
+   "i": 87,
+   "text": "Beschwerden",
+   "start": 39.71,
+   "end": 40.28
+  },
+  {
+   "i": 88,
+   "text": "Also",
+   "start": 40.635,
+   "end": 41.035
+  },
+  {
+   "i": 89,
+   "text": "Was",
+   "start": 41.33,
+   "end": 41.53
+  },
+  {
+   "i": 90,
+   "text": "fehlt",
+   "start": 41.53,
+   "end": 41.83
+  },
+  {
+   "i": 91,
+   "text": "Ihnen",
+   "start": 41.83,
+   "end": 42.195
+  }
+ ],
+ "assets": {
+  "sets": [
+   "after-work-desk.js",
+   "bakery.js",
+   "bank-counter.js",
+   "bedroom-night.js",
+   "biergarten.js",
+   "breakfast-kitchen.js",
+   "bus-stop-rain.js",
+   "cafe-window.js",
+   "calendar-wall.js",
+   "cellar.js",
+   "chat-space.js",
+   "cinema-front.js",
+   "dinner-table.js",
+   "doctor-office.js",
+   "doorstep.js",
+   "empty-apartment.js",
+   "er-hospital.js",
+   "exam-room.js",
+   "fonts-embed.js",
+   "football-park.js",
+   "gym.js",
+   "job-interview.js",
+   "ki-desk-night.js",
+   "kit-a.js",
+   "kit-b.js",
+   "kneipe.js",
+   "laptop-email.js",
+   "library-grammar.js",
+   "living-room.js",
+   "map-dach.js",
+   "moving-day.js",
+   "office-hot.js",
+   "office-plain.js",
+   "oral-exam.js",
+   "phone-ad.js",
+   "post-office.js",
+   "quiz-show.js",
+   "sofa-evening.js",
+   "stairwell-door.js",
+   "street-day.js",
+   "sunday-balcony.js",
+   "supermarket-checkout.js",
+   "tandem-cafe.js",
+   "tram-interior.js",
+   "university.js",
+   "vhs-classroom.js",
+   "wg-kitchen.js",
+   "winter-room.js"
+  ],
+  "cast": [
+   "cast.js"
+  ]
+ },
+ "readability": {
+  "extended": 0,
+  "merged": 0,
+  "shots": 10,
+  "min": 1.814,
+  "avg": 4.185,
+  "handwritingFixed": 0
+ },
+ "cues": [
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 0,
+   "t": 0.6
+  },
+  {
+   "cue": "cast",
+   "args": {
+    "id": "arzt",
+    "flip": "0",
+    "pose": "idle"
+   },
+   "word": 0,
+   "t": 0.6
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "annoyed",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 0,
+   "t": 0.6
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "a",
+    "in": "none",
+    "size": "96",
+    "vy": "670",
+    "mark": "right",
+    "text": "Ich habe | green:Kopfschmerzen."
+   },
+   "word": 0,
+   "t": 0.6
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "deadpan",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 3,
+   "t": 2.78
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "a",
+    "label": "nicht:",
+    "mark": "none",
+    "text": "Ich habe | red:Schmerz im_Kopf."
+   },
+   "word": 3,
+   "t": 2.78
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "a",
+    "mark": "wrong"
+   },
+   "word": 8,
+   "t": 4.83
+  },
+  {
+   "cue": "cast",
+   "args": {
+    "id": "arzt",
+    "expr": "confused"
+   },
+   "word": 8,
+   "t": 4.83
+  },
+  {
+   "cue": "fx",
+   "args": {
+    "name": "question-marks"
+   },
+   "word": 8,
+   "t": 4.83
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 9,
+   "t": 5.235
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "f",
+    "size": "140",
+    "sync": "words",
+    "text": "Das versteht jeder, | aber so sagt es | !kein_Deutscher."
+   },
+   "word": 9,
+   "t": 5.235
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "paper",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 18,
+   "t": 8.88
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "explain",
+    "look": "viewer"
+   },
+   "word": 18,
+   "t": 8.88
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "r",
+    "size": "130",
+    "sync": "words",
+    "text": "Beim_Arzt: | nur mustard:4_Sätze"
+   },
+   "word": 18,
+   "t": 8.88
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "smirk",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 25,
+   "t": 11.235
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "r",
+    "label": "Nr. 4 = der wichtigste",
+    "text": "Beim_Arzt: nur mustard:4_Sätze | grey:1 grey:2 grey:3 red:4"
+   },
+   "word": 25,
+   "t": 11.235
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 30,
+   "t": 13.365
+  },
+  {
+   "cue": "cast",
+   "args": {
+    "id": "arzt",
+    "flip": "0",
+    "pose": "idle"
+   },
+   "word": 30,
+   "t": 13.365
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "annoyed",
+    "pose": "explain",
+    "look": "left"
+   },
+   "word": 30,
+   "t": 13.365
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s1",
+    "size": "88",
+    "vy": "650",
+    "text": "mustard:1 der_Schmerz"
+   },
+   "word": 30,
+   "t": 13.365
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s1",
+    "label": "1 · der Schmerz",
+    "sync": "words",
+    "text": "Ich habe | green:Halsschmerzen."
+   },
+   "word": 33,
+   "t": 15.28
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "point",
+    "look": "left"
+   },
+   "word": 36,
+   "t": 16.785
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s1",
+    "text": "Mir tut | green:der_Bauch weh."
+   },
+   "word": 36,
+   "t": 16.785
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "bedroom-night",
+    "melo": "in-scene:bed",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1640"
+   },
+   "word": 42,
+   "t": 19.125
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 42,
+   "t": 19.125
+  },
+  {
+   "cue": "prop",
+   "args": {
+    "id": "th",
+    "name": "thermometer",
+    "at": "1500,600",
+    "scale": "0.6",
+    "anim": "pop"
+   },
+   "word": 42,
+   "t": 19.125
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s2",
+    "size": "90",
+    "vy": "650",
+    "text": "mustard:2 seit_wann?"
+   },
+   "word": 42,
+   "t": 19.125
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s2",
+    "label": "2 · seit wann",
+    "sync": "words",
+    "text": "Ich habe mustard:seit_3_Tagen | Fieber."
+   },
+   "word": 45,
+   "t": 20.96
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "blue",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 51,
+   "t": 23.22
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "unimpressed",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 51,
+   "t": 23.22
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3",
+    "size": "118",
+    "text": "mustard:3 das_Gefühl"
+   },
+   "word": 51,
+   "t": 23.22
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3",
+    "label": "3 · das Gefühl",
+    "text": "green:Mir_ist übel."
+   },
+   "word": 54,
+   "t": 25.165
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3",
+    "text": "green:Mir_ist übel. | green:Mir_ist schwindelig."
+   },
+   "word": 57,
+   "t": 26.33
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "red",
+    "melo": "corner-left",
+    "in": "cut"
+   },
+   "word": 60,
+   "t": 27.79
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "surprised",
+    "pose": "finger",
+    "look": "viewer"
+   },
+   "word": 60,
+   "t": 27.79
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3x",
+    "size": "116",
+    "vy": "760",
+    "label": "nicht:",
+    "text": "red:Ich_bin_übel!"
+   },
+   "word": 60,
+   "t": 27.79
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3x",
+    "mark": "wrong"
+   },
+   "word": 63,
+   "t": 28.92
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s3y",
+    "size": "96",
+    "vy": "1090",
+    "text": "!=_„Ich_bin_böse.“"
+   },
+   "word": 63,
+   "t": 28.92
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 64,
+   "t": 29.95
+  },
+  {
+   "cue": "cast",
+   "args": {
+    "id": "arzt",
+    "flip": "0",
+    "pose": "hold"
+   },
+   "word": 64,
+   "t": 29.95
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "talking",
+    "pose": "point",
+    "look": "left"
+   },
+   "word": 64,
+   "t": 29.95
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s4",
+    "size": "88",
+    "vy": "650",
+    "text": "red:4 der_wichtigste"
+   },
+   "word": 64,
+   "t": 29.95
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "s4",
+    "label": "4 · der wichtigste",
+    "sync": "words",
+    "text": "Können_Sie mich_bitte | green:krankschreiben?"
+   },
+   "word": 67,
+   "t": 31.815
+  },
+  {
+   "cue": "fx",
+   "args": {
+    "name": "sparkle"
+   },
+   "word": 71,
+   "t": 32.51
+  },
+  {
+   "cue": "cast",
+   "args": {
+    "id": "arzt",
+    "expr": "happy"
+   },
+   "word": 71,
+   "t": 32.51
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "cards",
+    "bg": "dark",
+    "melo": "off",
+    "in": "cut"
+   },
+   "word": 72,
+   "t": 33.71
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "p",
+    "size": "86",
+    "vy": "680",
+    "label": "Profi-Level",
+    "sync": "words",
+    "text": "Was mustard:fehlt Ihnen?"
+   },
+   "word": 72,
+   "t": 33.71
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "p2",
+    "size": "86",
+    "vy": "1060",
+    "label": "heißt nicht:",
+    "mark": "wrong",
+    "text": "red:Was_vermissen_Sie?"
+   },
+   "word": 76,
+   "t": 36
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "p2",
+    "label": "heißt:",
+    "mark": "right",
+    "text": "green:Was_haben_Sie | green:für_Beschwerden?"
+   },
+   "word": 81,
+   "t": 38.21
+  },
+  {
+   "cue": "shot",
+   "args": {
+    "type": "scene",
+    "set": "doctor-office",
+    "cast": "arzt:right:neutral",
+    "melo": "in-scene:patient",
+    "in": "cut",
+    "cam": "static",
+    "zoom": "1.3",
+    "cx": "960",
+    "cy": "300",
+    "vzoom": "1.25",
+    "focus": "1345"
+   },
+   "word": 88,
+   "t": 40.635
+  },
+  {
+   "cue": "cast",
+   "args": {
+    "id": "arzt",
+    "flip": "0",
+    "pose": "point",
+    "talk": "on"
+   },
+   "word": 88,
+   "t": 40.635
+  },
+  {
+   "cue": "melo",
+   "args": {
+    "expr": "annoyed",
+    "pose": "idle",
+    "look": "viewer"
+   },
+   "word": 88,
+   "t": 40.635
+  },
+  {
+   "cue": "cards",
+   "args": {
+    "id": "q",
+    "size": "96",
+    "vy": "670",
+    "sync": "words",
+    "text": "Was fehlt | Ihnen?"
+   },
+   "word": 88,
+   "t": 40.635
+  }
+ ],
+ "words": [
+  {
+   "i": 0,
+   "text": "Ich",
+   "start": 0.6,
+   "end": 0.92
+  },
+  {
+   "i": 1,
+   "text": "habe",
+   "start": 0.92,
+   "end": 1.12
+  },
+  {
+   "i": 2,
+   "text": "Kopfschmerzen",
+   "start": 1.12,
+   "end": 2.13
+  },
+  {
+   "i": 3,
+   "text": "Nicht",
+   "start": 2.78,
+   "end": 3.205
+  },
+  {
+   "i": 4,
+   "text": "Ich",
+   "start": 3.48,
+   "end": 3.58
+  },
+  {
+   "i": 5,
+   "text": "habe",
+   "start": 3.58,
+   "end": 3.78
+  },
+  {
+   "i": 6,
+   "text": "Schmerz",
+   "start": 3.78,
+   "end": 4.26
+  },
+  {
+   "i": 7,
+   "text": "im",
+   "start": 4.26,
+   "end": 4.635
+  },
+  {
+   "i": 8,
+   "text": "Kopf",
+   "start": 4.83,
+   "end": 4.89
+  },
+  {
+   "i": 9,
+   "text": "Das",
+   "start": 5.235,
+   "end": 5.36
+  },
+  {
+   "i": 10,
+   "text": "versteht",
+   "start": 5.36,
+   "end": 5.74
+  },
+  {
+   "i": 11,
+   "text": "jeder",
+   "start": 5.74,
+   "end": 6.16
+  },
+  {
+   "i": 12,
+   "text": "aber",
+   "start": 6.495,
+   "end": 6.7
+  },
+  {
+   "i": 13,
+   "text": "so",
+   "start": 6.7,
+   "end": 7.12
+  },
+  {
+   "i": 14,
+   "text": "sagt",
+   "start": 7.12,
+   "end": 7.44
+  },
+  {
+   "i": 15,
+   "text": "es",
+   "start": 7.44,
+   "end": 7.58
+  },
+  {
+   "i": 16,
+   "text": "kein",
+   "start": 7.58,
+   "end": 7.84
+  },
+  {
+   "i": 17,
+   "text": "Deutscher",
+   "start": 7.84,
+   "end": 8.35
+  },
+  {
+   "i": 18,
+   "text": "Beim",
+   "start": 8.88,
+   "end": 9.02
+  },
+  {
+   "i": 19,
+   "text": "Arzt",
+   "start": 9.02,
+   "end": 9.375
+  },
+  {
+   "i": 20,
+   "text": "brauchst",
+   "start": 9.375,
+   "end": 9.72
+  },
+  {
+   "i": 21,
+   "text": "du",
+   "start": 9.72,
+   "end": 9.82
+  },
+  {
+   "i": 22,
+   "text": "nur",
+   "start": 9.82,
+   "end": 10
+  },
+  {
+   "i": 23,
+   "text": "vier",
+   "start": 10,
+   "end": 10.36
+  },
+  {
+   "i": 24,
+   "text": "Sätze",
+   "start": 10.36,
+   "end": 10.84
+  },
+  {
+   "i": 25,
+   "text": "Der",
+   "start": 11.235,
+   "end": 11.36
+  },
+  {
+   "i": 26,
+   "text": "vierte",
+   "start": 11.36,
+   "end": 11.78
+  },
+  {
+   "i": 27,
+   "text": "ist",
+   "start": 11.78,
+   "end": 12.04
+  },
+  {
+   "i": 28,
+   "text": "der",
+   "start": 12.04,
+   "end": 12.2
+  },
+  {
+   "i": 29,
+   "text": "wichtigste",
+   "start": 12.2,
+   "end": 12.8
+  },
+  {
+   "i": 30,
+   "text": "Eins",
+   "start": 13.365,
+   "end": 13.8
+  },
+  {
+   "i": 31,
+   "text": "der",
+   "start": 14.105,
+   "end": 14.2
+  },
+  {
+   "i": 32,
+   "text": "Schmerz",
+   "start": 14.2,
+   "end": 14.84
+  },
+  {
+   "i": 33,
+   "text": "Ich",
+   "start": 15.28,
+   "end": 15.38
+  },
+  {
+   "i": 34,
+   "text": "habe",
+   "start": 15.38,
+   "end": 15.6
+  },
+  {
+   "i": 35,
+   "text": "Halsschmerzen",
+   "start": 15.6,
+   "end": 16.435
+  },
+  {
+   "i": 36,
+   "text": "Oder",
+   "start": 16.785,
+   "end": 17.09
+  },
+  {
+   "i": 37,
+   "text": "Mir",
+   "start": 17.51,
+   "end": 17.62
+  },
+  {
+   "i": 38,
+   "text": "tut",
+   "start": 17.62,
+   "end": 17.78
+  },
+  {
+   "i": 39,
+   "text": "der",
+   "start": 17.78,
+   "end": 17.94
+  },
+  {
+   "i": 40,
+   "text": "Bauch",
+   "start": 17.94,
+   "end": 18.26
+  },
+  {
+   "i": 41,
+   "text": "weh",
+   "start": 18.26,
+   "end": 18.47
+  },
+  {
+   "i": 42,
+   "text": "Zwei",
+   "start": 19.125,
+   "end": 19.485
+  },
+  {
+   "i": 43,
+   "text": "seit",
+   "start": 19.895,
+   "end": 20.14
+  },
+  {
+   "i": 44,
+   "text": "wann",
+   "start": 20.14,
+   "end": 20.48
+  },
+  {
+   "i": 45,
+   "text": "Ich",
+   "start": 20.96,
+   "end": 21.06
+  },
+  {
+   "i": 46,
+   "text": "habe",
+   "start": 21.06,
+   "end": 21.26
+  },
+  {
+   "i": 47,
+   "text": "seit",
+   "start": 21.26,
+   "end": 21.48
+  },
+  {
+   "i": 48,
+   "text": "drei",
+   "start": 21.48,
+   "end": 21.74
+  },
+  {
+   "i": 49,
+   "text": "Tagen",
+   "start": 21.74,
+   "end": 22.14
+  },
+  {
+   "i": 50,
+   "text": "Fieber",
+   "start": 22.14,
+   "end": 22.675
+  },
+  {
+   "i": 51,
+   "text": "Drei",
+   "start": 23.22,
+   "end": 23.54
+  },
+  {
+   "i": 52,
+   "text": "das",
+   "start": 23.97,
+   "end": 24.11
+  },
+  {
+   "i": 53,
+   "text": "Gefühl",
+   "start": 24.11,
+   "end": 24.62
+  },
+  {
+   "i": 54,
+   "text": "Mir",
+   "start": 25.165,
+   "end": 25.3
+  },
+  {
+   "i": 55,
+   "text": "ist",
+   "start": 25.3,
+   "end": 25.5
+  },
+  {
+   "i": 56,
+   "text": "übel",
+   "start": 25.5,
+   "end": 26.085
+  },
+  {
+   "i": 57,
+   "text": "Mir",
+   "start": 26.33,
+   "end": 26.46
+  },
+  {
+   "i": 58,
+   "text": "ist",
+   "start": 26.46,
+   "end": 26.64
+  },
+  {
+   "i": 59,
+   "text": "schwindelig",
+   "start": 26.64,
+   "end": 27.395
+  },
+  {
+   "i": 60,
+   "text": "Nicht",
+   "start": 27.79,
+   "end": 28.27
+  },
+  {
+   "i": 61,
+   "text": "Ich",
+   "start": 28.44,
+   "end": 28.63
+  },
+  {
+   "i": 62,
+   "text": "bin",
+   "start": 28.745,
+   "end": 28.92
+  },
+  {
+   "i": 63,
+   "text": "übel",
+   "start": 28.92,
+   "end": 29.44
+  },
+  {
+   "i": 64,
+   "text": "Vier",
+   "start": 29.95,
+   "end": 30.305
+  },
+  {
+   "i": 65,
+   "text": "der",
+   "start": 30.56,
+   "end": 30.66
+  },
+  {
+   "i": 66,
+   "text": "wichtigste",
+   "start": 30.66,
+   "end": 31.3
+  },
+  {
+   "i": 67,
+   "text": "Können",
+   "start": 31.815,
+   "end": 32.05
+  },
+  {
+   "i": 68,
+   "text": "Sie",
+   "start": 32.05,
+   "end": 32.15
+  },
+  {
+   "i": 69,
+   "text": "mich",
+   "start": 32.15,
+   "end": 32.31
+  },
+  {
+   "i": 70,
+   "text": "bitte",
+   "start": 32.31,
+   "end": 32.51
+  },
+  {
+   "i": 71,
+   "text": "krankschreiben",
+   "start": 32.51,
+   "end": 33.29
+  },
+  {
+   "i": 72,
+   "text": "Profi-Level",
+   "start": 33.71,
+   "end": 34.465
+  },
+  {
+   "i": 73,
+   "text": "Was",
+   "start": 34.81,
+   "end": 35.03
+  },
+  {
+   "i": 74,
+   "text": "fehlt",
+   "start": 35.03,
+   "end": 35.35
+  },
+  {
+   "i": 75,
+   "text": "Ihnen",
+   "start": 35.35,
+   "end": 35.72
+  },
+  {
+   "i": 76,
+   "text": "heißt",
+   "start": 36,
+   "end": 36.265
+  },
+  {
+   "i": 77,
+   "text": "nicht",
+   "start": 36.265,
+   "end": 36.645
+  },
+  {
+   "i": 78,
+   "text": "Was",
+   "start": 36.845,
+   "end": 37.07
+  },
+  {
+   "i": 79,
+   "text": "vermissen",
+   "start": 37.07,
+   "end": 37.55
+  },
+  {
+   "i": 80,
+   "text": "Sie",
+   "start": 37.55,
+   "end": 37.825
+  },
+  {
+   "i": 81,
+   "text": "Es",
+   "start": 38.21,
+   "end": 38.37
+  },
+  {
+   "i": 82,
+   "text": "heißt",
+   "start": 38.37,
+   "end": 38.67
+  },
+  {
+   "i": 83,
+   "text": "Was",
+   "start": 38.965,
+   "end": 39.15
+  },
+  {
+   "i": 84,
+   "text": "haben",
+   "start": 39.15,
+   "end": 39.39
+  },
+  {
+   "i": 85,
+   "text": "Sie",
+   "start": 39.39,
+   "end": 39.55
+  },
+  {
+   "i": 86,
+   "text": "für",
+   "start": 39.55,
+   "end": 39.71
+  },
+  {
+   "i": 87,
+   "text": "Beschwerden",
+   "start": 39.71,
+   "end": 40.28
+  },
+  {
+   "i": 88,
+   "text": "Also",
+   "start": 40.635,
+   "end": 41.035
+  },
+  {
+   "i": 89,
+   "text": "Was",
+   "start": 41.33,
+   "end": 41.53
+  },
+  {
+   "i": 90,
+   "text": "fehlt",
+   "start": 41.53,
+   "end": 41.83
+  },
+  {
+   "i": 91,
+   "text": "Ihnen",
+   "start": 41.83,
+   "end": 42.195
+  }
+ ],
+ "sentences": [
+  {
+   "text": "Ich habe Kopfschmerzen.",
+   "start": 0.6,
+   "end": 2.13,
+   "words": [
+    0,
+    2
+   ]
+  },
+  {
+   "text": "Nicht: „Ich habe Schmerz im Kopf.“",
+   "start": 2.78,
+   "end": 4.89,
+   "words": [
+    3,
+    8
+   ]
+  },
+  {
+   "text": "Das versteht jeder – aber so sagt es kein Deutscher.",
+   "start": 5.235,
+   "end": 8.35,
+   "words": [
+    9,
+    17
+   ]
+  },
+  {
+   "text": "Beim Arzt brauchst du nur vier Sätze.",
+   "start": 8.88,
+   "end": 10.84,
+   "words": [
+    18,
+    24
+   ]
+  },
+  {
+   "text": "Der vierte ist der wichtigste.",
+   "start": 11.235,
+   "end": 12.8,
+   "words": [
+    25,
+    29
+   ]
+  },
+  {
+   "text": "Eins, der Schmerz: Ich habe Halsschmerzen.",
+   "start": 13.365,
+   "end": 16.435,
+   "words": [
+    30,
+    35
+   ]
+  },
+  {
+   "text": "Oder: Mir tut der Bauch weh.",
+   "start": 16.785,
+   "end": 18.47,
+   "words": [
+    36,
+    41
+   ]
+  },
+  {
+   "text": "Zwei, seit wann: Ich habe seit drei Tagen Fieber.",
+   "start": 19.125,
+   "end": 22.675,
+   "words": [
+    42,
+    50
+   ]
+  },
+  {
+   "text": "Drei, das Gefühl: Mir ist übel.",
+   "start": 23.22,
+   "end": 26.085,
+   "words": [
+    51,
+    56
+   ]
+  },
+  {
+   "text": "Mir ist schwindelig.",
+   "start": 26.33,
+   "end": 27.395,
+   "words": [
+    57,
+    59
+   ]
+  },
+  {
+   "text": "Nicht: „Ich bin übel“!",
+   "start": 27.79,
+   "end": 29.44,
+   "words": [
+    60,
+    63
+   ]
+  },
+  {
+   "text": "Vier, der wichtigste: Können Sie mich bitte krankschreiben?",
+   "start": 29.95,
+   "end": 33.29,
+   "words": [
+    64,
+    71
+   ]
+  },
+  {
+   "text": "Profi-Level: „Was fehlt Ihnen?“",
+   "start": 33.71,
+   "end": 35.72,
+   "words": [
+    72,
+    75
+   ]
+  },
+  {
+   "text": "heißt nicht: Was vermissen Sie?",
+   "start": 36,
+   "end": 37.825,
+   "words": [
+    76,
+    80
+   ]
+  },
+  {
+   "text": "Es heißt: Was haben Sie für Beschwerden?",
+   "start": 38.21,
+   "end": 40.28,
+   "words": [
+    81,
+    87
+   ]
+  },
+  {
+   "text": "Also: Was fehlt Ihnen?",
+   "start": 40.635,
+   "end": 42.195,
+   "words": [
+    88,
+    91
+   ]
+  }
+ ],
+ "subs": [
+  {
+   "start": 0.6,
+   "end": 2.38,
+   "lines": [
+    [
+     {
+      "text": "Ich",
+      "w": 0
+     },
+     {
+      "text": "habe",
+      "w": 1
+     },
+     {
+      "text": "Kopfschmerzen.",
+      "w": 2
+     }
+    ]
+   ]
+  },
+  {
+   "start": 2.78,
+   "end": 5.14,
+   "lines": [
+    [
+     {
+      "text": "Nicht:",
+      "w": 3
+     },
+     {
+      "text": "„Ich",
+      "w": 4
+     },
+     {
+      "text": "habe",
+      "w": 5
+     },
+     {
+      "text": "Schmerz",
+      "w": 6
+     },
+     {
+      "text": "im",
+      "w": 7
+     },
+     {
+      "text": "Kopf.“",
+      "w": 8
+     }
+    ]
+   ]
+  },
+  {
+   "start": 5.235,
+   "end": 8.6,
+   "lines": [
+    [
+     {
+      "text": "Das",
+      "w": 9
+     },
+     {
+      "text": "versteht",
+      "w": 10
+     },
+     {
+      "text": "jeder",
+      "w": 11
+     },
+     {
+      "text": "–",
+      "w": null
+     }
+    ],
+    [
+     {
+      "text": "aber",
+      "w": 12
+     },
+     {
+      "text": "so",
+      "w": 13
+     },
+     {
+      "text": "sagt",
+      "w": 14
+     },
+     {
+      "text": "es",
+      "w": 15
+     },
+     {
+      "text": "kein",
+      "w": 16
+     },
+     {
+      "text": "Deutscher.",
+      "w": 17
+     }
+    ]
+   ]
+  },
+  {
+   "start": 8.88,
+   "end": 11.09,
+   "lines": [
+    [
+     {
+      "text": "Beim",
+      "w": 18
+     },
+     {
+      "text": "Arzt",
+      "w": 19
+     },
+     {
+      "text": "brauchst",
+      "w": 20
+     },
+     {
+      "text": "du",
+      "w": 21
+     },
+     {
+      "text": "nur",
+      "w": 22
+     },
+     {
+      "text": "vier",
+      "w": 23
+     },
+     {
+      "text": "Sätze.",
+      "w": 24
+     }
+    ]
+   ]
+  },
+  {
+   "start": 11.235,
+   "end": 13.05,
+   "lines": [
+    [
+     {
+      "text": "Der",
+      "w": 25
+     },
+     {
+      "text": "vierte",
+      "w": 26
+     },
+     {
+      "text": "ist",
+      "w": 27
+     },
+     {
+      "text": "der",
+      "w": 28
+     },
+     {
+      "text": "wichtigste.",
+      "w": 29
+     }
+    ]
+   ]
+  },
+  {
+   "start": 13.365,
+   "end": 16.685,
+   "lines": [
+    [
+     {
+      "text": "Eins,",
+      "w": 30
+     },
+     {
+      "text": "der",
+      "w": 31
+     },
+     {
+      "text": "Schmerz:",
+      "w": 32
+     },
+     {
+      "text": "Ich",
+      "w": 33
+     },
+     {
+      "text": "habe",
+      "w": 34
+     },
+     {
+      "text": "Halsschmerzen.",
+      "w": 35
+     }
+    ]
+   ]
+  },
+  {
+   "start": 16.785,
+   "end": 18.72,
+   "lines": [
+    [
+     {
+      "text": "Oder:",
+      "w": 36
+     },
+     {
+      "text": "Mir",
+      "w": 37
+     },
+     {
+      "text": "tut",
+      "w": 38
+     },
+     {
+      "text": "der",
+      "w": 39
+     },
+     {
+      "text": "Bauch",
+      "w": 40
+     },
+     {
+      "text": "weh.",
+      "w": 41
+     }
+    ]
+   ]
+  },
+  {
+   "start": 19.125,
+   "end": 22.925,
+   "lines": [
+    [
+     {
+      "text": "Zwei,",
+      "w": 42
+     },
+     {
+      "text": "seit",
+      "w": 43
+     },
+     {
+      "text": "wann:",
+      "w": 44
+     },
+     {
+      "text": "Ich",
+      "w": 45
+     },
+     {
+      "text": "habe",
+      "w": 46
+     }
+    ],
+    [
+     {
+      "text": "seit",
+      "w": 47
+     },
+     {
+      "text": "drei",
+      "w": 48
+     },
+     {
+      "text": "Tagen",
+      "w": 49
+     },
+     {
+      "text": "Fieber.",
+      "w": 50
+     }
+    ]
+   ]
+  },
+  {
+   "start": 23.22,
+   "end": 26.29,
+   "lines": [
+    [
+     {
+      "text": "Drei,",
+      "w": 51
+     },
+     {
+      "text": "das",
+      "w": 52
+     },
+     {
+      "text": "Gefühl:",
+      "w": 53
+     },
+     {
+      "text": "Mir",
+      "w": 54
+     },
+     {
+      "text": "ist",
+      "w": 55
+     },
+     {
+      "text": "übel.",
+      "w": 56
+     }
+    ]
+   ]
+  },
+  {
+   "start": 26.33,
+   "end": 27.645,
+   "lines": [
+    [
+     {
+      "text": "Mir",
+      "w": 57
+     },
+     {
+      "text": "ist",
+      "w": 58
+     },
+     {
+      "text": "schwindelig.",
+      "w": 59
+     }
+    ]
+   ]
+  },
+  {
+   "start": 27.79,
+   "end": 29.69,
+   "lines": [
+    [
+     {
+      "text": "Nicht:",
+      "w": 60
+     },
+     {
+      "text": "„Ich",
+      "w": 61
+     },
+     {
+      "text": "bin",
+      "w": 62
+     },
+     {
+      "text": "übel“!",
+      "w": 63
+     }
+    ]
+   ]
+  },
+  {
+   "start": 29.95,
+   "end": 33.54,
+   "lines": [
+    [
+     {
+      "text": "Vier,",
+      "w": 64
+     },
+     {
+      "text": "der",
+      "w": 65
+     },
+     {
+      "text": "wichtigste:",
+      "w": 66
+     },
+     {
+      "text": "Können",
+      "w": 67
+     }
+    ],
+    [
+     {
+      "text": "Sie",
+      "w": 68
+     },
+     {
+      "text": "mich",
+      "w": 69
+     },
+     {
+      "text": "bitte",
+      "w": 70
+     },
+     {
+      "text": "krankschreiben?",
+      "w": 71
+     }
+    ]
+   ]
+  },
+  {
+   "start": 33.71,
+   "end": 35.96,
+   "lines": [
+    [
+     {
+      "text": "Profi-Level:",
+      "w": 72
+     },
+     {
+      "text": "„Was",
+      "w": 73
+     },
+     {
+      "text": "fehlt",
+      "w": 74
+     },
+     {
+      "text": "Ihnen?“",
+      "w": 75
+     }
+    ]
+   ]
+  },
+  {
+   "start": 36,
+   "end": 38.075,
+   "lines": [
+    [
+     {
+      "text": "heißt",
+      "w": 76
+     },
+     {
+      "text": "nicht:",
+      "w": 77
+     },
+     {
+      "text": "Was",
+      "w": 78
+     },
+     {
+      "text": "vermissen",
+      "w": 79
+     },
+     {
+      "text": "Sie?",
+      "w": 80
+     }
+    ]
+   ]
+  },
+  {
+   "start": 38.21,
+   "end": 40.53,
+   "lines": [
+    [
+     {
+      "text": "Es",
+      "w": 81
+     },
+     {
+      "text": "heißt:",
+      "w": 82
+     },
+     {
+      "text": "Was",
+      "w": 83
+     },
+     {
+      "text": "haben",
+      "w": 84
+     },
+     {
+      "text": "Sie",
+      "w": 85
+     },
+     {
+      "text": "für",
+      "w": 86
+     },
+     {
+      "text": "Beschwerden?",
+      "w": 87
+     }
+    ]
+   ]
+  },
+  {
+   "start": 40.635,
+   "end": 42.445,
+   "lines": [
+    [
+     {
+      "text": "Also:",
+      "w": 88
+     },
+     {
+      "text": "Was",
+      "w": 89
+     },
+     {
+      "text": "fehlt",
+      "w": 90
+     },
+     {
+      "text": "Ihnen?",
+      "w": 91
+     }
+    ]
+   ]
+  }
+ ],
+ "format": "vertical"
+}

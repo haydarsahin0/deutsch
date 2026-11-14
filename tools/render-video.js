@@ -39,6 +39,8 @@ async function openPage(ep, scale, subs, vertical) {
 }
 
 async function grab(page, t, type) {
+  // the first raster of a fresh page can miss the character layer (Melo absent on a worker's first frame) → draw once before capturing
+  if (!page.__warm) { page.__warm = true; await page.evaluate(t => window.renderFrame(t), t); }
   await page.evaluate(t => window.renderFrame(t), t);
   return page.screenshot({ type, quality: type === 'jpeg' ? 93 : undefined, clip: undefined, omitBackground: false, animations: 'disabled', caret: 'hide', scale: 'css' });
 }

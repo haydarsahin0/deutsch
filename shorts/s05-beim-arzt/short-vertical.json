@@ -1,0 +1,44 @@
+{
+  "id": "s05-beim-arzt",
+  "episode": "episodes/s05-beim-arzt",
+  "segments": [
+    {
+      "from": 0.5,
+      "to": 42.3,
+      "note": "ORIGINAL native-vertical loop Short: the whole audio. Ends on „Also: Was fehlt Ihnen?“ → starts on the answer „Ich habe Kopfschmerzen.“ (same doctor's-office framing at both ends)."
+    }
+  ],
+  "loop": true,
+  "hook": [
+    "BEIM ARZT AUF DEUTSCH",
+    "Nur 4 Sätze!"
+  ],
+  "tag": "DEUTSCH MIT MELO",
+  "sticker": {
+    "text": "Speichern für den Arztbesuch",
+    "from": 18.8,
+    "to": 27.2,
+    "x": 940,
+    "y": 1515,
+    "rot": -3,
+    "size": 46
+  },
+  "cover": {
+    "headline": "BEIM ARZT: 4 SÄTZE",
+    "wrong": "„Ich habe Schmerz im Kopf“",
+    "right": "„Ich habe Kopfschmerzen“",
+    "note": "final cover is hand-made: cover/cover.html → out/cover.png"
+  },
+  "pad": 0.15,
+  "max_duration": 59,
+  "fit": "native",
+  "subtitle_style": {
+    "lines": 1,
+    "size": 104,
+    "x": 520,
+    "y": 1430,
+    "max_width": 840
+  },
+  "subtitle_max_words": 4,
+  "output": "short-vertical"
+}
