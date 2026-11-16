@@ -1,0 +1,60 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: K,Anton,96,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80000000,0,0,0,0,100,100,1,0,1,7,3,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.32,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Tag{\c&H00FFFFFF&} dreißig.
+Dialogue: 0,0:00:00.32,0:00:01.51,K,,0,0,0,,{\an5\pos(540,1690)}Tag {\c&H003AC8FF&}dreißig.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:01.51,0:00:01.62,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} frage meine
+Dialogue: 0,0:00:01.62,0:00:01.92,K,,0,0,0,,{\an5\pos(540,1690)}Ich {\c&H003AC8FF&}frage{\c&H00FFFFFF&} meine
+Dialogue: 0,0:00:01.92,0:00:02.18,K,,0,0,0,,{\an5\pos(540,1690)}Ich frage {\c&H003AC8FF&}meine{\c&H00FFFFFF&}
+Dialogue: 0,0:00:02.18,0:00:03.12,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}KI:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:03.12,0:00:03.32,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Wie{\c&H00FFFFFF&} gut ist
+Dialogue: 0,0:00:03.32,0:00:03.60,K,,0,0,0,,{\an5\pos(540,1690)}Wie {\c&H003AC8FF&}gut{\c&H00FFFFFF&} ist
+Dialogue: 0,0:00:03.60,0:00:03.76,K,,0,0,0,,{\an5\pos(540,1690)}Wie gut {\c&H003AC8FF&}ist{\c&H00FFFFFF&}
+Dialogue: 0,0:00:03.76,0:00:04.04,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}dieser{\c&H00FFFFFF&} Text?
+Dialogue: 0,0:00:04.04,0:00:04.84,K,,0,0,0,,{\an5\pos(540,1690)}dieser {\c&H003AC8FF&}Text?{\c&H00FFFFFF&}
+Dialogue: 0,0:00:04.84,0:00:05.46,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}„Wow,{\c&H00FFFFFF&} toller Text!
+Dialogue: 0,0:00:05.46,0:00:05.78,K,,0,0,0,,{\an5\pos(540,1690)}„Wow, {\c&H003AC8FF&}toller{\c&H00FFFFFF&} Text!
+Dialogue: 0,0:00:05.78,0:00:06.39,K,,0,0,0,,{\an5\pos(540,1690)}„Wow, toller {\c&H003AC8FF&}Text!{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.39,0:00:06.54,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Nur{\c&H00FFFFFF&} ein paar
+Dialogue: 0,0:00:06.54,0:00:06.74,K,,0,0,0,,{\an5\pos(540,1690)}Nur {\c&H003AC8FF&}ein{\c&H00FFFFFF&} paar
+Dialogue: 0,0:00:06.74,0:00:06.92,K,,0,0,0,,{\an5\pos(540,1690)}Nur ein {\c&H003AC8FF&}paar{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.92,0:00:08.08,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Kleinigkeiten.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:08.08,0:00:08.18,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}In{\c&H00FFFFFF&} diesem Text
+Dialogue: 0,0:00:08.18,0:00:08.40,K,,0,0,0,,{\an5\pos(540,1690)}In {\c&H003AC8FF&}diesem{\c&H00FFFFFF&} Text
+Dialogue: 0,0:00:08.40,0:00:08.72,K,,0,0,0,,{\an5\pos(540,1690)}In diesem {\c&H003AC8FF&}Text{\c&H00FFFFFF&}
+Dialogue: 0,0:00:08.72,0:00:08.96,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}sind{\c&H00FFFFFF&} elf Fehler.
+Dialogue: 0,0:00:08.96,0:00:09.26,K,,0,0,0,,{\an5\pos(540,1690)}sind {\c&H003AC8FF&}elf{\c&H00FFFFFF&} Fehler.
+Dialogue: 0,0:00:09.26,0:00:10.04,K,,0,0,0,,{\an5\pos(540,1690)}sind elf {\c&H003AC8FF&}Fehler.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:10.04,0:00:10.16,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} weiß das
+Dialogue: 0,0:00:10.16,0:00:10.32,K,,0,0,0,,{\an5\pos(540,1690)}Ich {\c&H003AC8FF&}weiß{\c&H00FFFFFF&} das
+Dialogue: 0,0:00:10.32,0:00:10.50,K,,0,0,0,,{\an5\pos(540,1690)}Ich weiß {\c&H003AC8FF&}das{\c&H00FFFFFF&}
+Dialogue: 0,0:00:10.50,0:00:11.35,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}genau.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:11.35,0:00:11.47,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} habe sie
+Dialogue: 0,0:00:11.47,0:00:11.63,K,,0,0,0,,{\an5\pos(540,1690)}Ich {\c&H003AC8FF&}habe{\c&H00FFFFFF&} sie
+Dialogue: 0,0:00:11.63,0:00:11.77,K,,0,0,0,,{\an5\pos(540,1690)}Ich habe {\c&H003AC8FF&}sie{\c&H00FFFFFF&}
+Dialogue: 0,0:00:11.77,0:00:12.07,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}selbst{\c&H00FFFFFF&} eingebaut.
+Dialogue: 0,0:00:12.07,0:00:13.10,K,,0,0,0,,{\an5\pos(540,1690)}selbst {\c&H003AC8FF&}eingebaut.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:13.10,0:00:13.21,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Und{\c&H00FFFFFF&} heute zeige
+Dialogue: 0,0:00:13.21,0:00:13.53,K,,0,0,0,,{\an5\pos(540,1690)}Und {\c&H003AC8FF&}heute{\c&H00FFFFFF&} zeige
+Dialogue: 0,0:00:13.53,0:00:13.93,K,,0,0,0,,{\an5\pos(540,1690)}Und heute {\c&H003AC8FF&}zeige{\c&H00FFFFFF&}
+Dialogue: 0,0:00:13.93,0:00:14.05,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}ich{\c&H00FFFFFF&} dir den
+Dialogue: 0,0:00:14.05,0:00:14.19,K,,0,0,0,,{\an5\pos(540,1690)}ich {\c&H003AC8FF&}dir{\c&H00FFFFFF&} den
+Dialogue: 0,0:00:14.19,0:00:14.41,K,,0,0,0,,{\an5\pos(540,1690)}ich dir {\c&H003AC8FF&}den{\c&H00FFFFFF&}
+Dialogue: 0,0:00:14.41,0:00:14.71,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}einen{\c&H00FFFFFF&} Satz, mit
+Dialogue: 0,0:00:14.71,0:00:15.19,K,,0,0,0,,{\an5\pos(540,1690)}einen {\c&H003AC8FF&}Satz,{\c&H00FFFFFF&} mit
+Dialogue: 0,0:00:15.19,0:00:15.35,K,,0,0,0,,{\an5\pos(540,1690)}einen Satz, {\c&H003AC8FF&}mit{\c&H00FFFFFF&}
+Dialogue: 0,0:00:15.35,0:00:15.47,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}dem{\c&H00FFFFFF&} dieselbe KI
+Dialogue: 0,0:00:15.47,0:00:15.99,K,,0,0,0,,{\an5\pos(540,1690)}dem {\c&H003AC8FF&}dieselbe{\c&H00FFFFFF&} KI
+Dialogue: 0,0:00:15.99,0:00:16.35,K,,0,0,0,,{\an5\pos(540,1690)}dem dieselbe {\c&H003AC8FF&}KI{\c&H00FFFFFF&}
+Dialogue: 0,0:00:16.35,0:00:16.89,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}plötzlich{\c&H00FFFFFF&} ehrlich wird.
+Dialogue: 0,0:00:16.89,0:00:17.33,K,,0,0,0,,{\an5\pos(540,1690)}plötzlich {\c&H003AC8FF&}ehrlich{\c&H00FFFFFF&} wird.
+Dialogue: 0,0:00:17.33,0:00:18.20,K,,0,0,0,,{\an5\pos(540,1690)}plötzlich ehrlich {\c&H003AC8FF&}wird.{\c&H00FFFFFF&}
