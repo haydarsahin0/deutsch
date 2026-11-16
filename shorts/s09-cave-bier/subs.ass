@@ -1,0 +1,51 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: K,Anton,96,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80000000,0,0,0,0,100,100,1,0,1,7,3,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.17,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} will ein
+Dialogue: 0,0:00:00.17,0:00:00.31,K,,0,0,0,,{\an5\pos(540,1690)}„Ich {\c&H003AC8FF&}will{\c&H00FFFFFF&} ein
+Dialogue: 0,0:00:00.31,0:00:00.45,K,,0,0,0,,{\an5\pos(540,1690)}„Ich will {\c&H003AC8FF&}ein{\c&H00FFFFFF&}
+Dialogue: 0,0:00:00.45,0:00:01.31,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Bier.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:01.31,0:00:01.42,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Das{\c&H00FFFFFF&} ist nicht
+Dialogue: 0,0:00:01.42,0:00:01.56,K,,0,0,0,,{\an5\pos(540,1690)}Das {\c&H003AC8FF&}ist{\c&H00FFFFFF&} nicht
+Dialogue: 0,0:00:01.56,0:00:01.72,K,,0,0,0,,{\an5\pos(540,1690)}Das ist {\c&H003AC8FF&}nicht{\c&H00FFFFFF&}
+Dialogue: 0,0:00:01.72,0:00:02.57,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}falsch.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:02.57,0:00:02.68,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Aber{\c&H00FFFFFF&} es klingt
+Dialogue: 0,0:00:02.68,0:00:02.86,K,,0,0,0,,{\an5\pos(540,1690)}Aber {\c&H003AC8FF&}es{\c&H00FFFFFF&} klingt
+Dialogue: 0,0:00:02.86,0:00:03.12,K,,0,0,0,,{\an5\pos(540,1690)}Aber es {\c&H003AC8FF&}klingt{\c&H00FFFFFF&}
+Dialogue: 0,0:00:03.12,0:00:03.28,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}wie{\c&H00FFFFFF&} ein Vierjähriger
+Dialogue: 0,0:00:03.28,0:00:03.44,K,,0,0,0,,{\an5\pos(540,1690)}wie {\c&H003AC8FF&}ein{\c&H00FFFFFF&} Vierjähriger
+Dialogue: 0,0:00:03.44,0:00:04.18,K,,0,0,0,,{\an5\pos(540,1690)}wie ein {\c&H003AC8FF&}Vierjähriger{\c&H00FFFFFF&}
+Dialogue: 0,0:00:04.18,0:00:04.32,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}an{\c&H00FFFFFF&} der Supermarktkasse:
+Dialogue: 0,0:00:04.32,0:00:04.44,K,,0,0,0,,{\an5\pos(540,1690)}an {\c&H003AC8FF&}der{\c&H00FFFFFF&} Supermarktkasse:
+Dialogue: 0,0:00:04.44,0:00:05.68,K,,0,0,0,,{\an5\pos(540,1690)}an der {\c&H003AC8FF&}Supermarktkasse:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:05.68,0:00:05.82,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} will ein
+Dialogue: 0,0:00:05.82,0:00:06.00,K,,0,0,0,,{\an5\pos(540,1690)}„Ich {\c&H003AC8FF&}will{\c&H00FFFFFF&} ein
+Dialogue: 0,0:00:06.00,0:00:06.22,K,,0,0,0,,{\an5\pos(540,1690)}„Ich will {\c&H003AC8FF&}ein{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.22,0:00:07.56,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Eis!“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:07.56,0:00:08.33,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Besser:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:08.33,0:00:08.44,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} hätte gern
+Dialogue: 0,0:00:08.44,0:00:08.62,K,,0,0,0,,{\an5\pos(540,1690)}„Ich {\c&H003AC8FF&}hätte{\c&H00FFFFFF&} gern
+Dialogue: 0,0:00:08.62,0:00:08.82,K,,0,0,0,,{\an5\pos(540,1690)}„Ich hätte {\c&H003AC8FF&}gern{\c&H00FFFFFF&}
+Dialogue: 0,0:00:08.82,0:00:09.00,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}ein{\c&H00FFFFFF&} Bier.“
+Dialogue: 0,0:00:09.00,0:00:09.75,K,,0,0,0,,{\an5\pos(540,1690)}ein {\c&H003AC8FF&}Bier.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:09.75,0:00:09.88,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}„Ich{\c&H00FFFFFF&} nehme ein
+Dialogue: 0,0:00:09.88,0:00:10.14,K,,0,0,0,,{\an5\pos(540,1690)}„Ich {\c&H003AC8FF&}nehme{\c&H00FFFFFF&} ein
+Dialogue: 0,0:00:10.14,0:00:10.36,K,,0,0,0,,{\an5\pos(540,1690)}„Ich nehme {\c&H003AC8FF&}ein{\c&H00FFFFFF&}
+Dialogue: 0,0:00:10.36,0:00:11.12,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Bier.“{\c&H00FFFFFF&}
+Dialogue: 0,0:00:11.12,0:00:11.30,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Oder{\c&H00FFFFFF&} ganz entspannt:
+Dialogue: 0,0:00:11.30,0:00:11.68,K,,0,0,0,,{\an5\pos(540,1690)}Oder {\c&H003AC8FF&}ganz{\c&H00FFFFFF&} entspannt:
+Dialogue: 0,0:00:11.68,0:00:12.63,K,,0,0,0,,{\an5\pos(540,1690)}Oder ganz {\c&H003AC8FF&}entspannt:{\c&H00FFFFFF&}
+Dialogue: 0,0:00:12.63,0:00:12.72,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}„Für{\c&H00FFFFFF&} mich ein
+Dialogue: 0,0:00:12.72,0:00:12.88,K,,0,0,0,,{\an5\pos(540,1690)}„Für {\c&H003AC8FF&}mich{\c&H00FFFFFF&} ein
+Dialogue: 0,0:00:12.88,0:00:13.04,K,,0,0,0,,{\an5\pos(540,1690)}„Für mich {\c&H003AC8FF&}ein{\c&H00FFFFFF&}
+Dialogue: 0,0:00:13.04,0:00:13.24,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Bier,{\c&H00FFFFFF&} bitte.“
+Dialogue: 0,0:00:13.24,0:00:14.20,K,,0,0,0,,{\an5\pos(540,1690)}Bier, {\c&H003AC8FF&}bitte.“{\c&H00FFFFFF&}
