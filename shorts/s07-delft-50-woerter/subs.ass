@@ -1,0 +1,31 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: K,Anton,96,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80000000,0,0,0,0,100,100,1,0,1,7,3,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.32,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Wort{\c&H00FFFFFF&} Nummer achtundvierzig.
+Dialogue: 0,0:00:00.32,0:00:00.76,K,,0,0,0,,{\an5\pos(540,1495)}Wort {\c&H003AC8FF&}Nummer{\c&H00FFFFFF&} achtundvierzig.
+Dialogue: 0,0:00:00.76,0:00:02.29,K,,0,0,0,,{\an5\pos(540,1495)}Wort Nummer {\c&H003AC8FF&}achtundvierzig.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:02.29,0:00:03.76,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Neunundvierzig.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:03.76,0:00:04.93,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Fünfzig!{\c&H00FFFFFF&}
+Dialogue: 0,0:00:04.93,0:00:06.16,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Geschafft.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.16,0:00:06.24,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Und{\c&H00FFFFFF&} am nächsten
+Dialogue: 0,0:00:06.24,0:00:06.42,K,,0,0,0,,{\an5\pos(540,1495)}Und {\c&H003AC8FF&}am{\c&H00FFFFFF&} nächsten
+Dialogue: 0,0:00:06.42,0:00:06.66,K,,0,0,0,,{\an5\pos(540,1495)}Und am {\c&H003AC8FF&}nächsten{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.66,0:00:07.60,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Morgen?{\c&H00FFFFFF&}
+Dialogue: 0,0:00:07.60,0:00:07.70,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Sind{\c&H00FFFFFF&} noch drei
+Dialogue: 0,0:00:07.70,0:00:07.90,K,,0,0,0,,{\an5\pos(540,1495)}Sind {\c&H003AC8FF&}noch{\c&H00FFFFFF&} drei
+Dialogue: 0,0:00:07.90,0:00:08.12,K,,0,0,0,,{\an5\pos(540,1495)}Sind noch {\c&H003AC8FF&}drei{\c&H00FFFFFF&}
+Dialogue: 0,0:00:08.12,0:00:09.14,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}da.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:09.14,0:00:09.40,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Kennst{\c&H00FFFFFF&} du das?
+Dialogue: 0,0:00:09.40,0:00:09.46,K,,0,0,0,,{\an5\pos(540,1495)}Kennst {\c&H003AC8FF&}du{\c&H00FFFFFF&} das?
+Dialogue: 0,0:00:09.46,0:00:10.22,K,,0,0,0,,{\an5\pos(540,1495)}Kennst du {\c&H003AC8FF&}das?{\c&H00FFFFFF&}
+Dialogue: 0,0:00:10.22,0:00:10.41,K,,0,0,0,,{\an5\pos(540,1495)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} auch.
+Dialogue: 0,0:00:10.41,0:00:10.95,K,,0,0,0,,{\an5\pos(540,1495)}Ich {\c&H003AC8FF&}auch.{\c&H00FFFFFF&}
