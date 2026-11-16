@@ -1,0 +1,51 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: K,Anton,96,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80000000,0,0,0,0,100,100,1,0,1,7,3,5,0,0,0,1
+Style: T1,Anton,112,&H00FFFFFF,&H00FFFFFF,&H00101010,&H80000000,0,0,0,0,100,100,1,0,1,8,3,5,0,0,0,1
+Style: T2,Anton,74,&H003AC8FF,&H003AC8FF,&H00101010,&H80000000,0,0,0,0,100,100,1,0,1,6,3,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 2,0:00:00.00,0:00:18.30,T1,,0,0,0,,{\an5\pos(540,92)}Nachmieter gesucht!
+Dialogue: 2,0:00:00.00,0:00:18.30,T2,,0,0,0,,{\an5\pos(540,192)}Verstehst du die Anzeige?
+Dialogue: 1,0:00:00.00,0:00:00.66,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Nachmieter{\c&H00FFFFFF&} gesucht!
+Dialogue: 1,0:00:00.66,0:00:01.39,K,,0,0,0,,{\an5\pos(540,1690)}Nachmieter {\c&H003AC8FF&}gesucht!{\c&H00FFFFFF&}
+Dialogue: 1,0:00:01.39,0:00:01.60,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Zwei{\c&H00FFFFFF&} Zimmer,
+Dialogue: 1,0:00:01.60,0:00:02.23,K,,0,0,0,,{\an5\pos(540,1690)}Zwei {\c&H003AC8FF&}Zimmer,{\c&H00FFFFFF&}
+Dialogue: 1,0:00:02.23,0:00:02.90,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}möbliert,{\c&H00FFFFFF&}
+Dialogue: 1,0:00:02.90,0:00:04.03,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}provisionsfrei.{\c&H00FFFFFF&}
+Dialogue: 1,0:00:04.03,0:00:04.56,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Kaltmiete{\c&H00FFFFFF&}
+Dialogue: 1,0:00:04.56,0:00:05.24,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}sechshundertfünfzig{\c&H00FFFFFF&}
+Dialogue: 1,0:00:05.24,0:00:05.84,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Euro,{\c&H00FFFFFF&}
+Dialogue: 1,0:00:05.84,0:00:06.30,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}plus{\c&H00FFFFFF&} hundertachtzig
+Dialogue: 1,0:00:06.30,0:00:06.93,K,,0,0,0,,{\an5\pos(540,1690)}plus {\c&H003AC8FF&}hundertachtzig{\c&H00FFFFFF&}
+Dialogue: 1,0:00:06.93,0:00:07.34,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Euro{\c&H00FFFFFF&} Nebenkosten.
+Dialogue: 1,0:00:07.34,0:00:08.36,K,,0,0,0,,{\an5\pos(540,1690)}Euro {\c&H003AC8FF&}Nebenkosten.{\c&H00FFFFFF&}
+Dialogue: 1,0:00:08.36,0:00:09.11,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Kaution:{\c&H00FFFFFF&}
+Dialogue: 1,0:00:09.11,0:00:09.26,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}drei{\c&H00FFFFFF&} Kaltmieten.
+Dialogue: 1,0:00:09.26,0:00:10.34,K,,0,0,0,,{\an5\pos(540,1690)}drei {\c&H003AC8FF&}Kaltmieten.{\c&H00FFFFFF&}
+Dialogue: 1,0:00:10.34,0:00:10.44,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Ich{\c&H00FFFFFF&} habe gekündigt,
+Dialogue: 1,0:00:10.44,0:00:10.62,K,,0,0,0,,{\an5\pos(540,1690)}Ich {\c&H003AC8FF&}habe{\c&H00FFFFFF&} gekündigt,
+Dialogue: 1,0:00:10.62,0:00:11.23,K,,0,0,0,,{\an5\pos(540,1690)}Ich habe {\c&H003AC8FF&}gekündigt,{\c&H00FFFFFF&}
+Dialogue: 1,0:00:11.23,0:00:11.56,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}meine{\c&H00FFFFFF&}
+Dialogue: 1,0:00:11.56,0:00:12.32,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Kündigungsfrist{\c&H00FFFFFF&}
+Dialogue: 1,0:00:12.32,0:00:12.60,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}läuft{\c&H00FFFFFF&} bis Ende
+Dialogue: 1,0:00:12.60,0:00:12.80,K,,0,0,0,,{\an5\pos(540,1690)}läuft {\c&H003AC8FF&}bis{\c&H00FFFFFF&} Ende
+Dialogue: 1,0:00:12.80,0:00:13.02,K,,0,0,0,,{\an5\pos(540,1690)}läuft bis {\c&H003AC8FF&}Ende{\c&H00FFFFFF&}
+Dialogue: 1,0:00:13.02,0:00:13.74,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}März.{\c&H00FFFFFF&}
+Dialogue: 1,0:00:13.74,0:00:14.26,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Besichtigung{\c&H00FFFFFF&} am
+Dialogue: 1,0:00:14.26,0:00:14.44,K,,0,0,0,,{\an5\pos(540,1690)}Besichtigung {\c&H003AC8FF&}am{\c&H00FFFFFF&}
+Dialogue: 1,0:00:14.44,0:00:14.86,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}Samstag{\c&H00FFFFFF&} um elf –
+Dialogue: 1,0:00:14.86,0:00:15.04,K,,0,0,0,,{\an5\pos(540,1690)}Samstag {\c&H003AC8FF&}um{\c&H00FFFFFF&} elf –
+Dialogue: 1,0:00:15.04,0:00:15.60,K,,0,0,0,,{\an5\pos(540,1690)}Samstag um {\c&H003AC8FF&}elf –{\c&H00FFFFFF&}
+Dialogue: 1,0:00:15.60,0:00:15.66,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}die{\c&H00FFFFFF&} Vermieterin ist
+Dialogue: 1,0:00:15.66,0:00:16.24,K,,0,0,0,,{\an5\pos(540,1690)}die {\c&H003AC8FF&}Vermieterin{\c&H00FFFFFF&} ist
+Dialogue: 1,0:00:16.24,0:00:16.48,K,,0,0,0,,{\an5\pos(540,1690)}die Vermieterin {\c&H003AC8FF&}ist{\c&H00FFFFFF&}
+Dialogue: 1,0:00:16.48,0:00:16.70,K,,0,0,0,,{\an5\pos(540,1690)}{\c&H003AC8FF&}auch{\c&H00FFFFFF&} da.
+Dialogue: 1,0:00:16.70,0:00:17.30,K,,0,0,0,,{\an5\pos(540,1690)}auch {\c&H003AC8FF&}da.{\c&H00FFFFFF&}

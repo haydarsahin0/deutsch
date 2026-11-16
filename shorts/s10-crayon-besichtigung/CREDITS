@@ -1,0 +1,25 @@
+s10 „Nachmieter gesucht!“ — a Deutsch mit Melo Short in the Crayon World 3D style
+
+STYLE AND ENGINE
+- Style "Crayon World 3D" and its demo engine by 2nd1st (https://github.com/2nd1st), contributed to
+  Lemo-Opuscar (https://github.com/lemomo-ai/lemo-opuscar, pull request #17). Code licensed MIT
+  (REUSE.toml: styles/crayon-world/** = MIT, © 2026 2nd1st, © 2026 Lemomo (LemoLab)).
+- engine/npr.js, engine/crayon.js, engine/gl.js: copied from styles/crayon-world/demo/engine/, changed only to
+  portrait 1080x1920 (size constants) and the import path of lib.js. engine/lib.js: copied from core/lib.js, unchanged.
+  The full MIT licence text is in engine/LICENSE-MIT.txt; copyright: (c) 2026 2nd1st, (c) 2026 Lemomo (LemoLab).
+- film.js (this Short's world, camera, words) is new; its frame loop, cr() spline and follow() smoothing are adapted
+  from the demo's film.js (MIT, same copyright).
+- STYLE.md / DEMO.md (CC BY-NC 4.0) were read as guidance only; nothing from them is copied here.
+
+LIBRARIES
+- three.js 0.170.0 (MIT), installed with npm (not in git). Playwright + Chromium for capture.
+
+FONTS (SIL Open Font License 1.1)
+- Kalam Bold (Indian Type Foundry), fonts/kalam-latin-700-normal.woff2 (from the channel's brand/fonts, fontsource).
+- Anton (Vernon Adams) for the burned-in hook title and subtitles.
+
+VOICE
+- Deutsch mit Melo, episode 2, 116.30–133.60 s (ElevenLabs voice, the channel's own recording).
+
+IMAGES
+- None. The world is built from three.js primitives and redrawn in crayon by code; no photos, no AI images.
