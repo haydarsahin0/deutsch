@@ -33,6 +33,17 @@ XFADE = 0.04
 FONTS = ROOT / 'brand' / 'fonts' / 'ttf'
 
 
+def edge_cuts(path, dur, edge=0.5, thr=0.3):
+    """Shot changes inside the first/last `edge` s of a segment video → (start, end) of the clean part."""
+    out = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(path), '-vf',
+                          f"scale=192:108,select='gt(scene,{thr})',metadata=print", '-an', '-f', 'null', '-'],
+                         capture_output=True, text=True).stderr
+    ts = [float(x.split(':')[1]) for x in out.split() if x.startswith('pts_time:')]
+    s0 = max([t for t in ts if t <= edge] or [0.0])
+    e0 = min([t for t in ts if t >= dur - edge] or [dur])
+    return s0, e0
+
+
 def run(cmd, **kw):
     print('  $', ' '.join(str(c) for c in cmd)[:240])
     subprocess.run([str(c) for c in cmd], check=True, cwd=ROOT, **kw)
@@ -364,8 +375,16 @@ def main():
         inp += ['-i', s['file']]
         cx = (SCALED_W - W) // 2 + int(s.get('crop_x', 0))
         cx = max(0, min(SCALED_W - W, cx))
-        fc.append(f"[{k + 1}:v]trim=end_frame={round(s['dur'] * FPS)},setpts=PTS-STARTPTS,"
+        # no flashes at segment joins: if the episode cuts to a new shot within the first/last 0.5 s of a segment,
+        # show the new/old shot for those frames instead (frozen ≤ 0.5 s) — otherwise a 3–6-frame flash of a foreign shot appears
+        s0, e0 = edge_cuts(s['file'], s['dur'])
+        nf = round(s['dur'] * FPS)
+        fc.append(f"[{k + 1}:v]trim=start={s0:.4f}:end={e0:.4f},setpts=PTS-STARTPTS,"
+                  f"tpad=start_mode=clone:start_duration={s0:.4f}:stop_mode=clone:stop_duration={max(0, s['dur'] - e0) + 0.1:.4f},"
+                  f"trim=end_frame={nf},setpts=PTS-STARTPTS,"
                   f"scale={SCALED_W}:{SLOT_H}:flags=lanczos,crop={W}:{SLOT_H}:{cx}:0,setsar=1,fps={FPS}[v{k}]")
+        if s0 > 0 or e0 < s['dur']:
+            print(f"  [join] seg {k}: hide foreign-shot flash  start {s0:.2f}s  end {s['dur'] - e0:.2f}s")
         vl.append(f'[v{k}]')
     nseg = len(segs)
     fc.append(''.join(vl) + f'concat=n={nseg}:v=1:a=0,tpad=stop_mode=clone:stop_duration={hold + 0.1:.3f}[vid]')
