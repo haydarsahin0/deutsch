@@ -12,7 +12,7 @@ Dein Deutsch hat einen BUG: „weil ich bin müde“ 💻 #shorts
 ```
 FEHLER gefunden: „weil ich bin müde“ ❌ → „weil ich müde bin“ ✅ Die Wortstellung nach Konnektoren ist der Fehler Nr. 1 auf B1.
 [0] und, aber, oder, denn, sondern → Verb auf Platz 2 · [1] deshalb, trotzdem, dann → Verb direkt danach · [E] weil, dass, obwohl, wenn → Verb ans Ende.
-Profi: „Obwohl ich Kaffee trinke, bin ich müde.“ Deutsche Grammatik einfach erklärt – Deutsch für Fortgeschrittene (B1–C1) bei Deutsch mit Melo.
+Profi: „Obwohl ich Kaffee trinke, bin ich müde.“ Satzbau, Verbposition im Nebensatz: Deutsche Grammatik einfach erklärt – Deutsch für Fortgeschrittene (B1–C1) bei Deutsch mit Melo.
 #shorts #deutschlernen #deutschmitmelo #grammatik #wortstellung
 ```
 
